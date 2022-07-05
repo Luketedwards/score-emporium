@@ -13,7 +13,8 @@
 <div class="container text-black">
     <div class="row text-center">
       <div class="col center">
-       <h2>Luke</h2>
+      <img id="user-profile-pic" src="{% static 'media/profile_photos/default-pp-min.png'%}" alt="" class=" prepend">
+       <h2 class="d-inline">{{request.user.username}}</h2>
       </div>
     </div>
     <div class="row">
