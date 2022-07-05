@@ -21,8 +21,9 @@ html {
 body {
     background-size: cover;
     height: calc(100vh - 164px);
-    color: #fafafa;
+    color: black !important;
     font-family: 'Helvetica';
+    
 }
 
 #search-btn{
