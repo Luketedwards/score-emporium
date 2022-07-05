@@ -27,9 +27,6 @@ body {
 
 #search-btn{
     padding: 0;
-    background-color: #6c757d;
-
-    width: 10px !important;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -37,9 +34,12 @@ body {
 #search-btn:hover{
     padding: 0;
     background-color: #6c757d;
-    width: 10px !important;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+#search-btn-div{
+    width: 3rem;
 }
 
 .icon {

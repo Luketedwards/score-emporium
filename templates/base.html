@@ -42,7 +42,7 @@
     <title>Fingerstyle Online {% block extra_title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="container-fluid fixed-top">
+    <header class="container-fluid">
         <div class="row">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
@@ -53,11 +53,13 @@
                 <form id="main-search" method="GET" action="">
                     <div class="input-group w-100">
                         <input id="search-box"  class="form-control  rounded-0" type="text" name="q" placeholder="Search for scores">
+                        <div id="search-btn-div">
                         <button id="search-btn" class="form-control btn " type="submit">
                             <span class="icon">
                                 <i class="fas fa-search"></i>
                             </span>
                         </button>
+                        </div>
                         <div class="input-group-append">
                             
                         </div>
