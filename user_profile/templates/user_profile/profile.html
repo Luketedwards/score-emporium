@@ -23,6 +23,14 @@
       </div>
       <div class="col">
         <h3>My Purchased Scores</h3>
+        <div class="row">
+          {% for product in products%}
+          
+            {% if product.vendor == 'luketedwards' %}
+            <h4>{{product.name}}</h4>
+            {%endif%}
+          {%endfor%}  
+        </div>
       </div>
     </div>
   </div>

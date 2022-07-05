@@ -95,11 +95,11 @@ body {
 }
 
 #image-test{
-    background-image: url(/media/profile_photos/default-pp-min.png)!important;
+    background-image: url(/media_1/profile_photos/default-pp-min.png)!important;
 }
 
 #home-image{
-    background-image: url(/static/media/score-2.jpg);
+    background-image: url(/static/media_1/score-2.jpg);
     background-size: cover;
     
 }
