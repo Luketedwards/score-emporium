@@ -40,7 +40,8 @@ body {
 
 #search-btn:hover{
     padding: 0;
-    background-color: #6c757d;
+    background-color: black;
+    color: white;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -80,6 +81,24 @@ body {
     background: black;
     color: white;
     width: fit-content;
+}
+
+#product-detail-img{
+    
+}
+
+.product-btn{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.product-btn:hover{
+    background-color: black;
 }
 
 .browse-button{

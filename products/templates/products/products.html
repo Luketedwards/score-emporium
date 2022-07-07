@@ -26,15 +26,11 @@
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div class="card h-100 border-0">
                                 {% if product.image %}
-                                <a href="">
-                                    
-                                    <img class="card-img-top img-fluid" src="{% static '{{product.image.url}}' %}" alt="{{product.image.url}}">
-                                    <h4>{{product.image.url}}</h4>
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img class="card-img-top img-fluid" src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </a>
-                                <img  src="{% static '/media/Annies_Song_Tab_Sample.png'%}" alt="" class=" prepend">
-
                                 {% else %}
-                                <a href="">
+                                <a href="{% url 'product_detail' product.id %}">
                                     <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
                                 </a>
                                 {% endif %}
@@ -51,9 +47,6 @@
                                                 <small class="text-muted">No Rating</small>
                                             {% endif %}
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        {{product.vendor}}
                                     </div>
                                 </div>
                             </div>
