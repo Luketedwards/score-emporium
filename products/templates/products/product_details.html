@@ -47,6 +47,18 @@
                     <button class="product-btn">Add to Basket</button>
                 </div>
             </div>
+            <div class="col-12 text-center">
+                <div class="">
+                    {% if product.video %}
+                    <hr>
+                    <h3>Video of the piece</h3>
+                    <div style="position:relative;padding-top:56.25%;">
+                        <iframe src="{{product.video}}" frameborder="0" allowfullscreen
+                          style="position:absolute;top:0;left:10%;width:80%;height:80%;"></iframe>
+                      </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
