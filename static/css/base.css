@@ -2,16 +2,46 @@ html {
     height: 100%;
 }
 
+.text-white a{
+    color: white !important;
+}
+
+#nav-container{
+    background-image: url(/static/media_1/sheet-music-pattern.jpg);
+    background-repeat: repeat;
+    background-size: 160px;
+}
+
 #user-profile-pic{
     clip-path: circle() !important;
     height: 100px !important;
     display: inline;
 }
 
+#account-drop{
+    background-color: cadetblue;
+    color: white !important;
+}
+
+#account-button{
+    background-color: cadetblue;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+#cart-button{
+    background-color: cadetblue;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 #main-search{
     border-radius: 10px !important;
     border: 2px solid black;
     padding: 3px;
+    background-color: white;
 }
 
 #main-search-button{
@@ -19,8 +49,16 @@ html {
     
 }
 
+.white-bg{
+    background-color: white !important;
+}
+
 #logo{
     font-family: 'Arima', cursive;
+    background-color: cadetblue;
+    border-radius: 10px;
+    color: white !important;
+    padding: 10px;
     
 }
 

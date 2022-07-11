@@ -38,7 +38,7 @@
                     <p class="mb-0"><strong>{{ product.name }}</strong></p>
                     
                     <p class="mt-3">"{{ product.description }}"</p>
-                    <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
+                    <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
                     {% if product.rating %}
                         <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
                     {% else %}
@@ -59,44 +59,50 @@
                     {% endif %}
                 </div>
             </div>
-            <div style="margin: 0 auto;" class=" text-center">
-            <h3 class="text-center">Other Products by {{product.vendor}}</h3>
-            <div style="margin: 0 auto;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    {% for no_of_products in products%}
-                    {% if no_of_products.vendor == product.vendor %}
-                  <li id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
-                  {%endif%}
-                  {%endfor%}
-                </ol>
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    {% for vendor_products in products%}
-                    {% if vendor_products.vendor == product.vendor%}
-                    
-                  <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
-                    <img style="height: 400px;" class="" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="First Image">
-                    <div class="carousel-caption d-md-block">
-                        <a href="{% url 'product_detail' vendor_products.id %}">
-                      <h5 class="black-text">{{vendor_products.name}}</h5>
-                    </a>
+            {% if product_number > 1%}
+                <div style="margin: 0 auto;" class=" text-center">
+                <h3 class="text-center">Other Products by {{product.vendor}}</h3>
+                <div style="margin: 0 auto; padding: 20px; background-color: cadetblue;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        {% for no_of_products in products%}
+                        
+                        {% if no_of_products.vendor == product.vendor %}
+                    <li id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
+                    {%endif%}
+                    {%endfor%}
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <div style="max-width: fit-content; margin: 0 auto;" class="carousel-inner">
+                        {% for vendor_products in products%}
+                        {% if vendor_products.vendor == product.vendor%}
+                        
+                    <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
+                        <img style="height: 400px;" class="" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="First Image">
+                        <div class="carousel-caption d-md-block">
+                            <a href="{% url 'product_detail' vendor_products.id %}">
+                        <h5 class="black-text">{{vendor_products.name}}</h5>
+                        </a>
+                    <p class="lead mb-0 text-black font-weight-bold">£{{ product.price }}</p>
+
+                        <button class="product-btn">Add to Basket</button>
+                        </div>
                     </div>
-                  </div>
-                
-                  {%endif%}
-                  {%endfor%}
-                  
+                    
+                    {%endif%}
+                    {%endfor%}
+                    
+                    </div>
+                    <!-- Controls -->
+                    <a style="color: white;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                Prev
+                </a>
+                    <a style="color: white;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                Next
+                </a>
                 </div>
-                <!-- Controls -->
-                <a style="color: black;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-              Prev
-              </a>
-                <a style="color: black;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-              Next
-              </a>
-              </div>
-            </div>
+                </div>
+            {%endif%}
         </div>
     </div>
 {% endblock %}
