@@ -59,6 +59,50 @@
                     {% endif %}
                 </div>
             </div>
+            <div style="margin: 0 auto;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for no_of_products in products%}
+                    {% if no_of_products.vendor == product.vendor %}
+                  <li id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
+                  {%endif%}
+                  {%endfor%}
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    {% for vendor_products in products%}
+                    {% if vendor_products.vendor == product.vendor%}
+                  <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
+                    <img style="height: 350px;" class="d-block w-100" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="First Image">
+                    <div class="carousel-caption d-md-block">
+                      <h5>{{vendor_products.name}}</h5>
+                    </div>
+                  </div>
+                  {%endif%}
+                  {%endfor%}
+                  
+                </div>
+                <!-- Controls -->
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+              </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+              </a>
+              </div>
         </div>
     </div>
 {% endblock %}
+{% block postloadjs %}
+<script>
+    $('.carousel').carousel()
+$(document).ready(function(){
+  $("button").click(function(){
+    document.getElementById('data-target0').className = 'active';
+  document.getElementById('carousel-item0').className = 'active';
+  });
+});
+</script>
+    {% endblock %}
