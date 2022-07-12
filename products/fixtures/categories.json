@@ -1,0 +1,64 @@
+[{
+    "pk": 1,
+    "model": "products.category",
+    "fields": {
+        "name": "blues",
+        "friendly_name": "Blues"
+    }
+}, {
+    "pk": 2,
+    "model": "products.category",
+    "fields": {
+        "name": "rock",
+        "friendly_name": "Rock"
+    }
+}, {
+    "pk": 3,
+    "model": "products.category",
+    "fields": {
+        "name": "celtic",
+        "friendly_name": "Celtic"
+    }
+}, {
+    "pk": 4,
+    "model": "products.category",
+    "fields": {
+        "name": "jazz",
+        "friendly_name": "Jazz"
+    }
+}, {
+    "pk": 5,
+    "model": "products.category",
+    "fields": {
+        "name": "classical",
+        "friendly_name": "Classical"
+    }
+}, {
+    "pk": 6,
+    "model": "products.category",
+    "fields": {
+        "name": "film",
+        "friendly_name": "Film"
+    }
+}, {
+    "pk": 7,
+    "model": "products.category",
+    "fields": {
+        "name": "country",
+        "friendly_name": "Country"
+    }
+}, {
+    "pk": 8,
+    "model": "products.category",
+    "fields": {
+        "name": "metal",
+        "friendly_name": "Metal"
+    }
+}, {
+    "pk": 9,
+    "model": "products.category",
+    "fields": {
+        "name": "bluegrass",
+        "friendly_name": "Bluegrass"
+    }
+}]

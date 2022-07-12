@@ -78,7 +78,7 @@
                         {% if vendor_products.vendor == product.vendor%}
                         
                     <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
-                        <img style="height: 400px;" class="" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="First Image">
+                        <img style="height: 400px;" class="" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
                         <div class="carousel-caption d-md-block">
                             <a href="{% url 'product_detail' vendor_products.id %}">
                         <h5 class="black-text">{{vendor_products.name}}</h5>
