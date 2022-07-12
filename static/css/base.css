@@ -6,6 +6,11 @@ html {
     color: white !important;
 }
 
+.dropdown-menu{
+    background-color: cadetblue !important;
+    color: white !important;
+}
+
 #nav-container{
     background-image: url(/static/media_1/sheet-music-pattern.jpg);
     background-repeat: repeat;
