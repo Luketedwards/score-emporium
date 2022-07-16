@@ -60,7 +60,7 @@ def add_product(request):
             obj.save()
             product = obj.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('product_detail', args=[product.id]))
+            return redirect(reverse('products'))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -71,6 +71,28 @@ def add_product(request):
     }
 
     return render(request, template, context)
+    
+def add_product_store(request):
+    """ Add a product to the store """
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.vendor = request.user.username
+            obj.save()
+            product = obj.save()
+            messages.success(request, 'Successfully added product!')
+            return redirect(reverse('storefront'))
+        else:
+            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+    else:
+        form = ProductForm()
+    template = 'products/add_product.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)    
 
 
 def edit_product(request, product_id):
@@ -103,6 +125,36 @@ def edit_product(request, product_id):
 
     return render(request, template, context)
 
+def edit_product_store(request, product_id):
+    """ Edit a product in the store """
+    username = request.user.username
+
+    product = get_object_or_404(Product, pk=product_id)
+    if username == product.vendor:
+        if request.method == 'POST':
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Successfully updated product!')
+                return redirect(reverse('storefront'))
+            else:
+                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+        else:
+            form = ProductForm(instance=product)
+            messages.info(request, f'You are editing {product.name}')
+    else:
+        messages.error(request, 'You are not authorised to edit this product')
+        return redirect(reverse('product_detail', args=[product.id]))
+          
+
+    template = 'products/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
+    }
+
+    return render(request, template, context)    
+
 def delete_product(request, product_id):
     """ Delete a product from the store """
     username = request.user.username
@@ -115,3 +167,16 @@ def delete_product(request, product_id):
     else:
         messages.error(request, 'You are not authorised to delete this product')
         return redirect(reverse('product_detail', args=[product.id]))
+
+def delete_product_store(request, product_id):
+    """ Delete a product from the store """
+    username = request.user.username
+
+    product = get_object_or_404(Product, pk=product_id)
+    if username == product.vendor:
+        product.delete()
+        messages.success(request, f'{product.name} was deleted.')
+        return redirect(reverse('storefront'))   
+    else:
+        messages.error(request, 'You are not authorised to delete this product')
+        return redirect(reverse('product_detail', args=[product.id]))        

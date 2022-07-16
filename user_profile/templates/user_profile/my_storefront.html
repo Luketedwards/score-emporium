@@ -32,7 +32,7 @@
             <div class="row text-center d-block">
                 <div class="col ">
                     <h3>My Store</h3>
-                    <a href="{% url 'add_product' %}" class="btn btn-success">Add Score</a>
+                    <a href="{% url 'add_product_store' %}" class="btn btn-success">Add Score</a>
                 </div>
                 <hr>
             </div>
@@ -59,7 +59,7 @@
                       </div>
                       <div class="modal-footer text-center d-block">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a href="{% url 'delete_product' product.id%}">
+                        <a href="{% url 'delete_product_store' product.id%}">
                           <button type="button" class="btn btn-primary btn-danger">Delete</button>
                         </a>
         
@@ -109,7 +109,7 @@
                                     class="btn btn-danger">Delete</a>
                             </div>
                             <div class="col p-0 ">
-                                <a href="{% url 'edit_product' product.id%}"
+                                <a href="{% url 'edit_product_store' product.id%}"
                                     class="btn btn-warning text-white">Edit</a>
                             </div>
                         </div>
