@@ -33,12 +33,13 @@ def all_products(request):
 
 def product_detail(request, product_id):
     """ A view to show individual product details """
-    username= request.user.username
+    product = get_object_or_404(Product, pk=product_id)
+    username= product.vendor
     queries = Q(vendor__iexact=username)  
     products = Product.objects.all()
     relevant_products = products.filter(queries)
-    product_number = products.count()
-    product = get_object_or_404(Product, pk=product_id)
+    product_number = relevant_products.count()
+    
     context = {
         'product': product,
         'products': products,
