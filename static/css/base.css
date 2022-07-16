@@ -194,10 +194,29 @@ body {
 .message-container {
     position: fixed;
     top: 72px;
-    right: 15px;
+    left: 15px;
     z-index: 99999999999;
 }
 
+.custom-toast {
+    overflow: visible;
+}
+
+.toast-capper {
+    height: 2px;
+}
+
+.border-red{
+    border: 2px solid red;
+}
+
+.border-yellow{
+    border: 2px solid yellow;
+}
+
+.border-green{
+    border: 2px solid green;
+}
 
 /* -------------------------------- Media Queries */
 
