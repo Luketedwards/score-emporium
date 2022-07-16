@@ -15,7 +15,7 @@ def user_profile(request):
     return render(request, 'user_profile/profile.html', context)
 
 def user_store(request):
-    """ A view to return the index page """
+    """ A view to return the users store """
     products = Product.objects.all()
     username= request.GET['username']
     queries = Q(vendor__iexact=username)  

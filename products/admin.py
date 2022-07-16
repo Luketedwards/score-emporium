@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Category, Difficulty
+from .models import Product, Genre, Difficulty
 
 # Register your models here.
 
@@ -7,7 +7,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'sku',
         'name',
-        'category',
+        'genre',
         'price',
         'rating',
         'image',
@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     ordering = ('sku',)
 
-class CategoryAdmin(admin.ModelAdmin):
+class GenreAdmin(admin.ModelAdmin):
     list_display = (
         'friendly_name',
         'name',
@@ -28,5 +28,5 @@ class DifficultyAdmin(admin.ModelAdmin):
     )    
 
 admin.site.register(Product, ProductAdmin)
-admin.site.register(Category, CategoryAdmin)
+admin.site.register(Genre, GenreAdmin)
 admin.site.register(Difficulty, DifficultyAdmin)
