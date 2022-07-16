@@ -17,7 +17,7 @@ def user_profile(request):
 def user_store(request):
     """ A view to return the users store """
     products = Product.objects.all()
-    username= request.GET['username']
+    username= request.user.username
     queries = Q(vendor__iexact=username)  
     products = products.filter(queries)
     product_number = products.count()

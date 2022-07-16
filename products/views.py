@@ -58,6 +58,7 @@ def add_product(request):
             obj = form.save(commit=False)
             obj.vendor = request.user.username
             obj.save()
+            product = obj.save()
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('product_detail', args=[product.id]))
         else:
