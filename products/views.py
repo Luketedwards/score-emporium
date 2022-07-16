@@ -33,14 +33,17 @@ def all_products(request):
 
 def product_detail(request, product_id):
     """ A view to show individual product details """
-
-    product = get_object_or_404(Product, pk=product_id)
+    username= request.user.username
+    queries = Q(vendor__iexact=username)  
     products = Product.objects.all()
-    product_number = Product.objects.filter(vendor=product.vendor).count()
+    relevant_products = products.filter(queries)
+    product_number = products.count()
+    product = get_object_or_404(Product, pk=product_id)
     context = {
         'product': product,
         'products': products,
         'product_number': product_number,
+        'relevant_products': relevant_products
     }
 
     return render(request, 'products/product_details.html', context)
@@ -55,7 +58,7 @@ def add_product(request):
             obj.vendor = request.user.username
             obj.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -97,3 +100,16 @@ def edit_product(request, product_id):
     }
 
     return render(request, template, context)
+
+def delete_product(request, product_id):
+    """ Delete a product from the store """
+    username = request.user.username
+
+    product = get_object_or_404(Product, pk=product_id)
+    if username == product.vendor:
+        product.delete()
+        messages.success(request, f'{product.name} was deleted.')
+        return redirect(reverse('products'))   
+    else:
+        messages.error(request, 'You are not authorised to delete this product')
+        return redirect(reverse('product_detail', args=[product.id]))

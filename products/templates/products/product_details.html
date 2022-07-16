@@ -23,11 +23,11 @@
                 <div class="image-container my-5">
                     {% if product.image %}
                         <a href="" target="_blank">
-                            <img id="product-detail-img" class="card-img-top img-fluid" src="/static/media/{{product.image }}" alt="{{ product.name }}">
+                            <img id="product-detail-img" class="card-img-top img-fluid" src="/media/{{product.image}}" alt="{{ product.name }}">
                         </a>
                         {% else %}
                         <a href="">
-                            <img class="card-img-top img-fluid" src="/static/media/No_Image_Available.jpg" alt="{{ product.name }}">
+                            <img class="card-img-top img-fluid" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
                         </a>
                     {% endif %}
                 </div>
@@ -45,6 +45,12 @@
                         <small class="text-muted">No Rating</small>
                     {% endif %}
                     <button class="product-btn">Add to Basket</button>
+                    {% if request.user.username == product.vendor %}
+                    <br>
+                        <a class="text-success" href="{% url 'edit_product' product.id %}">Edit Product</a>
+                        <a class="text-danger" href="" data-toggle="modal" data-target="#exampleModal">Delete Product</a>
+                        
+                    {%endif%}
                 </div>
             </div>
             <div class="col-12 text-center">
@@ -64,21 +70,21 @@
                 <h3 class="text-center">Other Products by {{product.vendor}}</h3>
                 <div style="margin: 0 auto; padding: 20px; background-color: cadetblue;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        {% for no_of_products in products%}
+                    <ol style="background-color: rgba(4, 4, 4, 0.5); border-radius: 10px ;" class="carousel-indicators">
+                        {% for no_of_products in relevant_products%}
                         
-                        {% if no_of_products.vendor == product.vendor %}
-                    <li id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
-                    {%endif%}
+                        
+                    <li style="background-color: white;" id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
+                    
                     {%endfor%}
                     </ol>
                     <!-- Wrapper for slides -->
                     <div style="max-width: fit-content; margin: 0 auto;" class="carousel-inner">
-                        {% for vendor_products in products%}
-                        {% if vendor_products.vendor == product.vendor%}
+                        {% for vendor_products in relevant_products%}
+                        
                         
                     <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
-                        <img style="height: 400px;" class="" src="/static/media/{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
+                        <img style="height: 400px;" class="" src="/media/{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
                         <div class="carousel-caption d-md-block">
                             <a href="{% url 'product_detail' vendor_products.id %}">
                         <h5 class="black-text">{{vendor_products.name}}</h5>
@@ -89,7 +95,7 @@
                         </div>
                     </div>
                     
-                    {%endif%}
+                    
                     {%endfor%}
                     
                     </div>
@@ -104,16 +110,40 @@
                 </div>
             {%endif%}
         </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete {{product.name}}?</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <a href="{% url 'delete_product' product.id%}">
+                    <button type="button" class="btn btn-primary">Delete</button>
+                  </a>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
+    
 {% endblock %}
 {% block postloadjs %}
 <script>
-    $('.carousel').carousel()
-$(document).ready(function(){
-  $("button").click(function(){
-    document.getElementById('data-target0').className = 'active';
-  document.getElementById('carousel-item0').className = 'active';
-  });
-});
-</script>
+    $(document).ready(function(){
+        $(window).load(function() {
+        document.getElementById('data-target0').className = 'active';
+      document.getElementById('carousel-item0').className = 'carousel-item active';
+      $("#carousel-item0").addClass("active");
+      $('#myModal').modal('show');  
+    });
+    });
+    </script>
     {% endblock %}
