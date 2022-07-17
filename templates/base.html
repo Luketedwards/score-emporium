@@ -138,6 +138,9 @@
     {% block postload_js%} 
     <script type="text/javascript">
         $('.toast').toast('show');
+        $(".product").hover(function(){
+    $(this).toggleClass("is-active");
+  });
     </script>
     {% endblock %}
 

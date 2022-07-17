@@ -27,17 +27,19 @@
                             <div class="card h-100 border-0">
                                 {% if product.image %}
                                 <a href="{% url 'product_detail' product.id %}">
-                                    <img class="card-img-top img-fluid" src="/media/{{product.image}}" alt="{{ product.name}}">
+                                    <img class="card-img-top img-fluid product" src="/media/{{product.image}}" alt="{{ product.name}}">
+                                    
                                 </a>
                                 {% else %}
                                 <a href="{% url 'product_detail' product.id %}">
                                     <img class="card-img-top img-fluid" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
                                 </a>
                                 {% endif %}
-                                <div class="card-body pb-0">
+                                <div class="card-body pb-0 pt-0">
                                     <p></p>
                                 </div>
-                                <div class="card-footer bg-white pt-0 border-0 text-left">
+                                <div class="card-footer bg-white pt-0 border-0 text-center shadow">
+                                    
                                     <div class="row">
                                         <div class="card-body pb-0">
                                             <p class="mb-0">{{ product.name }}</p>
@@ -46,9 +48,9 @@
                                     <div class="row">
                                         <div class="col">
                                             
-                                            <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
+                                            <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
                                             {% if product.rating %}
-                                                <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                                <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
                                             {% else %}
                                                 <small class="text-muted">No Rating</small>
                                             {% endif %}
@@ -83,3 +85,9 @@
         </div>
     </div>
 {% endblock %}
+
+{% block postloadjs%}
+<script>
+    
+</script>
+{% endblock%}

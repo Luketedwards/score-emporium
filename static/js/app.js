@@ -10,4 +10,7 @@ $('.carousel').carousel({
     pause: "false"
   });
 
-
+  $(".product").hover(function(){
+    $(this).toggleClass("is-active");
+  });
+  

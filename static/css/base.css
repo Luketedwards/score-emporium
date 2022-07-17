@@ -35,11 +35,60 @@ html {
     border-radius: 10px;
 }
 
+#account-button:hover{
+    background-color: #395f60;
+}
+
 #cart-button{
     background-color: cadetblue;
     color: white;
     padding: 5px;
     border-radius: 10px;
+}
+
+#main-nav a{
+    background-color: cadetblue;
+    border-radius: 50px;
+    color: white !important;
+    padding: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.product{
+    transition: all .5s ease;
+    border: 1px solid #909090;
+
+}
+
+.gold i{
+    color: gold !important;
+}
+
+.is-active {
+    box-shadow: inset 30px 30px 100px 10px #000000;
+    transform: translateY(-10px);
+    
+  }
+
+  .shadow {
+    
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 3px 3px 10px 0 #000000;
+    border-radius: 0 0 20px 20px !important;
+    top: 0;
+    left: 0;
+}
+
+#main-nav a:hover{
+    background-color: #395f60;
+    
+}
+
+#cart-button:hover{
+    background-color: #395f60;
+
 }
 
 #main-search{
@@ -149,6 +198,13 @@ body {
     color: white;
     border: 2px solid white;
     border-radius: 10px !important;
+}
+
+.browse-button:hover{
+    background-color: white !important;
+    color: black !important;
+    border: 2px solid black;
+
 }
 
 #footer{
