@@ -196,6 +196,7 @@ body {
   .at-controls a.active {
     background: #5588c7;
     text-decoration: none;
+    border-radius: 50% !important;
   }
 
   .at-controls .btn i {
