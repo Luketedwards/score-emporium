@@ -1,15 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from products.models import Product
+from .models import UserProfile
 
 # Create your views here.
 
 def user_profile(request):
     """ A view to return the index page """
+    profile = get_object_or_404(UserProfile, user=request.user)
     products = Product.objects.all()
 
     context = {
         'products': products,
+        'profile': profile,
     }
 
     return render(request, 'user_profile/profile.html', context)
