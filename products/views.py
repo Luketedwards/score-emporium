@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Genre
 from .forms import ProductForm
@@ -50,6 +51,25 @@ def product_detail(request, product_id):
     return render(request, 'products/product_details.html', context)
 
 
+def guitar_pro(request, product_id):
+    """ A view to show individual product details """
+    product = get_object_or_404(Product, pk=product_id)
+    username= product.vendor
+    queries = Q(vendor__iexact=username)  
+    products = Product.objects.all()
+    relevant_products = products.filter(queries)
+    product_number = relevant_products.count()
+    
+    context = {
+        'product': product,
+        'products': products,
+        'product_number': product_number,
+        'relevant_products': relevant_products
+    }
+
+    return render(request, 'products/my_scores.html', context)    
+
+@login_required
 def add_product(request):
     """ Add a product to the store """
     if request.method == 'POST':
@@ -72,6 +92,8 @@ def add_product(request):
 
     return render(request, template, context)
     
+
+@login_required    
 def add_product_store(request):
     """ Add a product to the store """
     if request.method == 'POST':
@@ -94,7 +116,7 @@ def add_product_store(request):
 
     return render(request, template, context)    
 
-
+@login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
     username = request.user.username
@@ -125,6 +147,8 @@ def edit_product(request, product_id):
 
     return render(request, template, context)
 
+
+@login_required
 def edit_product_store(request, product_id):
     """ Edit a product in the store """
     username = request.user.username
@@ -155,6 +179,8 @@ def edit_product_store(request, product_id):
 
     return render(request, template, context)    
 
+
+@login_required
 def delete_product(request, product_id):
     """ Delete a product from the store """
     username = request.user.username
@@ -168,6 +194,8 @@ def delete_product(request, product_id):
         messages.error(request, 'You are not authorised to delete this product')
         return redirect(reverse('product_detail', args=[product.id]))
 
+
+@login_required
 def delete_product_store(request, product_id):
     """ Delete a product from the store """
     username = request.user.username
