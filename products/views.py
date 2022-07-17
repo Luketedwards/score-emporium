@@ -86,8 +86,15 @@ def add_product(request):
     else:
         form = ProductForm()
     template = 'products/add_product.html'
+    products = Product.objects.all()
+    username= request.user.username
+    queries = Q(vendor__iexact=username)  
+    products = products.filter(queries)
+    product_number = products.count()
+
     context = {
         'form': form,
+        'product_number':product_number
     }
 
     return render(request, template, context)
@@ -110,8 +117,15 @@ def add_product_store(request):
     else:
         form = ProductForm()
     template = 'products/add_product.html'
+    products = Product.objects.all()
+    username= request.user.username
+    queries = Q(vendor__iexact=username)  
+    products = products.filter(queries)
+    product_number = products.count()
+    
     context = {
         'form': form,
+        'product_number':product_number
     }
 
     return render(request, template, context)    
