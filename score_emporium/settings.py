@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'home',
     'user_profile',
     'crispy_forms',
-    'products'
+    'products',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'cart.contexts.cart_contents',
                 
             ],
             'builtins': [
