@@ -43,7 +43,7 @@
                                 {% if item.product.image %}
                                     <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
                                 {% else %}
-                                    <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                                    <img class="w-100" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
                                 {% endif %}
                             </a>
                         </div>
@@ -53,6 +53,8 @@
                         </div>
                         <div class="col-3 text-right">
                             <p class="my-0 small text-muted">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
+                            <a href="/media/{{item.product.PDF}}" target="_blank"> Download {{item.product.name}} PDF</a>
+                            
                         </div>
                     </div>
                 {% endfor %}
