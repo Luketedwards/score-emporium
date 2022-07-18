@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% load bag_tools %}
+{% load cart_tools %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
@@ -62,7 +62,7 @@
                         <p class="my-0">Order Total:</p>
                     </div>
                     <div class="col-3">
-                        <p class="my-0"><strong>${{ order_total | floatformat:2 }}</strong></p>
+                        <p class="my-0"><strong>£{{ total | floatformat:2 }}</strong></p>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                     </fieldset>
 
                     <div class="submit-button text-right mt-5 mb-2">                    
-						<a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
+						<a href="{% url 'view_cart' %}" class="btn btn-outline-black rounded-0">
 							<span class="icon">
 								<i class="fas fa-chevron-left"></i>
 							</span>
@@ -103,7 +103,7 @@
 							<span class="icon">
 								<i class="fas fa-exclamation-circle"></i>
 							</span>
-							<span>Your card will be charged <strong>${{ order_total|floatformat:2 }}</strong></span>
+							<span>Your card will be charged <strong>£{{ total|floatformat:2 }}</strong></span>
 						</p>
 					</div>
                 </form>

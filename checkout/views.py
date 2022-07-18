@@ -6,7 +6,7 @@ from .forms import OrderForm
 
 def checkout(request):
     cart = request.session.get('cart', {})
-    if not bag:
+    if not cart:
         messages.error(request, "Your cart is currently empty.")
         return redirect(reverse('products'))
 
