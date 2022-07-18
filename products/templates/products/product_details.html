@@ -50,7 +50,12 @@
                         <div class="form-row">
 
                             <div class="col{% if s %}-12 mt-2{% endif %}">
+                                {% if product.id|stringformat:"i"  not in request.session.cart%}
                                 <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5" value="Add to cart">
+                                {% else %}
+                                <input style="width: 5rem;" id="product-btn" disabled type="" class="btn btn-black product-btn mt-5" value="Added">
+                    
+                                {%endif%}
                                 <a href="{% url 'products' %}" class="btn btn-black  mt-5">
     
                                     <span class="text-uppercase">Keep Shopping</span>
