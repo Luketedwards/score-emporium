@@ -1,4 +1,11 @@
-
+.translucent{
+    background-color: rgba(255,255,255,0.5);
+    width: 100%;
+    font-weight: 600;
+    color: black;
+    border-radius: 15px;
+    padding: 14px;
+}
 
 html {
     height: 100%;

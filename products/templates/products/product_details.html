@@ -85,10 +85,14 @@
                         
                         
                     <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
+                        {% if vendor_products.image %}
                         <img style="height: 400px;" class="" src="/media/{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
+                        {% else %}
+                        <img style="height: 400px; width: 310px;" class="" src="/media/No_Image_Available.jpg" data-color="lightblue" alt="{{vendor_products.name}}">
+                        {%endif%}
                         <div class="carousel-caption d-md-block">
                             <a href="{% url 'product_detail' vendor_products.id %}">
-                        <h5 class="black-text">{{vendor_products.name}}</h5>
+                        <h5 class="black-text translucent">{{vendor_products.name}}</h5>
                         </a>
                     <p class="lead mb-0 text-black font-weight-bold">£{{ product.price }}</p>
 
