@@ -22,10 +22,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
 <link href="https://fonts.googleapis.com/css2?family=Arima:wght@500&display=swap" rel="stylesheet">
 
+
+
     {% endblock %}
 
-    {% block extracss %}
+    {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/scores.css'%}">
+    
     {% endblock %}
 
     {% block corejs %}
@@ -33,6 +36,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script src="{% static 'js/app.js' %}"></script>
     
+    <!-- Stripe Javascript-->
+    <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
     {% block extrajs %}
@@ -142,7 +147,11 @@
     $(this).toggleClass("is-active");
   });
     </script>
+
+    
     {% endblock %}
+   
+    
 
 
     <footer id="footer" class=" text-center text-lg-start">
