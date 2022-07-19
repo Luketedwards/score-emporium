@@ -27,7 +27,7 @@ def cart_contents(request):
                 product_count += quantity
                 cart_items.append({
                     'item_id': item_id,
-                    'quantity': quantity,
+                    
                     'product': product,
                     
                 })
