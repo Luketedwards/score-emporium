@@ -36,3 +36,22 @@ def user_store(request):
     else:
         return render(request, 'user_profile/other_storefront.html', context) 
         
+
+def other_store(request, username):
+    """ A view to return the users store """
+    products = Product.objects.all()
+    username= username
+    queries = Q(vendor__iexact=username)  
+    products = products.filter(queries)
+    product_number = products.count()
+
+    context = {
+        'products': products,
+        'username': username,
+        'product_number': product_number
+    }
+
+    if username == request.user.username:
+        return render(request, 'user_profile/my_storefront.html', context) 
+    else:
+        return render(request, 'user_profile/other_storefront.html', context)         
