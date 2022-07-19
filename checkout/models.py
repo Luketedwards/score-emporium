@@ -26,7 +26,7 @@ class Order(models.Model):
         """
         Update  total each time a line item is added.
         """
-        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum']
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
         self.save()
 
     def save(self, *args, **kwargs):
@@ -52,7 +52,8 @@ class OrderLineItem(models.Model):
         Override the original save method to set the lineitem total
         and update the order total.
         """
-        self.lineitem_total = self.product.price * self.quantity
+        quantity = 1
+        self.lineitem_total = self.product.price * quantity
         super().save(*args, **kwargs)
 
     def __str__(self):
