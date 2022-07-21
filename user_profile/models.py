@@ -9,6 +9,8 @@ class UserProfile(models.Model):
     A user profile model for maintaining order history
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    purchased_scores = []
+
 
     def __str__(self):
         return self.user.username
@@ -23,3 +25,5 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
     # Existing users: just save the profile
         instance.userprofile.save()
+
+       

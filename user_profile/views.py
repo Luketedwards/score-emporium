@@ -20,15 +20,19 @@ def user_profile(request):
 def user_store(request):
     """ A view to return the users store """
     products = Product.objects.all()
+    all_products = products
     username= request.user.username
     queries = Q(vendor__iexact=username)  
     products = products.filter(queries)
     product_number = products.count()
+    purchased_scores = UserProfile.purchased_scores
 
     context = {
         'products': products,
         'username': username,
-        'product_number': product_number
+        'product_number': product_number,
+        'purchased_scores': purchased_scores,
+        'all_products': all_products
     }
 
     if username == request.user.username:

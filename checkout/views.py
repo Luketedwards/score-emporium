@@ -5,6 +5,7 @@ from django.conf import settings
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
+from user_profile.models import UserProfile
 from cart.contexts import cart_contents
 
 import stripe
@@ -27,7 +28,12 @@ def checkout(request):
         if order_form.is_valid():
             order = order_form.save()
             for item_id, item_data in cart.items():
+                
                 try:
+                    #Add item to users purchased scores
+                    if item_id not in UserProfile.purchased_scores:
+                        UserProfile.purchased_scores.append(item_id)
+
                     product = Product.objects.get(id=item_id)
                     if isinstance(item_data, int):
                         order_line_item = OrderLineItem(
@@ -43,7 +49,7 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_cart'))
-
+                
             request.session['save_info'] = 'save-info' in request.POST
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -84,15 +90,17 @@ def checkout_success(request, order_number):
     """
     Handle successful checkouts
     """
+    
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+    
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
 
+
     if 'cart' in request.session:
         del request.session['cart']
-        
 
     template = 'checkout/checkout_success.html'
     context = {
