@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Genre
 from .forms import ProductForm
+from user_profile.models import UserProfile
+
 
 
 # Create your views here.
@@ -40,12 +42,14 @@ def product_detail(request, product_id):
     products = Product.objects.all()
     relevant_products = products.filter(queries)
     product_number = relevant_products.count()
+    purchased_scores = UserProfile.purchased_scores
     
     context = {
         'product': product,
         'products': products,
         'product_number': product_number,
-        'relevant_products': relevant_products
+        'relevant_products': relevant_products,
+        'purchased_scores': purchased_scores,
     }
 
     return render(request, 'products/product_details.html', context)
