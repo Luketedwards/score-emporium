@@ -21,6 +21,7 @@ def checkout(request):
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
             'phone_number': request.POST['phone_number'],
+            'username': request.user.username,
             'quantity': 1,
             
         }

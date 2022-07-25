@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+
 class UserProfile(models.Model):
     """
     A user profile model for maintaining order history

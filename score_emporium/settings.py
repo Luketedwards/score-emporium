@@ -14,6 +14,8 @@ import os
 import os.path
 import environ
 
+
+
 env = environ.Env()
 environ.Env.read_env()
 
@@ -183,3 +185,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+
