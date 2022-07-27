@@ -36,6 +36,10 @@ def all_products(request):
 
 def product_detail(request, product_id):
     """ A view to show individual product details """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    orders = profile.orders.all()
+    
+
     product = get_object_or_404(Product, pk=product_id)
     username= product.vendor
     queries = Q(vendor__iexact=username)  
@@ -50,6 +54,7 @@ def product_detail(request, product_id):
         'product_number': product_number,
         'relevant_products': relevant_products,
         'purchased_scores': purchased_scores,
+        'orders': orders,
     }
 
     return render(request, 'products/product_details.html', context)

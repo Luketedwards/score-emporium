@@ -15,10 +15,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h2>{{product.vendor|title}} Store</h2>
-                <h2>{{purchased_scores}}</h2>
-                {% if '6' in purchased_scores%}
-                <h1>true</h1>
-                {%endif%}
+                
             </div>
             <div class="col-12 text-center">
             <h2>{{product.name|title}}</h2>
@@ -54,10 +51,10 @@
                         <div class="form-row">
                             
                             <div class="col{% if s %}-12 mt-2{% endif %}">
-                                {% if not request.session.cart and product.id|stringformat:"i" not in purchased_scores%}
+                                {% if not request.session.cart and product.id|stringformat:"i" not in orders%}
                                     <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5" value="Add to cart">
                                 {%else%}    
-                                    {% if product.id|stringformat:"i" in purchased_scores%}
+                                    {% if product.id|stringformat:"i" in orders.products%}
                                     <input style="width: 5rem;" id="product-btn" disabled type="" class="btn btn-black product-btn mt-5" value="Owned">
 
                                     {% elif product.id|stringformat:"i" not in request.session.cart %}
