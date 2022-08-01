@@ -85,16 +85,23 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
+            
             obj = form.save(commit=False)
             obj.vendor = request.user.username
+            name = f"{obj.name}"
+            new_name = name.replace(" ","-")
+            if not obj.image:
+                obj.image = f"{new_name}-{obj.vendor}-image.jpg"
                 
             obj.save()
             
-            if not obj.image:
+            if obj.image == f"{new_name}-{obj.vendor}-image.jpg":
                 
                 
                 font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
+                font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
                 text = 'Sample'
+                text2 = f'© {obj.vendor}'
 
                 filepath = obj.PDF.path
                 pdf = pdfium.PdfDocument(filepath)
@@ -109,14 +116,9 @@ def add_product(request):
                 image.paste(blurred_image,(5,1673,2459,3313))
                 editImage = ImageDraw.Draw(image)
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
-                final_image= image.save(f'media/{obj.name}-image.jpg')
-                form.image = final_image
-                obj.image = final_image
-                
-                obj.save()
-                
-                
-            product = obj.save()
+                editImage2 = ImageDraw.Draw(image)
+                editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                image.save(f'media/{new_name}-{obj.vendor}-image.jpg')
             
             
             messages.success(request, 'Successfully added product!')

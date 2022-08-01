@@ -196,6 +196,12 @@ body {
     
 }
 
+#scores-container{
+    margin-bottom: 80px !important;
+    overflow: scroll;
+    width: 100%;
+}
+
 .product-btn{
     background-color: red;
     color: white;

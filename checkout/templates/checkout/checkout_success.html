@@ -49,7 +49,11 @@
                         <div class="col-3 text-right">
                             
                             <a href="/media/{{item.product.PDF}}" target="_blank"> Download {{item.product.name}} PDF</a>
+                            {% if item.product.Guitar_Pro_Locked %}
                             <a href="/media/{{item.product.Guitar_Pro_Locked}}" target="_blank"> Download {{item.product.name}} GP File</a>
+                            {% else %}
+                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" target="_blank"> Download {{item.product.name}} GP File</a>
+                            {% endif%}
                             
                         </div>
                     </div>

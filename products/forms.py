@@ -15,9 +15,10 @@ class ProductForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         genres = Genre.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in genres]
+        self.fields['image'].help_text = 'If no image is uploaded, a thumbnail will be auto-generated for you.'
         self.fields['video'].help_text = 'Please use the Youtube "embed" option, and not the "watch link".'
         self.fields['Guitar_Pro_Unlocked'].help_text = 'This file will be used to play in the browser. Ensure the file is not locked or it will fail to work..'
-        self.fields['Guitar_Pro_Locked'].help_text = 'This file will be distributed to the customer for download. We recommend locking the file to prevent changes being made.<strong>You may also upload an unlocked file if you wish.</strong>'
+        self.fields['Guitar_Pro_Locked'].help_text = 'This file will be distributed to the customer for download. We recommend locking the file to prevent changes being made.<strong> if you leave this blank the unlocked file will be used instead.</strong>'
 
         self.fields['genre'].choices = friendly_names
         for field_name, field in self.fields.items():
