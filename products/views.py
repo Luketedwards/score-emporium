@@ -89,8 +89,9 @@ def add_product(request):
             obj.vendor = request.user.username
                 
             obj.save()
+            
             if not obj.image:
-                obj = form.save(commit=False)
+                
                 
                 font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
                 text = 'Sample'
@@ -103,21 +104,20 @@ def add_product(request):
                 page.close()
 
                 image = Image.open(f'{obj.name}-{obj.vendor}.jpg')
-                cropped_image = image.crop((5,1673,2459,3013))
+                cropped_image = image.crop((5,1673,2459,3313))
                 blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
-                image.paste(blurred_image,(5,1673,2459,3013))
+                image.paste(blurred_image,(5,1673,2459,3313))
                 editImage = ImageDraw.Draw(image)
-                editImage.text((550,1400), text,(84, 83, 82), font=font)
+                editImage.text((550,2100), text,(84, 83, 82), font=font)
                 final_image= image.save(f'media/{obj.name}-image.jpg')
+                form.image = final_image
                 obj.image = final_image
-                obj.save()
-
-            
-            
                 
-
-              
+                obj.save()
+                
+                
             product = obj.save()
+            
             
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('products'))
