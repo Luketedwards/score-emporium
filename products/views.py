@@ -7,6 +7,7 @@ from .forms import ProductForm
 from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
+import os
 
 
 # Create your views here.
@@ -119,6 +120,7 @@ def add_product(request):
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
                 image.save(f'media/{new_name}-{obj.vendor}-image.jpg')
+                os.remove(f"{obj.name}-{obj.vendor}.jpg")
             
             
             messages.success(request, 'Successfully added product!')
