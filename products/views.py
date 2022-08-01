@@ -5,7 +5,8 @@ from django.db.models import Q
 from .models import Product, Genre
 from .forms import ProductForm
 from user_profile.models import UserProfile
-
+import pypdfium2 as pdfium
+from PIL import Image, ImageFilter, ImageFont, ImageDraw
 
 
 # Create your views here.
@@ -86,8 +87,38 @@ def add_product(request):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.vendor = request.user.username
+                
             obj.save()
+            if not obj.image:
+                obj = form.save(commit=False)
+                
+                font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
+                text = 'Sample'
+
+                filepath = obj.PDF.path
+                pdf = pdfium.PdfDocument(filepath)
+                page = pdf.get_page(0)
+                pil_image = page.render_topil()
+                pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
+                page.close()
+
+                image = Image.open(f'{obj.name}-{obj.vendor}.jpg')
+                cropped_image = image.crop((5,1673,2459,3013))
+                blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
+                image.paste(blurred_image,(5,1673,2459,3013))
+                editImage = ImageDraw.Draw(image)
+                editImage.text((550,1400), text,(84, 83, 82), font=font)
+                final_image= image.save(f'media/{obj.name}-image.jpg')
+                obj.image = final_image
+                obj.save()
+
+            
+            
+                
+
+              
             product = obj.save()
+            
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('products'))
         else:
@@ -117,6 +148,12 @@ def add_product_store(request):
         if form.is_valid():
             obj = form.save(commit=False)
             obj.vendor = request.user.username
+            if not obj.image:
+                pages = convert_from_path(obj.PDF)
+                for page[0] in pages:
+                    page.save('pdfimage.jpg', 'JPEG')
+
+
             obj.save()
             product = obj.save()
             messages.success(request, 'Successfully added product!')
