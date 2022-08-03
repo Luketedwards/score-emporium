@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Genre, Difficulty
+from .models import Product, Genre, Difficulty, Review
 
 # Register your models here.
 
@@ -27,6 +27,16 @@ class DifficultyAdmin(admin.ModelAdmin):
         'level',
     )    
 
+class reviewAdmin(admin.ModelAdmin):
+    list_display=(
+        'product',
+        'ratings',
+        'content',
+        'created_by',
+        'date'
+    )    
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Difficulty, DifficultyAdmin)
+admin.site.register(Review, reviewAdmin)

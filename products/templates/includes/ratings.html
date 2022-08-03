@@ -4,15 +4,15 @@
 
         <!--Code for star slider from https://codepen.io/knyttneve/pen/EBNqPN-->
         <input type="radio" name="rating" id="rating-5">
-        <label for="rating-5"></label>
+        <label id="rating-5-click" for="rating-5" ></label>
         <input type="radio" name="rating" id="rating-4">
-        <label for="rating-4"></label>
+        <label id="rating-4-click" for="rating-4" ></label>
         <input type="radio" name="rating" id="rating-3">
-        <label for="rating-3"></label>
+        <label id="rating-3-click" for="rating-3" ></label>
         <input type="radio" name="rating" id="rating-2">
-        <label for="rating-2"></label>
+        <label id="rating-2-click" for="rating-2" ></label>
         <input type="radio" name="rating" id="rating-1">
-        <label for="rating-1"></label>
+        <label id="rating-1-click" for="rating-1" ></label>
         <div class="emoji-wrapper">
           <div class="emoji">
             <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -102,11 +102,15 @@
         </div>
       </div>
       <div class="col-12 center">
-        <form action="">
-          <textarea name="" id="" cols="30" rows="10"></textarea>
-          <input id="" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
+        <form action="." method="POST">
+          {%csrf_token%}
+          <input name="ratings" id="hidden-rating" type="number"  >
+          <textarea name="content" id="" cols="30" rows="10"></textarea>
+          <input id="test" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
 
         </form>
       </div>
     </div>
   </div>
+
+  
