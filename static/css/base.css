@@ -7,6 +7,11 @@
     padding: 14px;
 }
 
+#user-reviews div{
+    width: 100%;
+
+}
+
 html {
     height: 100%;
 }
@@ -514,4 +519,17 @@ body {
   align-items: center;
   box-shadow: 0 4px 30px rgba(0,0,0,.05);
 }
+
+#user-reviews {
+    
+    background-color: #fff;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    box-shadow: 0 4px 30px rgba(0,0,0,.05);
+  }
 

@@ -50,6 +50,7 @@ class Product(models.Model):
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
     ratings = models.IntegerField(default=0)
+    subject = models.CharField(max_length=30, null=True, blank=True)
     content = models.TextField()
     created_by = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)        

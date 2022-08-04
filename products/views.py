@@ -49,6 +49,7 @@ def product_detail(request, product_id):
     relevant_products = products.filter(queries)
     product_number = relevant_products.count()
     purchased_scores = UserProfile.purchased_scores
+    all_reviews = Review.objects.filter(product=product)
     
     context = {
         'product': product,
@@ -57,11 +58,13 @@ def product_detail(request, product_id):
         'relevant_products': relevant_products,
         'purchased_scores': purchased_scores,
         'orders': orders,
+        'all_reviews': all_reviews
     }
 
     if request.method == 'POST':
         ratings = request.POST.get('ratings')
         ratings = int(ratings)
+        subject = request.POST.get('subject')
         content = request.POST.get('content')
 
 

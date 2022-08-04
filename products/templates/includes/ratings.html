@@ -1,5 +1,5 @@
-<div class=" my-auto d-block center">
-    <div class="feedback center">
+<div class=" my-auto  center col-lg-6 col-md-12 col-lg-right ">
+    <div class="feedback center right">
       <div class="rating">
 
         <!--Code for star slider from https://codepen.io/knyttneve/pen/EBNqPN-->
@@ -101,14 +101,34 @@
           </div>
         </div>
       </div>
-      <div class="col-12 center">
-        <form action="." method="POST">
+      <div class="col-12">
+        <form class="text-center" action="." method="POST">
           {%csrf_token%}
-          <input name="ratings" id="hidden-rating" type="number"  >
-          <textarea name="content" id="" cols="30" rows="10"></textarea>
+          <div class="col-12 ">
+          <input name="ratings" id="hidden-rating" type="number"  hidden>
+          <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject">
+          <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10"></textarea>
           <input id="test" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
-
+        </div>
         </form>
+      </div>
+    </div>
+  </div>
+  <div id="user-reviews" class="col-lg-6 col-md-12">
+    <div class="">
+      <div class="">
+        <h2 class="text-center">Customer Reviews</h2>
+        {% for review in all_reviews %}
+        <div class="row">
+          <span>{{review.created_by}}</span>
+          <span>
+          {% for i in "x"|rjust:review.ratings %}
+          <i style="color: gold;" class="fa-solid fa-star"></i>
+          {% endfor %}
+        </span>
+        </div>
+        {%endfor%}
+
       </div>
     </div>
   </div>
