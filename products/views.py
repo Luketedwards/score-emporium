@@ -41,6 +41,7 @@ def product_detail(request, product_id):
     profile = get_object_or_404(UserProfile, user=request.user)
     orders = profile.orders.all()
     
+    
 
     product = get_object_or_404(Product, pk=product_id)
     username= product.vendor
