@@ -60,27 +60,27 @@ def product_detail(request, product_id):
     review_count_1 = all_reviews.filter(ratings=1).count()
 
     if review_count_5 > 0:
-        percent_5 = review_count / review_count_5 
+        percent_5 = review_count_5 / review_count 
         percent_5 = percent_5 * 100
     else:
         percent_5 = 0    
     if review_count_4 > 0:
-        percent_4 = review_count / review_count_4 
+        percent_4 = review_count_4 / review_count
         percent_4 = percent_4 * 100
     else:
         percent_4 = 0 
     if review_count_3 > 0:
-        percent_3 = review_count / review_count_3 
+        percent_3 = review_count_3 / review_count 
         percent_3 = percent_3 * 100
     else:
         percent_3 = 0 
     if review_count_2 > 0:
-        percent_2 = review_count / review_count_2
+        percent_2 = review_count_2 / review_count
         percent_2 = percent_2 * 100
     else:
         percent_2 = 0 
     if review_count_1 > 0:
-        percent_1 = review_count / review_count_1 
+        percent_1 = review_count_1 / review_count
         percent_1 = percent_1 * 100
     else:
         percent_1 = 0 
@@ -108,6 +108,11 @@ def product_detail(request, product_id):
         'percent_3': percent_3,
         'percent_2': percent_2,
         'percent_1': percent_1,
+        'review_count_5': review_count_5,
+        'review_count_4': review_count_4,
+        'review_count_3': review_count_3,
+        'review_count_2': review_count_2,
+        'review_count_1': review_count_1,
     }
 
     if request.method == 'POST':

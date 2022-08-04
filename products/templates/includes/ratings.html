@@ -106,8 +106,8 @@
           {%csrf_token%}
           <div class="col-12 ">
           <input name="ratings" id="hidden-rating" type="number" oninvalid="chooseRating()"  hidden required>
-          <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject" required>
-          <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10" required></textarea>
+          <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject" placeholder="Subject" required>
+          <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10" placeholder="Review" required></textarea>
           <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
         </div>
         </form>
@@ -118,9 +118,10 @@
     <h2 class="text-center">Customer Reviews</h2>
     <span>Average rating {{average_rating}} based on {{review_count}} reviews.</span>
       
-    <div class="reviews-scroll container-fluid">
+    <div class=" container-fluid">
       <hr>
-      <div class="row">
+      <div class="graphs">
+      <div class="row" style="margin-bottom: 25px;">
         <div class="side">
           <div>5 star</div>
         </div>
@@ -130,7 +131,7 @@
           </div>
         </div>
         <div class="side right">
-          <div>150</div>
+          <div>{{review_count_5}}</div>
         </div>
         <div class="side">
           <div>4 star</div>
@@ -141,7 +142,7 @@
           </div>
         </div>
         <div class="side right">
-          <div>63</div>
+          <div>{{review_count_4}}</div>
         </div>
         <div class="side">
           <div>3 star</div>
@@ -152,7 +153,7 @@
           </div>
         </div>
         <div class="side right">
-          <div>15</div>
+          <div>{{review_count_3}}</div>
         </div>
         <div class="side">
           <div>2 star</div>
@@ -163,7 +164,7 @@
           </div>
         </div>
         <div class="side right">
-          <div>6</div>
+          <div>{{review_count_2}}</div>
         </div>
         <div class="side">
           <div>1 star</div>
@@ -174,41 +175,56 @@
           </div>
         </div>
         <div class="side right">
-          <div>20</div>
+          <div>{{review_count_1}}</div>
         </div>
       </div>
-      {% for review in all_reviews %}
-      <div class="review-container">
-        
-        
-        <div class="row">
-
-          <div class="col-12 ">
-            <span class=""><strong>{{review.created_by}}</strong></span>
-            <br>
-          <span >
-          {% for i in "x"|rjust:review.ratings %}
-          <i style="color: gold;" class="fa-solid fa-star"></i>
-          {% endfor %} <span>Verified Purchase!</span>
-        
+      
+    </div>
+      <hr>
+      {% if all_reviews %}
+      <div class="col-12">
+      <div class="reviews-scroll">
+        {% for review in all_reviews %}
+        <div class="review-container">
           
-          </div>
-      </div>
+          
+          <div class="row">
+
+            <div class="col-12 ">
+              <span class=""><strong>{{review.created_by}}</strong></span>
+              <br>
+            <span >
+            {% for i in "x"|rjust:review.ratings %}
+            <i style="color: gold;" class="fa-solid fa-star"></i>
+            {% endfor %} <span>Verified Purchase!</span>
+          
+            
+            </div>
+        </div>
+        <div class="col-12 text-center">
+          <span style="font-size: 1.6rem;"><strong> {{review.subject|title}} </strong></span>
+          <br>
+          <span class="muted">Review on {{review.date}}</span>
+          
+        </div>
+        <div class="col-10 center text-center">
+          <p style="font-size: 1.1rem;">{{review.content}}</p>
+        </div>
+          
+          
+        </div>
+        
+        {%endfor%}
+      {%else%}
       <div class="col-12 text-center">
-        <span style="font-size: 1.6rem;"><strong> {{review.subject|title}} </strong></span>
-        <br>
-        <span class="muted">Review on {{review.date}}</span>
-        
+        <span class="text-center">There are currently no reviews.</span> 
       </div>
-      <div class="col-10 center">
-        <p style="font-size: 1.1rem;">{{review.content}}</p>
-      </div>
-        
-        
-      </div>
-      {%endfor%}
+       
+      {%endif%}
 
       </div>
+    </div>
+    </div>
     </div>
   </div>
 
