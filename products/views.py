@@ -51,7 +51,40 @@ def product_detail(request, product_id):
     purchased_scores = UserProfile.purchased_scores
     all_reviews = Review.objects.filter(product=product)
     total_score = all_reviews.aggregate(total_score=Sum('ratings'))['total_score']
+    
     review_count = all_reviews.count()
+    review_count_5 = all_reviews.filter(ratings=5).count()
+    review_count_4 = all_reviews.filter(ratings=4).count()
+    review_count_3 = all_reviews.filter(ratings=3).count()
+    review_count_2 = all_reviews.filter(ratings=2).count()
+    review_count_1 = all_reviews.filter(ratings=1).count()
+
+    if review_count_5 > 0:
+        percent_5 = review_count / review_count_5 
+        percent_5 = percent_5 * 100
+    else:
+        percent_5 = 0    
+    if review_count_4 > 0:
+        percent_4 = review_count / review_count_4 
+        percent_4 = percent_4 * 100
+    else:
+        percent_4 = 0 
+    if review_count_3 > 0:
+        percent_3 = review_count / review_count_3 
+        percent_3 = percent_3 * 100
+    else:
+        percent_3 = 0 
+    if review_count_2 > 0:
+        percent_2 = review_count / review_count_2
+        percent_2 = percent_2 * 100
+    else:
+        percent_2 = 0 
+    if review_count_1 > 0:
+        percent_1 = review_count / review_count_1 
+        percent_1 = percent_1 * 100
+    else:
+        percent_1 = 0 
+
     average_rating = 0
 
     if review_count > 0:
@@ -69,7 +102,12 @@ def product_detail(request, product_id):
         'all_reviews': all_reviews,
         'review_count': review_count,
         'average_rating': average_rating,
-        'total_score': total_score
+        'total_score': total_score,
+        'percent_5': percent_5,
+        'percent_4': percent_4,
+        'percent_3': percent_3,
+        'percent_2': percent_2,
+        'percent_1': percent_1,
     }
 
     if request.method == 'POST':
