@@ -13,6 +13,7 @@ $(document).ready(function(){
    document.getElementById('rating-3-click').addEventListener('click', rating3);
    document.getElementById('rating-2-click').addEventListener('click', rating2);
    document.getElementById('rating-1-click').addEventListener('click', rating1);
+   document.getElementById('reviewSubmit').addEventListener('click', chooseRating);
   var ratingNumber = document.getElementById('hidden-rating');
   function rating5(){
   ratingNumber.value='5';
@@ -36,10 +37,14 @@ $(document).ready(function(){
   }
   function rating1(){
   ratingNumber.value='1';
-  console.log('it worked');
+  console.log('it worked js');
   
   }
-  
+  function chooseRating(){
+    if (ratingNumber.value == ''){
+      alert("Please choose a star rating")
+    }
+  }
 });
 $('.carousel').carousel({
     interval: 100000,

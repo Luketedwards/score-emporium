@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Sum
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
@@ -50,6 +50,14 @@ def product_detail(request, product_id):
     product_number = relevant_products.count()
     purchased_scores = UserProfile.purchased_scores
     all_reviews = Review.objects.filter(product=product)
+    total_score = all_reviews.aggregate(total_score=Sum('ratings'))['total_score']
+    review_count = all_reviews.count()
+    average_rating = 0
+
+    if review_count > 0:
+        average_rating = total_score / review_count  
+        product.rating = average_rating
+        product.save()
     
     context = {
         'product': product,
@@ -58,7 +66,10 @@ def product_detail(request, product_id):
         'relevant_products': relevant_products,
         'purchased_scores': purchased_scores,
         'orders': orders,
-        'all_reviews': all_reviews
+        'all_reviews': all_reviews,
+        'review_count': review_count,
+        'average_rating': average_rating,
+        'total_score': total_score
     }
 
     if request.method == 'POST':
@@ -76,6 +87,7 @@ def product_detail(request, product_id):
                 review = Review.objects.create(
                     product=product,
                     ratings=int(ratings),
+                    subject=subject,
                     content=content,
                     created_by=request.user,
                 )
@@ -86,6 +98,7 @@ def product_detail(request, product_id):
                 review = Review.objects.create(
                     product=product,
                     ratings=int(ratings),
+                    subject=subject,
                     content=content,
                     created_by=request.user,
                 )

@@ -408,7 +408,7 @@ body {
 
 .container {
   background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/concrete-texture.png");
-  display: flex;
+  
   flex-wrap: wrap;
   height: 100vh;
   align-items: center;
@@ -533,3 +533,15 @@ body {
     box-shadow: 0 4px 30px rgba(0,0,0,.05);
   }
 
+  .review-container{
+    overflow-y: scroll;
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.12);
+    padding: 15px;
+    margin-bottom: 6px;
+  }
+
+  .reviews-scroll{
+    overflow: scroll;
+    
+  }
+  

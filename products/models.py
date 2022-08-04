@@ -46,6 +46,16 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+def average_rating(self):
+    total_reviews = 0
+
+    for review in self.review.all():
+        total_reviews += review.ratings
+
+    if total_reviews > 0:
+        return total_reviews / self.reviews.count() 
+
+    return 0       
 
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
