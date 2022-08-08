@@ -38,10 +38,19 @@ def all_products(request):
 
 def product_detail(request, product_id):
     """ A view to show individual product details """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    orders = profile.orders.all()
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        orders = profile.orders.all()
+
+    else:
+        orders=None    
     
-    
+    ordersList = []
+
+    for order in orders:
+        for item in order.lineitems.all():
+            ordersList.append(item.product.id)
+
 
     product = get_object_or_404(Product, pk=product_id)
     username= product.vendor
@@ -114,6 +123,7 @@ def product_detail(request, product_id):
         'review_count_3': review_count_3,
         'review_count_2': review_count_2,
         'review_count_1': review_count_1,
+        'ordersList': ordersList,
     }
 
     if request.method == 'POST':

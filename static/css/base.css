@@ -238,7 +238,7 @@ body {
 }
 
 #footer{
-
+    margin-top: 25px;
     background-color: cadetblue !important;
     color: white;
     bottom: 0;
@@ -628,4 +628,4 @@ body {
       display: none;
     }
   }
-  
+

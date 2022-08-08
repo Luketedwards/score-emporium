@@ -11,6 +11,7 @@
             <div class="col-12 text-center">
                 <h2>{{product.vendor|title}} Store</h2>
                 
+                
             </div>
             <div class="col-12 text-center">
             <h2>{{product.name|title}}</h2>
@@ -47,10 +48,15 @@
                         <div class="form-row">
                             
                             <div class="col{% if s %}-12 mt-2{% endif %}">
-                                {% if not request.session.cart and product.id|stringformat:"i" not in orders%}
+                                {% if not request.user.is_authenticated %}
+                                    <a id="product-btn" href="{% url 'account_login' %}" class="btn btn-black product-btn mt-5">Login to Add to Cart</a>
+                                {% else %}
+                                    
+                                
+                                {% if not request.session.cart and product.id not in ordersList%}
                                     <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5" value="Add to cart">
                                 {%else%}    
-                                    {% if product.id|stringformat:"i" in orders.products%}
+                                    {% if product.id in ordersList%}
                                     <input style="width: 5rem;" id="product-btn" disabled type="" class="btn btn-black product-btn mt-5" value="Owned">
 
                                     {% elif product.id|stringformat:"i" not in request.session.cart %}
@@ -60,6 +66,7 @@
 
                                 {%endif%}
                                 {%endif%}
+                                {% endif %}
                                 <a href="{% url 'products' %}" class="btn btn-black  mt-5">
     
                                     <span class="text-uppercase">Keep Shopping</span>
