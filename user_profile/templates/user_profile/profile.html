@@ -48,13 +48,21 @@
               {% if item.product.Guitar_Pro_Locked%}
               <a href="/media/{{item.product.Guitar_Pro_Locked}}" target="_blank">Download Guitar Pro File</a>
               {% else %}
+              {% if item.product.Guitar_Pro_Unlocked%}
               <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" target="_blank">Download Guitar Pro File</a>
+              {%else%}
+              <p>No Guitar Pro File</p>
+              {%endif%}
+              
               {%endif%}
 
             </td>
             <td>
+              {% if item.product.Guitar_Pro_Unlocked %}
               <span><a href="{% url 'guitar_pro' item.product.id%}" class="btn btn-success">Play in Browser</a></span> 
-
+              {%else%}
+              <span><input type="button" disabled value="No GP File" class="btn btn-secondary"></span> 
+              {%endif%}
             </td>
             
             <td>

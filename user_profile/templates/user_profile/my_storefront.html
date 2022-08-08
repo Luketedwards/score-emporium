@@ -1,34 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
 
 {% block content %}
 <div class=" text-black">
     <div class="row">
         <div class="col text-center mb-5">
             <h1>My Store</h1>
-            {{purchased_scores}}
-         
-            {% for order in orders%}
-            {% for item in order.lineitems.all %}
-                                                <li class="small">
-                                                    {% if item.product.has_sizes %}
-                                                        Size {{ item.product.size|upper }}
-                                                    {% endif %}{{ item.product.name }} x{{ item.quantity }}
-                                                    {{item.product.PDF}}
-                                                    <a href="/media/{{item.product.PDF}}"> {{ item.product.name }} PDF</a>
-                                                    <a href="{% url 'guitar_pro' item.product.id%}" class="btn btn-success">Play in Browser</a>
-                                                </li>
-                                            {% endfor %}  
         </div>
-        {%endfor%}
+        
     </div>
     <div class="row text-center">
 
