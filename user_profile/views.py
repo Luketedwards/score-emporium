@@ -66,3 +66,5 @@ def other_store(request, username):
         return render(request, 'user_profile/my_storefront.html', context) 
     else:
         return render(request, 'user_profile/other_storefront.html', context)         
+
+        
