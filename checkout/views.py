@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
@@ -17,7 +18,8 @@ def checkout(request):
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
-
+        vendors = []
+        
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -44,15 +46,21 @@ def checkout(request):
                             
                         )
                         order_line_item.save()
-                        userId = get_object_or_404(User,username=order_line_item.product.vendor)
-                        
-                        vendor = UserProfile.objects.get(user=userId)
 
-                        
+                        # connects sales data to user profile
+                        userId = get_object_or_404(User,username=order_line_item.product.vendor)
+                        comission_value = float(order_line_item.product.price) * 0.8
+                        vendor = UserProfile.objects.get(user=userId)
                         vendor.sales_number = vendor.sales_number + 1
-                        vendor.sales_income = vendor.sales_income + order_line_item.product.price
-                        
+                        vendor.sales_income = vendor.sales_income + int(comission_value)
+                        sale = {
+                            'vendor': vendor,
+                            'product': product,
+                            'sale_value': comission_value,
+                        }
+                        vendors.append(sale)
                         vendor.save()
+                        
                         
                     
                 except Product.DoesNotExist:
@@ -64,7 +72,21 @@ def checkout(request):
                 
             request.session['save_info'] = 'save-info' in request.POST
            
-                
+            # send email to vendor with order details
+            for vendor in vendors:
+                send_mail(
+                    'You have a new order!',
+                    'Hello {{vendor.user.username}}! You have a new order! The details are as follows:\
+                        Order number:{{order.order_number}}. \
+                        Date:{{order.date}}. \
+                        Customer Name:{{order.full_name}}. \
+                        Items: {{vendor.product.name}}.\
+                        Total: {{vendor.sale_value}}. \
+                        Congratulations on your new sale!',
+                    'luketedmusic@gmail.com',
+                    ['{{vendor.user.email}}'],
+                    fail_silently=False,
+                )
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -99,6 +121,8 @@ def checkout(request):
         'stripe_public_key': stripe_public_key,
         'client_secret': intent.client_secret,
     }
+
+    
 
     return render(request, template, context)
 
