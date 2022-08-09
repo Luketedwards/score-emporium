@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
@@ -32,10 +33,10 @@ def checkout(request):
                 
                 try:
                     #Add item to users purchased scores
-                    if item_id not in UserProfile.purchased_scores:
-                        UserProfile.purchased_scores.append(item_id)
+                    
 
                     product = Product.objects.get(id=item_id)
+                    
                     if isinstance(item_data, int):
                         order_line_item = OrderLineItem(
                             order=order,
@@ -43,6 +44,16 @@ def checkout(request):
                             
                         )
                         order_line_item.save()
+                        userId = get_object_or_404(User,username=order_line_item.product.vendor)
+                        
+                        vendor = UserProfile.objects.get(user=userId)
+
+                        
+                        vendor.sales_number = vendor.sales_number + 1
+                        vendor.sales_income = vendor.sales_income + order_line_item.product.price
+                        
+                        vendor.save()
+                        
                     
                 except Product.DoesNotExist:
                     messages.error(request, (
@@ -52,6 +63,9 @@ def checkout(request):
                     return redirect(reverse('view_cart'))
                 
             request.session['save_info'] = 'save-info' in request.POST
+           
+                
+
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
@@ -77,6 +91,8 @@ def checkout(request):
         messages.warning(request, 'Stripe public key is missing. \
             Did you forget to set it in your environment?')
 
+            
+
     template = 'checkout/checkout.html'
     context = {
         'order_form': order_form,
@@ -93,7 +109,9 @@ def checkout_success(request, order_number):
     """
     
     save_info = request.session.get('save_info')
+    
     order = get_object_or_404(Order, order_number=order_number)
+    
 
     profile = UserProfile.objects.get(user=request.user)
     # Attach the user's profile to the order

@@ -11,6 +11,11 @@ class UserProfile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     purchased_scores = []
+    sales_number = models.DecimalField(max_digits=10,decimal_places=0, default=0)
+    sales_income = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    money_due = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+    
 
 
     def __str__(self):

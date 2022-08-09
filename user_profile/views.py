@@ -10,6 +10,7 @@ def user_profile(request):
     profile = get_object_or_404(UserProfile, user=request.user)
     products = Product.objects.all()
     orders = profile.orders.all()
+    
 
     context = {
         'products': products,
@@ -31,6 +32,9 @@ def user_store(request):
     products = products.filter(queries)
     product_number = products.count()
     purchased_scores = UserProfile.purchased_scores
+    sales_number = profile.sales_number
+    sales_income = profile.sales_income
+    money_due = profile.money_due
 
     context = {
         'products': products,
@@ -39,7 +43,11 @@ def user_store(request):
         'purchased_scores': purchased_scores,
         'all_products': all_products,
         'profile': profile,
-        'orders': orders
+        'orders': orders,
+        'sales_number':sales_number,
+        'sales_income':sales_income,
+        'money_due':money_due
+
     }
 
     if username == request.user.username:
