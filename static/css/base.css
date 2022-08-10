@@ -629,3 +629,30 @@ body {
     }
   }
 
+  .inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputlabel {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: white;
+    background-color: red;
+    display: inline-block;
+    padding: 3px;
+    border: 2px solid red;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.inputlabel:hover {
+    background-color: black;
+    border: 2px solid black;
+
+}
