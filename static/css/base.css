@@ -656,3 +656,17 @@ body {
     border: 2px solid black;
 
 }
+
+#purchased-img{
+    transition: .3s ease-in-out;
+    
+}
+
+#purchased-img:hover{
+    transform: scale(2.5);
+    transition: 0.5s;
+}
+
+.table td, .table th{
+    vertical-align: middle !important;
+}

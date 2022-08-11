@@ -3,11 +3,11 @@
 
 
 {% block content %}
-<div class="container text-black">
+<div style="margin: 0 auto;" class=" text-black">
     
     <h1 class="text-center">My Purchased Scores</h1>
 
-    <div  class="row">
+    <div style="width: 90%; margin: 0 auto;" class="row ">
       
       <table id="scores-container" class="table align-middle mb-0 bg-white">
         <thead class="bg-light">
@@ -25,15 +25,18 @@
           <tr>
             <td>
               <div class="d-flex align-items-center">
+                <a href="/media/{{item.product.image}}" target="_blank">
                 <img
+                    id="purchased-img"
                     src="/media/{{item.product.image}}"
                     alt="{{item.product.name}}"
-                    style="width: 65px; height: 65px"
-                    class="rounded-circle"
+                    style="max-height: 95px; margin-right: 10px;"
+                    class=""
                     />
+                  </a>
                 <div class="ms-3">
                   <a href="{% url 'product_detail' item.product.id %}">
-                    {{item.product.name}}
+                    <strong>{{item.product.name|title}}</strong> 
                     </a>
                   
                   
@@ -41,15 +44,15 @@
               </div>
             </td>
             <td>
-              <a href="/media/{{item.product.PDF}}" target="_blank">Download PDF</a>
+              <a href="/media/{{item.product.PDF}}" class="btn btn-success my-auto" target="_blank">Download</a>
       
             </td>
             <td>
               {% if item.product.Guitar_Pro_Locked%}
-              <a href="/media/{{item.product.Guitar_Pro_Locked}}" target="_blank">Download Guitar Pro File</a>
+              <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-success" target="_blank">Download</a>
               {% else %}
               {% if item.product.Guitar_Pro_Unlocked%}
-              <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" target="_blank">Download Guitar Pro File</a>
+              <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" class="btn btn-success" target="_blank">Download</a>
               {%else%}
               <p>No Guitar Pro File</p>
               {%endif%}

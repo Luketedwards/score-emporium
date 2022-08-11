@@ -1,3 +1,4 @@
+from urllib import request
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -10,6 +11,7 @@ class UserProfile(models.Model):
     A user profile model for maintaining order history
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    
     purchased_scores = []
     sales_number = models.DecimalField(max_digits=10,decimal_places=0, default=0)
     sales_income = models.DecimalField(max_digits=10, decimal_places=2, default=0)

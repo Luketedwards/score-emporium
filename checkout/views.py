@@ -80,7 +80,7 @@ def checkout(request):
                         Order number:{{order.order_number}}. \
                         Date:{{order.date}}. \
                         Customer Name:{{order.full_name}}. \
-                        Items: {{vendor.product.name}}.\
+                        Items: {% for items in vendors.product %} {% if item.vendor == vendor %} {{vendor.product.name}}. {%endif%} {%endfor%} \
                         Total: {{vendor.sale_value}}. \
                         Congratulations on your new sale!',
                     'luketedmusic@gmail.com',

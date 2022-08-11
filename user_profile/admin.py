@@ -6,6 +6,7 @@ from .models import UserProfile
 class userProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user',
+        
         'sales_number',
         'sales_income',
         'money_due'
