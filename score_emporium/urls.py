@@ -28,4 +28,5 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('checkout/', include('checkout.urls')),
     path('GP/', include('guitar_pro.urls')),
+    path('requests/', include('voting.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

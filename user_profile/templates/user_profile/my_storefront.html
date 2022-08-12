@@ -15,10 +15,27 @@
 
         <div class="col center">
             <h2>Store Summary</h2>
-            <div id="store-summary">
-                <p>Total number of products: {{product_number}}</p>
-                <p>Total sales: £{{sales_income}} </p>
-                <p>Number of items sold: {{sales_number}}</p>
+            <div id="store-summary" style="padding: 0;" class="jumbotron">
+
+              <!--- table for number of products, total sales and items sold -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Number of Products</th>
+                            <th>Total Sales</th>
+                            <th>Credit Due</th>
+                            <th>Items Sold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{product_number}}</td>
+                            <td>£{{sales_income}}</td>
+                            <td>£{{money_due}}</td>
+                            <td>{{sales_number}}</td>
+                        </tr>
+                    </tbody>
+                </table>
 
             </div>
         </div>
@@ -65,7 +82,7 @@
                   <div class="card h-100 border-0">
                     {% if product.image %}
                     <a href="{% url 'product_detail' product.id %}">
-                        <img class="card-img-top img-fluid border" src="/media/{{product.image}}"
+                        <img class=" grow card-img-top img-fluid border" src="/media/{{product.image}}"
                             alt="{{ product.name }}">
                     </a>
                     {% else %}

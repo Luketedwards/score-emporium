@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'checkout',
     'reviews',
     'guitar_pro',
+    'voting',
 ]
 
 MIDDLEWARE = [

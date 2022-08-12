@@ -299,7 +299,7 @@ body {
 
 #store-summary{
     border: 2px black solid;
-    width: 50%;
+    width: 26%;
     margin: 0 auto;
 }
 
@@ -669,4 +669,13 @@ body {
 
 .table td, .table th{
     vertical-align: middle !important;
+}
+
+.grow{
+    transition: .3s ease-in-out;
+
+}
+.grow:hover{
+    transform: scale(1.1);
+    transition: 0.5s;
 }
