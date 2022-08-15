@@ -10,7 +10,7 @@ class ScoreRequestAdmin(admin.ModelAdmin):
         'date',
         'created_by',
         'upvotes',
-        'downvotes',
+        
         'video_link',
         'link'
         

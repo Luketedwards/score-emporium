@@ -4,15 +4,41 @@
 {% block content %}
     <div class="overlay"></div>
     <div class="container">
-        
+        <div class="col-12">
+            <h1 class="text-center">Requested Scores</h1>
+            <hr>
+        </div>
 
         <div class="row">
             <div class="col-12">
                 {% for request in requests%}
-                <li>{{request.title}}</li>
-                <li>{{request.description}}</li>
-                <li>{{request.date}}</li>
-                {% endfor%}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ request.title|title }}</h5>
+                            <p class="card-text text-center">{{ request.description }}</p>
+                            <a href="{{ request.link }}" class="btn btn-primary">Go to Request</a>
+                            <!-- thumbs up and thumbs down buttons-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-center">
+                                        <form action=".">
+                                            {% csrf_token %}
+                                            <input name="id" hidden type="text" value="{{request.id}}">
+                                            <input hidden name="username" type="text" value="{{request.user}}">
+                                        <button class="btn btn-primary" type="submit">
+                                            <i class="fa fa-thumbs-up"></i>
+                                            {{request.upvotes}} {{request.id}}
+                                        </button>
+                                        
+                                        </form>
+                        
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                
             </div>            
         </div>
     </div>

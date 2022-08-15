@@ -11,6 +11,17 @@ from .models import ScoreRequest
 # renders the requests page
 def requests(request):
     requests = ScoreRequest.objects.all()
+
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            post = request.POST('id')
+            post.upvotes += 1
+            user = request.user
+            post.like_list.add(user)
+            post.save()
+            return redirect(reverse('requests'))
+
     context = {
         'requests': requests,
     }
