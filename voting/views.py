@@ -20,12 +20,21 @@ def requests(request):
             current_request.like_list.remove(request.user)
             current_request.upvotes -= 1
             current_request.save()
+            thumbup = True
+
         else:    
             current_request.upvotes += 1
             
             current_request.like_list.add(request.user)
             current_request.save()
-        return redirect(reverse('requests'))
+            thumbup = False
+
+
+        context = {
+            'requests': requests,
+            'thumbup': thumbup,
+        }
+        return redirect(reverse('requests'), context)
 
     context = {
         'requests': requests,
