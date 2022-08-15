@@ -13,14 +13,19 @@ def requests(request):
     requests = ScoreRequest.objects.all()
 
     if request.method == 'POST':
-        form = RequestForm(request.POST)
-        if form.is_valid():
-            post = request.POST('id')
-            post.upvotes += 1
-            user = request.user
-            post.like_list.add(user)
-            post.save()
-            return redirect(reverse('requests'))
+        
+        current_request = ScoreRequest.objects.get(id=request.POST['id'])
+        
+        if request.user in current_request.like_list.all():
+            current_request.like_list.remove(request.user)
+            current_request.upvotes -= 1
+            current_request.save()
+        else:    
+            current_request.upvotes += 1
+            
+            current_request.like_list.add(request.user)
+            current_request.save()
+        return redirect(reverse('requests'))
 
     context = {
         'requests': requests,
@@ -34,10 +39,15 @@ def make_request(request):
         form = RequestForm(request.POST)
         if form:
             form.created_by = request.user
+            
             form.save()
                             
             messages.success(request, 'Successfully added request!')
-            return redirect(reverse('requests'))
+            context = {
+            'requests': requests,
+            }
+            return render(request, 'voting/requests.html',context)
+
         else:
             messages.error(request, 'Failed to add request. Please ensure the form is valid.')
     else:

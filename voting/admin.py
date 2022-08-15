@@ -8,7 +8,6 @@ class ScoreRequestAdmin(admin.ModelAdmin):
         'title',
         'description',
         'date',
-        'created_by',
         'upvotes',
         
         'video_link',
