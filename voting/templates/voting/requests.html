@@ -11,54 +11,44 @@
 
         <div class="row">
             <div class="col-12">
-                {% for request in requests%}
+                {% for requested in requests%}
+                
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title text-center">{{ request.title|title }}</h5>
-                            <p class="card-text text-center">{{ request.description }}</p>
-                            <p>{{request.like_list}}</p>
-                            {% for usert in request.like_list.all%}
-                            <li>{{usert}}</li>
-                            <li>{{user.get_username}}</li>
-                            {% if user.get_username|stringformat:"i" in usert|stringformat:"i"%}
-                            <h1>True</h1>
-                            {% endif %}
+                            <h5 class="card-title text-center">{{ requested.title|title }}</h5>
+                            <p class="card-text text-center">{{ requested.description }}</p>
                             
-                            {%endfor%}
-                            <a href="{{ request.link }}" class="btn btn-primary">Go to Request</a>
+                            <a href="{{ requested.link }}" class="btn btn-primary">Go to Request</a>
                             <!-- thumbs up and thumbs down buttons-->
                             <div class="row">
                                 <div class="col-12">
                                     <div class="text-center">
-                                        {% if user.get_username|stringformat:"i" in request.like_list.all|stringformat:"i" %}
-                                            <form action="." method="post">
-                                                {% csrf_token %}
-                                                <input name="id" hidden type="text" value="{{request.id}}">
-                                                <input hidden name="username" type="text" value="{{request.user.username}}">
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-thumbs-up"></i>
-                                                {{request.upvotes}} {{request.id}}
-                                            </button>
+
                                             
-                                            </form>
-                                        {% else  %}
-                                            <form action="." method="post">
+                                            <form action="{% url 'like_post' requested.pk%}" method="post">
                                                 {% csrf_token %}
-                                                <input name="id" hidden type="text" value="{{request.id}}">
-                                                <input hidden name="username" type="text" value="{{request.user.username}}">
-                                            <button class="btn btn-primary" type="submit">
-                                                <i class="fa fa-thumbs-down"></i>
-                                                {{request.upvotes}} {{request.id}}
-                                            </button>
-                                            
+                                                
+                                                <input name="id" hidden type="text" value="{{requested.id}}">
+                                                <input hidden name="username" type="text" value="{{requested.user.username}}">
+                                                {% if requested.pk not in list %}
+                                                    <button class="btn btn-primary" type="submit" name="post_id" value="{{requested.id}}">
+                                                        <i class="fa fa-thumbs-up"></i>
+                                                        {{requested.upvotes}}
+                                                    </button>
+                                                {%else%}
+                                                    <button class="btn btn-primary btn-danger" type="submit" name="post_id" value="{{requested.id}}">
+                                                        <i class="fa fa-thumbs-down"></i>
+                                                        {{requested.upvotes}}
+                                                    </button>
+                                                {%endif%}
                                             </form>
-                                        {%endif%}    
-                        
+                                        
                                     </div>
                                 </div>
                         </div>
                     </div>
                     <br>
+                   
                 {% endfor %}
                 
             </div>            

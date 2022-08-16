@@ -9,10 +9,10 @@ class ScoreRequestAdmin(admin.ModelAdmin):
         'description',
         'date',
         'upvotes',
-        
+        'created_by',
         'video_link',
-        'link'
-        
+        'link',   
     )
+
 
 admin.site.register(ScoreRequest, ScoreRequestAdmin)

@@ -11,9 +11,12 @@ class ScoreRequest(models.Model):
     description = models.TextField()
     date = models.DateTimeField(auto_now=True)        
     upvotes = models.IntegerField(default=0)
-    like_list = models.ManyToManyField(User, related_name='like_list', default=None, blank=True)
+    likes = models.ManyToManyField(User, related_name='likes')
     video_link = models.URLField(max_length=1024, null=True, blank=True)
     link  = models.URLField(max_length=1024, null=True, blank=True)
+    created_by = models.ForeignKey(User, related_name='requests', on_delete=models.CASCADE, default=User )
+
 
     def __str__(self):
         return self.title
+
