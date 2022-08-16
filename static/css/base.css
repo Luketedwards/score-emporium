@@ -679,3 +679,81 @@ body {
     transform: scale(1.1);
     transition: 0.5s;
 }
+
+.request-card{
+    margin-bottom: 20px;
+}
+
+  
+  
+  .containerC {
+    background-color:white;
+    border:solid .5em black;
+    border-radius:.5em;
+    box-sizing:border-box;
+    flex:0 0 30%;
+    height:240px;
+    margin:.5em;
+    overflow:auto;
+  }
+  
+
+  
+  .listC {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  
+  .itemC {
+    background-color:lightgray;
+    margin:.25em;
+    padding:.5em;
+    display: flex;
+  }
+  
+  #commentForm textarea{
+    height: 160px;
+  }
+  
+  #commentBox {
+    overflow:hidden;
+    position:relative;
+    height: 190px;
+  }
+    .scrollbox {
+      height:100%;
+      overflow:auto;
+    }
+    .iconC {
+      border:solid 2em transparent;
+      border-top-color:white;
+      bottom:-1.5em;
+      color:white;
+      height:0;
+      left:50%;
+      opacity:0;
+      pointer-events:none;
+      position:absolute;
+      right:0;
+      text-align:center;
+      transform:translate(-50%, 0);
+      transition:all .2s ease-out;
+      width:0;
+    }
+    &.show-icon {
+      .iconC {
+        animation:flash 1.5s infinite linear;
+        // opacity:1;
+      }
+    }
+  
+  
+  @keyframes flash {
+    0%, 100% {
+      opacity:1;
+    }
+    50% {
+      opacity:.2;
+    }
+  }

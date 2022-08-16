@@ -2,15 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 
 from django.contrib import messages
 
-from .forms import RequestForm
+from .forms import RequestForm, CommentForm
 
-from .models import ScoreRequest
+from .models import ScoreRequest, Comment
 
 # Create your views here.
 
 # renders the requests page
 def requests(request):
+    form = CommentForm
     requests = ScoreRequest.objects.all()
+    comments = Comment.objects.all()
     list = []
 
     for requested in requests:
@@ -24,8 +26,9 @@ def requests(request):
     context = {
         'requests': requests,
         'user': user,
-        
+        'comments': comments,
         'list': list,
+        'form': form,
 
     }
     return render(request, 'voting/requests.html',context)
@@ -80,6 +83,20 @@ def like_post(request, pk):
         
         return redirect('requests')
     return render(request, 'voting/requests.html')
+
+def comment_post(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.score = post
+            comment.created_by = request.user
+            comment.save()
+            return redirect('requests')
+    else:
+        form = CommentForm()
+    return render(request, 'voting/comment.html', {'form': form})
 
 def dislike_post(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)

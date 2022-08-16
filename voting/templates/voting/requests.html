@@ -8,17 +8,51 @@
             <h1 class="text-center">Requested Scores</h1>
             <hr>
         </div>
-
-        <div class="row">
+        {% for requested in requests%}
+        <div class="row request-card">
             <div class="col-12">
-                {% for requested in requests%}
                 
-                    <div class="card">
-                        <div class="card-body">
+                
+                    <div  class="card">
+                        <div  class="card-body">
                             <h5 class="card-title text-center">{{ requested.title|title }}</h5>
                             <p class="card-text text-center">{{ requested.description }}</p>
                             
                             <a href="{{ requested.link }}" class="btn btn-primary">Go to Request</a>
+                            <div class="row">
+                                <div class="col-12 center">
+                                    
+                                        <div id="commentBox" class="containerC show-icon">
+                                            <div class="scrollbox">
+                                              <ul class="listC">
+                                                {% for comment in comments %}
+                                                {% if comment.score.id == requested.id %}
+                                                <li class="itemC">
+                                                <div class="col">{{comment.created_by}}</div>
+                                                <div class="col">{{comment.content}}</div>
+                                                <div class="col">{{comment.date}}</div>
+                                                </li>
+                                                <hr>
+                                                {% endif %}
+                                                {% endfor %}
+                                              </ul>
+                                            </div>
+                                            <div class="iconC" aria-hidden="true"></div>
+                                          </div>
+                                       
+                                </div>
+                            </div>
+                            <!-- comment form -->
+                            <div class="col-6 center">
+                            <form id="commentForm" action="{% url 'comment_post' requested.pk %}" method="POST">
+                                {%csrf_token%}
+                                {{ form | crispy }}
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="btn center btn-primary">Comment</button>
+                                </div>
+                                
+                            </form>
+                        </div>
                             <!-- thumbs up and thumbs down buttons-->
                             <div class="row">
                                 <div class="col-12">
@@ -49,9 +83,10 @@
                     </div>
                     <br>
                    
-                {% endfor %}
+                
                 
             </div>            
         </div>
     </div>
+        {%endfor%}
 {% endblock %}
