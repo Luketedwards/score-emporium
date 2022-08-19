@@ -246,6 +246,7 @@ body {
     position: fixed;
     bottom: 0;
     z-index: 9999;
+    left: 0 !important;
 }
 
 #image-test{
@@ -782,4 +783,8 @@ body {
     margin: 0 auto !important;
     max-width: 80vw !important;
     margin-top: 5vw !important;
+}
+
+.box-shadow{
+  box-shadow: 0px 2px 7px 1px grey;
 }
