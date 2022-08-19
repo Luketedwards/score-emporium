@@ -1,17 +1,20 @@
+from email import message
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 
 from django.contrib import messages
 
-from .forms import RequestForm, CommentForm
+from .forms import RequestForm, CommentForm, SubmissionForm
 
-from .models import ScoreRequest, Comment
+from .models import ScoreRequest, Comment, ScoreSubmissions
 
 # Create your views here.
 
 # renders the requests page
 def requests(request):
     form = CommentForm
-    requests = ScoreRequest.objects.all()
+    form2 = SubmissionForm
+    requests = ScoreRequest.objects.all().order_by('-likes')
+    submissions = ScoreSubmissions.objects.all().order_by('-date')
     comments = Comment.objects.all()
     list = []
     comment_list = []
@@ -43,6 +46,8 @@ def requests(request):
         'list': list,
         'form': form,
         'comment_list': comment_list,
+        'form2': form2,
+        'submissions': submissions,
 
     }
     return render(request, 'voting/requests.html',context)
@@ -79,6 +84,39 @@ def make_request(request):
 
     return render(request, template, context)
     
+
+def create_submission(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    if request.method == 'POST':
+        form = SubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.score = post
+            submission.created_by = request.user
+            submission.PDF = request.POST['PDF']
+            if submission.PDF:
+                # rename the pdf file to created_by and the post's title
+                submission.PDF.name = f'submission_request_{request.user.username}_{post.title}.pdf'
+
+                
+            submission.save()
+            messages.success(request, f"Successfully submitted to {post.title}!")
+            return redirect('requests')
+    else:
+        messages.error(request, 'Failed to add submission. Please ensure the form is valid.')
+        return redirect('requests')
+
+    return redirect('requests')
+
+
+def delete_post(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    if request.user == post.created_by:
+        post.delete()
+        messages.success(request, f"Successfully deleted {post.title}!")
+        
+        return redirect('requests')
+    return render(request, 'voting/requests.html')    
 
 def like_post(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)

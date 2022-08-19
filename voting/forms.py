@@ -1,5 +1,5 @@
 from django import forms
-from .models import ScoreRequest, Comment
+from .models import ScoreRequest, Comment, ScoreSubmissions
 
 
 
@@ -27,4 +27,16 @@ class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+class SubmissionForm(forms.ModelForm):
+    model = ScoreSubmissions
+    class Meta:
+        model = ScoreSubmissions
+        fields = ['content', 'link', 'PDF' ]
+        labels = {
+            'content': 'Message',
+            'link': 'Link to Product',
+        }
         
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)   

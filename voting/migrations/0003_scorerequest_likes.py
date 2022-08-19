@@ -12,9 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='scorerequest',
-            name='likes',
-            field=models.ManyToManyField(related_name='likes', to=settings.AUTH_USER_MODEL),
-        ),
+        # migrations.AddField(
+        #     model_name='scorerequest',
+        #     name='likes',
+        #     field=models.ManyToManyField(related_name='likes', to=settings.AUTH_USER_MODEL),
+        # ),
     ]

@@ -27,3 +27,10 @@ class Comment(models.Model):
     created_by = models.ForeignKey(User, related_name='comment', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)   
     
+class ScoreSubmissions(models.Model):
+    score = models.ForeignKey(ScoreRequest, related_name='submissions', on_delete=models.CASCADE)
+    content = models.CharField(max_length=300, blank=False)
+    link = models.URLField(max_length=1024, blank=True, null=True)
+    PDF = models.FileField(null=True, blank=True)
+    created_by = models.ForeignKey(User, related_name='submissions', on_delete=models.CASCADE )
+    date = models.DateTimeField(auto_now=True)    

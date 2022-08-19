@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ScoreRequest, Comment
+from .models import ScoreRequest, Comment, ScoreSubmissions
 
 # Register your models here.
 
@@ -24,4 +24,13 @@ class CommentAdmin(admin.ModelAdmin):
         'date',
     )
 
+class ScoreSubmissionsAdmin(admin.ModelAdmin):
+    list_display = (
+        'content',
+        'created_by',
+        'date',
+    )
+
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(ScoreSubmissions, ScoreSubmissionsAdmin)
+
