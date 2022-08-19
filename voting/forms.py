@@ -19,6 +19,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content' ]
+        labels = {
+            'content': 'Comment',
+        }
         
 
     def __init__(self, *args, **kwargs):

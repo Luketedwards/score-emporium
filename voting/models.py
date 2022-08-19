@@ -26,3 +26,4 @@ class Comment(models.Model):
     content = models.CharField(max_length=300, blank=False)
     created_by = models.ForeignKey(User, related_name='comment', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)   
+    

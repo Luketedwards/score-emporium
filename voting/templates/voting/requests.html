@@ -2,91 +2,117 @@
 {% load static %}
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container">
+<div class="overlay"></div>
+<div class="container center">
+    <div class="col-12">
+        <h1 class="text-center">Requested Scores</h1>
+        <hr>
+    </div>
+    {% for requested in requests%}
+    <div class="row request-card">
         <div class="col-12">
-            <h1 class="text-center">Requested Scores</h1>
-            <hr>
-        </div>
-        {% for requested in requests%}
-        <div class="row request-card">
-            <div class="col-12">
-                
-                
-                    <div  class="card">
-                        <div  class="card-body">
-                            <h5 class="card-title text-center">{{ requested.title|title }}</h5>
-                            <p class="card-text text-center">{{ requested.description }}</p>
-                            
-                            <a href="{{ requested.link }}" class="btn btn-primary">Go to Request</a>
-                            <div class="row">
-                                <div class="col-12 center">
-                                    
-                                        <div id="commentBox" class="containerC show-icon">
-                                            <div class="scrollbox">
-                                              <ul class="listC">
-                                                {% for comment in comments %}
-                                                {% if comment.score.id == requested.id %}
-                                                <li class="itemC">
-                                                <div class="col">{{comment.created_by}}</div>
-                                                <div class="col">{{comment.content}}</div>
-                                                <div class="col">{{comment.date}}</div>
-                                                </li>
-                                                <hr>
-                                                {% endif %}
-                                                {% endfor %}
-                                              </ul>
-                                            </div>
-                                            <div class="iconC" aria-hidden="true"></div>
-                                          </div>
-                                       
-                                </div>
-                            </div>
-                            <!-- comment form -->
-                            <div class="col-6 center">
-                            <form id="commentForm" action="{% url 'comment_post' requested.pk %}" method="POST">
-                                {%csrf_token%}
-                                {{ form | crispy }}
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn center btn-primary">Comment</button>
-                                </div>
-                                
+
+
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">{{ requested.title|title }}</h2>
+                    
+                    <p class="card-text text-center">{{ requested.description }}</p>
+
+
+                    
+                    
+                    <hr>
+                    <div class="row text-center">
+                        <div class="col-6">
+                            <form action="{% url 'like_post' requested.pk%}" method="post">
+                                {% csrf_token %}
+
+                                <input name="id" hidden type="text" value="{{requested.id}}">
+                                <input hidden name="username" type="text" value="{{requested.user.username}}">
+                                {% if requested.pk not in list %}
+                                <button class="btn btn-primary" type="submit" name="post_id" value="{{requested.id}}">
+                                    <i class="fa fa-thumbs-up"></i>
+                                    {{requested.upvotes}}
+                                </button>
+                                {%else%}
+                                <button class="btn btn-primary btn-danger" type="submit" name="post_id"
+                                    value="{{requested.id}}">
+                                    <i class="fa fa-thumbs-down"></i>
+                                    {{requested.upvotes}}
+                                </button>
+                                {%endif%}
                             </form>
                         </div>
-                            <!-- thumbs up and thumbs down buttons-->
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="text-center">
-
-                                            
-                                            <form action="{% url 'like_post' requested.pk%}" method="post">
-                                                {% csrf_token %}
-                                                
-                                                <input name="id" hidden type="text" value="{{requested.id}}">
-                                                <input hidden name="username" type="text" value="{{requested.user.username}}">
-                                                {% if requested.pk not in list %}
-                                                    <button class="btn btn-primary" type="submit" name="post_id" value="{{requested.id}}">
-                                                        <i class="fa fa-thumbs-up"></i>
-                                                        {{requested.upvotes}}
-                                                    </button>
-                                                {%else%}
-                                                    <button class="btn btn-primary btn-danger" type="submit" name="post_id" value="{{requested.id}}">
-                                                        <i class="fa fa-thumbs-down"></i>
-                                                        {{requested.upvotes}}
-                                                    </button>
-                                                {%endif%}
-                                            </form>
-                                        
-                                    </div>
+                        <div class="col-6">
+                            <button data-toggle="modal" data-target="#commentModal{{requested.id}}" class="btn btn-primary">
+                                <div><i class="fa-solid fa-comment"></i>
+                                    {% for dict in comment_list %}
+                                    {% if requested.id == dict.score%}
+                                    {{dict.commentCount}}
+                                    {%endif%}
+                                    {%endfor%}
                                 </div>
+                            </button>
+
                         </div>
                     </div>
-                    <br>
-                   
+                </div>
+                <br>
+                <!-- modal to dislay comments-->
+                <div class="modal fade" id="commentModal{{requested.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title center" id="exampleModalLabel">Comments</h5>
+                                
+                            </div>
+                            <div class="modal-body">
+                                <div id="commentBox" class="containerC show-icon">
+                                    <div class="scrollbox">
+                                      <ul class="listC">
+                                        {% for comment in comments %}
+                                        {% if comment.score.id == requested.id %}
+                                        
+                                        <li class="itemC">
+                                        <div class="col"><strong>{{comment.created_by}}</strong></div>
+                                        <div class="col">{{comment.content}}</div>
+                                        <div class="col text-muted">{{comment.date}}</div>
+                                        </li>
+                                        <hr>
+                                        {% endif %}
+                                        {% endfor %}
+                                      </ul>
+                                    </div>
+                                    <div class="iconC" aria-hidden="true"></div>
+                                  </div>
+                                  <div class="col-8 center">
+                                    <form id="commentForm" action="{% url 'comment_post' requested.pk %}" method="POST">
+                                        {%csrf_token%}
+                                        {{ form | crispy }}
+                                        <div class="col-12 text-center">
+                                            <button type="submit" class="btn center btn-primary">Comment</button>
+                                        </div>
+                                        
+                                        </form>
+                                  </div>
+                                  
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+            
                 
-                
-            </div>            
+                </div>
+
+
+            </div>
         </div>
     </div>
-        {%endfor%}
-{% endblock %}
+    {%endfor%}
+    {% endblock %}
+
+    
+</div>  

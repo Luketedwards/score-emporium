@@ -706,7 +706,7 @@ body {
   }
   
   .itemC {
-    background-color:lightgray;
+    
     margin:.25em;
     padding:.5em;
     display: flex;
@@ -719,7 +719,8 @@ body {
   #commentBox {
     overflow:hidden;
     position:relative;
-    height: 190px;
+    height: 300px;
+    border: 1px solid black;
   }
     .scrollbox {
       height:100%;
@@ -757,3 +758,28 @@ body {
       opacity:.2;
     }
   }
+
+  .comment-icon-box{
+    background-color: #007bff;
+    width: fit-content;
+  }
+
+  .comment-icon-box i{
+    color: white;
+    font-size: 1.5em;
+    display: block;
+  }
+
+  .modal-content{
+    width: 80vw;
+    height: 37rem;
+    margin: 0 auto !important;
+    margin-top: 5vw !important;
+
+}
+  
+.modal-dialog{
+    margin: 0 auto !important;
+    max-width: 80vw !important;
+    margin-top: 5vw !important;
+}

@@ -14,6 +14,19 @@ def requests(request):
     requests = ScoreRequest.objects.all()
     comments = Comment.objects.all()
     list = []
+    comment_list = []
+
+    for score in requests:
+        
+        relevant_comments = comments.filter(score=score)
+        
+        count = relevant_comments.count()
+        joined = {
+            'score': score.id,
+            'commentCount': count,
+        }
+        comment_list.append(joined)
+        
 
     for requested in requests:
         if requested.likes.filter(id=request.user.id).exists():
@@ -29,6 +42,7 @@ def requests(request):
         'comments': comments,
         'list': list,
         'form': form,
+        'comment_list': comment_list,
 
     }
     return render(request, 'voting/requests.html',context)
@@ -107,3 +121,4 @@ def dislike_post(request, pk):
         return redirect('requests')
     return render(request, 'voting/requests.html')    
     
+
