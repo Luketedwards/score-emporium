@@ -203,9 +203,18 @@
                                         {% for submit in submissions %}
                                         {% if submit.score.id == requested.id %}
                                         
-                                        <div class="right"><a href="" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a></div>
-                                        <div class="right"><a href="" class="btn btn-success"><i class="fa-solid fa-circle-check"></i></a></div>
-                                        <div class="col-12"><h5><strong>{{submit.created_by}}</strong></h4></div>
+                                        
+                                        
+                                        <div class="col-12 ">
+                                            <span class="center h4"><strong>{{submit.created_by}}</strong></span>
+                                            <div class="right">
+                                                <a href="" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a>
+                                                <a href="" class="btn btn-success"><i class="fa-solid fa-circle-check"></i></a>
+                                            </div>
+                                            
+
+                                        </div>
+                                        
                                         <div class="col-12">{{submit.content}}</div>
                                         <br>
                                         {% if submit.link %}
@@ -216,7 +225,7 @@
                                         {% endif %}
                                         <div class="col-12 text-muted">{{submit.date}}</div>
                                         
-                                        
+                                        <hr>
                                         {% endif %}
                                         {% endfor %}
                                       </div>
