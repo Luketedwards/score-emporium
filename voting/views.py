@@ -6,6 +6,7 @@ from django.contrib import messages
 from .forms import RequestForm, CommentForm, SubmissionForm
 
 from .models import ScoreRequest, Comment, ScoreSubmissions
+from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -53,6 +54,51 @@ def requests(request):
     return render(request, 'voting/requests.html',context)
 
 
+
+def completed_requests(request):
+    form = CommentForm
+    form2 = SubmissionForm
+    requests = ScoreRequest.objects.all().order_by('-likes')
+    submissions = ScoreSubmissions.objects.all().order_by('-date')
+    comments = Comment.objects.all()
+    list = []
+    comment_list = []
+
+    for score in requests:
+        
+        relevant_comments = comments.filter(score=score)
+        
+        count = relevant_comments.count()
+        joined = {
+            'score': score.id,
+            'commentCount': count,
+        }
+        comment_list.append(joined)
+        
+
+    for requested in requests:
+        if requested.likes.filter(id=request.user.id).exists():
+            list.append(requested.pk)
+            
+    
+    user = request.user
+    
+    
+    context = {
+        'requests': requests,
+        'user': user,
+        'comments': comments,
+        'list': list,
+        'form': form,
+        'comment_list': comment_list,
+        'form2': form2,
+        'submissions': submissions,
+
+    }
+    return render(request, 'voting/completed_requests.html',context)
+
+
+
 # render the make request page
 def make_request(request):
     if request.method == 'POST':
@@ -89,14 +135,26 @@ def create_submission(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)
     if request.method == 'POST':
         form = SubmissionForm(request.POST, request.FILES)
+        folder = 'media/submissions/'
         if form.is_valid():
+            
             submission = form.save(commit=False)
             submission.score = post
             submission.created_by = request.user
-            submission.PDF = request.POST['PDF']
+            
+            
             if submission.PDF:
                 # rename the pdf file to created_by and the post's title
-                submission.PDF.name = f'submission_request_{request.user.username}_{post.title}.pdf'
+                myfile = request.FILES['PDF']
+                fs = FileSystemStorage(location=folder) #defaults to   MEDIA_ROOT  
+                fs.save(f'submission_request_{request.user.username}_{post.title}.pdf', myfile)
+                submission.PDFpath = f'media/submissions/submission_request_{request.user.username}_{post.title}.pdf'
+                
+                
+                
+            messages.success(request, f"pdf detected")
+                
+                
 
                 
             submission.save()
@@ -160,9 +218,11 @@ def dislike_post(request, pk):
     return render(request, 'voting/requests.html')    
     
 # accepts submission to the score and marks it as accepted
-def accept_score_submission(request, pk):
+def accept_score_submission(request, pk, score_pk):
     post = get_object_or_404(ScoreSubmissions, pk=pk)
-    
+    score = get_object_or_404(ScoreRequest, pk=score_pk)
+    score.completed = True
+    score.save()
     post.accepted = True
     post.save()
     messages.success(request, f"Successfully accepted {post.PDF}!")

@@ -12,14 +12,13 @@
     </div>
     <div class="row ">
         <div class="col-12 text-center">
-            <a href="{% url 'requests'%}" class="btn btn-primary disabled" > Active </a>
-            <a href="{% url 'completed_requests'%}" class="btn btn-success  "> Completed </a>
+            <a href="{% url 'requests'%}" class="btn btn-primary " > Active </a>
+            <a href="{% url 'completed_requests'%}" class="btn btn-success disabled"> Completed </a>
         </div>
     </div>
     <br>
-
     {% for requested in requests%}
-    {% if requested.completed == False %}
+    {% if requested.completed == True %}
     <div class="row request-card ">
         <div class="col-12">
 
@@ -44,6 +43,26 @@
                     
                     <hr>
                     <div class="row text-center">
+                        <div class="col-12">
+                            <h3>Accepted Submission</h3>
+                        </div>
+                        <div class="col-12">
+                            {% for submit in submissions %}
+                                        {% if submit.score.id == requested.id and submit.accepted == True%}
+                                            <p>{{submit.created_by}}</p>
+                                            {% if submit.link %}
+                                                <a href="{{submit.link}}" target="_blank">Link to Product</a>
+                                            {% endif %}
+                                            {% if submit.PDF%}
+                                                <embed src="{{submit.PDFpath}}" type="application/pdf" height="100px" width="80px" >
+                                            {% endif %}
+                                        {% endif %}
+                            {%endfor%}            
+                        </div>
+                    </div>
+                    <hr>
+                    <br>
+                    <div class="row text-center">
                         <div class="col-4">
                             <form action="{% url 'like_post' requested.pk%}" method="post">
                                 {% csrf_token %}
@@ -64,6 +83,9 @@
                                 {%endif%}
                             </form>
                         </div>
+                        
+                        
+                        
                         <div class="col-4">
                             <button data-toggle="modal" data-target="#commentModal{{requested.id}}" class="btn btn-primary">
                                 <div><i class="fa-solid fa-comment"></i>
@@ -178,7 +200,7 @@
                                 <div class="col-12 text-center">
                                     <div class="col-12"><p>Make a submission to satisfy this post. If the creator of the post is happy with your score they can mark this post 'complete', displaing the link to your product.</p></div>
                                     <br>
-                                    <form id="submissionForm" action="{% url 'create_submission' requested.pk %}" enctype="multipart/form-data" method="POST">
+                                    <form id="submissionForm" action="{% url 'create_submission' requested.pk %}" method="POST">
                                         {%csrf_token%}
                                         {{ form2 | crispy }}
                                         <div class="col-12 text-center">
@@ -232,7 +254,6 @@
                                         {% endif %}
                                         {% if submit.PDF %}
                                         <div class="col-12"><a href="{{submit.PDF}}">Link to PDF</a></div>
-                                        <div class="col-12"><a href="{{submit.PDFpath}}">Link to PDF2</a></div>
                                         {% endif %}
                                         <div class="col-12 text-muted">{{submit.date}}</div>
                                         <div class="col-12 text-muted">{{submit.accepted}}</div>

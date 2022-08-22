@@ -15,7 +15,7 @@ class ScoreRequest(models.Model):
     video_link = models.URLField(max_length=1024, null=True, blank=True)
     link  = models.URLField(max_length=1024, null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='requests', on_delete=models.CASCADE, default=User )
-
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -32,6 +32,7 @@ class ScoreSubmissions(models.Model):
     content = models.CharField(max_length=300, blank=False)
     link = models.URLField(max_length=1024, blank=True, null=True)
     PDF = models.FileField(null=True, blank=True)
+    PDFpath = models.CharField(max_length=1024, blank=True, null=True)
     created_by = models.ForeignKey(User, related_name='submissions', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)    
     accepted = models.BooleanField(default=False)

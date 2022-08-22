@@ -32,6 +32,7 @@ class SubmissionForm(forms.ModelForm):
     class Meta:
         model = ScoreSubmissions
         fields = ['content', 'link', 'PDF' ]
+        
         labels = {
             'content': 'Message',
             'link': 'Link to Product',
