@@ -34,3 +34,4 @@ class ScoreSubmissions(models.Model):
     PDF = models.FileField(null=True, blank=True)
     created_by = models.ForeignKey(User, related_name='submissions', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)    
+    accepted = models.BooleanField(default=False)

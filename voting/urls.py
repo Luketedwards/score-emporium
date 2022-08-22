@@ -9,5 +9,6 @@ urlpatterns = [
     path('dislike_post/<int:pk>', views.dislike_post, name='dislike_post'),
     path('delete_post/<int:pk>', views.delete_post, name='delete_post'),
     path('submit_score/<int:pk>', views.create_submission, name='create_submission'),
+    path('accept_submission/<int:pk>', views.accept_score_submission, name='accept_score_submission'),
     
 ]

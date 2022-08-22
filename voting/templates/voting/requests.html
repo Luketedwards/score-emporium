@@ -209,7 +209,7 @@
                                             <span class="center h4"><strong>{{submit.created_by}}</strong></span>
                                             <div class="right">
                                                 <a href="" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a>
-                                                <a href="" class="btn btn-success"><i class="fa-solid fa-circle-check"></i></a>
+                                                <a href="{% url 'accept_score_submission' submit.pk%}" class="btn btn-success"><i class="fa-solid fa-circle-check"></i></a>
                                             </div>
                                             
 
@@ -224,6 +224,7 @@
                                         <div class="col-12"><a href="{{submit.PDF}}">Link to PDF</a></div>
                                         {% endif %}
                                         <div class="col-12 text-muted">{{submit.date}}</div>
+                                        <div class="col-12 text-muted">{{submit.accepted}}</div>
                                         
                                         <hr>
                                         {% endif %}

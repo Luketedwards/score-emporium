@@ -159,4 +159,15 @@ def dislike_post(request, pk):
         return redirect('requests')
     return render(request, 'voting/requests.html')    
     
+# accepts submission to the score and marks it as accepted
+def accept_score_submission(request, pk):
+    post = get_object_or_404(ScoreSubmissions, pk=pk)
+    
+    post.accepted = True
+    post.save()
+    messages.success(request, f"Successfully accepted {post.PDF}!")
+    return redirect('requests')
+    
+
+
 
