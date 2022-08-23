@@ -17,6 +17,7 @@
         </div>
     </div>
     <br>
+    {% if inactive_submissions > 0%}
     {% for requested in requests%}
     {% if requested.completed == True %}
     <div class="row request-card ">
@@ -54,7 +55,8 @@
                                                 <a href="{{submit.link}}" target="_blank">Link to Product</a>
                                             {% endif %}
                                             {% if submit.PDF%}
-                                                <embed src="{{submit.PDFpath}}" type="application/pdf" height="100px" width="80px" >
+                                                <embed src="/{{submit.PDFpath}}" type="application/pdf" height="100px" width="80px" >
+                                                <img src="/{{submit.PDFpath}}" alt="">
                                             {% endif %}
                                         {% endif %}
                             {%endfor%}            
@@ -63,10 +65,10 @@
                     <hr>
                     <br>
                     <div class="row text-center">
-                        <div class="col-4">
-                            <form action="{% url 'like_post' requested.pk%}" method="post">
+                        <div class="col-6">
+                            <form action="{% url 'like_post_completed' requested.pk%}" method="post">
                                 {% csrf_token %}
-
+                                
                                 <input name="id" hidden type="text" value="{{requested.id}}">
                                 <input hidden name="username" type="text" value="{{requested.user.username}}">
                                 {% if requested.pk not in list %}
@@ -86,7 +88,7 @@
                         
                         
                         
-                        <div class="col-4">
+                        <div class="col-6">
                             <button data-toggle="modal" data-target="#commentModal{{requested.id}}" class="btn btn-primary">
                                 <div><i class="fa-solid fa-comment"></i>
                                     {% for dict in comment_list %}
@@ -98,21 +100,7 @@
                             </button>
 
                         </div>
-                        {% if request.user == requested.created_by %}
-                        <div class="col-4">
-                            <button data-toggle="modal" data-target="#viewSubmissionsModal{{requested.id}}" class="btn btn-success">
-                                <div><i class="fa-solid fa-magnifying-glass"></i>
-                                </div>
-                            </button>
-                        </div>
-                        {%else%}
-                        <div class="col-4">
-                            <button data-toggle="modal" data-target="#fulfillModal{{requested.id}}" class="btn btn-success">
-                                <div><i class="fa-solid fa-music"></i>
-                                </div>
-                            </button>
-                        </div>
-                        {%endif%}
+                        
                     </div>
                 </div>
                 <br>
@@ -144,7 +132,7 @@
                                     <div class="iconC" aria-hidden="true"></div>
                                   </div>
                                   <div class="col-8 center">
-                                    <form id="commentForm" action="{% url 'comment_post' requested.pk %}" method="POST">
+                                    <form id="commentForm" action="{% url 'comment_post_completed' requested.pk %}" method="POST">
                                         {%csrf_token%}
                                         {{ form | crispy }}
                                         <div class="col-12 text-center">
@@ -186,99 +174,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- modal to confirm fulfilling post -->
-                <div class="modal fade" id="fulfillModal{{requested.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                    <div style="width: 40vw !important;" class="modal-dialog" role="document">
-                        <div style="width: 40vw !important;" class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title center" id="exampleModalLabel3">Submit Score To {{requested.title|title}}</h5>
-                                
-                                
-                                
-                            </div>
-                            <div class="modal-body">
-                                <div class="col-12 text-center">
-                                    <div class="col-12"><p>Make a submission to satisfy this post. If the creator of the post is happy with your score they can mark this post 'complete', displaing the link to your product.</p></div>
-                                    <br>
-                                    <form id="submissionForm" action="{% url 'create_submission' requested.pk %}" method="POST">
-                                        {%csrf_token%}
-                                        {{ form2 | crispy }}
-                                        <div class="col-12 text-center">
-                                            <button type="submit" class="btn center btn-primary">Submit</button>
-                                        </div>
-                                        
-                                        </form>
-                                    
-                                </div>
-                    
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>    
-                 <!-- modal to view post submissions -->
-                 <div class="modal fade" id="viewSubmissionsModal{{requested.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                    <div style="width: 40vw !important;" class="modal-dialog" role="document">
-                        <div style="width: 40vw !important;" class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title center" id="exampleModalLabel3">Score Submissions</h5>
-                                
-                                
-                                
-                            </div>
-                            <div class="modal-body">
-                                <div id="commentBox" class="containerC show-icon">
-                                    <div class="scrollbox">
-                                      <div class="card text-center">
-                                        {% for submit in submissions %}
-                                        {% if submit.score.id == requested.id %}
-                                        
-                                        
-                                        
-                                        <div class="col-12 ">
-                                            <span class="center h4"><strong>{{submit.created_by}}</strong></span>
-                                            <div class="right">
-                                                <a href="" class="btn btn-danger"><i class="fa-solid fa-circle-xmark"></i></a>
-                                                <a href="{% url 'accept_score_submission' pk=submit.pk score_pk=requested.pk%}" class="btn btn-success"><i class="fa-solid fa-circle-check"></i></a>
-                                            </div>
-                                            
-
-                                        </div>
-                                        
-                                        <div class="col-12">{{submit.content}}</div>
-                                        <br>
-                                        {% if submit.link %}
-                                        <div class="col-12"><a href="{{submit.link}}">Link to Score</a></div>
-                                        {% endif %}
-                                        {% if submit.PDF %}
-                                        <div class="col-12"><a href="{{submit.PDF}}">Link to PDF</a></div>
-                                        {% endif %}
-                                        <div class="col-12 text-muted">{{submit.date}}</div>
-                                        <div class="col-12 text-muted">{{submit.accepted}}</div>
-                                        
-                                        <hr>
-                                        {% endif %}
-                                        {% endfor %}
-                                      </div>
-                                    </div>
-                                    <div class="iconC" aria-hidden="true"></div>
-                                  </div>
-                                  
-                    
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
+                 
+                 
             </div>
         </div>
     </div>
     {%endif%}
     {%endfor%}
+    {%else%}
+    <div class="col-12 text-center">
+        <h2>No posts to show</h2>
+    </div>
+    {%endif%}    
     {% endblock %}
 
     

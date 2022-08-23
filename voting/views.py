@@ -16,6 +16,8 @@ def requests(request):
     form2 = SubmissionForm
     requests = ScoreRequest.objects.all().order_by('-likes')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
+    active_submissions = ScoreRequest.objects.filter(completed=False).count()
+    inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
     comments = Comment.objects.all()
     list = []
     comment_list = []
@@ -49,8 +51,12 @@ def requests(request):
         'comment_list': comment_list,
         'form2': form2,
         'submissions': submissions,
+        'active_submissions': active_submissions,
+        'inactive_submissions': inactive_submissions,
 
     }
+
+
     return render(request, 'voting/requests.html',context)
 
 
@@ -194,6 +200,25 @@ def like_post(request, pk):
         return redirect('requests')
     return render(request, 'voting/requests.html')
 
+
+def like_post_completed(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        post.upvotes -= 1
+        post.save()
+        
+        return redirect('completed_requests')
+
+    else:    
+        post.upvotes += 1
+        post.likes.add(request.user)
+        post.save()
+        
+        return redirect('completed_requests')
+    return render(request, 'voting/requests.html')
+
 def comment_post(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)
     if request.method == 'POST':
@@ -208,6 +233,21 @@ def comment_post(request, pk):
         form = CommentForm()
     return render(request, 'voting/comment.html', {'form': form})
 
+def comment_post_completed(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.score = post
+            comment.created_by = request.user
+            comment.save()
+            return redirect('completed_requests')
+    else:
+        form = CommentForm()
+    return render(request, 'voting/comment.html', {'form': form})
+
+
 def dislike_post(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)
     if request.method == 'POST':
@@ -216,6 +256,16 @@ def dislike_post(request, pk):
         post.save()
         return redirect('requests')
     return render(request, 'voting/requests.html')    
+
+
+def dislike_post_completed(request, pk):
+    post = get_object_or_404(ScoreRequest, pk=pk)
+    if request.method == 'POST':
+        post.upvotes -= 1
+        post.likes.remove(request.user)
+        post.save()
+        return redirect('completed_requests')
+    return render(request, 'voting/requests.html')     
     
 # accepts submission to the score and marks it as accepted
 def accept_score_submission(request, pk, score_pk):

@@ -18,7 +18,7 @@ def checkout(request):
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
-        vendors = []
+        vendors = {}
         
         form_data = {
             'full_name': request.POST['full_name'],
@@ -48,6 +48,7 @@ def checkout(request):
                         order_line_item.save()
 
                         # connects sales data to user profile
+                        
                         userId = get_object_or_404(User,username=order_line_item.product.vendor)
                         comission_value = float(order_line_item.product.price) * 0.8
                         vendor = UserProfile.objects.get(user=userId)
@@ -71,6 +72,17 @@ def checkout(request):
                     return redirect(reverse('view_cart'))
                 
             request.session['save_info'] = 'save-info' in request.POST
+
+
+
+            for vendor in order.vendors:
+                if vendor not in vendors:
+                    vendors.append(vendor)
+
+            for product in order.products:
+                vendors[str(product.vendor)].append(product)
+                vendors[str(product.vendor)].append(product.price)
+                
            
             # send email to vendor with order details
             for vendor in vendors:

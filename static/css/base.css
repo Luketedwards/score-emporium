@@ -61,10 +61,14 @@ body{
     color: white;
     padding: 5px;
     border-radius: 10px;
+    transition:  .5s ease-in-out, box-shadow .4s ease-in-out;
+
 }
 
 #account-button:hover{
-    background-color: #395f60;
+    
+    box-shadow: inset 200px 0 0 0 black;
+    color: white !important;
 }
 
 #cart-button{
@@ -72,6 +76,13 @@ body{
     color: white;
     padding: 5px;
     border-radius: 10px;
+    transition:  .5s ease-in-out, box-shadow .4s ease-in-out;
+}
+
+#cart-button:hover{
+  box-shadow: inset 200px 0 0 0 black;
+  color: white !important;
+
 }
 
 #main-nav a{
@@ -104,16 +115,6 @@ body{
     left: 0;
 }
 
-#main-nav a:hover{
-    background-color: #395f60;
-    
-}
-
-#cart-button:hover{
-    background-color: #395f60;
-
-}
-
 #main-search{
     border-radius: 10px !important;
     border: 2px solid black;
@@ -136,7 +137,13 @@ body{
     border-radius: 10px;
     color: white !important;
     padding: 10px;
-    
+    transition:  .5s ease-in-out, box-shadow .4s ease-in-out;
+
+}
+
+#logo:hover{
+    box-shadow: inset 300px 0 0 0 black;
+    color: white !important;
 }
 
 body {
@@ -151,6 +158,8 @@ body {
     padding: 0;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    transition:  .3s ease-in-out, box-shadow .3s ease-in-out;
+
 }
 
 #search-btn:hover{
@@ -787,4 +796,17 @@ body {
 
 .box-shadow{
   box-shadow: 0px 2px 7px 1px grey;
+}
+
+.main-nav-link {
+  box-shadow: inset 0 0 0 0 #54b3d6;
+  color: #54b3d6;
+  margin: 0 -.25rem;
+  padding: 0 .25rem;
+  transition:  .5s ease-in-out, box-shadow .4s ease-in-out;
+  border-radius: 10px;
+}
+.main-nav-link:hover {
+  box-shadow: inset 200px 0 0 0 cadetblue;
+  color: white !important;
 }
