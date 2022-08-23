@@ -122,6 +122,13 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'score_emporium.wsgi.application'
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
