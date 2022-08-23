@@ -122,12 +122,12 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'score_emporium.wsgi.application'
 
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
-EMAIL_PORT = 587
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env('EMAIL_PORT')
 EMAIL_USE_TLS = True
-DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'
+DEFAULT_EMAIL_FROM = env('DEFAULT_EMAIL_FROM')
 
 
 # Database
