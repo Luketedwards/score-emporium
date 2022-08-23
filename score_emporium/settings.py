@@ -122,12 +122,7 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'score_emporium.wsgi.application'
 
-EMAIL_HOST = env('EMAIL_HOST')
-EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = env('EMAIL_PORT')
-EMAIL_USE_TLS = True
-DEFAULT_EMAIL_FROM = env('DEFAULT_EMAIL_FROM')
+
 
 
 # Database
@@ -196,3 +191,10 @@ STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'scoreemporium@gmail.com'
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'

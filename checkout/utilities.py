@@ -1,8 +1,9 @@
 from django.conf import settings
-from django.core.mail import EmailMultiAlternatives
+from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from apps.cart.cart import Cart
+
 
 from .models import Order
 
@@ -10,16 +11,17 @@ from .models import Order
 
 def notify_vendor(order):
     from_email = settings.DEFAULT_EMAIL_FROM
+    order_number = order.order_number
+    order = get_object_or_404(Order, order_number=order_number)
 
-    for vendor in order.vendors.all():
-        to_email = vendor.created_by.email
+    for vendor in order.lineitems.all():
+        
+        to_email = 'luketedmusic@gmail.com'
         subject = 'New order'
         text_content = 'You have a new order!'
-        html_content = render_to_string('checkout/notify_vendor.html', {'order': order, 'vendor': vendor})
-
-        msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-        msg.attach_alternative(html_content, 'text/html')
-        msg.send()
+        html_content = render_to_string('checkout/notify_vendor.html', {'order': order, 'vendor': vendor.product.vendor})
+        send_mail(subject, html_content, from_email, [to_email])
+        
 
 def notify_customer(order):
     from_email = settings.DEFAULT_EMAIL_FROM
@@ -29,6 +31,5 @@ def notify_customer(order):
     text_content = 'Thank you for the order!'
     html_content = render_to_string('checkout/notify_customer.html', {'order': order})
 
-    msg = EmailMultiAlternatives(subject, text_content, from_email, [to_email])
-    msg.attach_alternative(html_content, 'text/html')
-    msg.send()
+    send_mail(subject, html_content, from_email, [to_email])
+    

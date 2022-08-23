@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
+from .utilities import  notify_customer, notify_vendor
+
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -18,7 +20,7 @@ def checkout(request):
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
-        vendors = {}
+        
         
         form_data = {
             'full_name': request.POST['full_name'],
@@ -32,6 +34,7 @@ def checkout(request):
         if order_form.is_valid():
             order = order_form.save()
             for item_id, item_data in cart.items():
+                
                 
                 try:
                     #Add item to users purchased scores
@@ -54,12 +57,7 @@ def checkout(request):
                         vendor = UserProfile.objects.get(user=userId)
                         vendor.sales_number = vendor.sales_number + 1
                         vendor.sales_income = vendor.sales_income + int(comission_value)
-                        sale = {
-                            'vendor': vendor,
-                            'product': product,
-                            'sale_value': comission_value,
-                        }
-                        vendors.append(sale)
+                        
                         vendor.save()
                         
                         
@@ -75,30 +73,9 @@ def checkout(request):
 
 
 
-            for vendor in order.vendors:
-                if vendor not in vendors:
-                    vendors.append(vendor)
-
-            for product in order.products:
-                vendors[str(product.vendor)].append(product)
-                vendors[str(product.vendor)].append(product.price)
-                
-           
-            # send email to vendor with order details
-            for vendor in vendors:
-                send_mail(
-                    'You have a new order!',
-                    'Hello {{vendor.user.username}}! You have a new order! The details are as follows:\
-                        Order number:{{order.order_number}}. \
-                        Date:{{order.date}}. \
-                        Customer Name:{{order.full_name}}. \
-                        Items: {% for items in vendors.product %} {% if item.vendor == vendor %} {{vendor.product.name}}. {%endif%} {%endfor%} \
-                        Total: {{vendor.sale_value}}. \
-                        Congratulations on your new sale!',
-                    'luketedmusic@gmail.com',
-                    ['{{vendor.user.email}}'],
-                    fail_silently=False,
-                )
+            
+            notify_customer(order)
+            notify_vendor(order)    
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
