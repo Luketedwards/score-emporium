@@ -192,9 +192,10 @@ STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'scoreemporium@gmail.com'
+EMAIL_HOST = 'smtp-relay.sendinblue.com'
+EMAIL_HOST_USER = 'luketedwards96@hotmail.com'
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'

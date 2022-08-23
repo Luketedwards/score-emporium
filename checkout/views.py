@@ -74,7 +74,7 @@ def checkout(request):
 
 
             
-            notify_customer(order)
+            
             notify_vendor(order)    
 
             return redirect(reverse('checkout_success', args=[order.order_number]))

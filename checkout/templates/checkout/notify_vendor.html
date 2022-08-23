@@ -14,7 +14,7 @@
                 width: 100%;
                 font-family: Arial;
                 font-size: 14px;
-                background-color: #fff;
+                background-color: cadetblue;
                 color: #333;
             }
         </style>
@@ -24,17 +24,18 @@
         <table width="100%" cellspacing="0" cellpadding="0">
             <tr>
                 <td><h1>New order</h1></td>
+
             </tr>
 
             <tr>
                 <td>
-                    <h3>Details</h3>
-
-                    <b>Name:</b> {{ order.first_name }} {{ order.last_name }}<br>
-                    <b>Address:</b> {{ order.address }}<br>
-                    <b>Zip and place:</b> {{ order.zipcode }} {{ order.place }}<br>
+                    <h3>Customer Details</h3>
+                    <b>Order Number </b> {{ order.order_number }}<br>
+                    <b>Order Date </b> {{ order.date }}<br>
+                    <b>Name:</b> {{ order.full_name }}<br>
+                    
                     <b>E-mail:</b> {{ order.email }}<br>
-                    <b>Phone:</b> {{ order.phone }}
+                    <b>Phone:</b> {{ order.phone_number }}
                 </td>
             </tr>
 
@@ -46,20 +47,21 @@
                         <tr>
                             <td><b>Product</b></td>
                             <td><b>Price</b></td>
-                            <td><b>Quantity</b></td>
+                            
                             <td><b>Total</b></td>
                         </tr>
                         
                         {% for item in order.lineitems.all%}
-                            {% if item.vendor == vendor %}
+                            
                                 <tr>
-                                    <td>{{ item.product.title }}</td>
+                                    <td>{{ item.product.name }}</td>
                                     <td>£{{ item.product.price }}</td>
+                                    <td>£{{ order.order_total }}</td>
                                     
-                                    <td>£{{ item.get_total_price }}</td>
                                 </tr>
-                            {% endif %}
+                            
                         {% endfor %}
+
                     </table>
                 </td>
             </tr>
