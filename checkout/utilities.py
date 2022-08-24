@@ -1,6 +1,9 @@
 
 from __future__ import print_function
+from itertools import product
 from django.conf import settings
+from django.contrib.auth.models import User
+
 
 from django.shortcuts import get_object_or_404
 from django.core.mail import EmailMultiAlternatives
@@ -27,24 +30,36 @@ def notify_vendor(order):
     from_email = settings.DEFAULT_EMAIL_FROM
     order_number = order.order_number
     order = get_object_or_404(Order, order_number=order_number)
+    vendor_count = order.lineitems.values('vendor').distinct().count()
 
-    for vendor in order.lineitems.all():
-        
-        api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
-        subject = "New Order!"
-        sender = {"name":"noreply@scoreemporium.com","email":"scoreemporium@gmail.com"}
-        reply_to = {"name":"noreply@scoreemporium.com","email":"scoreemporium@gmail.com"}
-
-        html_content = render_to_string('checkout/notify_vendor.html', {'order': order, 'vendor': vendor.product.vendor})
-        to = [{"email":"luketedmusic@gmail.com","name":"Luke"}]
-        
-        params = {"parameter":"My param value","subject":"New Subject"}
-        send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, reply_to=reply_to, html_content=html_content, sender=sender, subject=subject)
-        try:
-            api_response = api_instance.send_transac_email(send_smtp_email)
-            print(api_response)
-        except ApiException as e:
-            print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
+                                        
+    count = 0
+    while count < vendor_count:
+        count = count + 1
+        for stuff in order.lineitems.all():
+            
+                
+            api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
+            subject = "New Order!"
+            sender = {"name":"noreply@scoreemporium.com","email":"scoreemporium@gmail.com"}
+            reply_to = {"name":"noreply@scoreemporium.com","email":"scoreemporium@gmail.com"}
+            profile = get_object_or_404(User, username=stuff.product.vendor)
+            vendors_total = 0
+            for item in order.lineitems.all():
+                if item.vendor == stuff.product.vendor:
+                    price = float(item.product.price) 
+                    price = price * 0.8
+                    vendors_total = vendors_total + price
+            html_content = render_to_string('checkout/notify_vendor_email.html', {'order': order, 'vendor': stuff.product.vendor, 'vendors_total': vendors_total})
+            to = [{"email": profile.email,"name":stuff.product.vendor}]
+            
+            params = {"parameter":"My param value","subject":"New Subject"}
+    send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(to=to, reply_to=reply_to, html_content=html_content, sender=sender, subject=subject)
+    try:
+        api_response = api_instance.send_transac_email(send_smtp_email)
+        print(api_response)
+    except ApiException as e:
+        print("Exception when calling SMTPApi->send_transac_email: %s\n" % e)
         
 
 def notify_customer(order):
