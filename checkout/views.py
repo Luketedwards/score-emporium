@@ -33,6 +33,7 @@ def checkout(request):
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save()
+            list_of_vendors = []
             for item_id, item_data in cart.items():
                 
                 
@@ -60,6 +61,7 @@ def checkout(request):
                         vendor.sales_income = vendor.sales_income + int(comission_value)
                         
                         vendor.save()
+                        list_of_vendors.append(vendor)
                         
                         
                     
@@ -75,8 +77,9 @@ def checkout(request):
 
 
             
-            
-            notify_vendor(order)    
+            for vendorName in list_of_vendors.distinct():
+                notify_vendor(vendorName, order)
+               
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:

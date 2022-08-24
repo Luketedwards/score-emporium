@@ -21,7 +21,7 @@ from .models import Order
 
 
 
-def notify_vendor(order):
+def notify_vendor(vendorName, order):
     
     configuration = sib_api_v3_sdk.Configuration()
     configuration.api_key['api-key'] = SENDBLUE_PASSWORD
