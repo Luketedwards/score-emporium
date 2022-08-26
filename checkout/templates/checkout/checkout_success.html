@@ -20,7 +20,7 @@
         </div>
 
         <div  class="row">
-            <div style="margin-bottom: 50px;"  class="col-12 col-lg-6  border">
+            <div style="margin-bottom: 50px;"  class="col-md-12 col-lg-6  border">
                 <p class="text-muted">Order Summary ({{ order.lineitems.all.count }})</p>
                 <div class="row">
                     <div class="col-7 offset-2">
@@ -30,15 +30,15 @@
                         <p class="mb-1 mt-0 small text-muted">Download Links</p>
                     </div>
                 </div>
-                <div style="overflow-y: scroll;" class="col-12">
+                <div id="purchased-details" style="overflow-y: scroll;" class="col-12">
                 {% for item in order.lineitems.all%}
                     <div class="row">
-                        <div class="col-2 mb-1">
+                        <div class="col-2 mb-1 purchased-img">
                             <a href="{% url 'product_detail' item.product.id %}">
                                 {% if item.product.image %}
-                                    <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout " src="{{ item.product.image.url }}"  alt="{{ product.name }}">
                                 {% else %}
-                                    <img class="w-100" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout " src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
                                 {% endif %}
                             </a>
                         </div>
@@ -48,11 +48,11 @@
                         </div>
                         <div class="col-3 text-right">
                             
-                            <a href="/media/{{item.product.PDF}}" target="_blank"> Download {{item.product.name}} PDF</a>
+                            <a href="/media/{{item.product.PDF}}" class="btn btn-primary mt-3" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% if item.product.Guitar_Pro_Locked %}
-                            <a href="/media/{{item.product.Guitar_Pro_Locked}}" target="_blank"> Download {{item.product.name}} GP File</a>
+                            <a href="/media/{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
                             {% else %}
-                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" target="_blank"> Download {{item.product.name}} GP File</a>
+                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% endif%}
                             
                         </div>
@@ -62,7 +62,7 @@
             </div>
                 
             </div>
-            <div class="col-12 col-lg-6">
+            <div class="col-md-12 col-lg-6">
                 <div class="order-confirmation-wrapper p-2 border">
                     <div class="row">
                         <div class="col">
@@ -75,7 +75,7 @@
                             <p class="mb-0 text-black font-weight-bold">Order Number</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-right">
-                            <p class="mb-0">{{ order.order_number }}</p>
+                            <p class="mb-0">{{ order.order_number|truncatechars:15 }}</p>
                         </div>
                     </div>
 

@@ -1,5 +1,20 @@
 
 $(document).ready(function(){
+  // when hovering purchased-img class, change overflow to visible on purchased-details
+$(".purchased-img").mouseover(function(){
+  $("#purchased-details").css("overflow-y", "visible");
+  $('.purchased-img').css("z-index", "1");
+  
+}).mouseleave(function(){
+  setTimeout(function(){
+    $("#purchased-details").css("overflow-y", "scroll");
+    
+ }, 200);
+  
+});
+
+
+
     document.getElementById('data-target0').className = 'active';
   document.getElementById('carousel-item0').className = 'carousel-item active';
   $("#carousel-item0").addClass("active");
@@ -97,3 +112,4 @@ $('.carousel').carousel({
   }
   
   example5sb.addEventListener('scroll', setFade);
+
