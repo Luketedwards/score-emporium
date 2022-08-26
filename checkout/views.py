@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
-from .utilities import  notify_customer, notify_vendor
+from .utilities import  notify_customer, notify_vendor2
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
@@ -75,10 +75,11 @@ def checkout(request):
             request.session['save_info'] = 'save-info' in request.POST
 
 
-
+            vendor_set = set(list_of_vendors)
             
-            for vendorName in list_of_vendors.distinct():
-                notify_vendor(vendorName, order)
+            for vendorName in vendor_set:
+                vendorName = str(vendorName)
+                notify_vendor2(vendorName, order)
                
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
