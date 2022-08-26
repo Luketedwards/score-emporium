@@ -62,8 +62,47 @@
   display: none;
 }
 
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Hide scrollbar for IE, Edge and Firefox */
 #purchased-details {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#submit-button{
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px !important;
+  
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  
+}
+
+#submit-button:hover{
+  background-color: red;
+  color: white;
+  border: 1px solid #000;
+  border-radius: 5px !important;
+  
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  
+}
+
+#payment-form{
+  margin-bottom: 150px;
 }

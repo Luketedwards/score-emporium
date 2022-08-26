@@ -35,13 +35,13 @@
                             {% for item in cart_items %}
                                 <tr>
                                     {% if item.product.image%}
-                                    <td class="p-3 w-25">
-                                        <img class="img-fluid rounded" src="{{ item.product.image.url }}">
+                                    <td class="p-3 w-25 ">
+                                        <img class="img-fluid rounded shadow-checkout" src="{{ item.product.image.url }}">
                                     </td>
                                     {%else%}
                                     
-                                    <td class="p-3 w-25">
-                                        <img class="img-fluid rounded" src="/media/No_Image_Available.jpg">
+                                    <td class="p-3 w-25 ">
+                                        <img class="img-fluid rounded shadow-checkout" src="/media/No_Image_Available.jpg">
                                     </td>
                                     {%endif%}
                                     <td class="py-3">
@@ -57,7 +57,7 @@
                                         <p class="my-0">£{{ item.product.price }}</p>
                                     </td>
                                     <td class="py-3">
-                                        <a class="remove-item text-danger float-right" href="{% url 'remove_from_cart' item.item_id%}" id="remove_{{ item.item_id }}"><small>Remove</small></a>
+                                        <a class="remove-item btn btn-sm btn-danger  float-right" href="{% url 'remove_from_cart' item.item_id%}" id="remove_{{ item.item_id }}"><small>Remove</small></a>
                                         <p class="my-0">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
                                     </td>
                                 </tr>
@@ -72,12 +72,14 @@
                             <tr>
                                 <td colspan="5" class="text-right">
                                     <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
-                                        <span class="icon">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </span>
-                                        <span class="text-uppercase">Keep Shopping</span>
+                                        <a href="{% url 'products' %}" class=" btn btn-primary ">
+                                            <span class="icon ml-1">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </span>
+                                            <span class="font-weight-bold">Keep Shopping</span>
+                                        </a>
                                     </a>
-                                    <a href="{% url 'checkout' %}" class="btn btn-black rounded-0 btn-lg">
+                                    <a id="submit-button" href="{% url 'checkout' %}" class="btn ">
                                         <span class="text-uppercase">Secure Checkout</span>
                                         <span class="icon">
                                             <i class="fas fa-lock"></i>
@@ -89,10 +91,13 @@
                     </div>
                 {% else %}
                     <p class="lead mb-5 text-center">Your cart is empty.</p>
-                    <a href="{% url 'products' %}" class=" rounded-0 text-center my-auto">
-                        <span class="icon">
-                        
-                        <span class="text-uppercase btn btn-primary  btn-lg text-center ">Keep Shopping</span>
+                    <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                        <a href="{% url 'products' %}" class=" btn btn-primary ">
+                            <span class="icon ml-1">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                            </span>
+                            <span class="font-weight-bold">Keep Shopping</span>
+                        </a>
                     </a>
                 {% endif %}
             </div>

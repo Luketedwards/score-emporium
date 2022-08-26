@@ -43,7 +43,9 @@ def notify_vendor2(vendorName, order):
             price = price * 0.8
             vendors_total = vendors_total + price
             pre_comission_total = pre_comission_total + price2
-    html_content = render_to_string('checkout/notify_vendor_email.html', {'order': order, 'vendor': vendorName, 'vendors_total': round(vendors_total,3), 'pre_comissions': round(pre_comission_total,3)})
+        
+
+    html_content = render_to_string('checkout/notify_vendor_email.html', {'order': order, 'vendor': vendorName, 'vendors_total': vendors_total, 'pre_comissions':pre_comission_total})
     to = [{"email": profile.email,"name":vendorName}]
     
     params = {"parameter":"My param value","subject":"New Subject"}
