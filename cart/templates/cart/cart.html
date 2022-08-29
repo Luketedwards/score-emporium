@@ -57,7 +57,7 @@
                                         <p class="my-0">£{{ item.product.price }}</p>
                                     </td>
                                     <td class="py-3">
-                                        <a class="remove-item btn btn-sm btn-danger  float-right" href="{% url 'remove_from_cart' item.item_id%}" id="remove_{{ item.item_id }}"><small>Remove</small></a>
+                                        <a class="remove-item btn btn-sm btn-danger animated-btn  float-right" href="{% url 'remove_from_cart' item.item_id%}" id="remove_{{ item.item_id }}"><small>Remove</small></a>
                                         <p class="my-0">£{{ item.product.price | calc_subtotal:item.quantity }}</p>
                                     </td>
                                 </tr>

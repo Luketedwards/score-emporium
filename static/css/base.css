@@ -202,9 +202,10 @@ body {
 }
 
 .btn-black {
-    background: black;
-    color: white;
-    width: fit-content;
+    background: black !important;
+    color: white !important;
+    width: fit-content !important;
+    border-radius: 5px !important;
 }
 
 #product-detail-img{

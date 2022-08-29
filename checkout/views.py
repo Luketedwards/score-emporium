@@ -81,6 +81,7 @@ def checkout(request):
                 vendorName = str(vendorName)
                 notify_vendor2(vendorName, order)
                
+            notify_customer(order)   
 
             return redirect(reverse('checkout_success', args=[order.order_number]))
         else:
@@ -150,3 +151,14 @@ def checkout_success(request, order_number):
     }
     
     return render(request, template, context)    
+
+def view_order(request, order_number):
+    """
+    View an individual order
+    """
+    order = get_object_or_404(Order, order_number=order_number)
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+    }
+    return render(request, template, context)
