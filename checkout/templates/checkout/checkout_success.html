@@ -32,32 +32,34 @@
                 </div>
                 <div id="purchased-details" style="overflow-y: scroll;" class="col-12">
                 {% for item in order.lineitems.all%}
-                    <div class="row">
-                        <div class="col-2 mb-1 purchased-img">
+                    <div class="row mb-4">
+                        <div class="col-2 mb-1 purchased-img align-items-center">
                             <a href="{% url 'product_detail' item.product.id %}">
                                 {% if item.product.image %}
-                                    <img class="w-100 shadow-checkout " src="{{ item.product.image.url }}"  alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout my-auto" src="{{ item.product.image.url }}"  alt="{{ product.name }}">
                                 {% else %}
                                     <img class="w-100 shadow-checkout " src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
                                 {% endif %}
                             </a>
                         </div>
                         <div class="col-7">
-                            <p class="my-0"><strong>{{ item.product.name }}</strong></p>
+                            <p class="my-0"><strong>{{ item.product.name|title }}</strong></p>
                             <p class="my-0 small text-muted">Vendor: <a href="{% url 'storefront_other' item.product.vendor%}">{{ item.product.vendor }}</a></p>
                         </div>
                         <div class="col-3 text-right">
                             
-                            <a href="/media/{{item.product.PDF}}" class="btn btn-primary mt-3" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="/media/{{item.product.PDF}}" class="btn btn-primary mt-3 animated-btn" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% if item.product.Guitar_Pro_Locked %}
-                            <a href="/media/{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
+                            <a href="/media/{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
                             {% else %}
-                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% endif%}
                             
                         </div>
                     </div>
+                {% if not forloop.last %}
                     <hr>
+                {% endif %}    
                 {% endfor %}
             </div>
                 
@@ -65,8 +67,9 @@
             <div class="col-md-12 col-lg-6">
                 <div class="order-confirmation-wrapper p-2 border">
                     <div class="row">
-                        <div class="col">
-                            <small class="text-muted">Order Info:</small>
+                        <div class="col text-center">
+                            <small class="text-muted">Order Info</small>
+                            <hr>
                         </div>
                     </div>
 
@@ -89,8 +92,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            <small class="text-muted">Order Details:</small>
+                        <div class="col text-center">
+                            <small class="text-muted text-center">Order Details</small>
+                            <hr>
                         </div>
                     </div>
 
@@ -98,7 +102,7 @@
                     <div class="row">
                         <div class="col-12 col-md-4">
                             <p class="small mb-0 text-black font-weight-bold">
-                                {{ item.product.name }}
+                                {{ item.product.name|title }}
                                 
                             </p>
                         </div>
@@ -109,8 +113,9 @@
                     {% endfor %}
 
                     <div class="row">
-                        <div class="col">
-                            <small class="text-muted">Delivering To:</small>
+                        <div class="col text-center">
+                            <small class="text-muted">Delivering To</small>
+                            <hr>
                         </div>
                     </div>
 
@@ -193,8 +198,9 @@
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            <small class="text-muted">Billing Info:</small>
+                        <div class="col text-center">
+                            <small class="text-muted">Billing Info</small>
+                            <hr>
                         </div>
                     </div>
 

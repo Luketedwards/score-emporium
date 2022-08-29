@@ -36,7 +36,7 @@
                   </a>
                 <div class="ms-3">
                   <a href="{% url 'product_detail' item.product.id %}">
-                    <strong>{{item.product.name|title}}</strong> 
+                    <h5 class="text-black"><strong>{{item.product.name|title}}</strong></h5> 
                     </a>
                   
                   
@@ -44,17 +44,18 @@
               </div>
             </td>
             <td>
-              <a href="/media/{{item.product.PDF}}" class="btn btn-success my-auto" target="_blank">Download</a>
+              <a href="/media/{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn" target="_blank">Download</a>
       
             </td>
             <td>
               {% if item.product.Guitar_Pro_Locked%}
-              <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-success" target="_blank">Download</a>
+              <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn" target="_blank">Download</a>
               {% else %}
               {% if item.product.Guitar_Pro_Unlocked%}
-              <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" class="btn btn-success" target="_blank">Download</a>
+              <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" class="btn btn-primary animated-btn" target="_blank">Download</a>
               {%else%}
-              <p>No Guitar Pro File</p>
+              <span><input type="button" disabled value="No GP File" class="btn btn-secondary "></span> 
+
               {%endif%}
               
               {%endif%}
@@ -62,9 +63,9 @@
             </td>
             <td>
               {% if item.product.Guitar_Pro_Unlocked %}
-              <span><a href="{% url 'guitar_pro' item.product.id%}" class="btn btn-success">Play in Browser</a></span> 
+              <span><a href="{% url 'guitar_pro' item.product.id%}" class="btn btn-primary animated-btn">Play in Browser</a></span> 
               {%else%}
-              <span><input type="button" disabled value="No GP File" class="btn btn-secondary"></span> 
+              <span><input type="button" disabled value="No GP File" class="btn btn-secondary "></span> 
               {%endif%}
             </td>
             

@@ -3,8 +3,16 @@ body {
     font-size: 12px;
   }
 
+  .return{
+    margin-left: 6vw;
+  }
+
+  .title{
+    margin-right: 6vw;
+  }
+
   .at-wrap {
-    width: 80vw;
+    width: 85vw;
     height: 80vh;
     margin: 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -249,3 +257,9 @@ body {
     /* Defines the color of the music symbols when they are being played (svg) */
     fill: #0078ff;
     stroke: #0078ff;}
+
+@media screen and (max-width: 1000px){
+  .at-wrap{
+    width: 98vw
+  }
+}    
