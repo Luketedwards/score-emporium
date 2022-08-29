@@ -75,4 +75,27 @@ def other_store(request, username):
     else:
         return render(request, 'user_profile/other_storefront.html', context)         
 
+
+# a view to render the purchased scores page
+def purchased_scores(request):
+    """ A view to return the purchased scores page """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    products = Product.objects.all()
+    orders = profile.orders.all()
+    items = []
+
+    for order in orders:
+        for item in order.lineitems.all():
+            items.append(item)
+    
+    
+
+    context = {
+        'products': products,
+        'profile': profile,
+        'orders': orders,
+        'items': items
         
+    }
+
+    return render(request, 'user_profile/purchased-scores.html', context)

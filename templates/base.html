@@ -28,6 +28,7 @@
 
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/scores.css'%}">
+    <link rel="stylesheet" href="{% static 'css/purchased-scores.css'%}">
     
     {% endblock %}
 
@@ -87,6 +88,7 @@
                                     <a href="{% url 'storefront' %}" class="dropdown-item">My Store</a>
         
                                 <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                                <a href="{% url 'purchased_scores' %}" class="dropdown-item">My Purchased Scores</a>
                                 <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
                                 <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
