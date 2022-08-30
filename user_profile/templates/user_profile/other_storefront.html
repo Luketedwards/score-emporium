@@ -1,133 +1,93 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
-</div>
-{% endblock %}
 
 {% block content %}
-<div class=" text-black">
-  <div class="row text-center">
-    <div class="col center">
-      <img id="user-profile-pic" src="{% static 'media/profile_photos/default-pp-min.png'%}" alt="" class=" prepend">
-      <h2 class="d-inline">{{request.user.username}}</h2>
-      <h1>other store</h1>
-
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <h3>My Store</h3>
-    </div>
-
-
-    <div class=" col-10 offset-1">
-      <div class="row mt-1 mb-2"></div>
-      <div class="row">
-        {% for product in products %}
-        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-          <div class="card h-100 border-0">
-            {% if product.image %}
-            <a href="{% url 'product_detail' product.id %}">
-                <img class="card-img-top img-fluid border" src="/media/{{product.image}}"
-                    alt="{{ product.name }}">
-            </a>
-            {% else %}
-            <a href="{% url 'product_detail' product.id %}">
-                <img class="card-img-top img-fluid" src="/media/No_Image_Available.jpg"
-                    alt="{{ product.name }}">
-            </a>
-            {% endif %}
-            <div class="card-body pb-0">
-                <p></p>
+    <div class="overlay"></div>
+    <div class="container-fluid pb-100">
+        <div class="row">
+            <div class="col text-center mt-3">
+                <h2 class="">{{storevendor|title}}'s Store</h2>
+                <p>Number of Products: {{product_number}}</p>
+                <hr class="w-50 mb-1">
+                
             </div>
-            <div class="card-footer bg-white pt-0 border-0 text-center">
+        </div>
+        <div class="row">
+            <div class="product-container col-10 offset-1">
+                <div class="row mt-1 mb-2"></div>
                 <div class="row">
-                    <div class="card-body pb-0">
-                        <p class="mb-0">{{ product.name }}</p>
-                    </div>
-                </div>
-                <div class="row">
-
-                    <div class="col">
-
-                        <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
-                        {% if product.rating %}
-                        <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} /
-                            5</small>
-                        {% else %}
-                        <small class="text-muted">No Rating</small>
+                    {% for product in products %}
+                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                            <div class="card h-100 border-0">
+                                {% if product.image %}
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img class="card-img-top img-fluid product" src="/media/{{product.image}}" alt="{{ product.name}}">
+                                    
+                                </a>
+                                {% else %}
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img class="card-img-top img-fluid product" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
+                                </a>
+                                {% endif %}
+                                <div class="card-body pb-0 pt-0">
+                                    <p></p>
+                                </div>
+                                <div class="card-footer bg-white pt-0 border-0 text-center shadow">
+                                    
+                                    <div class="row">
+                                        <div class="card-body pb-0">
+                                            <p class="mb-0">{{ product.name|title }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            {{product.id}}
+                                            <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
+                                            {% if product.rating %}
+                                                <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                                            {% else %}
+                                                <small class="text-muted">No Rating</small>
+                                            {% endif %}
+                                            {% if product.id in ordersList%}
+                                            <br>
+                                            <br>
+                                            <small class="btn-sm btn-success mt-2">Owned</small>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:1 %}
+                            <div class="col-12 d-sm-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}                        
+                        {% if forloop.counter|divisibleby:2 %}
+                            <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                                <hr>
+                            </div>
                         {% endif %}
-                    </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                            <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                        {% if forloop.counter|divisibleby:4 %}
+                            <div class="col-12 d-none d-xl-block mb-5">
+                                <hr>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                <div class="row g-0">
-
-                    <div class="col d-block p-0 ">
-                        <a href="#" data-toggle="modal" data-target="#exampleModal"
-                            class="btn btn-danger">Delete</a>
-                    </div>
-                    <div class="col p-0 ">
-                        <a href="{% url 'edit_product' product.id%}"
-                            class="btn btn-warning text-white">Edit</a>
-                    </div>
-                </div>
-
             </div>
         </div>
-        </div>
-        {% if forloop.counter|divisibleby:1 %}
-        <div class="col-12 d-sm-none mb-5">
-          <hr>
-        </div>
-        {% endif %}
-        {% if forloop.counter|divisibleby:2 %}
-        <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-          <hr>
-        </div>
-        {% endif %}
-        {% if forloop.counter|divisibleby:3 %}
-        <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-          <hr>
-        </div>
-        {% endif %}
-        {% if forloop.counter|divisibleby:4 %}
-        <div class="col-12 d-none d-xl-block mb-5">
-          <hr>
-        </div>
-        {% endif %}
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header bg-danger d-block">
-                <h5 class="modal-title text-center text-white" id="exampleModalLabel">Delete
-                  {{product.name}}?</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <p>Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
-              </div>
-              <div class="modal-footer text-center d-block">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a href="{% url 'delete_product' product.id%}">
-                  <button type="button" class="btn btn-primary btn-danger">Delete</button>
-                </a>
-
-              </div>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-
-
     </div>
-  </div>
-</div>
 {% endblock %}
+
+{% block postloadjs%}
+<script>
+    
+</script>
+{% endblock%}

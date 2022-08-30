@@ -47,6 +47,12 @@
                                             {% else %}
                                                 <small class="text-muted">No Rating</small>
                                             {% endif %}
+                                            {% if product.id in orderslist%}
+                                            <br>
+                                            <br>
+                                            <small class="btn-sm btn-success mt-2">Owned</small>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 </div>

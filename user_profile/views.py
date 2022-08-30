@@ -1,9 +1,12 @@
+from email import message
 from urllib import request
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from products.models import Product
 from .models import UserProfile
 from .forms import vendorForm
+from django.contrib import messages
+
 
 # Create your views here.
 
@@ -22,15 +25,28 @@ def user_profile(request):
 
     return render(request, 'user_profile/profile.html', context)
 
-def user_store(request):
+def user_store(request, storevendor):
     """ A view to return the users store """
     profile = get_object_or_404(UserProfile, user=request.user)
     orders = profile.orders.all()
 
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        orders2 = profile.orders.all()
+
+    else:
+        orders2=None    
+    
+    ordersList = []
+
+    for order in orders2:
+        for item in order.lineitems.all():
+            ordersList.append(item.product.id)
+
     products = Product.objects.all()
     all_products = products
     username= request.user.username
-    queries = Q(vendor__iexact=username)  
+    queries = Q(vendor__iexact=storevendor)  
     products = products.filter(queries)
     product_number = products.count()
     purchased_scores = UserProfile.purchased_scores
@@ -48,15 +64,17 @@ def user_store(request):
         'orders': orders,
         'sales_number':sales_number,
         'sales_income':sales_income,
-        'money_due':money_due
+        'money_due':money_due,
+        'storevendor':storevendor,
+        'ordersList':ordersList
 
     }
 
-    if username == request.user.username:
+    if username == storevendor:
         if profile.vendor == True:
             return render(request, 'user_profile/my_storefront.html', context)
         else:
-            vendor_signup(profile)    
+            return redirect('vendor_signup')  
         
     else:
         return render(request, 'user_profile/other_storefront.html', context) 
@@ -107,8 +125,9 @@ def purchased_scores(request):
     return render(request, 'user_profile/purchased-scores.html', context)
 
 
-def vendor_signup(profile):
+def vendor_signup(request):
     """ A view to return the vendor signup page """
+    profile = get_object_or_404(UserProfile, user=request.user)
     if request.method == 'POST':
         form = vendorForm(request.POST)
         if form.is_valid():
@@ -116,9 +135,10 @@ def vendor_signup(profile):
             profile.account_number = form.cleaned_data['account_number']
             profile.card_name = form.cleaned_data['card_name']
             profile.vendor = True
-            profile.save()       
-            user_store(request)
+            profile.save()    
+            messages.success(request, 'Congratulations! You are now a vendor')   
+            return redirect('storefront')
 
-    form = vendorForm
+    form = vendorForm()
 
     return render(request, 'user_profile/vendor-signup.html', {'form': form})

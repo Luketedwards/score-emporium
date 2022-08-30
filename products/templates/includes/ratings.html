@@ -109,7 +109,11 @@
           <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject" placeholder="Subject" required>
           <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10" placeholder="Review" required></textarea>
           {% if product.id in ordersList%}
-          <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
+            {% if product.vendor != request.user.username%}
+            <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
+            {%else%}
+            <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="You can't review your own product" disabled>
+            {%endif%}
           {%else%}
           <input  type="submit" class="btn btn-black product-btn mt-5" disabled value="Purchase to leave a review">
           {%endif%}

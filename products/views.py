@@ -18,6 +18,19 @@ def all_products(request):
     products = Product.objects.all()
     search_query = None
 
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        orders = profile.orders.all()
+
+    else:
+        orders=None    
+    
+    ordersList = []
+
+    for order in orders:
+        for item in order.lineitems.all():
+            ordersList.append(item.product.id)
+
     if request.GET:
         if 'q' in request.GET:
             search_query = request.GET['q']
@@ -31,6 +44,7 @@ def all_products(request):
     context = {
         'products': products,
         'search_term': search_query,
+        'orderslist': ordersList
     }
 
     return render(request, 'products/products.html', context)

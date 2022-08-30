@@ -18,4 +18,8 @@ class vendorForm(forms.ModelForm):
         self.fields['sort_code'].help_text = 'Please enter your sort code'
         self.fields['account_number'].help_text = 'Please enter your account number'
 
+        # make all fields required
+        for field in iter(self.fields):
+            self.fields[field].required = True
+
         

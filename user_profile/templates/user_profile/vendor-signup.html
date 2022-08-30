@@ -3,14 +3,26 @@
 
 
 {% block content %}
-<div class="col-12">
+<div class="col-12 text-center">
     <h1>Vendor Sign-up</h1>
     <p>To begin selling your own products you must first register as a vendor.
         Complete the form below to get started. *<em>bank account details are required to recieve payment as a vendor</em>*</p>
     </p>
+    <hr>
 </div>
-<div class="col-12">
-    
+<div class="container">
+    <div class="col-12">
+        <form method="POST" action="{% url 'vendor_signup' %}" class="form mb-2" >
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div style="margin-bottom: 50px;" class="text-center">
+                <a class="btn btn-outline-black rounded-0" href="{% url 'home' %}">Cancel</a>
+                <button class="btn btn-primary animated-btn" type="submit">Become Vendor</button>
+            </div>
+        </form>
+    </div>            
+</div>
+
 </div>
 
 {% endblock %}
