@@ -3,11 +3,12 @@
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/purchased-scores.css'%}">
+<link rel="stylesheet" href="{% static 'css/animations.css'%}">
 
 {% endblock%}
 
 {% block content %}
-<div class="content col-12">
+<div class="content col-12 ">
     <div class="col-12 text-center mt-3">
         <h1 class="heading">Purchased Scores</h1>
     
@@ -23,7 +24,7 @@
                     
                     
                 </div>
-                <div class="back" style="overflow:hidden;">
+                <div class="back animated-gradient" style="overflow:hidden;">
                     <div>
                         <p>
                             <h5>{{item.product.name|title}}</h5>
