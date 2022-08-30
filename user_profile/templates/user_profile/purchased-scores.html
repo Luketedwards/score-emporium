@@ -16,7 +16,7 @@
     
     {% for item in items %}
             
-            <div class="card"  style="overflow:hidden;">
+            <div class="card shadow-checkout"  style="overflow:hidden;">
                 <div class="front" style="background-image: url(/media/{{item.product.image}}); min-height: fit-content; ">
                     <p>{{item.product.name|title}}</p>
                     
@@ -25,6 +25,15 @@
                 </div>
                 <div class="back" style="overflow:hidden;">
                     <div>
+                        <p>
+                            <h5>{{item.product.name|title}}</h5>
+                            
+                        </p>
+                        <p>
+                            {{item.product.description}}
+                            <hr>
+
+                        </p>
                         <p>
                             <a href="/media/{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
                         </p>

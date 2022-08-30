@@ -1,7 +1,9 @@
+from urllib import request
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from products.models import Product
 from .models import UserProfile
+from .forms import vendorForm
 
 # Create your views here.
 
@@ -51,7 +53,11 @@ def user_store(request):
     }
 
     if username == request.user.username:
-        return render(request, 'user_profile/my_storefront.html', context) 
+        if profile.vendor == True:
+            return render(request, 'user_profile/my_storefront.html', context)
+        else:
+            vendor_signup(profile)    
+        
     else:
         return render(request, 'user_profile/other_storefront.html', context) 
         
@@ -99,3 +105,20 @@ def purchased_scores(request):
     }
 
     return render(request, 'user_profile/purchased-scores.html', context)
+
+
+def vendor_signup(profile):
+    """ A view to return the vendor signup page """
+    if request.method == 'POST':
+        form = vendorForm(request.POST)
+        if form.is_valid():
+            profile.sort_code = form.cleaned_data['sort_code']
+            profile.account_number = form.cleaned_data['account_number']
+            profile.card_name = form.cleaned_data['card_name']
+            profile.vendor = True
+            profile.save()       
+            user_store(request)
+
+    form = vendorForm
+
+    return render(request, 'user_profile/vendor-signup.html', {'form': form})

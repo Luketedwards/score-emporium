@@ -16,6 +16,10 @@ class UserProfile(models.Model):
     sales_number = models.DecimalField(max_digits=10,decimal_places=0, default=0)
     sales_income = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     money_due = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    vendor = models.BooleanField(default=False)
+    sort_code = models.CharField(max_length=10, blank=True)
+    account_number = models.CharField(max_length=20, blank=True)
+    card_name = models.CharField(max_length=50, blank=True)
 
     
 
