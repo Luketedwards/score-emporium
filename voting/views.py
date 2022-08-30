@@ -66,6 +66,8 @@ def completed_requests(request):
     form2 = SubmissionForm
     requests = ScoreRequest.objects.all().order_by('-likes')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
+    inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
+
     comments = Comment.objects.all()
     list = []
     comment_list = []
@@ -99,6 +101,8 @@ def completed_requests(request):
         'comment_list': comment_list,
         'form2': form2,
         'submissions': submissions,
+        'inactive_submissions': inactive_submissions,
+
 
     }
     return render(request, 'voting/completed_requests.html',context)
