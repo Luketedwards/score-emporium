@@ -11,87 +11,111 @@
 <div class="product-container col-10 offset-1 ">
     <div class="col-12 text-center mt-3">
         <h1 class="heading">Purchased Scores</h1>
-    
+        <p>Number of Scores: {{score_number}}</p>
+        <p>Below you will find all of the scores purchased using your account. Download links for the various associated files can be accessed by hovering over a score. If features such as 'play in browser' are available for your chosen score then a button will be presented. If the score lacks any particular feature then the button will be greyed out.  </p>
         <hr>
     </div>
     <div class="row mt-1 mb-2">
-            <div class="row">
-    {% for item in items %}
-    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <div class="card shadow-checkout"  style="overflow:hidden;">
-                <div class="front" style="background-image: url(/media/{{item.product.image}}); min-height: fit-content; ">
-                    <p>{{item.product.name|title}}</p>
-                    
-                    
-                    
-                </div>
-                <div class="back animated-gradient" style="overflow:hidden;">
-                    <div>
-                        <p>
-                            <h5>{{item.product.name|title}}</h5>
-                            
-                        </p>
-                        <p>
-                            {{item.product.description}}
-                            <hr>
+        <div class="row">
+            {% for item in items %}
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <div class="card shadow-checkout" style="overflow:hidden;">
+                    <div class="front"
+                        style="background-image: url(/media/{{item.product.image}}); min-height: fit-content; ">
+                        <p>{{item.product.name|title}}</p>
 
-                        </p>
-                        <p>
-                            <a href="/media/{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
-                        </p>
-                        <p>
-                            {% if item.product.Guitar_Pro_Locked%}
-                                <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
-                            {% else %}
-                            {% if item.product.Guitar_Pro_Unlocked%}
-                                <a href="/media/{{item.product.Guitar_Pro_Unlocked}}" class="btn btn-primary animated-btn" target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
-                            
-                            {%endif%}
-                            {%endif%}
-                        </p>
-                        <p>
-                            {% if item.product.Guitar_Pro_Unlocked %}
-                                <span><a href="{% url 'guitar_pro' item.product.id%}" class="btn btn-primary animated-btn">Play in Browser</a></span> 
+
+
+                    </div>
+                    <div class="back animated-gradient" style="overflow:hidden;">
+                        <div>
+                            <p>
+                                <h5>{{item.product.name|title}}</h5>
+
+                            </p>
+                            <p>
+                                {{item.product.description}}
+                                <hr>
+
+                            </p>
+                            <p>
+                                <a href="/media/{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn"
+                                    target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
+                            </p>
+                            <p>
+                                {% if item.product.Guitar_Pro_Locked%}
+                                <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn"
+                                    target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
+                                {% else %}
+                                {% if item.product.Guitar_Pro_Unlocked%}
+                                <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"
+                                    class="btn btn-primary animated-btn" target="_blank"><i
+                                        class="fa-solid fa-cloud-arrow-down"></i>GP</a>
+
+                                {%endif%}
+                                {%endif%}
+                            </p>
+                            <p>
+                                {% if item.product.Guitar_Pro_Unlocked %}
+                                <span><a href="{% url 'guitar_pro' item.product.id%}"
+                                        class="btn btn-primary animated-btn">Play in Browser</a></span>
                                 {%else%}
-                                <span><input type="button" disabled value="No GP File" class="btn btn-secondary "></span> 
-                            {%endif%}
-                        </p>
-                        
-                        <p>
-                            <a class="btn btn-primary animated-btn" href="{% url 'product_detail' item.product.id %}">
-                                View Product  
-                            </a>
-                        </p>
-                        
-                    
+                                <span><input type="button" disabled value="No GP File"
+                                        class="btn btn-secondary "></span>
+                                {%endif%}
+                            </p>
+
+                            <p>
+                                <a class="btn btn-primary animated-btn"
+                                    href="{% url 'product_detail' item.product.id %}">
+                                    View Product
+                                </a>
+                            </p>
+
+
+                        </div>
                     </div>
                 </div>
+                <div class="score-info text-center shadow-checkout">
+                    {% for order in orders%}
+                    {% for lineitem in order.lineitems.all%}
+                        {% if lineitem.product.id == item.product.id %}
+                            <p><h5><strong>Score Info</strong></h5></p>
+                            <span><a href="{% url 'storefront' storevendor=lineitem.product.vendor%}">{{lineitem.product.vendor|title}}</a></span>
+                            <br>
+                            <span><strong>£{{lineitem.product.price}}</strong></span>
+                            <br>
+                            <span class="text-muted">{{order.date}}</span>
+                        {%endif%}
+                    {%endfor%}
+                {%endfor%}
+                </div>
             </div>
-    </div>        
-            {% if forloop.counter|divisibleby:1 %}
-                <div class="col-12 d-sm-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:2 %}
-                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:3 %}
-                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                    <hr>
-                </div>
-                {% endif %}
-                {% if forloop.counter|divisibleby:4 %}
-                <div class="col-12 d-none d-xl-block mb-5">
-                    <hr>
-                </div>
-                {% endif %}
             
-    {% endfor %}
+            {% if forloop.counter|divisibleby:1 %}
+            <div class="col-12 d-sm-none mb-5">
+                <hr>
             </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:2 %}
+            <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                <hr>
+            </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:3 %}
+            <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                <hr>
+            </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:4 %}
+            <div class="col-12 d-none d-xl-block mb-5">
+                <hr>
+            </div>
+            {% endif %}
+
+            {% endfor %}
         </div>
-    
+    </div>
+
 </div>
 {% endblock %}

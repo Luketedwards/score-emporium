@@ -107,10 +107,12 @@ def purchased_scores(request):
     products = Product.objects.all()
     orders = profile.orders.all()
     items = []
+    score_number = 0
 
     for order in orders:
         for item in order.lineitems.all():
             items.append(item)
+            score_number += 1
     
     
 
@@ -118,7 +120,8 @@ def purchased_scores(request):
         'products': products,
         'profile': profile,
         'orders': orders,
-        'items': items
+        'items': items,
+        'score_number': score_number
         
     }
 
