@@ -7,7 +7,35 @@
     padding: 14px;
 }
 
+#hero-image{
+  background-image: url(/static/media_1/sheet-music-pattern.jpg);
+  background-size: contain;
+  position: relative;
+  
+}
 
+.overlay-color{
+  background: rgba(0,0,0,0.1);
+
+}
+
+.transparent{
+  opacity: 0.7;
+}
+
+.testimonial > *{
+  opacity: 1;
+}
+
+.overlay-hero{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,0.9);
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
+}
 
 html {
     height: 100%;

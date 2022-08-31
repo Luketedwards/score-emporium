@@ -25,11 +25,14 @@ def all_products(request):
     else:
         orders=None    
     
-    ordersList = []
+    if request.user.is_authenticated:
+        ordersList = []
 
-    for order in orders:
-        for item in order.lineitems.all():
-            ordersList.append(item.product.id)
+        for order in orders:
+            for item in order.lineitems.all():
+                ordersList.append(item.product.id)
+    else:
+        ordersList=[]            
 
     if request.GET:
         if 'q' in request.GET:

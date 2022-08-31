@@ -4,17 +4,18 @@
 
 
 {% block content %}
-<header class="bg-dark py-5">
+<header id="hero-image" class="bg-dark py-5">
+    <div class="overlay-hero"></div>
     <div class="container px-5">
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6">
                 <div class="text-center my-5">
                     <h1 class="display-5 fw-bolder text-white mb-2">The Interactive Score Marketplace</h1>
-                    <p class="lead text-white-50 mb-4">Your one stop shop to buy and sell high quality interactive scores and sheet music!</p>
+                    <p class="lead text-white mb-4">Your one stop shop to buy and sell high quality interactive scores and sheet music!</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Browse Scores</a>
+                        <a style="margin-right: 10px;" class="btn btn-primary btn-lg px-4 me-sm-3 animated-btn" href="{% url 'products'%}">Browse Scores</a>
                         {% if not request.user.is_authenticated%}
-                        <a class="btn btn-outline-light btn-lg px-4" href="{% url 'account_signup' %}">Sign Up!</a>
+                        <a class="btn btn-outline-light btn-lg px-4 animated-btn" href="{% url 'account_signup' %}">Sign Up!</a>
                         {% endif %}
                     </div>
                 </div>
@@ -61,7 +62,7 @@
 </section>
 
 <!-- Testimonials section-->
-<section class="py-5 border-bottom">
+<section class="py-5 border-bottom overlay-color">
     <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
             <h2 class="fw-bolder">Customer testimonials</h2>
@@ -71,7 +72,7 @@
             <div class="col-lg-6 text-center">
                 
                 {% for review in reviews %}
-                <div class="card mb-4 text-center">
+                <div class="card mb-4 text-center transparent shadow-checkout testimonial">
                     <div class="card-body p-4">
                         <div class="">
                             <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
