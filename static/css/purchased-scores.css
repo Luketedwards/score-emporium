@@ -61,14 +61,15 @@
     color: inherit;
     cursor: pointer;
     width: calc(33% - 2rem);
-    min-width: 292px;
-    max-width: 292px;
-    height: 400px;
-    min-height: 400px;
+    min-width: 250px;
+    max-width: 250px;
+    height: 353px;
+    min-height: 353px;
     perspective: 1000px;
-    margin: 1rem;
+    margin: 0 auto;
     position: relative;
     aspect-ratio: 4/3 !important;
+
   }
   
   
@@ -122,6 +123,12 @@
     background: linear-gradient(135deg, #1c92d2, #f2fcfe);
     transform: rotateY(-180deg);
     padding: 0 2em;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .back p{
+    margin-bottom: 0.4rem;
   }
   .back .button {
     background: linear-gradient(135deg, #1a9be6, #1a57e6);
