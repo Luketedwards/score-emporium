@@ -7,3 +7,14 @@
   0% { background-position: 0% 0%; }
   100% { background-position: 100% 0%; }
 }
+
+.zoom {
+  background-size: 30% !important;
+  -webkit-transition: all 2.5s ease-in-out !important;
+}
+
+.zoom:hover {
+  background-size: 35% !important;
+  
+}
+
