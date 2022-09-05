@@ -252,13 +252,18 @@ body {
 }
 
 #product-detail-img{
-    
+    max-height: 500px;
+    max-width: 354px;
 }
 
 #scores-container{
     margin-bottom: 80px !important;
     overflow: scroll;
     width: 100%;
+}
+
+.product-detail-top{
+  top: 6rem;
 }
 
 .product-btn{
@@ -904,4 +909,36 @@ body {
   }
   40%, 60% {
     transform: translate3d(2px, 0, 0);
+}}
+
+@media screen and (max-width: 768px) {
+  .image-container{
+    text-align: center;
+
+  }
+
+  .product-details-container{
+    text-align: center;
+    
+  }
+
+  .product-details-container p{
+    text-align: center !important;
+  }
+  
+  .product-detail-top{
+    top: 0;
+  }
+
+  #user-reviews{
+    width: 96%!important;
+    margin: 0 auto;
+  }
+  .product-details-padding{
+    padding: 0;
+  }
+}
+
+.product-details-padding{
+  padding-right: 8%;
 }

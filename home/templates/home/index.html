@@ -51,6 +51,14 @@
                     <i class="bi bi-arrow-right"></i>
                     
                 </a>
+                {% else %}
+                
+                <a class="btn btn-sm btn-primary animated-btn" href="{% url 'storefront' storevendor=request.user.username %}">
+                    My Store
+                    <i class="bi bi-arrow-right"></i>
+                    
+                </a>
+
                 {%endif%}
             </div>
             <div class="col-lg-3 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius ">
@@ -70,7 +78,7 @@
 <section class="py-5 border-bottom overlay-color">
     <div class="container px-5 my-5 px-5">
         <div class="text-center mb-5">
-            <h2 class="fw-bolder">Customer testimonials</h2>
+            <h2 class="fw-bolder">Customer Testimonials</h2>
             <p class="lead mb-0">Here's what our customers are saying about our products!</p>
         </div>
         <div class="row gx-5 justify-content-center">

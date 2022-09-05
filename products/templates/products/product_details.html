@@ -9,7 +9,7 @@
     <div class="container-fluid mb-200" >
         <div class="row">
             
-            <div class="col-12 text-center">
+            <div class="col-12 text-center mt-3">
             <h2>{{product.name|title}}</h2>
             <p>Vendor: <a href="{% url 'storefront' storevendor=product.vendor%}">{{product.vendor|title}}</a></p>
             <hr>
@@ -27,8 +27,8 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="product-details-container mb-5 mt-md-5">
+            <div class="col-12 col-md-6 col-lg-6 product-detail-top">
+                <div class="product-details-container mb-5 mt-md-5 align-middle">
                     
                     <p class="mb-0"><strong>{{ product.name|title }}</strong></p>
                     
@@ -86,26 +86,31 @@
                 </div>
                 
             </div>
-            
-            <div style="padding-right: 8%;" class="row center  w-100">
-                <hr style="width:95%; margin-bottom: 10px !important;" class="center">
+            <hr style="width:95%; margin-bottom: 32px !important;" class="center">
+            <div  class="row center  w-100 product-details-padding">
+                
                     {% include '../includes/ratings.html' %}
-                <hr style="width:95%; margin-bottom: 15px; margin-top: 15px !important;" class="center">
+                <hr style="width:95%; margin-bottom: 15px !important; margin-top: 15px!important;" class="center">
 
                     
             </div>
+            {% if product.video %}
             <div class="col-12 text-center">
                 <div class="">
-                    {% if product.video %}
-                    <hr>
+                    
+                    
                     <h3>Video of the piece</h3>
-                    <div style="position:relative;padding-top:56.25%;">
+                    <div style="position:relative;padding-top:56.25%; margin-top: 20px;">
                         <iframe src="{{product.video}}" frameborder="0" allowfullscreen
                           style="position:absolute;top:0;left:10%;width:80%;height:80%;"></iframe>
                       </div>
-                    {% endif %}
+                    
                 </div>
             </div>
+            <hr style="width:95%; margin-bottom: 15px !important; margin-top: 15px!important;" class="center">
+            {% endif %}
+
+
             {% if product_number > 1%}
                 <div style="margin: 0 auto;  width: 31%; padding-bottom: 100px;" class=" text-center">
                 <h3 class="text-center">Other Products by {{product.vendor}}</h3>
