@@ -79,8 +79,8 @@
                     </form>
                     {% if request.user.username == product.vendor %}
                     <br>
-                        <a class="text-success" href="{% url 'edit_product' product.id %}">Edit Product</a>
-                        <a class="text-danger" href="" data-toggle="modal" data-target="#exampleModal">Delete Product</a>
+                        <a class="btn btn-sm btn-success animated-btn" href="{% url 'edit_product' product.id %}">Edit <i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class=" btn btn-sm btn-danger animated-btn"  href="" data-toggle="modal" data-target="#exampleModal">Delete <i class="fa-solid fa-trash-can"></i></a>
                         
                     {%endif%}
                 </div>
@@ -161,14 +161,12 @@
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete {{product.name}}?</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+              <div class="modal-content modal-width">
+                <div class="modal-header center">
+                  <h5 class="modal-title " id="exampleModalLabel ">Delete {{product.name}}?</h5>
+                  
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                   <p>Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
                 </div>
                 <div class="modal-footer">
