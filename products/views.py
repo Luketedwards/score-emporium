@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
 
-from score_emporium.settings import MEDIA_URL
+from score_emporium.settings import MEDIA_URL, MEDIA_URL2, MEDIA_ROOT2
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
@@ -228,7 +228,7 @@ def add_product(request):
                 filepath = obj.PDF.name
 
                 myfile = request.FILES['PDF']
-                fs = FileSystemStorage(location= '/media/temporary') 
+                fs = FileSystemStorage(location= MEDIA_ROOT2)
                 filename = fs.save(myfile.name, myfile)
                 file_url = fs.url(filename)
 
