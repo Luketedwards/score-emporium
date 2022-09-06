@@ -1,0 +1,1 @@
+web: gunicorn score_emporium.wsgi:application
