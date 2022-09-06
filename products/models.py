@@ -41,6 +41,7 @@ class Product(models.Model):
     Guitar_Pro_Locked = models.FileField(null=True, blank=True)
     video = models.URLField(max_length=1024, null=True, blank=True)
     
+    
 
 
     def __str__(self):

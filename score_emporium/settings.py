@@ -34,7 +34,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # DEBUG = 'DEVELOPMENT' in os.environ
 DEBUG = True
 
-ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost','127.0.0.1']
 
 
 # Application definition
@@ -203,6 +203,8 @@ if 'USE_AWS' in os.environ:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_PRODUCT_IMAGE_LOCATION = os.environ.get('AWS_S3_PRODUCT_IMAGE_LOCATION')
+    AWS_S3_PRODUCT_FILE_LOCATION = os.environ.get('AWS_S3_PRODUCT_FILE_LOCATION')
 
     # AWS static and media files
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
@@ -210,11 +212,13 @@ if 'USE_AWS' in os.environ:
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     MEDIAFILES_LOCATION = 'media'
     PRODUCT_FILES_LOCATION = 'products/files'
-    PRODUCT_IMAGES_LOCATION = 'products/images'
+    
+    
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    PRODUCTS_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PRODUCT_FILES_LOCATION}/'
 
 # Stripe
 
