@@ -240,9 +240,9 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                image.save(f'blur-{new_name}-{obj.vendor}-image.jpg')
+                image.save(f'{MEDIA_URL}blur-{new_name}-{obj.vendor}-image.jpg')
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                obj.image = f'blur-{new_name}-{obj.vendor}-image.jpg'  
+                obj.image = f'{MEDIA_URL}blur-{new_name}-{obj.vendor}-image.jpg'  
 
             obj.PDF = f"{new_name2}-{obj.vendor}.pdf"    
               
