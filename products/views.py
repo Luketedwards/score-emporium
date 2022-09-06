@@ -211,15 +211,10 @@ def add_product(request):
             obj = form.save(commit=False)
             obj.vendor = request.user.username
             name = f"{obj.name}"
+            name2 = obj.PDF.name
             new_name = name.replace(" ","-")
+            new_name2 = name2.replace(" ","-")
             if not obj.image:
-                obj.image = f"{new_name}-{obj.vendor}-image.jpg"
-                
-            obj.save()
-            
-            if obj.image == f"{new_name}-{obj.vendor}-image.jpg":
-                
-                
                 font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
                 font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
                 text = 'Sample'
@@ -246,7 +241,42 @@ def add_product(request):
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
                 image.save(f'{new_name}-{obj.vendor}-image.jpg')
-                # os.remove(f"{obj.name}-{obj.vendor}.jpg")
+                obj.image = f"{new_name}-{obj.vendor}-image.jpg"
+
+            obj.PDF = f"{new_name2}-{obj.vendor}.pdf"    
+                
+            obj.save()
+            
+            # if obj.image == f"{new_name}-{obj.vendor}-image.jpg":
+                
+                
+            #     font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
+            #     font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+            #     text = 'Sample'
+            #     text2 = f'© {obj.vendor}'
+
+            #     fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+            #     pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
+            #     pdfPath = fs.path(pdfFile)
+
+
+
+            #     pdf = pdfium.PdfDocument(pdfPath)
+            #     page = pdf.get_page(0)
+            #     pil_image = page.render_topil()
+            #     pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
+            #     page.close()
+
+            #     image = Image.open(f'{obj.name}-{obj.vendor}.jpg')
+            #     cropped_image = image.crop((5,1673,2459,3313))
+            #     blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
+            #     image.paste(blurred_image,(5,1673,2459,3313))
+            #     editImage = ImageDraw.Draw(image)
+            #     editImage.text((550,2100), text,(84, 83, 82), font=font)
+            #     editImage2 = ImageDraw.Draw(image)
+            #     editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+            #     image.save(f'{new_name}-{obj.vendor}-image.jpg')
+            #     # os.remove(f"{obj.name}-{obj.vendor}.jpg")
             
             
             messages.success(request, 'Successfully added product!')
