@@ -21,10 +21,10 @@ class ScoreRequest(models.Model):
         return self.title
 
 
-class Comment(models.Model):
-    score = models.ForeignKey(ScoreRequest, related_name='comment', on_delete=models.CASCADE)
+class Comments(models.Model):
+    score = models.ForeignKey(ScoreRequest, related_name='comments', on_delete=models.CASCADE)
     content = models.CharField(max_length=300, blank=False)
-    created_by = models.ForeignKey(User, related_name='comment', on_delete=models.CASCADE )
+    created_by = models.ForeignKey(User, related_name='comments', on_delete=models.CASCADE )
     date = models.DateTimeField(auto_now=True)   
     
 class ScoreSubmissions(models.Model):

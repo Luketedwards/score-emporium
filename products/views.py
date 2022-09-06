@@ -7,6 +7,7 @@ from .forms import ProductForm
 from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
+from django.core.files.uploadedfile import InMemoryUploadedFile
 import os
 
 
@@ -221,7 +222,7 @@ def add_product(request):
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                filepath = obj.PDF.path
+                filepath = obj.PDF
                 pdf = pdfium.PdfDocument(filepath)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()

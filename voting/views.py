@@ -5,7 +5,7 @@ from django.contrib import messages
 
 from .forms import RequestForm, CommentForm, SubmissionForm
 
-from .models import ScoreRequest, Comment, ScoreSubmissions
+from .models import ScoreRequest, Comments, ScoreSubmissions
 from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
@@ -18,7 +18,7 @@ def requests(request):
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     active_submissions = ScoreRequest.objects.filter(completed=False).count()
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
-    comments = Comment.objects.all()
+    comments = Comments.objects.all()
     list = []
     comment_list = []
 
@@ -68,7 +68,7 @@ def completed_requests(request):
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
 
-    comments = Comment.objects.all()
+    comments = Comments.objects.all()
     list = []
     comment_list = []
 

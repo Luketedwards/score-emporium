@@ -131,17 +131,21 @@ WSGI_APPLICATION = 'score_emporium.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+DATABASES = {
+        'default': dj_database_url.parse('postgres://wpxydcnggcfsdc:9d3e29620b63ccd220c5619fea1cfa2fe84feb9475e3a703e67a1f8875fd3e1d@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d4qorb7mbue4uc')
     }
-else:    
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
+
+# if 'DATABASE_URL' in os.environ:
+#     DATABASES = {
+#         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+#     }
+# else:    
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         }
+#     }
 
 
 # Password validation

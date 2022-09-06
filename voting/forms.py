@@ -1,5 +1,5 @@
 from django import forms
-from .models import ScoreRequest, Comment, ScoreSubmissions
+from .models import ScoreRequest, Comments, ScoreSubmissions
 
 
 
@@ -15,12 +15,12 @@ class RequestForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 class CommentForm(forms.ModelForm):
-    model = Comment
+    model = Comments
     class Meta:
-        model = Comment
+        model = Comments
         fields = ['content' ]
         labels = {
-            'content': 'Comment',
+            'content': 'Comments',
         }
         
 

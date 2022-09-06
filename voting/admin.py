@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ScoreRequest, Comment, ScoreSubmissions
+from .models import ScoreRequest, Comments, ScoreSubmissions
 
 # Register your models here.
 
@@ -31,6 +31,6 @@ class ScoreSubmissionsAdmin(admin.ModelAdmin):
         'date',
     )
 
-admin.site.register(Comment, CommentAdmin)
+admin.site.register(Comments, CommentAdmin)
 admin.site.register(ScoreSubmissions, ScoreSubmissionsAdmin)
 
