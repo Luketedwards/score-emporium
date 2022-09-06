@@ -3,13 +3,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
 
-from score_emporium.settings import MEDIA_URL, MEDIA_URL2, MEDIA_ROOT2
+from score_emporium.settings import MEDIA_URL, MEDIA_URL2, MEDIA_ROOT2, UPLOAD_ROOT
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
-from django.core.files.uploadedfile import InMemoryUploadedFile
+
 from django.core.files.storage import FileSystemStorage
 import os
 
@@ -225,14 +225,13 @@ def add_product(request):
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                filepath = obj.PDF.name
+                fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
+                pdfPath = fs.path(pdfFile)
 
-                myfile = request.FILES['PDF']
-                fs = FileSystemStorage(location= MEDIA_ROOT2)
-                filename = fs.save(myfile.name, myfile)
-                file_url = fs.url(filename)
 
-                pdf = pdfium.PdfDocument(file_url)
+
+                pdf = pdfium.PdfDocument(pdfPath)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
                 pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
