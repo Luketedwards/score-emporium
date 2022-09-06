@@ -229,10 +229,11 @@ def add_product(request):
                 pdf = pdfium.PdfDocument(pdfPath)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
-                pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
+                edited_pil_image = fs.save(f"{obj.name}-{obj.vendor}.jpg", pil_image)
+                
                 page.close()
 
-                image = Image.open(f'{obj.name}-{obj.vendor}.jpg')
+                image = Image.open(edited_pil_image)
                 cropped_image = image.crop((5,1673,2459,3313))
                 blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
                 image.paste(blurred_image,(5,1673,2459,3313))
@@ -240,8 +241,9 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                image.save(f'{new_name}-{obj.vendor}-image.jpg')
-                obj.image = image
+                final_image = fs.save(f"{new_name}-{obj.vendor}.jpg", image)
+                
+                obj.image = final_image
 
             obj.PDF = f"{new_name2}-{obj.vendor}.pdf"    
                 
