@@ -225,7 +225,7 @@ def add_product(request):
                 text2 = f'© {obj.vendor}'
 
                 filepath = f'https://score-emporium.s3.eu-west-2.amazonaws.com/static/media/{obj.PDF.name}'
-                pdf = pdfium.PdfDocument(filepath)
+                pdf = pdfium.PdfDocument(obj.PDF)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
                 pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
