@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
+
+from score_emporium.settings import MEDIA_URL
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
@@ -237,7 +239,7 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                image.save(f'media/{new_name}-{obj.vendor}-image.jpg')
+                image.save(f'{MEDIA_URL}/{new_name}-{obj.vendor}-image.jpg')
                 os.remove(f"{obj.name}-{obj.vendor}.jpg")
             
             
