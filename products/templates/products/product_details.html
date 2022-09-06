@@ -18,7 +18,7 @@
                 <div class="image-container my-5">
                     {% if product.image %}
                         <a href="" target="_blank">
-                            <img id="product-detail-img" class="card-img-top img-fluid shadow-checkout" src="/media/{{product.image}}" alt="{{ product.name }}">
+                            <img id="product-detail-img" class="card-img-top img-fluid shadow-checkout" src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name }}">
                         </a>
                         {% else %}
                         <a href="">
@@ -131,7 +131,7 @@
                         
                     <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
                         {% if vendor_products.image %}
-                        <img style="height: 400px;" class="" src="/media/{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
+                        <img style="height: 400px;" class="" src="{{MEDIA_URL}}{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
                         {% else %}
                         <img style="height: 400px; width: 310px;" class="" src="/media/No_Image_Available.jpg" data-color="lightblue" alt="{{vendor_products.name}}">
                         {%endif%}
