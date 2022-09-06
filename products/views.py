@@ -240,13 +240,18 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                image = fs.save(f"{new_name}-{obj.vendor}.jpg", image)
+                # set image2 as the file image
+                obj.image = image
                 
-                image2 = image
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
                 obj.image.name = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                obj.image = image2 
+                
 
-            obj.PDF = f"{new_name2}-{obj.vendor}.pdf"    
+            # rename the pdf file
+            obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}.gp'
+            obj.PDF = request.FILES['PDF']
+            obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
               
             obj.save()
             messages.success(request, 'Successfully added product!')
