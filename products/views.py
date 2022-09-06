@@ -224,8 +224,7 @@ def add_product(request):
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                formpdf = request.FILES['PDF']
-                filepath = formpdf.path
+                filepath = obj.PDF.name
 
                 pdf = pdfium.PdfDocument(filepath)
                 page = pdf.get_page(0)
@@ -393,7 +392,7 @@ def delete_product_store(request, product_id):
         context ={
             'storevendor': username
         }
-        return redirect(reverse('storefront', context))   
+        return redirect(reverse('storefront', storevendor=request.user.username))   
     else:
         messages.error(request, 'You are not authorised to delete this product')
         return redirect(reverse('product_detail', args=[product.id]))        
