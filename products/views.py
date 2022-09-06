@@ -10,6 +10,7 @@ from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.core.files.storage import FileSystemStorage
 import os
 
 
@@ -226,7 +227,12 @@ def add_product(request):
 
                 filepath = obj.PDF.name
 
-                pdf = pdfium.PdfDocument(filepath)
+                myfile = request.FILES['PDF']
+                fs = FileSystemStorage(location= '/media/temporary') 
+                filename = fs.save(myfile.name, myfile)
+                file_url = fs.url(filename)
+
+                pdf = pdfium.PdfDocument(file_url)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
                 pil_image.save(f"{obj.name}-{obj.vendor}.jpg")
