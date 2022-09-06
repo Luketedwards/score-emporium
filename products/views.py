@@ -224,7 +224,7 @@ def add_product(request):
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                filepath = f'{MEDIA_URL}/{obj.PDF.name}'
+                filepath = f'{MEDIA_URL}{obj.PDF.name}'
                 pdf = pdfium.PdfDocument(filepath)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
@@ -239,7 +239,7 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                image.save(f'{MEDIA_URL}/{new_name}-{obj.vendor}-image.jpg')
+                image.save(f'{MEDIA_URL}{new_name}-{obj.vendor}-image.jpg')
                 os.remove(f"{obj.name}-{obj.vendor}.jpg")
             
             
@@ -388,7 +388,10 @@ def delete_product_store(request, product_id):
     if username == product.vendor:
         product.delete()
         messages.success(request, f'{product.name} was deleted.')
-        return redirect(reverse('storefront'))   
+        context ={
+            'storevendor': username
+        }
+        return redirect(reverse('storefront', context))   
     else:
         messages.error(request, 'You are not authorised to delete this product')
         return redirect(reverse('product_detail', args=[product.id]))        
