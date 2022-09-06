@@ -224,7 +224,9 @@ def add_product(request):
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                filepath = f'{MEDIA_URL}{obj.PDF.name}'
+                formpdf = request.FILES['PDF']
+                filepath = formpdf.path
+
                 pdf = pdfium.PdfDocument(filepath)
                 page = pdf.get_page(0)
                 pil_image = page.render_topil()
