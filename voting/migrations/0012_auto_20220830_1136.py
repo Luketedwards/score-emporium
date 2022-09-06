@@ -13,19 +13,19 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.AddField(
-        #     model_name='scorerequest',
-        #     name='likes',
-        #     field=models.ManyToManyField(related_name='likes', to=settings.AUTH_USER_MODEL),
-        # ),
-        # migrations.CreateModel(
-        #     name='Comment',
-        #     fields=[
-        #         ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-        #         ('content', models.CharField(max_length=300)),
-        #         ('date', models.DateTimeField(auto_now=True)),
-        #         ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to=settings.AUTH_USER_MODEL)),
-        #         ('score', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='voting.scorerequest')),
-        #     ],
-        # ),
+        migrations.AddField(
+            model_name='scorerequest',
+            name='likes',
+            field=models.ManyToManyField(related_name='likes', to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.CreateModel(
+            name='Comment',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('content', models.CharField(max_length=300)),
+                ('date', models.DateTimeField(auto_now=True)),
+                ('created_by', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to=settings.AUTH_USER_MODEL)),
+                ('score', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comment', to='voting.scorerequest')),
+            ],
+        ),
     ]

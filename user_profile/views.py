@@ -140,7 +140,7 @@ def vendor_signup(request):
             profile.vendor = True
             profile.save()    
             messages.success(request, 'Congratulations! You are now a vendor')   
-            return redirect('storefront')
+            return redirect('purchased_scores')
 
     form = vendorForm()
 

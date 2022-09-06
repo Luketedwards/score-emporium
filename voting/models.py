@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 # model for a score request
 class ScoreRequest(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=150)
     description = models.TextField()
     date = models.DateTimeField(auto_now=True)        
     upvotes = models.IntegerField(default=0)
