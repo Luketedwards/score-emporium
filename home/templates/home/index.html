@@ -83,28 +83,34 @@
         </div>
         <div class="row gx-5 justify-content-center">
             <div class="col-lg-6 text-center">
-                
-                {% for review in reviews %}
-                <div class="card mb-4 text-center transparent shadow-checkout testimonial">
-                    <div class="card-body p-4">
-                        <div class="">
-                            <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
-                            <div class="ms-4">
-                                <h5 class="pb-2">"{{review.product.name|title}}"</h5>
-                                <p class="mb-1 text-center">
-                                    <strong>{{review.subject|title}}</strong> 
-                                    {% for i in "x"|rjust:review.ratings %}
-                                    <i style="color: gold;" class="fa-solid fa-star"></i>
-                                    {% endfor %}
-                                 </p>
-                                <p class=" ">{{review.content}}</p>
-                                <div class="small text-muted">- {{review.created_by}}, {{review.date}}</div>
-                                <a class="btn btn-primary btn-sm animated-btn mt-3" href="{% url 'product_detail' review.product.id %}">View Product</a>
+                {% if reviews|length > 0%}
+
+                    {% for review in reviews %}
+                    <div class="card mb-4 text-center transparent shadow-checkout testimonial">
+                        <div class="card-body p-4">
+                            <div class="">
+                                <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                                <div class="ms-4">
+                                    <h5 class="pb-2">"{{review.product.name|title}}"</h5>
+                                    <p class="mb-1 text-center">
+                                        <strong>{{review.subject|title}}</strong> 
+                                        {% for i in "x"|rjust:review.ratings %}
+                                        <i style="color: gold;" class="fa-solid fa-star"></i>
+                                        {% endfor %}
+                                    </p>
+                                    <p class=" ">{{review.content}}</p>
+                                    <div class="small text-muted">- {{review.created_by}}, {{review.date}}</div>
+                                    <a class="btn btn-primary btn-sm animated-btn mt-3" href="{% url 'product_detail' review.product.id %}">View Product</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {%endfor%}
+                    {%endfor%}
+
+                {%else%}
+                <h1>There are no reviews.</h1>
+
+                {%endif%}
                 
             </div>
         </div>
