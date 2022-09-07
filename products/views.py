@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
 
-from score_emporium.settings import MEDIA_URL, MEDIA_URL2, MEDIA_ROOT2, UPLOAD_ROOT
+from score_emporium.settings import MEDIA_URL, UPLOAD_ROOT, AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_STORAGE_BUCKET_NAME  
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
@@ -15,6 +15,32 @@ import os
 
 
 # Create your views here.
+
+
+# creating global instance of amazon S3 bucket for file uploads
+def _get_s3_resource():
+    if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
+        return boto3.resource(
+            's3',
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY
+        )
+    else:
+        return boto3.resource('s3')
+
+
+# the projects Amazon S3 bucket
+def get_bucket():
+    s3_resource = _get_s3_resource()
+    return s3_resource.Bucket(AWS_STORAGE_BUCKET_NAME)
+
+def upload_file_s3(image,newPath):
+    # uploads file to S3 bucket
+    my_bucket = get_bucket()
+    my_bucket.Object(newPath).put(Body=image)   
+    return 'file uploaded' 
+
+
 
 def all_products(request):
     """ A view to show all products, including sorting and search queries """
@@ -241,11 +267,13 @@ def add_product(request):
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
                 image = fs.save(f"{new_name}-{obj.vendor}.jpg", image)
-                # set image2 as the file image
-                obj.image = image
+                newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
+                upload_file_s3(image, newPath)
+                
+                
                 
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                obj.image.name = f'blur-{new_name}-{obj.vendor}-image.jpg'
+                obj.image.name = f'{MEDIA_URL}blur-{new_name}-{obj.vendor}-image.jpg'
                 
 
             # rename the pdf file
