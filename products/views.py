@@ -266,7 +266,7 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                image = fs.save(f"{new_name}-{obj.vendor}.jpg", image)
+                
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
                 upload_file_s3(image, newPath)
                 
