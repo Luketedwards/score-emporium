@@ -9,6 +9,8 @@ from .forms import ProductForm
 from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
+import boto3
+import botocore
 
 from django.core.files.storage import FileSystemStorage
 import os
