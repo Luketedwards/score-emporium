@@ -20,6 +20,8 @@ $(".purchased-img").mouseover(function(){
   $("#carousel-item0").addClass("active");
   $('#myModal').modal('show');  
 
+  /* add hidden to #image-clear-id */
+  $("#image-clear-id").addClass("hidden");
   
 
 

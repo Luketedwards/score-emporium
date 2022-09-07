@@ -7,6 +7,14 @@
     padding: 14px;
 }
 
+.container{
+  margin-bottom: 100px !important;
+}
+
+.hidden{
+  display: none !important;
+}
+
 #hero-image{
   background-image: url(/static/media_1/sheet-music-pattern.jpg);
   background-size: contain;
@@ -845,7 +853,11 @@ body {
     margin-top: 5vw !important;
 
 }
-  
+
+.container-fluid{
+    margin-bottom: 100px !important;
+}
+
 .modal-dialog{
     margin: 0 auto !important;
     max-width: 80vw !important;
