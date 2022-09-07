@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
-
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from score_emporium.settings import MEDIA_URL, UPLOAD_ROOT, AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_STORAGE_BUCKET_NAME  
 from .models import Product, Genre, Review
 from .forms import ProductForm
@@ -36,10 +37,10 @@ def get_bucket():
     s3_resource = _get_s3_resource()
     return s3_resource.Bucket(AWS_STORAGE_BUCKET_NAME)
 
-def upload_file_s3(image,newPath):
+def upload_file_s3(newImage, newPath):
     # uploads file to S3 bucket
     my_bucket = get_bucket()
-    my_bucket.Object(newPath).put(Body=image)   
+    my_bucket.Object(newPath).put(Body=newImage)   
     return 'file uploaded' 
 
 
@@ -268,9 +269,9 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                
+                newImage = default_storage.save(f'blur-{new_name}-{obj.vendor}-image.jpg', ContentFile(image.read()))
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                upload_file_s3(image, newPath)
+                upload_file_s3(newImage, newPath)
                 
                 
                 
