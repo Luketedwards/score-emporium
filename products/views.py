@@ -282,7 +282,7 @@ def add_product(request):
                 
                 
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                obj.image.name = f'{MEDIA_URL}blur-{new_name}-{obj.vendor}-image.jpg'
+                obj.image.name = f'blur-{new_name}-{obj.vendor}-image.jpg'
                 
 
             # rename the pdf file
