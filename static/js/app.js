@@ -21,7 +21,7 @@ $(".purchased-img").mouseover(function(){
   $('#myModal').modal('show');  
 
   /* add hidden to #image-clear-id */
-  $("#image-clear-id").addClass("hidden");
+  $("#image-clear_id").addClass("hidden");
   
 
 
