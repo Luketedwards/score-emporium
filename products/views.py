@@ -277,7 +277,7 @@ def add_product(request):
                 
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
                 obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)
-                upload_file_s3(obj.image, newPath)
+                
                 
                 
                 
