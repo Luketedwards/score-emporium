@@ -38,7 +38,7 @@
                                 {% if item.product.image %}
                                     <img class="w-100 shadow-checkout my-auto" src="{{ item.product.image.url }}"  alt="{{ product.name }}">
                                 {% else %}
-                                    <img class="w-100 shadow-checkout " src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout " src="{{MEDIA_URL}}No_Image_Available.jpg" alt="{{ product.name }}">
                                 {% endif %}
                             </a>
                         </div>
@@ -48,11 +48,11 @@
                         </div>
                         <div class="col-3 text-right">
                             
-                            <a href="/media/{{item.product.PDF}}" class="btn btn-primary mt-3 animated-btn" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary mt-3 animated-btn" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% if item.product.Guitar_Pro_Locked %}
-                            <a href="/media/{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
+                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
                             {% else %}
-                            <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% endif%}
                             
                         </div>
