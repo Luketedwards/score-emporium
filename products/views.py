@@ -276,13 +276,9 @@ def add_product(request):
                 output.seek(0)
                 
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)
-                
-                
-                
-                
+                obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                obj.image.name = f'blur-{new_name}-{obj.vendor}-image.jpg'
+                
                 
 
             # rename the pdf file
