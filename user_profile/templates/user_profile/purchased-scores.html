@@ -21,7 +21,7 @@
             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow-checkout" style="overflow:hidden;">
                     <div class="front"
-                        style="background-image: url(/media/{{item.product.image}}); min-height: fit-content; ">
+                        style="background-image: url({{MEDIA_URL}}{{product.image}}); min-height: fit-content; ">
                         <p>{{item.product.name|title}}</p>
 
 
@@ -39,16 +39,16 @@
 
                             </p>
                             <p>
-                                <a href="/media/{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn"
+                                <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn"
                                     target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
                             </p>
                             <p>
                                 {% if item.product.Guitar_Pro_Locked%}
-                                <a href="/media/{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn"
+                                <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn"
                                     target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
                                 {% else %}
                                 {% if item.product.Guitar_Pro_Unlocked%}
-                                <a href="/media/{{item.product.Guitar_Pro_Unlocked}}"
+                                <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"
                                     class="btn btn-primary animated-btn" target="_blank"><i
                                         class="fa-solid fa-cloud-arrow-down"></i>GP</a>
 

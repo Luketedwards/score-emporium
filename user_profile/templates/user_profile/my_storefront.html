@@ -83,12 +83,12 @@
                     <div class="card h-100 border-0 ">
                       {% if product.image %}
                       <a href="{% url 'product_detail' product.id %}">
-                          <img class=" grow card-img-top img-fluid border shadow-checkout" src="/media/{{product.image}}"
+                          <img class=" grow card-img-top img-fluid border shadow-checkout" src="{{MEDIA_URL}}{{product.image}}"
                               alt="{{ product.name }}">
                       </a>
                       {% else %}
                       <a href="{% url 'product_detail' product.id %}">
-                          <img class="card-img-top img-fluid shadow-checkout" src="/media/No_Image_Available.jpg"
+                          <img class="card-img-top img-fluid shadow-checkout" src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg"
                               alt="{{ product.name }}">
                       </a>
                       {% endif %}

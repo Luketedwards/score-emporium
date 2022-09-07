@@ -286,7 +286,10 @@ def add_product(request):
                 
 
             # rename the pdf file
-            obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}.gp'
+            obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
+            if obj.Guitar_Pro_Locked:
+                obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
+            
             obj.PDF = request.FILES['PDF']
             obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
               
