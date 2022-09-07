@@ -591,7 +591,7 @@ def delete_product_store(request, product_id):
         return redirect(reverse('product_detail', args=[product.id]))        
 
 
-def delete_from_s3(product_id):
+def delete_from_s3(request, product_id):
     """ Delete a product from the store """
     username = request.user.username
 
