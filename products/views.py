@@ -437,7 +437,33 @@ def delete_product_store(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     if username == product.vendor:
+        if product.image:   
+            # delete the image file from s3
+            
+            key = 'media/' + str(product.image)
+            my_bucket = get_bucket()
+            my_bucket.Object(key).delete()
+        if product.PDF:
+            # delete the pdf file from s3
+            key = 'media/' + str(product.PDF)
+            my_bucket = get_bucket()
+            my_bucket.Object(key).delete()
+        if product.Guitar_Pro_Unlocked:
+            # delete the guitar pro file from s3
+            key = 'media/' + str(product.Guitar_Pro_Unlocked)
+            my_bucket = get_bucket()
+            my_bucket.Object(key).delete()      
+
+        if product.Guitar_Pro_Locked:
+            # delete the guitar pro file from s3
+            key = 'media/' + str(product.Guitar_Pro_Locked)
+            my_bucket = get_bucket()
+            my_bucket.Object(key).delete()      
+        
+        
         product.delete()
+
+        
         messages.success(request, f'{product.name} was deleted.')
         context ={
             'storevendor': username
