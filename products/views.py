@@ -356,9 +356,33 @@ def edit_product(request, product_id):
     if username == product.vendor:
         if request.method == 'POST':
             form = ProductForm(request.POST, request.FILES, instance=product)
+            product2 = get_object_or_404(Product, pk=product_id)
+            
             if form.is_valid():
                 # delete existing files and replace with new ones
-                delete_from_s3(request,product_id)
+                if product2.image:   
+                    # delete the image file from s3
+                    key = 'media/' + str(product2.image)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+                if product2.PDF:
+                    # delete the pdf file from s3
+                    key = 'media/' + str(product2.PDF)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+                if product2.Guitar_Pro_Unlocked:
+                    # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Unlocked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()      
+
+                if product2.Guitar_Pro_Locked:
+                    # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Locked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+
+                
                 obj = form.save(commit=False)
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
@@ -438,9 +462,33 @@ def edit_product_store(request, product_id):
     if username == product.vendor:
         if request.method == 'POST':
             form = ProductForm(request.POST, request.FILES, instance=product)
+            product2 = get_object_or_404(Product, pk=product_id)
+
             if form.is_valid():
                 # delete existing files and replace with new ones
-                delete_from_s3(request, product_id)
+                if product2.image:   
+                    # delete the image file from s3
+                    key = 'media/' + str(product2.image)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+                if product2.PDF:
+                    # delete the pdf file from s3
+                    key = 'media/' + str(product2.PDF)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+                if product2.Guitar_Pro_Unlocked:
+                    # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Unlocked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()      
+
+                if product2.Guitar_Pro_Locked:
+                    # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Locked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
+
+
                 obj = form.save(commit=False)
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
