@@ -10,8 +10,10 @@ from .forms import ProductForm
 from user_profile.models import UserProfile
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
+from io import BytesIO
+import sys
+from django.core.files.uploadedfile import InMemoryUploadedFile
 import boto3
-import botocore
 
 from django.core.files.storage import FileSystemStorage
 import os
@@ -262,6 +264,7 @@ def add_product(request):
                 page.close()
 
                 image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
+                output = BytesIO()
                 cropped_image = image.crop((5,1673,2459,3313))
                 blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
                 image.paste(blurred_image,(5,1673,2459,3313))
@@ -269,9 +272,12 @@ def add_product(request):
                 editImage.text((550,2100), text,(84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
                 editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
-                newImage = default_storage.save(f'blur-{new_name}-{obj.vendor}-image.jpg', ContentFile(image.read()))
+                image.save(output, format='JPEG', quality=90)
+                output.seek(0)
+                
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                upload_file_s3(newImage, newPath)
+                obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)
+                upload_file_s3(obj.image, newPath)
                 
                 
                 
