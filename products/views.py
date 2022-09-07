@@ -440,7 +440,7 @@ def edit_product_store(request, product_id):
             form = ProductForm(request.POST, request.FILES, instance=product)
             if form.is_valid():
                 # delete existing files and replace with new ones
-                delete_from_s3(product_id)
+                delete_from_s3(request, product_id)
                 obj = form.save(commit=False)
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
