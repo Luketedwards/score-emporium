@@ -5,7 +5,7 @@
 <div class="overlay"></div>
 <div class="container center">
     <div class="col-12">
-        <h1 class="text-center">Requested Scores</h1>
+        <h1 class="text-center mt-3">Requested Scores</h1>
         <p>Here's a list of the most requested scores by users, ordered by popularity. Once a score has been provided that satisfies the user, the post can be marked as fulfilled, with a link to the relevant product.</p>
         <hr>
         
@@ -22,7 +22,7 @@
     
     {% if requested.completed == False %}
     <div class="row request-card ">
-        <div class="col-12">
+        <div class="col-12 col-lg-8 center">
 
 
             <div class="card box-shadow">
@@ -35,11 +35,25 @@
                             </button>
                         </div>
                     {% endif %}    
-                    <h2 class="card-title text-center">{{ requested.title|title }}</h2>
-                    <h3>{{requested.completed}}</h3>
+                    <h2 class="card-title text-center ">{{ requested.title|title }}</h2>
+                    <hr class="mb-5">
                     
-                    <p class="card-text text-center">{{ requested.description }}</p>
+                    <h5 class="text-center">Description</h5>
+                    <p class="card-text text-center mb-4">{{ requested.description }}</p>
+                    
+                    {% if requested.video_link %}
+                        <h5 class="text-center"> Relevant Links </h5>
+                        <hr>
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{ requested.video_link }}" allowfullscreen></iframe>
+                        </div>
+                    {% endif %}
 
+                    {% if requested.link%}
+                        <div class="text-center mt-3">
+                            <a href="{{ requested.link }}" class="btn btn-primary">Resource Link</a>
+                        </div>
+                    {% endif %}
 
                     
                     
@@ -98,9 +112,9 @@
                 <!-- modal to dislay comments-->
                 <div class="modal fade" id="commentModal{{requested.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div style="background-color: cadetblue; opacity: 0.96;" class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title center" id="exampleModalLabel">Comments</h5>
+                                <h5 class="modal-title center text-white" id="exampleModalLabel">Comments</h5>
                                 
                             </div>
                             <div class="modal-body">

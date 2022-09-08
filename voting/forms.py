@@ -9,7 +9,12 @@ class RequestForm(forms.ModelForm):
     class Meta:
         model = ScoreRequest
         fields = ['title', 'description', 'video_link', 'link' ]
-        
+        labels = {
+            'title': 'Post Title',
+            'description': 'Describe your request',
+            'video_link': 'Link to a youtube video. Make sure to use an embed link',
+            'link': 'Link to a website or other relevant resource',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

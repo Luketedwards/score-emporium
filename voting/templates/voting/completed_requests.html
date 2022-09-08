@@ -5,7 +5,7 @@
 <div class="overlay"></div>
 <div class="container center">
     <div class="col-12">
-        <h1 class="text-center">Requested Scores</h1>
+        <h1 class="text-center mt-3">Requested Scores</h1>
         <p>Here's a list of the most requested scores by users, ordered by popularity. Once a score has been provided that satisfies the user, the post can be marked as fulfilled, with a link to the relevant product.</p>
         <hr>
         
@@ -21,7 +21,7 @@
     {% for requested in requests%}
     {% if requested.completed == True %}
     <div class="row request-card ">
-        <div class="col-12">
+        <div class="col-12 col-lg-8 center">
 
 
             <div class="card box-shadow">
@@ -34,10 +34,11 @@
                             </button>
                         </div>
                     {% endif %}    
-                    <h2 class="card-title text-center">{{ requested.title|title }}</h2>
-                    <h3>{{requested.completed}}</h3>
+                    <h2 class="card-title text-center ">{{ requested.title|title }}</h2>
+                    <hr class="mb-5">
                     
-                    <p class="card-text text-center">{{ requested.description }}</p>
+                    <h5 class="text-center">Description</h5>
+                    <p class="card-text text-center mb-4">{{ requested.description }}</p>
 
 
                     

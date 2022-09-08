@@ -930,8 +930,7 @@ textarea {
 }
 
 .modal-content {
-  width: fit-content;
-  height: 20rem;
+  
   margin: 0 auto !important;
   margin-top: 5vw !important;
 

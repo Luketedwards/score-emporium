@@ -14,7 +14,7 @@ from django.core.files.storage import FileSystemStorage
 def requests(request):
     form = CommentForm
     form2 = SubmissionForm
-    requests = ScoreRequest.objects.all().order_by('-likes')
+    requests = ScoreRequest.objects.all().order_by('-liked')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     active_submissions = ScoreRequest.objects.filter(completed=False).count()
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
@@ -35,7 +35,7 @@ def requests(request):
         
 
     for requested in requests:
-        if requested.likes.filter(id=request.user.id).exists():
+        if requested.liked.filter(id=request.user.id).exists():
             list.append(requested.pk)
             
     
@@ -64,7 +64,7 @@ def requests(request):
 def completed_requests(request):
     form = CommentForm
     form2 = SubmissionForm
-    requests = ScoreRequest.objects.all().order_by('-likes')
+    requests = ScoreRequest.objects.all().order_by('-liked')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
 
@@ -85,7 +85,7 @@ def completed_requests(request):
         
 
     for requested in requests:
-        if requested.likes.filter(id=request.user.id).exists():
+        if requested.liked.filter(id=request.user.id).exists():
             list.append(requested.pk)
             
     
@@ -189,8 +189,8 @@ def delete_post(request, pk):
 def like_post(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)
     liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
+    if post.liked.filter(id=request.user.id).exists():
+        post.liked.remove(request.user)
         post.upvotes -= 1
         post.save()
         
@@ -198,7 +198,7 @@ def like_post(request, pk):
 
     else:    
         post.upvotes += 1
-        post.likes.add(request.user)
+        post.liked.add(request.user)
         post.save()
         
         return redirect('requests')
@@ -208,8 +208,8 @@ def like_post(request, pk):
 def like_post_completed(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)
     liked = False
-    if post.likes.filter(id=request.user.id).exists():
-        post.likes.remove(request.user)
+    if post.liked.filter(id=request.user.id).exists():
+        post.liked.remove(request.user)
         post.upvotes -= 1
         post.save()
         
@@ -217,7 +217,7 @@ def like_post_completed(request, pk):
 
     else:    
         post.upvotes += 1
-        post.likes.add(request.user)
+        post.liked.add(request.user)
         post.save()
         
         return redirect('completed_requests')
