@@ -93,15 +93,17 @@ def product_detail(request, product_id):
     if request.user.is_authenticated:
         profile = get_object_or_404(UserProfile, user=request.user)
         orders = profile.orders.all()
+        ordersList = []
+
+        for order in orders:
+            for item in order.lineitems.all():
+                ordersList.append(item.product.id)
 
     else:
         orders=None    
+        ordersList=[]
     
-    ordersList = []
-
-    for order in orders:
-        for item in order.lineitems.all():
-            ordersList.append(item.product.id)
+    
 
 
     product = get_object_or_404(Product, pk=product_id)
