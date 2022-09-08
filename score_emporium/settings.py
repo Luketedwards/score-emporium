@@ -236,7 +236,7 @@ STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
-if 'DEVELOPMENT' in os.environ:
+if 'DEVELOPMENT' not in os.environ:
     
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
