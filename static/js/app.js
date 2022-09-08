@@ -20,10 +20,7 @@ $(".purchased-img").mouseover(function(){
   $("#carousel-item0").addClass("active");
   $('#myModal').modal('show');  
 
-  /* add hidden to #image-clear-id */
-  $("#image-clear_id").addClass("hidden");
   
-
 
   var observer = new IntersectionObserver(function(entries) {
     // isIntersecting is true when element and viewport are overlapping

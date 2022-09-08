@@ -1,7 +1,7 @@
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5 main-nav-link" href="{% url 'products'%}" id="all-products-link"  aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link  mr-5 main-nav-link" href="{% url 'products'%}" id="all-products-link"  aria-haspopup="true" aria-expanded="false">
                 All Products
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
@@ -10,7 +10,7 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5 main-nav-link" href="#" id="clothing-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link  mr-5 main-nav-link" href="#" id="clothing-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Scores
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="Scores-link">
@@ -19,7 +19,7 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5 main-nav-link" href="{%url 'guitar_pro'%}" id="guitar-pro-link" >
+            <a class="logo-font font-weight-bold nav-link  mr-5 main-nav-link" href="{%url 'guitar_pro'%}" id="guitar-pro-link" >
                 Guitar Pro Player
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="courses-link">
@@ -28,12 +28,12 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black main-nav-link" href="#" href="{% url 'make_request'%}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link  main-nav-link" href="#" href="{% url 'make_request'%}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Request a Score
             </a>
             <div  class="dropdown-menu border-0 text-white" aria-labelledby="requests-link">
-                <a class="dropdown-item" href="{% url 'make_request'%}">Request a Score</a>
-                <a class="dropdown-item" href="{% url 'requests'%}">Trending Requests</a>
+                <a id="dropdown-1" class="dropdown-item" href="{% url 'make_request'%}">Request a Score</a>
+                <a id="dropdown-2" class="dropdown-item" href="{% url 'requests'%}">Trending Requests</a>
             </div>
             
         </li>
