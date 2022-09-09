@@ -19,7 +19,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-6 order-lg-last mb-5">
+            <div style="border-radius: 10px; height:fit-content; top: 40px;" class="col-12 col-lg-6 order-lg-last mb-5 shadow-checkout">
                 <p class="text-muted">Order Summary ({{ product_count }})</p>
                 <div class="row">
                     <div class="col-7 offset-2">
@@ -69,7 +69,7 @@
             </div>
             <div class="col-12 col-lg-6">
                 <p class="text-muted">Please fill out the form below to complete your order</p>
-                <form action="{% url 'checkout' %}" method="POST" id="payment-form">
+                <form style="border-radius: 10px;" action="{% url 'checkout' %}" method="POST" id="payment-form" class="shadow-checkout p-2">
                     {% csrf_token %}
                     <fieldset class="rounded px-3 mb-5">
                         <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>

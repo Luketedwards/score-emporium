@@ -25,7 +25,7 @@ class CommentForm(forms.ModelForm):
         model = Comments
         fields = ['content' ]
         labels = {
-            'content': 'Comments',
+            'content': 'Comment',
         }
         
 

@@ -29,7 +29,7 @@
                 <div class="card-body">
                     {% if request.user == requested.created_by %}
                         <div class="right">
-                            <button data-toggle="modal" data-target="#deleteModal{{requested.id}}" class="btn btn-danger">
+                            <button data-toggle="modal" data-target="#deleteModal{{requested.id}}" class="btn btn-danger animated-btn">
                                 <div><i class="fa-solid fa-trash-can"></i>   
                                 </div>
                             </button>
@@ -66,12 +66,12 @@
                                 <input name="id" hidden type="text" value="{{requested.id}}">
                                 <input hidden name="username" type="text" value="{{requested.user.username}}">
                                 {% if requested.pk not in list %}
-                                <button class="btn btn-primary" type="submit" name="post_id" value="{{requested.id}}">
+                                <button class="btn btn-primary animated-btn" type="submit" name="post_id" value="{{requested.id}}">
                                     <i class="fa fa-thumbs-up"></i>
                                     {{requested.upvotes}}
                                 </button>
                                 {%else%}
-                                <button class="btn btn-primary btn-danger" type="submit" name="post_id"
+                                <button class="btn btn-primary btn-danger animated-btn" type="submit" name="post_id"
                                     value="{{requested.id}}">
                                     <i class="fa fa-thumbs-down"></i>
                                     {{requested.upvotes}}
