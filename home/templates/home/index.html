@@ -8,18 +8,21 @@
 
 
 {% block content %}
-<header id="hero-image" class="bg-dark py-5 zoom">
+<header id="hero-image" class="bg-dark zoom">
     <div class="overlay-hero"></div>
-    <div class="container px-5">
+    <div style="margin: 0 auto !important;" class="container px-5">
         <div class="row gx-5 justify-content-center">
-            <div class="col-lg-6">
+            <div id="hero-text" class="col-lg-6">
                 <div class="text-center my-5">
                     <h1 class="display-5 fw-bolder text-white mb-2">The Interactive Score Marketplace</h1>
-                    <p class="lead text-white mb-4">Your one stop shop to buy and sell high quality interactive scores and sheet music!</p>
+                    <p class="lead text-white mb-4">Your one stop shop to buy and sell high quality interactive scores
+                        and sheet music!</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <a style="margin-right: 10px;" class="btn btn-primary btn-lg px-4 me-sm-3 animated-btn" href="{% url 'products'%}">Browse Scores</a>
+                        <a style="margin-right: 10px;" class="btn btn-primary btn-lg px-4 me-sm-3 animated-btn"
+                            href="{% url 'products'%}">Browse Scores</a>
                         {% if not request.user.is_authenticated%}
-                        <a class="btn btn-outline-light btn-lg px-4 animated-btn" href="{% url 'account_signup' %}">Sign Up!</a>
+                        <a class="btn btn-outline-light btn-lg px-4 animated-btn" href="{% url 'account_signup' %}">Sign
+                            Up!</a>
                         {% endif %}
                     </div>
                 </div>
@@ -29,46 +32,70 @@
 </header>
 <!-- Features section-->
 <section class="py-5 border-bottom " id="features">
-    
+
     <div class=" px-5 my-5 ">
         <div class="row">
-            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius ">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i>
+                </div>
                 <h2 class="h4 fw-bolder">Access a Huge Variety of Quality Scores</h2>
-                <p>Easily browse a wide range of quality scores, which can be filtered by many useful parameters to help you find exactly what you're looking for. Scores feature a review system to give you confidence in the product you're purchasing. If you can't find what you're looking for Score Emporium features a score requests poll, where the most popular requested items rise to the top, for one of our talented vendors to satisfy!</p>
-                <a class="btn btn-sm btn-primary animated-btn" href="{% url 'products'%}">
+                <p>Easily browse a wide range of quality scores, which can be filtered by many useful parameters to help
+                    you find exactly what you're looking for. Scores feature a review system to give you confidence in
+                    the product you're purchasing. If you can't find what you're looking for Score Emporium features a
+                    score requests poll, where the most popular requested items rise to the top, for one of our talented
+                    vendors to satisfy!</p>
+                <div class="col-12 text-center">  
+                <a class="btn  btn-primary animated-btn" href="{% url 'products'%}">
                     Browse Scores
                     <i class="bi bi-arrow-right"></i>
                 </a>
+                </div>  
             </div>
-            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius ">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
+            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature ">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i>
+                </div>
                 <h2 class="h4 fw-bolder">A Feature-Packed Platform to Publish and Sell Your Music</h2>
-                <p>Score Emporium provides you with a rich and packed out marketplace for you to sell your own products. With just a simple and intuitve upload process you can easily create a product, set your price, include any relevant media such as videos, and release it to the marketplace! If you don't have an image for your product, we will automatically generate a stylish preview of your score, wich showcases your work without revealing too much. Once the product is live, everything else is automated. We offer a very competitive comission charge of only 20%, and all sales and financial metrics are easily accessible in your account.  </p>
+                <p>Score Emporium provides you with a rich and packed out marketplace for you to sell your own products.
+                    With just a simple and intuitve upload process you can easily create a product, set your price,
+                    include any relevant media such as videos, and release it to the marketplace! If you don't have an
+                    image for your product, we will automatically generate a stylish preview of your score, wich
+                    showcases your work without revealing too much. Once the product is live, everything else is
+                    automated. We offer a very competitive comission charge of only 20%, and all sales and financial
+                    metrics are easily accessible in your account. </p>
                 {% if not request.user.is_authenticated%}
-                <a class="btn btn-sm btn-primary animated-btn" href="{% url 'account_signup' %}">
+                <div class="col-12 text-center">
+                <a class="btn  btn-primary animated-btn" href="{% url 'account_signup' %}">
                     Sign Up
                     <i class="bi bi-arrow-right"></i>
-                    
+
                 </a>
+                </div>
                 {% else %}
-                
-                <a class="btn btn-sm btn-primary animated-btn" href="{% url 'storefront' storevendor=request.user.username %}">
+                <div class="col-12 text-center">
+
+                <a class="btn  btn-primary animated-btn"
+                    href="{% url 'storefront' storevendor=request.user.username %}">
                     My Store
                     <i class="bi bi-arrow-right"></i>
-                    
-                </a>
 
+                </a>
+                </div>
                 {%endif%}
             </div>
-            <div class="col-lg-3 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius ">
-                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 "><i class="bi bi-toggles2"></i></div>
+            <div class="col-lg-3 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 "><i class="bi bi-toggles2"></i>
+                </div>
                 <h2 class="h4 fw-bolder">Powerful Interactive Tools to Supercharge Your Practise!</h2>
-                <p>State of the art tab rendering software is built into the the browser to give you a truly interative experience. All the features of Guitar Pro but with none of the cost! This feature can either be accessed in our <a href="{%url 'guitar_pro'%}">Upload Browser</a> where you can import your own GP files, or it is available automatically in your purchased scores gallery.</p>
-                <a class="btn btn-sm btn-primary animated-btn" href="{%url 'guitar_pro'%}">
+                <p>State of the art tab rendering software is built into the the browser to give you a truly interative
+                    experience. All the features of Guitar Pro but with none of the cost! This feature can either be
+                    accessed in our <a href="{%url 'guitar_pro'%}">Upload Browser</a> where you can import your own GP
+                    files, or it is available automatically in your purchased scores gallery.</p>
+                <div class="col-12 text-center">   
+                <a class="btn  btn-primary  animated-btn" href="{%url 'guitar_pro'%}">
                     View Interactive Player
                     <i class="bi bi-arrow-right"></i>
                 </a>
+                </div> 
             </div>
         </div>
     </div>
@@ -76,7 +103,7 @@
 
 <!-- Testimonials section-->
 <section class="py-5 border-bottom  review-bg ">
-    
+
     <div class="container px-5 my-5 px-5 ">
         <div class="text-center mb-5">
             <h2 class="fw-bolder">Customer Testimonials</h2>
@@ -86,36 +113,39 @@
             <div class="col-lg-6 text-center">
                 {% if reviews|length > 0%}
 
-                    {% for review in reviews %}
-                    <div class="card mb-4 text-center transparent shadow-checkout testimonial">
-                        <div class="card-body p-4">
-                            <div class="">
-                                <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
-                                <div class="ms-4">
-                                    <h5 class="pb-2">"{{review.product.name|title}}"</h5>
-                                    <p class="mb-1 text-center">
-                                        <strong>{{review.subject|title}}</strong> 
-                                        {% for i in "x"|rjust:review.ratings %}
-                                        <i style="color: gold;" class="fa-solid fa-star"></i>
-                                        {% endfor %}
-                                    </p>
-                                    <p class=" ">{{review.content}}</p>
-                                    <div class="small text-muted">- {{review.created_by}}, {{review.date}}</div>
-                                    <a class="btn btn-primary btn-sm animated-btn mt-3" href="{% url 'product_detail' review.product.id %}">View Product</a>
-                                </div>
+                {% for review in reviews %}
+                <div class="card mb-4 text-center transparent2 shadow-checkout testimonial">
+                    <div class="card-body p-4">
+                        <div class="">
+                            <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i>
+                            </div>
+                            <div class="ms-4">
+                                <h5 class="pb-2">"{{review.product.name|title}}"</h5>
+                                <p class="mb-1 text-center">
+                                    <strong>{{review.subject|title}}</strong>
+                                    {% for i in "x"|rjust:review.ratings %}
+                                    <i style="color: gold;" class="fa-solid fa-star"></i>
+                                    {% endfor %}
+                                </p>
+                                <p class=" ">{{review.content}}</p>
+                                <div class="small text-muted">- {{review.created_by}}, {{review.date}}</div>
+                                <a class="btn btn-primary btn-sm animated-btn mt-3"
+                                    href="{% url 'product_detail' review.product.id %}">View Product</a>
                             </div>
                         </div>
                     </div>
-                    {%endfor%}
+                </div>
+                {%endfor%}
 
                 {%else%}
-                <div class="card mb-4 text-center transparent shadow-checkout testimonial">
+                <div class="card mb-4 text-center transparent2 shadow-checkout testimonial">
                     <div class="card-body p-4">
                         <div class="">
-                            <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                            <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i>
+                            </div>
                             <div class="ms-4">
-                                <h4>There are currently no reviews.</h4> 
-                                
+                                <h4>There are currently no reviews.</h4>
+
                                 <a href="{% url 'products'%}" class="btn btn-primary animated-btn mt-2">
                                     Purchase a score to leave a review
                                 </a>
@@ -125,7 +155,7 @@
                 </div>
 
                 {%endif%}
-                
+
             </div>
         </div>
     </div>
