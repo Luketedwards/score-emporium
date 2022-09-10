@@ -21,6 +21,30 @@ $("#hero-text").mouseover(function(){
 });
 
 
+// on screen resize if #rotate display is not none reload page and scroll to top
+$(window).resize(function(){
+  if ($("#rotate").css("display") != "none") {
+    location.reload();
+    $(document).ready(function(){
+      $(window).scrollTop(0);
+      $("body").css("overflow", "hidden");
+    });
+    
+  }
+  else {
+    $("body").css("overflow-y", "scroll");
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
     document.getElementById('data-target0').className = 'active';
   document.getElementById('carousel-item0').className = 'carousel-item active';

@@ -3,6 +3,31 @@ body {
     font-size: 12px;
   }
 
+  #rotate {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    #rotate {
+      background-color: rgba(0,0,0,0.8);
+      display: block;
+      height: 132vh;
+      position: absolute;
+      top: 18.9rem;
+      z-index: 9998;
+      left: 0;
+      width: 100%;
+    }
+    #rotate h3{
+      margin-top: 2rem;
+    }
+
+    #rotate i {
+      font-size: 4rem;
+    }
+    
+}
+
   .return{
     margin-left: 6vw;
   }
@@ -12,7 +37,7 @@ body {
   }
 
   .at-wrap {
-    width: 85vw;
+    width: 95vw;
     height: 80vh;
     margin: 0 auto;
     border: 1px solid rgba(0, 0, 0, 0.12);
@@ -158,8 +183,8 @@ body {
     justify-content: space-between;
     background: cadetblue;
     color: #fff;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .at-controls > div {
