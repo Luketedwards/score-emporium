@@ -1,4 +1,29 @@
 $(document).ready(function () {
+// when the body is clicked alert the user
+  
+
+// when the body is clicked if .navbar-toggler has class .show remove it and add .collapsed
+  $('body').click(function () {
+    if ($('.navbar-collapse').hasClass('show')) {
+      
+      // add data-target to body
+      $('body').attr('data-target', '#main-nav');
+      $('body').attr('data-toggle', 'collapse');
+    
+    } else {
+      // remove data-target from body
+      $('body').removeAttr('data-target');
+      $('body').removeAttr('data-toggle');
+    }
+  });
+
+  $('nav').click(function(e) {
+    if ($('.navbar-toggler').hasClass('show')) {
+      $(".navbar-toggler").removeClass('show');
+      $(".navbar-toggler").addClass('collapsed');
+      alert('test');
+    }
+  })
   // when hovering purchased-img class, change overflow to visible on purchased-details
   $(".purchased-img").mouseover(function () {
     $("#purchased-details").css("overflow-y", "visible");
@@ -18,6 +43,8 @@ $(document).ready(function () {
   }).mouseleave(function () {
     $(".overlay-hero").css("opacity", "0.9");
   });
+
+  
 
 
   document.getElementById('data-target0').className = 'active';

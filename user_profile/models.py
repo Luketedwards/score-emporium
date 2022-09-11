@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from products.models import average_rating
-
 
 
 class UserProfile(models.Model):
@@ -24,6 +22,8 @@ class UserProfile(models.Model):
     card_name = models.CharField(max_length=50, blank=True)
     profile_picture = models.ImageField(null=True, blank=True)
     cover_photo = models.ImageField(null=True, blank=True)
+    bio = models.CharField(max_length=300, blank=True, null=True)
+    average_rating = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
 
     def __str__(self):

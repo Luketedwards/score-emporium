@@ -1,6 +1,8 @@
 from email import message
+
 from urllib import request
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 from django.db.models import Q
 from products.models import Product
 from .models import UserProfile
@@ -27,11 +29,30 @@ def user_profile(request):
 
 def user_store(request, storevendor):
     """ A view to return the users store """
-    profile = get_object_or_404(UserProfile, user=request.user)
+    if request.user.username == storevendor:
+        
+        profile = get_object_or_404(UserProfile, user=request.user)
+    else: 
+        user2 = get_object_or_404(User , username=storevendor)
+
+        profile = get_object_or_404(UserProfile, user=user2)    
     orders = profile.orders.all()
+    
+    vendor_profile = profile
+    # get all products 
+    vendor_products = Product.objects.all()
+    vendor_average_rating= 0
+    reviewed_products = 0
+    for products in vendor_products:
+        if products.vendor == storevendor and products.rating:
+            vendor_average_rating = vendor_average_rating + products.rating
+            reviewed_products = reviewed_products + 1 
+    final_average = vendor_average_rating / reviewed_products
+    vendor_profile.average_rating = final_average  
+    vendor_profile.save()
 
     if request.user.is_authenticated:
-        profile = get_object_or_404(UserProfile, user=request.user)
+        
         orders2 = profile.orders.all()
 
     else:
@@ -77,11 +98,13 @@ def user_store(request, storevendor):
             return redirect('vendor_signup')  
         
     else:
+        
         return render(request, 'user_profile/other_storefront.html', context) 
         
 
 def other_store(request, username):
     """ A view to return the users store """
+    profile = get_object_or_404(UserProfile, user=username)
     products = Product.objects.all()
     username= username
     queries = Q(vendor__iexact=username)  
@@ -91,7 +114,8 @@ def other_store(request, username):
     context = {
         'products': products,
         'username': username,
-        'product_number': product_number
+        'product_number': product_number,
+        'profile': profile,
     }
 
     if username == request.user.username:
@@ -175,7 +199,7 @@ def edit_profile(request):
     else:
         profile = get_object_or_404(UserProfile, user=request.user)
 
-        form = UserProfileForm( instance=profile,initial={'sort_code': profile.sort_code, 'account_number': profile.account_number, 'card_name': profile.card_name})
+        form = UserProfileForm( instance=profile,initial={'sort_code': profile.sort_code, 'account_number': profile.account_number, 'card_name': profile.card_name, 'bio': profile.bio, 'profile_picture': profile.profile_picture, 'cover_photo': profile.cover_photo})
         template = 'user_profile/edit_profile.html'
     
     template = 'user_profile/edit_profile.html'

@@ -8,6 +8,8 @@ from score_emporium.settings import MEDIA_URL, UPLOAD_ROOT, AWS_SECRET_ACCESS_KE
 from .models import Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
+from django.contrib.auth.models import User
+
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
 from io import BytesIO
@@ -200,6 +202,7 @@ def product_detail(request, product_id):
                     created_by=request.user,
                 )
                 
+                
 
             else:
                 
@@ -210,9 +213,12 @@ def product_detail(request, product_id):
                     content=content,
                     created_by=request.user,
                 )
-
+                
             
-
+               
+            messages.success(request, f'Review added successfully!')
+            return redirect(reverse('product_detail', args=[product.id]))  
+    
     return render(request, 'products/product_details.html', context)
 
 

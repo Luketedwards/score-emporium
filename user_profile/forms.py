@@ -27,7 +27,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'cover_photo', 'card_name', 'sort_code', 'account_number']
+        fields = ['profile_picture', 'cover_photo', 'card_name', 'sort_code', 'account_number', 'bio']
         labels = {
             'profile_picture': 'Profile Picture',
             'cover_photo': 'Cover Photo'

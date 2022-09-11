@@ -18,6 +18,7 @@ class userProfileAdmin(admin.ModelAdmin):
         'card_name',
         'profile_picture',
         'cover_photo',
+        'average_rating',
     )
 
 admin.site.register(UserProfile, userProfileAdmin)

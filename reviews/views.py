@@ -1,6 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Review
 from products.models import Product
+from django.contrib.auth.models import User
+from user_profile.models import UserProfile
+from .models import Review
+
+
+
+
 # Create your views here.
 
 
@@ -9,6 +15,10 @@ def productReview(request, product_id):
     orders = profile.orders.all()
 
     product = get_object_or_404(Product, pk=product_id)
+    
+            
+
+        
     username= product.vendor
     queries = Q(vendor__iexact=username)  
     products = Product.objects.all()
@@ -49,5 +59,6 @@ def productReview(request, product_id):
                     created_by=request.user,
                 )
 
+            
             return render(request, 'products/product_details.html', context)
 
