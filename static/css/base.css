@@ -11,6 +11,24 @@ html{
   padding-right: 0 !important;
 }
 
+.dark_background{
+  background-color: rgba(47,79,79, 0.8) !important;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.hideme
+{
+  opacity:0 ;
+  transition: opacity 0.8s;
+}
+
+.hideme2
+{
+  opacity:0 ;
+  transition: opacity 0.8s;
+}
+
 body{
   height: 100% !important;
   width: 100% !important;
@@ -82,7 +100,7 @@ nav {
 
 .feature{
   background-color: #fff;
-  opacity: 0.8;
+  
 }
 
 #hero-image {

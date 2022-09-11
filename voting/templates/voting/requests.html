@@ -25,7 +25,7 @@
         <div class="col-12 col-lg-8 center">
 
 
-            <div class="card box-shadow">
+            <div class="card box-shadow {% if forloop.counter < 2%} hideme2 {%else%} hideme {%endif%}">
                 <div class="card-body">
                     {% if request.user == requested.created_by %}
                         <div class="right">

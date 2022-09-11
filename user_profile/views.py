@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
 from products.models import Product
 from .models import UserProfile
-from .forms import vendorForm
+from .forms import vendorForm, UserProfileForm
 from django.contrib import messages
 
 
@@ -145,3 +145,44 @@ def vendor_signup(request):
     form = vendorForm()
 
     return render(request, 'user_profile/vendor-signup.html', {'form': form})
+
+def edit_profile(request):
+    """ Edit users profile information """
+    profile = get_object_or_404(UserProfile, user=request.user)
+
+    if request.method == 'POST':
+
+        form = UserProfileForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            if obj.profile_picture:
+                obj.profile_picture = form.cleaned_data['profile_picture']
+                obj.profile_picture.name = f"{request.user.username}-profile-picture.jpg"
+            if obj.cover_photo:
+                obj.cover_photo = form.cleaned_data['cover_photo']
+                obj.cover_photo.name = f"{request.user.username}-cover-photo.jpg"    
+            
+            obj.sort_code = form.cleaned_data['sort_code']
+            obj.account_number = form.cleaned_data['account_number']
+            obj.card_name = form.cleaned_data['card_name']
+            obj.save()
+            
+            
+            return redirect('storefront', storevendor=request.user.username)
+        else:
+            messages.error(request, 'Failed to update profile. Please ensure the form is valid.')
+    else:
+        profile = get_object_or_404(UserProfile, user=request.user)
+
+        form = UserProfileForm( instance=profile,initial={'sort_code': profile.sort_code, 'account_number': profile.account_number, 'card_name': profile.card_name})
+        template = 'user_profile/edit_profile.html'
+    
+    template = 'user_profile/edit_profile.html'
+    
+    context = {
+        'form': form,
+        'profile':profile
+    }
+
+    return render(request, template, context)    
