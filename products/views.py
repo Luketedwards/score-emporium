@@ -319,41 +319,7 @@ def add_product(request):
     return render(request, template, context)
     
 
-@login_required    
-def add_product_store(request):
-    """ Add a product to the store """
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.vendor = request.user.username
-            if not obj.image:
-                pages = convert_from_path(obj.PDF)
-                for page[0] in pages:
-                    page.save('pdfimage.jpg', 'JPEG')
-
-
-            obj.save()
-            product = obj.save()
-            messages.success(request, 'Successfully added product!')
-            return redirect(reverse('storefront'))
-        else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
-    else:
-        form = ProductForm()
-    template = 'products/add_product.html'
-    products = Product.objects.all()
-    username= request.user.username
-    queries = Q(vendor__iexact=username)  
-    products = products.filter(queries)
-    product_number = products.count()
-    
-    context = {
-        'form': form,
-        'product_number':product_number
-    }
-
-    return render(request, template, context)    
+   
 
 @login_required
 def edit_product(request, product_id):
