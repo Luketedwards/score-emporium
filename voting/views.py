@@ -14,7 +14,7 @@ from django.core.files.storage import FileSystemStorage
 def requests(request):
     form = CommentForm
     form2 = SubmissionForm
-    requests = ScoreRequest.objects.all().order_by('-liked')
+    requests = ScoreRequest.objects.all().order_by('liked')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     active_submissions = ScoreRequest.objects.filter(completed=False).count()
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
@@ -64,7 +64,7 @@ def requests(request):
 def completed_requests(request):
     form = CommentForm
     form2 = SubmissionForm
-    requests = ScoreRequest.objects.all().order_by('-liked')
+    requests = ScoreRequest.objects.all().order_by('liked')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
     inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
 
