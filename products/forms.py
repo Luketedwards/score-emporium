@@ -16,6 +16,8 @@ class ProductForm(forms.ModelForm):
         genres = Genre.objects.all()
         friendly_names = [(c.id, c.get_friendly_name()) for c in genres]
         self.fields['PDF'].widget.attrs['accept'] = '.pdf'
+        self.fields['Guitar_Pro_Unlocked'].widget.attrs['accept'] = '.gp, .gpx, .gp5, .gp3, .gp4, .gp6'
+        self.fields['Guitar_Pro_Locked'].widget.attrs['accept'] = '.gp, .gpx, .gp5, .gp3, .gp4, .gp6'
         self.fields['image'].help_text = 'If no image is uploaded, a thumbnail will be auto-generated for you.'
         self.fields['video'].help_text = 'Please use the Youtube "embed" option, and not the "watch link".'
         self.fields['Guitar_Pro_Unlocked'].help_text = 'This file will be used to play in the browser. Ensure the file is not locked or it will fail to work..'
