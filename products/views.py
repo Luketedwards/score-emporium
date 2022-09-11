@@ -378,7 +378,7 @@ def add_product_store(request):
               
             obj.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('storefront', args=[request.user.username]))
+            return redirect(reverse('products'))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -393,6 +393,116 @@ def add_product_store(request):
     context = {
         'form': form,
         'product_number':product_number
+    }
+
+    return render(request, template, context)   
+
+@login_required
+def edit_product(request, product_id):
+    """ Edit a product in the store """
+    username = request.user.username
+
+    product = get_object_or_404(Product, pk=product_id)
+    if username == product.vendor:
+        if request.method == 'POST':
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            product2 = get_object_or_404(Product, pk=product_id)
+            obj = form.save(commit=False)
+            if form.is_valid():
+                # delete existing files and replace with new ones
+                if obj.image:
+                    if product2.image:   
+                        # delete the image file from s3
+                        key = 'media/' + str(product2.image)
+                        my_bucket = get_bucket()
+                        my_bucket.Object(key).delete()
+                if obj.PDF:        
+                    if product2.PDF:
+                        # delete the pdf file from s3
+                        key = 'media/' + str(product2.PDF)
+                        my_bucket = get_bucket()
+                        my_bucket.Object(key).delete()
+                if obj.Guitar_Pro_Unlocked:        
+                    if product2.Guitar_Pro_Unlocked:
+                        # delete the guitar pro file from s3
+                        key = 'media/' + str(product2.Guitar_Pro_Unlocked)
+                        my_bucket = get_bucket()
+                        my_bucket.Object(key).delete()      
+                if obj.Guitar_Pro_Locked:
+                    if product2.Guitar_Pro_Locked:
+                        # delete the guitar pro file from s3
+                        key = 'media/' + str(product2.Guitar_Pro_Locked)
+                        my_bucket = get_bucket()
+                        my_bucket.Object(key).delete()
+
+                
+                
+                obj.vendor = request.user.username
+                name = f"{obj.name}"
+                name2 = obj.PDF.name
+                new_name = name.replace(" ","-")
+                new_name2 = name2.replace(" ","-")
+                if not obj.image:
+                    font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
+                    font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+                    text = 'Sample'
+                    text2 = f'© {obj.vendor}'
+
+                    fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                    pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
+                    pdfPath = fs.path(pdfFile)
+
+                    pdf = pdfium.PdfDocument(pdfPath)
+                    page = pdf.get_page(0)
+                    pil_image = page.render_topil()
+                    pil_image.save(f"pil-{obj.name}-{obj.vendor}.jpg")
+                    page.close()
+
+                    image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
+                    output = BytesIO()
+                    cropped_image = image.crop((5,1673,2459,3313))
+                    blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
+                    image.paste(blurred_image,(5,1673,2459,3313))
+                    editImage = ImageDraw.Draw(image)
+                    editImage.text((550,2100), text,(84, 83, 82), font=font)
+                    editImage2 = ImageDraw.Draw(image)
+                    editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                    image.save(output, format='JPEG', quality=90)
+                    output.seek(0)
+
+                    newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
+                    obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
+                    os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
+
+
+
+                # rename the pdf file
+                if obj.Guitar_Pro_Unlocked:
+                    obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
+                if obj.Guitar_Pro_Locked:
+                    obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
+
+                if obj.PDF:
+                    obj.PDF = request.FILES['PDF']
+                    obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
+
+                obj.save()
+                messages.success(request, 'Successfully updated product!')
+                return redirect(reverse('product_detail', args=[product.id]))
+            else:
+                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+        else:
+            form = ProductForm(instance=product)
+            messages.info(request, f'You are editing {product.name}')
+    else:
+        messages.error(request, 'You are not authorised to edit this product')
+        return redirect(reverse('product_detail', args=[product.id]))
+          
+
+    template = 'products/edit_product.html'
+    context = {
+        'form': form,
+        'product': product,
     }
 
     return render(request, template, context)
