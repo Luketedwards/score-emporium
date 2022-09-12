@@ -188,6 +188,14 @@ body {
 
 }
 
+#all-auth-bg{
+  background-image: url(/static/media_1/login-bg.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  background-position: center 5px;
+}
+
 #user-profile-pic {
   clip-path: circle() !important;
   height: 100px !important;
