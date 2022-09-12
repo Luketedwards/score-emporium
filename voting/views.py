@@ -111,35 +111,39 @@ def completed_requests(request):
 
 # render the make request page
 def make_request(request):
-    if request.method == 'POST':
-        form = RequestForm(request.POST)
-        if form:
-            obj = form.save(commit=False)
+    user = request.user
+    if user.is_authenticated:
+        if request.method == 'POST':
+            form = RequestForm(request.POST)
+            if form:
+                obj = form.save(commit=False)
 
-            obj.created_by = request.user
-            
-            obj.save()
-                            
-            messages.success(request, 'Successfully added request!')
-            context = {
-            'requests': requests,
-            }
-            return redirect('requests')
+                obj.created_by = request.user
+                
+                obj.save()
+                                
+                messages.success(request, 'Successfully added request!')
+                context = {
+                'requests': requests,
+                }
+                return redirect('requests')
 
 
+            else:
+                messages.error(request, 'Failed to add request. Please ensure the form is valid.')
         else:
-            messages.error(request, 'Failed to add request. Please ensure the form is valid.')
+            form = RequestForm()
+            template = 'voting/make-a-request.html'
+            
+
+        context = {
+            'form': form,
+        }
+
+        return render(request, template, context)
     else:
-        form = RequestForm()
-        template = 'voting/make-a-request.html'
-        
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, template, context)
-    
+        messages.error(request, 'You must be logged in to make a score request.')
+        return redirect('account_login')
 
 def create_submission(request, pk):
     post = get_object_or_404(ScoreRequest, pk=pk)

@@ -197,6 +197,11 @@ body {
 #account-drop {
   background-color: cadetblue;
   color: white !important;
+  z-index: 9980;
+}
+
+#account-drop a{
+  z-index: 9980;
 }
 
 #account-button {
