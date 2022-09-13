@@ -126,7 +126,7 @@ $('.carousel').carousel({
   pause: "false"
 });
 
-$(".product").hover(function () {
+$(".product-card").hover(function () {
   $(this).toggleClass("is-active");
 });
 

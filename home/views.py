@@ -7,7 +7,7 @@ import random
 def index(request):
     """ A view to return the index page """
     reviews = Review.objects.all().order_by('-ratings')
-    reviews = reviews[:3]
+    reviews = reviews[:6]
     
 
     

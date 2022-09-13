@@ -83,7 +83,7 @@
                         <a class=" nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div id="account-button" class="text-center mr-2">
                                 <div><i class="fas fa-user fa-lg"></i></div>
-                                <p class="my-0">My Account</p>
+                                <p class="my-0"></p>
                             </div>
                         </a>
                         <div id="account-drop" class="dropdown-menu border-0 text-white" aria-labelledby="user-options">
@@ -104,7 +104,7 @@
                         <a class=" mr-2 nav-link" href="{% url 'view_cart'%}">
                             <div id="cart-button" class="text-center">
                                 <div><i class="fa-solid fa-cart-shopping"></i></div>
-                                <p class="my-0">My Basket</p>
+                                <p class="my-0"></p>
                                 
                             </div>
                         </a>
@@ -150,9 +150,7 @@
     {% block postload_js%} 
     <script type="text/javascript">
         $('.toast').toast('show');
-        $(".product").hover(function(){
-    $(this).toggleClass("is-active");
-  });
+        
   $("#image-clear_id").css("display", "none");
   var label = document.querySelector('[for= image-clear_id ]');
     label.style.display = 'none';

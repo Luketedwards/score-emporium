@@ -71,7 +71,7 @@ nav {
 #logo-img {
   width: 20rem;
   height: 6rem;
-  background-color: rgba(210, 215, 211, 0.9);
+  /* background-color: rgba(210, 215, 211, 0.9); */
   border-radius: 10px;
 }
 
@@ -181,12 +181,24 @@ body {
 }
 
 #nav-container {
-  background-image: url(/static/media_1/sheet-music-pattern.jpg);
+  /* background-image: url(/static/media_1/sheet-music-pattern.jpg); */
   background-repeat: repeat;
   background-size: 160px;
-  box-shadow: inset 0 0 0 2000px rgba(210, 215, 211, 0.38);
+  /* box-shadow: inset 0 0 0 2000px rgba(210, 215, 211, 0.38); */
 
 }
+
+#reviews-flex{
+  display: flex !important;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: space-around;
+  align-items: flex-end;
+  justify-content: space-between;
+    
+}
+
+
 
 #all-auth-bg{
   background-image: url(/static/media_1/login-bg.jpg);
@@ -215,7 +227,8 @@ body {
 #account-button {
   background-color: cadetblue;
   color: white;
-  padding: 5px;
+  padding: 10px 15px 10px 15px;
+  font-size: 1.1rem;
   border-radius: 10px;
   transition: .5s ease-in-out, box-shadow .4s ease-in-out;
 
@@ -238,7 +251,8 @@ body {
 #cart-button {
   background-color: cadetblue;
   color: white;
-  padding: 5px;
+  padding: 10px 15px 10px 15px;
+  font-size: 1.1rem;
   border-radius: 10px;
   transition: .5s ease-in-out, box-shadow .4s ease-in-out;
 }
@@ -258,6 +272,14 @@ body {
   transition: all .5s ease;
   border: 1px solid #909090;
 
+}
+
+.product-card{
+  transition: all .5s ease;
+}
+
+.product-card:hover{
+  transform: translateY(-10px);
 }
 
 .gold i {
