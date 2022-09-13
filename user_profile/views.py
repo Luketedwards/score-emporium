@@ -51,6 +51,11 @@ def user_store(request, storevendor):
     vendor_profile.average_rating = final_average  
     vendor_profile.save()
 
+    # round vendor average rating to 1 decimal place and the nearest .5
+    vendor_average_rating = vendor_profile.average_rating
+    vendor_average_rating = round(vendor_average_rating * 2) / 2
+    vendor_average_rating = round(vendor_average_rating, 1)
+
     if request.user.is_authenticated:
         
         orders2 = profile.orders.all()
@@ -87,7 +92,8 @@ def user_store(request, storevendor):
         'sales_income':sales_income,
         'money_due':money_due,
         'storevendor':storevendor,
-        'ordersList':ordersList
+        'ordersList':ordersList,
+        'vendor_average_rating':vendor_average_rating,
 
     }
 

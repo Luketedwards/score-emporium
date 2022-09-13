@@ -1,5 +1,9 @@
 #menu__toggle {
     opacity: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: -1000px;
   }
   #menu__toggle:checked + .menu__btn > span {
     transform: rotate(45deg);
@@ -18,7 +22,7 @@
   .menu__btn {
     position: relative;
     top: 19px;
-    right: 0.5rem;
+    right: -0.45rem;
     font-weight: 600;
     width: 26px;
     height: 26px;
@@ -71,10 +75,7 @@
     background-color: #CFD8DC;
   }
 
-  body {
-	font-family: sans-serif;
-	background-color: #111;
-}
+ 
 
 .button {
 	display: inline-block;
@@ -104,6 +105,7 @@
 	-o-transition-duration: 0.4s;
 	background-color: white;
 	color: black;
+  border: 2px solid black;
 }
 
 .search-container {
@@ -130,6 +132,8 @@
 	width: 50px;
 	margin: 0;
 	padding: 0;
+  border: 2px solid cadetblue;
+  
 }
 
 .search:focus + .searchbutton {
@@ -140,6 +144,8 @@
 	background-color: white;
 	color: black;
     border: 2px solid black;
+    border-right: 0;
+
 }
 
 .search {
@@ -153,20 +159,23 @@
     width: 0;
     height: 50px;
     z-index: 10;
-    margin-left: 144px;
+    margin-left: 9.6rem;
     
     border-radius: 0 10px 10px 0;
-	transition-duration: 0.8s;
+	transition-duration: 0.4s;
 	-moz-transition-duration: 0.4s;
 	-webkit-transition-duration: 0.4s;
 	-o-transition-duration: 0.4s;
 }
 
 .search:focus {
-	width: 200px; /* Bar width+1px */
-	padding: 0 16px 0 0;
+	width: 10.5rem; /* Bar width+1px */
+    outline: none;
     padding-left: 10px;
     border: 2px solid black;
+    border-left: 0;
+    font-size: 1.1rem;
+    
 }
 
 .expandright {

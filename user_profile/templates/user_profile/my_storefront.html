@@ -7,8 +7,8 @@
     
     <div class="w-100 py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-lg-9 col-xl-7">
-          <div class="card">
+        <div class="profile-card-div col col-10 ">
+          <div class="card profile-card">
             <div class="rounded-top text-white d-flex flex-row" style="background-image: {% if not profile.cover_photo %} url(https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/reviews-background.jpg); {% else %} url({{profile.cover_photo.url}}); {%endif%} background-size: contain; height:200px;">
               <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                 {% if profile.profile_picture %}
@@ -26,10 +26,10 @@
             <div class="p-4 text-black" style="background-color: #f8f9fa;">
               <div class="d-flex justify-content-end text-center pt-4 py-1">
                 <div class="col-7 mr-2">
-                  <a href="{% url 'edit_profile'%}" class="btn btn-primary pl-1"  style="z-index: 1;">
+                  <a id="edit-profile-btn" href="{% url 'edit_profile'%}" class="btn btn-primary pl-1"  style="z-index: 1;">
                     Edit profile
                   </a>
-                  <a href="{% url 'add_product_store' %}" class="btn btn-success animated-btn">Add Score</a>
+                  <a id="add-score-btn" href="{% url 'add_product_store' %}" class="btn btn-success animated-btn">Add Score</a>
 
                 </div>
 
@@ -39,7 +39,7 @@
                 </div>
                 <div class="px-3">
                   {% if profile.average_rating > 0.00%}
-                  <p class="mb-1 h5">{{profile.average_rating}}/5</p>
+                  <p class="mb-1 h5">{{vendor_average_rating}}/5</p>
                   <p class="small text-muted mb-0">Average Rating</p>
                   {% else %}
                   <p class="mb-1 text-muted pb-1">no ratings</p>
