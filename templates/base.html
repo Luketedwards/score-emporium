@@ -1,7 +1,8 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     {% block meta %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatiblie" content="ie=edge">
@@ -12,34 +13,41 @@
 
 
     {% block corecss %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arima:wght@500&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/hamburger.css'%}">
 
 
     {% endblock %}
 
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/scores.css'%}">
-    
-    
+
+
     {% endblock %}
 
     {% block corejs %}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
+    </script>
     <script src="{% static 'js/app.js' %}"></script>
-    
-    
+
+
     <!-- Stripe Javascript-->
     <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
@@ -51,36 +59,41 @@
 
 
     <title>Fingerstyle Online {% block extra_title %}{% endblock %}</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <header id="nav-container" class="container-fluid" style="margin-bottom: 0 !important;">
         <div style="border-bottom: solid;" class="row">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
                 <a href="{% url 'home' %}" class="nav-link main-logo-link">
-                    <img id="logo-img" src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/score-emporium-logo-removebg.png" alt="logo">
+                    <img id="logo-img"
+                        src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/score-emporium-logo-removebg.png"
+                        alt="logo">
                 </a>
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form id="main-search" method="GET" action="{% url 'products' %}">
                     <div class="input-group w-100">
-                        <input id="search-box"  class="form-control  rounded-0" type="text" name="q" placeholder="Search for scores">
+                        <input id="search-box" class="form-control  rounded-0" type="text" name="q"
+                            placeholder="Search for scores">
                         <div id="search-btn-div">
-                        <button id="search-btn" class="form-control btn " type="submit">
-                            <span class="icon">
-                                <i class="fas fa-search"></i>
-                            </span>
-                        </button>
+                            <button id="search-btn" class="form-control btn " type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
                         </div>
                         <div class="input-group-append">
-                            
+
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> 
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
+                <ul id="nav-ul" class="list-inline list-unstyled  text-lg-right my-0">
                     <li class="list-inline-item dropdown">
-                        <a class=" nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class=" nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
                             <div id="account-button" class="text-center mr-2">
                                 <div><i class="fas fa-user fa-lg"></i></div>
                                 <p class="my-0"></p>
@@ -88,15 +101,16 @@
                         </a>
                         <div id="account-drop" class="dropdown-menu border-0 text-white" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
-                                
-                                    <a href="{% url 'storefront' storevendor=request.user.username %}" class="dropdown-item">My Store</a>
-        
-                                <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-                                <a href="{% url 'purchased_scores' %}" class="dropdown-item">My Purchased Scores</a>
-                                <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
+
+                            <a href="{% url 'storefront' storevendor=request.user.username %}" class="dropdown-item">My
+                                Store</a>
+
+                            <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
+                            <a href="{% url 'purchased_scores' %}" class="dropdown-item">My Purchased Scores</a>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item">Logout</a>
                             {% else %}
-                                <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
-                                <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
+                            <a href="{% url 'account_signup' %}" class="dropdown-item">Register</a>
+                            <a href="{% url 'account_login' %}" class="dropdown-item">Login</a>
                             {% endif %}
                         </div>
                     </li>
@@ -105,8 +119,16 @@
                             <div id="cart-button" class="text-center">
                                 <div><i class="fa-solid fa-cart-shopping"></i></div>
                                 <p class="my-0"></p>
-                                
+
                             </div>
+                        </a>
+                    </li>
+                    <li id="form-list" class="list-inline-item">
+                        <a href="#" class="mr-2 nav-link">
+                        <form  method="GET" action="{% url 'products' %}">
+                            <input class="search" id="searchleft" type="search" name="q" placeholder="Search">
+                            <label class="button searchbutton" for="searchleft"><div><i class="fas fa-search"></i></div></label>
+                          </form>
                         </a>
                     </li>
                 </ul>
@@ -114,10 +136,19 @@
         </div>
         <div class="row bg-white">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
-                <button style="margin-left: 81vw !important;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <button id="nav-tog" style="margin-left: 81vw !important;" class="navbar-toggler hidden" type="button"
+                    data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
+                <div id="animated-toggle">
+                <input id="menu__toggle" class="navbar-toggler" data-toggle="collapse" aria-target="#main-nav"
+                    aria-controls="main-nav" aria-expanded="'false" aria-label="Toggle navigation" type="checkbox" />
+                <label class="menu__btn" for="menu__toggle">
+                    <span id="menu_label"></span>
+                </label>
+                </div>
+
                 {% include 'includes/main-nav.html' %}
             </nav>
         </div>
@@ -125,17 +156,17 @@
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
-            {% with message.level as level %}
-                {% if level == 40 %}
-                    {% include 'includes/toasts/toast_error.html' %}
-                {% elif level == 30 %}
-                    {% include 'includes/toasts/toast_warning.html' %}
-                {% elif level == 25 %}
-                    {% include 'includes/toasts/toast_success.html' %}
-                {% else %}
-                    {% include 'includes/toasts/toast_info.html' %}
-                {% endif %}
-            {% endwith %}
+        {% with message.level as level %}
+        {% if level == 40 %}
+        {% include 'includes/toasts/toast_error.html' %}
+        {% elif level == 30 %}
+        {% include 'includes/toasts/toast_warning.html' %}
+        {% elif level == 25 %}
+        {% include 'includes/toasts/toast_success.html' %}
+        {% else %}
+        {% include 'includes/toasts/toast_info.html' %}
+        {% endif %}
+        {% endwith %}
         {% endfor %}
     </div>
     {% endif%}
@@ -147,28 +178,29 @@
 
     {% endblock %}
 
-    {% block postload_js%} 
+    {% block postload_js%}
     <script type="text/javascript">
         $('.toast').toast('show');
-        
-  $("#image-clear_id").css("display", "none");
-  var label = document.querySelector('[for= image-clear_id ]');
-    label.style.display = 'none';
+
+        $("#image-clear_id").css("display", "none");
+        var label = document.querySelector('[for= image-clear_id ]');
+        label.style.display = 'none';
     </script>
-    <script src="{% static 'js/animations.js'%}" ></script>
-    
-    
+    <script src="{% static 'js/animations.js'%}"></script>
+
+
     {% endblock %}
-   
-    
+
+
 
 
     <footer id="footer" class=" text-center text-lg-start">
         <!-- Copyright -->
         <div class="text-center p-3">
-          © 2022 Copyright: Luke Edwards
+            © 2022 Copyright: Luke Edwards
         </div>
         <!-- Copyright -->
-      </footer>
-  </body>
+    </footer>
+</body>
+
 </html>

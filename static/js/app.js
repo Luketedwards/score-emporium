@@ -1,21 +1,16 @@
 $(document).ready(function () {
-// when the body is clicked alert the user
-  
 
-// when the body is clicked if .navbar-toggler has class .show remove it and add .collapsed
-  $('body').click(function () {
-    if ($('.navbar-collapse').hasClass('show')) {
-      
-      // add data-target to body
-      $('body').attr('data-target', '#main-nav');
-      $('body').attr('data-toggle', 'collapse');
-    
-    } else {
-      // remove data-target from body
-      $('body').removeAttr('data-target');
-      $('body').removeAttr('data-toggle');
-    }
-  });
+  // when the .menu__toggle is checked, click the navbar-toggler
+$('.menu__btn').click(function () {
+  if ($('.menu__btn').is(':checked')) {
+    $('.menu__btn').prop('checked', false);
+  } else {
+    $('.menu__btn').prop('checked', true);
+  }
+  
+  $('#nav-tog').click();
+});
+
 
   $('nav').click(function(e) {
     if ($('.navbar-toggler').hasClass('show')) {
@@ -129,6 +124,7 @@ $('.carousel').carousel({
 $(".product-card").hover(function () {
   $(this).toggleClass("is-active");
 });
+
 
 
 
