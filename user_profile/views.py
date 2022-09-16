@@ -8,6 +8,7 @@ from products.models import Product
 from .models import UserProfile
 from .forms import vendorForm, UserProfileForm
 from django.contrib import messages
+import datetime
 
 
 # Create your views here.
@@ -216,3 +217,106 @@ def edit_profile(request):
     }
 
     return render(request, template, context)    
+
+
+def dashboard(request):
+    """ A view to return the dashboard page """
+    profile = get_object_or_404(UserProfile, user=request.user)
+    products = Product.objects.all()
+    orders = profile.orders.all()
+    items = []
+    number_of_customers = orders.distinct('username').count()
+    number_of_orders = orders.count()
+    total_revenue = 0
+    for order in orders:
+        total_revenue += order.order_total
+    total_revenue = float(total_revenue) * 0.8    
+      
+    # find orders placed today
+    today = datetime.date.today()
+    today_total = 0
+    orders_today = orders.filter(date__day=today.day, date__month=today.month, date__year=today.year)
+    for order in orders_today:  
+        today_total += order.order_total
+    today_total = float(today_total) * 0.8    
+
+    # find orders placed this week
+    week_total = 0
+    orders_week = orders.filter(date__week=today.isocalendar()[1])
+    for order in orders_week:
+        week_total += order.order_total
+    week_total = float(week_total) * 0.8
+
+    # find orders placed this month
+    month_total = 0
+    orders_month = orders.filter(date__month=today.month)
+    for order in orders_month:
+        month_total += order.order_total
+    month_total = float(month_total) * 0.8
+
+    # find distinct products in orders
+    distinct_products = []
+    for order in orders:
+        for item in order.lineitems.all():
+            distinct_products.append(item.product.id)
+    distinct_products = set(distinct_products)
+    
+
+   # order distinct products by number sold
+    product_sales = []
+    for product in distinct_products:
+        product_sales.append((product, orders.filter(lineitems__product=product).count()))
+    product_sales.sort(key=lambda x: x[1], reverse=True)
+    product_sales = product_sales[:5]
+
+    # filter products by product_sales
+    top_products = []
+    for product in product_sales:
+        top_products.append(Product.objects.get(id=product[0]))
+
+    # create dictionary of top products and their sales
+    top_products_dict = {}
+    for product in top_products:
+        top_products_dict[product] = orders.filter(lineitems__product=product).count()
+
+    # calculate total revenue for each product in top_products and make a dictionary
+    top_products_revenue = {}
+    for product in top_products:
+        total = 0
+        for order in orders.filter(lineitems__product=product):
+            total += order.order_total
+        top_products_revenue[product] = float(total) * 0.8
+
+
+
+
+
+
+
+
+    score_number = 0
+    for order in orders:
+        for item in order.lineitems.all():
+            items.append(item)
+            score_number += 1
+    context = {
+        'products': products,
+        'profile': profile,
+        'orders': orders,
+        'items': items,
+        'score_number': score_number,
+        'number_of_customers': number_of_customers,
+        'number_of_orders': number_of_orders,
+        'total_revenue': total_revenue,
+        'today_total': today_total,
+        'week_total': week_total,
+        'month_total': month_total,
+        'distinct_products': distinct_products,
+        'product_sales': product_sales,
+        'top_products': top_products,
+        'top_products_dict': top_products_dict,
+        'top_products_revenue': top_products_revenue,
+        
+    }
+
+    return render(request, 'user_profile/dashboard.html', context)

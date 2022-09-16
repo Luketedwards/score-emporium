@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '')
+SECRET_KEY = os.environ.get('SECRET_KEY', '*3%jc(lm3=5dir0u@h(r__!zpmcvt1qz@&^437hkrik_s-eyqv')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'DEVELOPMENT' in os.environ
@@ -95,6 +95,10 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 
             ],
+            'libraries':{
+            'my_templatetag': 'user_profile.templatetags.custom_tags',
+            
+            },
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
                 'crispy_forms.templatetags.crispy_forms_field',
@@ -200,7 +204,13 @@ MEDIA_URL2 = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+AWS_STORAGE_BUCKET_NAME = 'score-emporium'
+AWS_S3_REGION_NAME = 'eu-west-2'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+AWS_S3_PRODUCT_IMAGE_LOCATION = os.environ.get('AWS_S3_PRODUCT_IMAGE_LOCATION')
+AWS_S3_PRODUCT_FILE_LOCATION = os.environ.get('AWS_S3_PRODUCT_FILE_LOCATION')
 if 'USE_AWS' in os.environ:
     # Cache control
     AWS_S3_OBJECT_PARAMETERS = {
@@ -242,7 +252,7 @@ if 'DEVELOPMENT' not in os.environ:
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST ='smtp.gmail.com'
     EMAIL_HOST_USER = 'luketedmusic@gmail.com'
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
+    EMAIL_HOST_PASSWORD = 'zdlz oulo zhob xoht'
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
