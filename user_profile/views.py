@@ -247,6 +247,20 @@ def dashboard(request):
         week_total += order.order_total
     week_total = float(week_total) * 0.8
 
+    # find orders placed last week
+    last_week_total = 0
+    orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+    for order in orders_last_week:
+        last_week_total += order.order_total
+    last_week_total = float(last_week_total) * 0.8
+
+    # calculate the percentage difference between this week and last week
+    if last_week_total == 0:
+        week_difference = 100
+    else:
+        week_difference = (week_total - last_week_total) / last_week_total * 100
+
+
     # find orders placed this month
     month_total = 0
     orders_month = orders.filter(date__month=today.month)
@@ -261,6 +275,38 @@ def dashboard(request):
             distinct_products.append(item.product.id)
     distinct_products = set(distinct_products)
     
+    # calculate the number of orders this week
+    orders_this_week = orders.filter(date__week=today.isocalendar()[1])
+    orders_this_week = orders_this_week.count()
+
+    # calculate the number of orders last week
+    orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+    orders_last_week = orders_last_week.count()
+
+    # calculate the number of orders this month
+    orders_this_month = orders.filter(date__month=today.month)
+    orders_this_month = orders_this_month.count()
+
+    # calculate the percentage difference between this week and last week
+    if orders_last_week == 0:
+        orders_week_difference = 100
+    else:
+        orders_week_difference = (orders_this_week - orders_last_week) / orders_last_week * 100
+        
+    # calculate number of distinct customers this week
+    customer_orders_this_week = orders.filter(date__week=today.isocalendar()[1])
+    customers_this_week = customer_orders_this_week.distinct('username').count()
+
+    # calculate number of distinct customers last week
+    customer_orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+    customers_last_week = customer_orders_last_week.distinct('username').count()
+
+    # calculate the percentage difference between this week and last week
+    if customers_last_week == 0:
+        customers_week_difference = 100
+    else:
+        customers_week_difference = (customers_this_week - customers_last_week) / customers_last_week * 100
+
 
    # order distinct products by number sold
     product_sales = []
@@ -288,12 +334,6 @@ def dashboard(request):
         top_products_revenue[product] = float(total) * 0.8
 
 
-
-
-
-
-
-
     score_number = 0
     for order in orders:
         for item in order.lineitems.all():
@@ -316,7 +356,13 @@ def dashboard(request):
         'top_products': top_products,
         'top_products_dict': top_products_dict,
         'top_products_revenue': top_products_revenue,
-        
+        'week_difference': week_difference,
+        'orders_week_difference': orders_week_difference,
+        'orders_this_week': orders_this_week,
+        'orders_last_week': orders_last_week,
+        'orders_this_month': orders_this_month,
+        'customers_week_difference': customers_week_difference,
+    
     }
 
     return render(request, 'user_profile/dashboard.html', context)

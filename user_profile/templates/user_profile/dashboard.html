@@ -1,10 +1,10 @@
 {% extends 'base.html'%}
 {% load static %}
 {% load custom_tags %}
- 
+
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
-    <link rel="stylesheet" href="{% static  'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+<link rel="stylesheet" href="{% static  'css/dashboard.css' %}">
 {% endblock %}
 
 
@@ -13,241 +13,314 @@
 
 <body>
 
-        <div class="dashboard-wrapper">
-            <div class="container-fluid  dashboard-content">
+    <div class="dashboard-wrapper">
+        <div class="container-fluid  dashboard-content">
 
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                            <h3 class="mb-2 text-center">Sales Dashboard</h3>
-                            <p class="pageheader-text text-center">Below you can find useful data about your account, sales and performance and various other metrics.</p>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="page-header">
+                        <h3 class="mb-2 text-center">Sales Dashboard</h3>
+                        <p class="pageheader-text text-center">Below you can find useful data about your account, sales
+                            and performance and various other metrics.</p>
+
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card product-card">
+                        <div class="card-body">
+                            <h5 class="text-muted">Customers</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1 text-primary">{{number_of_customers}}</h1>
+                                {{customers_last_week}}
+                            </div>
+                            {% if customers_week_difference > 0 %}
+                            <div class="metric-label d-inline-block float-right text-success">
+                                <i class="fa fa-fw fa-caret-up"></i><span>{{customers_week_difference}}%</span>
+                            </div>
+                            {% else %}
+                            <div class="metric-label d-inline-block float-right text-danger">
+                                <i class="fa fa-fw fa-caret-down"></i><span>{{customers_week_difference}}%</span>
+                            </div>    
+                            {% endif %}
+                        </div>
+                        <div id="sparkline-1"></div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card product-card">
+                        <div class="card-body">
+                            <h5 class="text-muted">Orders</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1 text-primary">{{number_of_orders}} </h1>
+                            </div>
                             
                         </div>
-                        <hr>
+                        <div id="sparkline-2"></div>
                     </div>
                 </div>
 
-                <div class="row">
-                  
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Customers</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">{{number_of_customers}}</h1>
-                                </div>
-                                <div class="metric-label d-inline-block float-right text-success">
-                                    <i class="fa fa-fw fa-caret-up"></i><span>5.27%</span>
-                                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card product-card">
+                        <div class="card-body">
+                            <h5 class="text-muted">Revenue</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1 text-primary">£{{total_revenue|floatformat:2 }}</h1>
                             </div>
-                            <div id="sparkline-1"></div>
+                            
+                        </div>
+                        <div id="sparkline-3">
                         </div>
                     </div>
-                    
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Orders</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">{{number_of_orders}} </h1>
-                                </div>
-                                <div class="metric-label d-inline-block float-right text-danger">
-                                    <i class="fa fa-fw fa-caret-down"></i><span>1.08%</span>
-                                </div>
-                            </div>
-                            <div id="sparkline-2"></div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Revenue</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">£{{total_revenue|floatformat:2 }}</h1>
-                                </div>
-                                <div class="metric-label d-inline-block float-right text-danger">
-                                    <i class="fa fa-fw fa-caret-down"></i><span>7.00%</span>
-                                </div>
-                            </div>
-                            <div id="sparkline-3">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-muted">Growth</h5>
-                                <div class="metric-value d-inline-block">
-                                    <h1 class="mb-1 text-primary">+28.45% </h1>
-                                </div>
-                                <div class="metric-label d-inline-block float-right text-success">
-                                    <i class="fa fa-fw fa-caret-up"></i><span>4.87%</span>
-                                </div>
-                            </div>
-                            <div id="sparkline-4"></div>
-                        </div>
-                    </div>
-                    
                 </div>
-                
-                <div class="row">
-                    <div class="col-lg-6 col-12 ">
-                        <div class="card ">
-                            <h5 class="card-header">Revenue</h5>
-                            <div class="card-body">
-                                <canvas id="revenue" width="400" height="150"></canvas>
-                            </div>
-                            <div class="card-body border-top">
-                                <div class="row">
-                                    <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 p-3">
-                                        <h4> Today's Revenue: £{{today_total|floatformat:2}}</h4>
-                                        
-                                    </div>
-                                    <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
-                                        <h2 class="font-weight-normal mb-3"><span>£{{week_total|floatformat:2}}</span>                                                    </h2>
-                                        <div class="mb-0 mt-3 legend-item">
-                                            <span class="fa-xs text-primary mr-1 legend-title "><i class="fa fa-fw fa-square-full"></i></span>
-                                            <span class="legend-text">Current Week</span></div>
-                                    </div>
-                                    <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
-                                        <h2 class="font-weight-normal mb-3">
 
-                                                        <span>£{{month_total|floatformat:2}}</span>
-                                                        
-                                                    </h2>
-                                        <div class="text-muted mb-0 mt-3 legend-item"> <span class="fa-xs text-secondary mr-1 legend-title"><i class="fa fa-fw fa-square-full"></i></span><span class="legend-text">This Month</span></div>
-                                    </div>
-                                </div>
+                <div class="col-xl-6 col-lg-3 col-md-3 col-sm-12 col-12">
+                    <div class="card product-card ">
+                        <div class="card-body">
+                            <h5 class="text-muted"> Revenue Growth</h5>
+                            <div class="metric-value d-inline-block">
+                                {% if week_difference > 0 %}
+                                <h1 class="mb-1 text-primary p-3">+{{week_difference}}% </h1>
+                                {% else %}
+                                <h1 class="mb-1 text-danger p-3">{{week_difference}}% </h1>
+                                {% endif %}
                             </div>
+                            {% if week_difference > 0 %}
+                            <div class="metric-label d-inline-block float-right text-success">
+                                <i class="fa fa-fw fa-caret-up"></i><span></span>
+                            </div>
+                            {% else %}
+                            <div class="metric-label d-inline-block float-right text-danger">
+                                <i class="fa fa-fw fa-caret-down"></i><span></span>
+                            {% endif %}    
                         </div>
+                        <div id="sparkline-4"></div>
                     </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Top Selling Products</h5>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="bg-light">
-                                            <tr class="border-0">
-                                                <th class="border-0">#</th>
-                                                <th class="border-0">Image</th>
-                                                <th class="border-0">Product Name</th>
-                                                <th class="border-0">Product Id</th>
-                                                <th class="border-0">Quantity Sold</th>
-                                                <th class="border-0">Revenue</th>
-                                                
-                                                
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for product in top_products %}
-                                            
-                                            <tr>
-                                                <td>{{forloop.counter}}</td>
-                                                <td>
-                                                    <div class="m-r-10 shadow-checkout"><img src="{{product.image.url}}" alt="user" class="rounded" width="45"></div>
-                                                </td>
-                                                <td>{{product}} </td>
-
-                                                <td>
-                                                    <a href="{% url 'product_detail' product.id%}">
-                                                        {{product.id}} 
-                                                    </a>
-                                                </td>
-                                                
-                                                    <td>{{ top_products_dict|lookup:product}}</td>
-                                                
-                                                
-                                                <td>£{{top_products_revenue|lookup:product|floatformat:2}}</td>
-                                                
-                                            </tr>
-                                        
-                                            {% endfor %}
-                                            
-                                            <tr>
-                                                <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                 </div>
-                <div class="row">
-                   
-                    
-                    
-                    <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="card">
-                            <h5 class="card-header">Revenue by Location</h5>
-                            <div class="card-body">
-                                <div id="locationmap" style="width:100%; height:200px"></div>
+
+                <div class="col-xl-6 col-lg-3 col-md-3 col-sm-12 col-12">
+                    <div class="card product-card ">
+                        <div class="card-body">
+                            <h5 class="text-muted">Orders Growth</h5>
+                            <div class="metric-value d-inline-block">
+                                {% if orders_week_difference > 0%}
+                                <h1 class="mb-1 text-primary p-3">+{{orders_week_difference}}% </h1>
+                                {% else %}
+                                <h1 class="mb-1 text-danger p-3">{{orders_week_difference}}% </h1>
+                                {% endif %}
                             </div>
-                            <div class="card-body border-top">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <div class="sell-ratio">
-                                            <h5 class="mb-1 mt-0 font-weight-normal">New York</h5>
-                                            <div class="progress-w-percent">
-                                                <span class="progress-value">72k </span>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="sell-ratio">
-                                            <h5 class="mb-1 mt-0 font-weight-normal">San Francisco</h5>
-                                            <div class="progress-w-percent">
-                                                <span class="progress-value">39k</span>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="sell-ratio">
-                                            <h5 class="mb-1 mt-0 font-weight-normal">Sydney</h5>
-                                            <div class="progress-w-percent">
-                                                <span class="progress-value">25k </span>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar" role="progressbar" style="width: 39%;" aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="sell-ratio">
-                                            <h5 class="mb-1 mt-0 font-weight-normal">Singapore</h5>
-                                            <div class="progress-w-percent mb-0">
-                                                <span class="progress-value">61k </span>
-                                                <div class="progress progress-sm">
-                                                    <div class="progress-bar" role="progressbar" style="width: 61%;" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            {% if orders_week_difference > 0 %}
+                            <div class="metric-label d-inline-block float-right text-success">
+                                <i class="fa fa-fw fa-caret-up"></i><span></span>
                             </div>
+                            {% else %}
+                            <div class="metric-label d-inline-block float-right text-danger">
+                                <i class="fa fa-fw fa-caret-down"></i><span></span>
+                            </div>    
+                            {% endif %}    
                         </div>
+                        <div id="sparkline-4"></div>
                     </div>
-                    
                 </div>
-                
+
             </div>
-            
+
+            <div class="row">
+                <div class="col-lg-6 col-12 ">
+                    <div class="card ">
+                        <h5 class="card-header">Revenue</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 p-3">
+                                    <h4> Today's Orders: £{{today_total|floatformat:2}}</h4>
+
+                                </div>
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                                    <h2 class="font-weight-normal mb-3"><span>{{orders_this_week|floatformat:0}}</span> </h2>
+                                    <div class="mb-0 mt-3 legend-item">
+                                        <span class="fa-xs text-primary mr-1 legend-title "><i
+                                                class="fa fa-fw fa-square-full"></i></span>
+                                        <span class="legend-text">Current Week</span></div>
+                                </div>
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                                    <h2 class="font-weight-normal mb-3">
+
+                                        <span>{{orders_this_month|floatformat:0}}</span>
+
+                                    </h2>
+                                    <div class="text-muted mb-0 mt-3 legend-item"> <span
+                                            class="fa-xs text-secondary mr-1 legend-title"><i
+                                                class="fa fa-fw fa-square-full"></i></span><span
+                                            class="legend-text">This Month</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body border-top">
+                            <div class="row">
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 p-3">
+                                    <h4> Today's Revenue: £{{today_total|floatformat:2}}</h4>
+
+                                </div>
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                                    <h2 class="font-weight-normal mb-3"><span>£{{week_total|floatformat:2}}</span> </h2>
+                                    <div class="mb-0 mt-3 legend-item">
+                                        <span class="fa-xs text-primary mr-1 legend-title "><i
+                                                class="fa fa-fw fa-square-full"></i></span>
+                                        <span class="legend-text">Current Week</span></div>
+                                </div>
+                                <div class="offset-xl-1 col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 p-3">
+                                    <h2 class="font-weight-normal mb-3">
+
+                                        <span>£{{month_total|floatformat:2}}</span>
+
+                                    </h2>
+                                    <div class="text-muted mb-0 mt-3 legend-item"> <span
+                                            class="fa-xs text-secondary mr-1 legend-title"><i
+                                                class="fa fa-fw fa-square-full"></i></span><span
+                                            class="legend-text">This Month</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Top Selling Products</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">Image</th>
+                                            <th class="border-0">Product Name</th>
+                                            <th class="border-0">Product Id</th>
+                                            <th class="border-0">Quantity Sold</th>
+                                            <th class="border-0">Revenue</th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for product in top_products %}
+
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>
+                                                <div class="m-r-10 ">
+                                                    <img src="{{product.image.url}}" alt="user"
+                                                        class="rounded shadow-checkout" width="45">
+                                                </div>
+                                            </td>
+                                            <td>{{product}} </td>
+
+                                            <td>
+                                                <a href="{% url 'product_detail' product.id%}">
+                                                    {{product.id}}
+                                                </a>
+                                            </td>
+
+                                            <td>{{product.number_sold}}</td>
+
+
+                                            <td>£{{top_products_revenue|lookup:product|floatformat:2}}</td>
+
+                                        </tr>
+
+                                        {% endfor %}
+
+                                        <tr>
+                                            <td colspan="8"><a href="#" class="btn btn-outline-light float-right">View
+                                                    Details</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+
+
+
+                <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Revenue by Location</h5>
+                        <div class="card-body">
+                            <div id="locationmap" style="width:100%; height:200px"></div>
+                        </div>
+                        <div class="card-body border-top">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="sell-ratio">
+                                        <h5 class="mb-1 mt-0 font-weight-normal">New York</h5>
+                                        <div class="progress-w-percent">
+                                            <span class="progress-value">72k </span>
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar" style="width: 72%;"
+                                                    aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="sell-ratio">
+                                        <h5 class="mb-1 mt-0 font-weight-normal">San Francisco</h5>
+                                        <div class="progress-w-percent">
+                                            <span class="progress-value">39k</span>
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar" style="width: 39%;"
+                                                    aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="sell-ratio">
+                                        <h5 class="mb-1 mt-0 font-weight-normal">Sydney</h5>
+                                        <div class="progress-w-percent">
+                                            <span class="progress-value">25k </span>
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar" style="width: 39%;"
+                                                    aria-valuenow="39" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="sell-ratio">
+                                        <h5 class="mb-1 mt-0 font-weight-normal">Singapore</h5>
+                                        <div class="progress-w-percent mb-0">
+                                            <span class="progress-value">61k </span>
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar" role="progressbar" style="width: 61%;"
+                                                    aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
-      
+
     </div>
-    
-    
+
+    </div>
+
+
 </body>
- 
+
 {% endblock %}

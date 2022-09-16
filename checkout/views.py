@@ -43,6 +43,10 @@ def checkout(request):
                         
 
                         product = Product.objects.get(id=item_id)
+                        # increment the number of times the product has been purchased
+
+                        product.number_sold += 1
+                        product.save()
                         
                         if isinstance(item_data, int):
                             order_line_item = OrderLineItem(

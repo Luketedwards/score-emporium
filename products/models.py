@@ -40,7 +40,7 @@ class Product(models.Model):
     Guitar_Pro_Unlocked = models.FileField(null=True,)
     Guitar_Pro_Locked = models.FileField(null=True, blank=True)
     video = models.URLField(max_length=1024, null=True, blank=True)
-    
+    number_sold = models.IntegerField(null=True, blank=True, default=0)
     
 
 
