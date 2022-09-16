@@ -28,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '*3%jc(lm3=5dir0u@h(r__!zpmcvt1qz@&^437hkrik_s-eyqv')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'DEVELOPMENT' in os.environ
@@ -251,8 +251,8 @@ if 'DEVELOPMENT' not in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST ='smtp.gmail.com'
-    EMAIL_HOST_USER = 'luketedmusic@gmail.com'
-    EMAIL_HOST_PASSWORD = 'zdlz oulo zhob xoht'
+    EMAIL_HOST_USER = 'scoreemporium@gmail.com
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True

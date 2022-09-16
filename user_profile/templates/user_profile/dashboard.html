@@ -3,7 +3,8 @@
 {% load custom_tags %}
  
 {% block extra_css %}
-<link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <link rel="stylesheet" href="{% static  'css/dashboard.css' %}">
 {% endblock %}
 
 
@@ -22,6 +23,7 @@
                             <p class="pageheader-text text-center">Below you can find useful data about your account, sales and performance and various other metrics.</p>
                             
                         </div>
+                        <hr>
                     </div>
                 </div>
 
@@ -91,8 +93,8 @@
                 </div>
                 
                 <div class="row">
-                    <div class="col-xl-8 col-lg-12 col-md-8 col-sm-12 col-12">
-                        <div class="card">
+                    <div class="col-lg-6 col-12 ">
+                        <div class="card ">
                             <h5 class="card-header">Revenue</h5>
                             <div class="card-body">
                                 <canvas id="revenue" width="400" height="150"></canvas>
@@ -121,11 +123,8 @@
                             </div>
                         </div>
                     </div>
-                    
-                </div>
-                <div class="row">
-                   
-                    <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                    <div class="col-lg-6 col-12">
                         <div class="card">
                             <h5 class="card-header">Top Selling Products</h5>
                             <div class="card-body p-0">
@@ -149,7 +148,7 @@
                                             <tr>
                                                 <td>{{forloop.counter}}</td>
                                                 <td>
-                                                    <div class="m-r-10"><img src="{{product.image.url}}" alt="user" class="rounded" width="45"></div>
+                                                    <div class="m-r-10 shadow-checkout"><img src="{{product.image.url}}" alt="user" class="rounded" width="45"></div>
                                                 </td>
                                                 <td>{{product}} </td>
 
@@ -177,6 +176,11 @@
                             </div>
                         </div>
                     </div>
+                    
+                </div>
+                <div class="row">
+                   
+                    
                     
                     <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="card">
