@@ -101,14 +101,24 @@
                                 <div class="simple-card">
                                     <ul class="nav nav-tabs" id="myTab5" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active border-left-0" id="product-tab-1"
+                                            <a class="nav-link active border-left-0 text-center" id="product-tab-1"
                                                 data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1"
                                                 aria-selected="true">Description</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="product-tab-2" data-toggle="tab" href="#tab-2"
-                                                role="tab" aria-controls="product-tab-2"
+                                            <a class="nav-link text-center" id="product-tab-2" data-toggle="tab"
+                                                href="#tab-2" role="tab" aria-controls="product-tab-2"
                                                 aria-selected="false">Reviews</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-center" id="product-tab-3" data-toggle="tab"
+                                                href="#tab-3" role="tab" aria-controls="product-tab-3"
+                                                aria-selected="false">Video</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-center" id="product-tab-4" data-toggle="tab"
+                                                href="#tab-4" role="tab" aria-controls="product-tab-4"
+                                                aria-selected="false">Leave a Review</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent5">
@@ -125,39 +135,31 @@
 
 
                                         </div>
+                                        <div class="tab-pane fade " id="tab-3" role="tabpanel"
+                                            aria-labelledby="product-tab-3">
+                                            <p>
+                                                <iframe width="560" height="315" class="responsive-youtube "
+                                                src="{{product.video}}" frameborder="0"
+                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>
+                                            </p>
+                                            
+
+                                        </div>
+                                        <div class="tab-pane fade " id="tab-4" role="tabpanel"
+                                            aria-labelledby="product-tab-4">
+                                            <p>
+                                                {% include '../includes/leave_review.html' %}
+                                            </p>
+                                            
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        {% if product.video %}
-                        <div class="row col-xl-8 center p-0">
-                            <div
-                                class=" col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30 ">
-                                <div class="col-12 center yt-video">
-                                    <iframe width="560" height="315" class="responsive-youtube " src="{{product.video}}"
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen></iframe>
-                                </div>
-                            </div>
-                            <div
-                                class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 pl-xl-0 pl-lg-0 pl-md-0 border-left m-b-30 ">
-                                {% include '../includes/leave_review.html' %}
-
-                            </div>
-                            {%else%}
-                            <div class="center col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 p-0 d-flex">
-                                <div class="col-lg-6 col-sm-12 center">
-                                    {% include '../includes/leave_review.html' %}
-
-                                </div>
-                            </div>
-                        </div>
-                        {%endif%}
-
-
-
+                    
                     </div>
                     <div class="row mb-5">
 
@@ -208,8 +210,8 @@
                                     <a style="background-color: black; opacity: 0.6;left: 2rem;
                                     top: 3rem;
                                     height: 90%;
-                                    width: 3rem;" class="carousel-control-prev"
-                                        href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                                    width: 3rem;" class="carousel-control-prev" href="#carouselExampleIndicators1"
+                                        role="button" data-slide="prev">
                                         <span style="background-color: black;" class="carousel-control-prev-icon"
                                             aria-hidden="true"></span>
                                         <span class="sr-only">Previous</span> </a>

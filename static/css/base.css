@@ -823,7 +823,7 @@ body {
 }
 
 .feedback {
-  max-width: 360px;
+  /* max-width: 360px; */
   background-color: #fff;
   width: 100%;
   padding: 30px;
@@ -834,6 +834,15 @@ body {
   align-items: center;
   box-shadow: 0 4px 30px rgba(0, 0, 0, .05);
   margin-bottom: 10px !important;
+}
+
+.feedback textarea{
+  display: block;
+  max-width: 315px;
+}
+
+.feedback input{
+  max-width: 315px;
 }
 
 .feedback input,
