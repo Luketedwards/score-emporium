@@ -44,18 +44,21 @@ def user_store(request, storevendor):
     vendor_products = Product.objects.all()
     vendor_average_rating= 0
     reviewed_products = 0
-    for products in vendor_products:
-        if products.vendor == storevendor and products.rating:
-            vendor_average_rating = vendor_average_rating + products.rating
-            reviewed_products = reviewed_products + 1 
-    final_average = vendor_average_rating / reviewed_products
-    vendor_profile.average_rating = final_average  
-    vendor_profile.save()
+    try:
+        for products in vendor_products:
+            if products.vendor == storevendor and products.rating:
+                vendor_average_rating = vendor_average_rating + products.rating
+                reviewed_products = reviewed_products + 1 
+        final_average = vendor_average_rating / reviewed_products
+        vendor_profile.average_rating = final_average  
+        vendor_profile.save()
 
-    # round vendor average rating to 1 decimal place and the nearest .5
-    vendor_average_rating = vendor_profile.average_rating
-    vendor_average_rating = round(vendor_average_rating * 2) / 2
-    vendor_average_rating = round(vendor_average_rating, 1)
+        # round vendor average rating to 1 decimal place and the nearest .5
+        vendor_average_rating = vendor_profile.average_rating
+        vendor_average_rating = round(vendor_average_rating * 2) / 2
+        vendor_average_rating = round(vendor_average_rating, 1)
+    except:
+        vendor_average_rating = 0    
 
     if request.user.is_authenticated:
         
@@ -220,149 +223,176 @@ def edit_profile(request):
 
 
 def dashboard(request):
-    """ A view to return the dashboard page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    products = Product.objects.all()
-    orders = profile.orders.all()
-    items = []
-    number_of_customers = orders.distinct('username').count()
-    number_of_orders = orders.count()
-    total_revenue = 0
-    for order in orders:
-        total_revenue += order.order_total
-    total_revenue = float(total_revenue) * 0.8    
-      
-    # find orders placed today
-    today = datetime.date.today()
-    today_total = 0
-    orders_today = orders.filter(date__day=today.day, date__month=today.month, date__year=today.year)
-    for order in orders_today:  
-        today_total += order.order_total
-    today_total = float(today_total) * 0.8    
-
-    # find orders placed this week
-    week_total = 0
-    orders_week = orders.filter(date__week=today.isocalendar()[1])
-    for order in orders_week:
-        week_total += order.order_total
-    week_total = float(week_total) * 0.8
-
-    # find orders placed last week
-    last_week_total = 0
-    orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
-    for order in orders_last_week:
-        last_week_total += order.order_total
-    last_week_total = float(last_week_total) * 0.8
-
-    # calculate the percentage difference between this week and last week
-    if last_week_total == 0:
-        week_difference = 100
-    else:
-        week_difference = (week_total - last_week_total) / last_week_total * 100
-
-
-    # find orders placed this month
-    month_total = 0
-    orders_month = orders.filter(date__month=today.month)
-    for order in orders_month:
-        month_total += order.order_total
-    month_total = float(month_total) * 0.8
-
-    # find distinct products in orders
-    distinct_products = []
-    for order in orders:
-        for item in order.lineitems.all():
-            distinct_products.append(item.product.id)
-    distinct_products = set(distinct_products)
-    
-    # calculate the number of orders this week
-    orders_this_week = orders.filter(date__week=today.isocalendar()[1])
-    orders_this_week = orders_this_week.count()
-
-    # calculate the number of orders last week
-    orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
-    orders_last_week = orders_last_week.count()
-
-    # calculate the number of orders this month
-    orders_this_month = orders.filter(date__month=today.month)
-    orders_this_month = orders_this_month.count()
-
-    # calculate the percentage difference between this week and last week
-    if orders_last_week == 0:
-        orders_week_difference = 100
-    else:
-        orders_week_difference = (orders_this_week - orders_last_week) / orders_last_week * 100
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        if profile.vendor == True:
         
-    # calculate number of distinct customers this week
-    customer_orders_this_week = orders.filter(date__week=today.isocalendar()[1])
-    customers_this_week = customer_orders_this_week.distinct('username').count()
+            """ A view to return the dashboard page """
+            profile = get_object_or_404(UserProfile, user=request.user)
+            products = Product.objects.all()
+            orders = profile.orders.all()
+            items = []
+            number_of_customers = orders.distinct('username').count()
+            number_of_orders = orders.count()
+            total_revenue = 0
+            for order in orders:
+                total_revenue += order.order_total
+            total_revenue = float(total_revenue) * 0.8    
+            
+            # find orders placed today
+            today = datetime.date.today()
+            today_total = 0
+            orders_today = orders.filter(date__day=today.day, date__month=today.month, date__year=today.year)
+            for order in orders_today:  
+                today_total += order.order_total
+            today_total = float(today_total) * 0.8    
 
-    # calculate number of distinct customers last week
-    customer_orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
-    customers_last_week = customer_orders_last_week.distinct('username').count()
+            # find orders placed this week
+            week_total = 0
+            orders_week = orders.filter(date__week=today.isocalendar()[1])
+            for order in orders_week:
+                week_total += order.order_total
+            week_total = float(week_total) * 0.8
 
-    # calculate the percentage difference between this week and last week
-    if customers_last_week == 0:
-        customers_week_difference = 100
+            # find orders placed last week
+            last_week_total = 0
+            orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+            for order in orders_last_week:
+                last_week_total += order.order_total
+            last_week_total = float(last_week_total) * 0.8
+
+            # calculate the percentage difference between this week and last week
+            if last_week_total == 0:
+                week_difference = 100
+            else:
+                week_difference = (week_total - last_week_total) / last_week_total * 100
+
+
+            # find orders placed this month
+            month_total = 0
+            orders_month = orders.filter(date__month=today.month)
+            for order in orders_month:
+                month_total += order.order_total
+            month_total = float(month_total) * 0.8
+
+            # find distinct products in orders
+            distinct_products = []
+            for order in orders:
+                for item in order.lineitems.all():
+                    distinct_products.append(item.product.id)
+            distinct_products = set(distinct_products)
+            
+            # calculate the number of orders this week
+            orders_this_week = orders.filter(date__week=today.isocalendar()[1])
+            orders_this_week = orders_this_week.count()
+
+            # calculate the number of orders last week
+            orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+            orders_last_week = orders_last_week.count()
+
+            # calculate the number of orders this month
+            orders_this_month = orders.filter(date__month=today.month)
+            orders_this_month = orders_this_month.count()
+
+            # calculate the percentage difference between this week and last week
+            if orders_last_week == 0:
+                orders_week_difference = 100
+            else:
+                orders_week_difference = (orders_this_week - orders_last_week) / orders_last_week * 100
+                
+            # calculate number of distinct customers this week
+            customer_orders_this_week = orders.filter(date__week=today.isocalendar()[1])
+            customers_this_week = customer_orders_this_week.distinct('username').count()
+
+            # calculate number of distinct customers last week
+            customer_orders_last_week = orders.filter(date__week=today.isocalendar()[1]-1)
+            customers_last_week = customer_orders_last_week.distinct('username').count()
+
+            # calculate the percentage difference between this week and last week
+            if customers_last_week == 0:
+                customers_week_difference = 100
+            else:
+                customers_week_difference = (customers_this_week - customers_last_week) / customers_last_week * 100
+
+
+        # order distinct products by number sold
+            product_sales = []
+            for product in distinct_products:
+                product_sales.append((product, orders.filter(lineitems__product=product).count()))
+            product_sales.sort(key=lambda x: x[1], reverse=True)
+            product_sales = product_sales[:5]
+
+            # filter products by product_sales
+            top_products = []
+            for product in product_sales:
+                top_products.append(Product.objects.get(id=product[0]))
+
+            # create dictionary of top products and their sales
+            top_products_dict = {}
+            for product in top_products:
+                top_products_dict[product] = orders.filter(lineitems__product=product).count()
+
+            # calculate total revenue for each product in top_products and make a dictionary
+            top_products_revenue = {}
+            for product in top_products:
+                total = 0
+                for order in orders.filter(lineitems__product=product):
+                    total += order.order_total
+                top_products_revenue[product] = float(total) * 0.8
+
+            # find genre of all products sold in orders
+            genres = []
+            for order in orders:
+                for item in order.lineitems.all():
+                    genres.append(item.product.genre)
+            genres = set(genres)
+
+            # find most popular genre
+            genre_sales = []
+            for genre in genres:
+                genre_sales.append((genre, orders.filter(lineitems__product__genre=genre).count()))
+            genre_sales.sort(key=lambda x: x[1], reverse=True)
+            genre_sales = genre_sales[:5]
+            most_popular_genre = genre_sales[0][0]
+
+            
+
+
+            score_number = 0
+            for order in orders:
+                for item in order.lineitems.all():
+                    items.append(item)
+                    score_number += 1
+            context = {
+                'products': products,
+                'profile': profile,
+                'orders': orders,
+                'items': items,
+                'score_number': score_number,
+                'number_of_customers': number_of_customers,
+                'number_of_orders': number_of_orders,
+                'total_revenue': total_revenue,
+                'today_total': today_total,
+                'week_total': week_total,
+                'month_total': month_total,
+                'distinct_products': distinct_products,
+                'product_sales': product_sales,
+                'top_products': top_products,
+                'top_products_dict': top_products_dict,
+                'top_products_revenue': top_products_revenue,
+                'week_difference': week_difference,
+                'orders_week_difference': orders_week_difference,
+                'orders_this_week': orders_this_week,
+                'orders_last_week': orders_last_week,
+                'orders_this_month': orders_this_month,
+                'customers_week_difference': customers_week_difference,
+                'most_popular_genre': most_popular_genre,
+            
+            }
+
+            return render(request, 'user_profile/dashboard.html', context)
+        else:
+            messages.error(request, 'You must be a vendor to access this page')
+            return redirect('vendor_signup')
     else:
-        customers_week_difference = (customers_this_week - customers_last_week) / customers_last_week * 100
-
-
-   # order distinct products by number sold
-    product_sales = []
-    for product in distinct_products:
-        product_sales.append((product, orders.filter(lineitems__product=product).count()))
-    product_sales.sort(key=lambda x: x[1], reverse=True)
-    product_sales = product_sales[:5]
-
-    # filter products by product_sales
-    top_products = []
-    for product in product_sales:
-        top_products.append(Product.objects.get(id=product[0]))
-
-    # create dictionary of top products and their sales
-    top_products_dict = {}
-    for product in top_products:
-        top_products_dict[product] = orders.filter(lineitems__product=product).count()
-
-    # calculate total revenue for each product in top_products and make a dictionary
-    top_products_revenue = {}
-    for product in top_products:
-        total = 0
-        for order in orders.filter(lineitems__product=product):
-            total += order.order_total
-        top_products_revenue[product] = float(total) * 0.8
-
-
-    score_number = 0
-    for order in orders:
-        for item in order.lineitems.all():
-            items.append(item)
-            score_number += 1
-    context = {
-        'products': products,
-        'profile': profile,
-        'orders': orders,
-        'items': items,
-        'score_number': score_number,
-        'number_of_customers': number_of_customers,
-        'number_of_orders': number_of_orders,
-        'total_revenue': total_revenue,
-        'today_total': today_total,
-        'week_total': week_total,
-        'month_total': month_total,
-        'distinct_products': distinct_products,
-        'product_sales': product_sales,
-        'top_products': top_products,
-        'top_products_dict': top_products_dict,
-        'top_products_revenue': top_products_revenue,
-        'week_difference': week_difference,
-        'orders_week_difference': orders_week_difference,
-        'orders_this_week': orders_this_week,
-        'orders_last_week': orders_last_week,
-        'orders_this_month': orders_this_month,
-        'customers_week_difference': customers_week_difference,
-    
-    }
-
-    return render(request, 'user_profile/dashboard.html', context)
+        return redirect('account_signup')    

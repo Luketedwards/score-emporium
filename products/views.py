@@ -219,7 +219,7 @@ def product_detail(request, product_id):
             messages.success(request, f'Review added successfully!')
             return redirect(reverse('product_detail', args=[product.id]))  
     
-    return render(request, 'products/product_details.html', context)
+    return render(request, 'products/product_details2.html', context)
 
 
 def guitar_pro(request, product_id):

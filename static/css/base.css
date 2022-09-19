@@ -607,6 +607,10 @@ body {
     z-index: 1030;
   }
 
+  .feedback{
+    float: right;
+  }
+
   #form-list{
     display: none;
   }
@@ -633,6 +637,15 @@ body {
 @media (max-width: 991px) {
   .header-container {
     padding-top: 116px;
+  }
+
+  .feedback{
+    margin: 0 auto !important;
+  }
+
+  .yt-video{
+    margin: 0 auto !important;
+    display: flex;
   }
 
   #nav-ul{
@@ -831,14 +844,15 @@ textarea {
 #user-reviews {
 
   background-color: #fff;
-  width: 100%;
-  padding: 30px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, .05);
+    width: 100%;
+    padding: 30px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
 
 }
 
@@ -1249,6 +1263,7 @@ textarea {
     color: black !important;
   }
 
+  
   .navbar-collapse {
     position: fixed;
     top: 0;

@@ -5,7 +5,7 @@ from .models import Product, Genre, Difficulty, Review
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        'sku',
+        
         'name',
         'genre',
         'price',
@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
         'vendor'
     )
 
-    ordering = ('sku',)
+    
 
 class GenreAdmin(admin.ModelAdmin):
     list_display = (
