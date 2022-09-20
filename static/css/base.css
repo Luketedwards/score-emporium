@@ -6,6 +6,7 @@ html{
   margin-right: 0 !important;
   overflow: hidden !important;
 }
+
 .nav-link{
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -22,8 +23,18 @@ html{
   opacity:0 ;
   transition: opacity 0.8s;
 }
+.hidemeNew
+{
+  opacity:0 ;
+  transition: opacity 0.8s;
+}
 
 .hideme2
+{
+  opacity:0 ;
+  transition: opacity 0.8s;
+}
+.hideme3
 {
   opacity:0 ;
   transition: opacity 0.8s;

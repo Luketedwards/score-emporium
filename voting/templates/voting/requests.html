@@ -25,8 +25,8 @@
         <div class="col-12 col-lg-8 center">
 
 
-            <div class="card box-shadow ">
-                <div class="card-body {% if forloop.counter < 2%} hideme2 {%else%} hideme {%endif%}">
+            <div style="border: none;" class="card  ">
+                <div class="card-body {% if forloop.counter < 2%} hideme2 {%else%} hideme {%endif%} box-shadow">
                     {% if request.user == requested.created_by %}
                         <div class="right">
                             <button data-toggle="modal" data-target="#deleteModal{{requested.id}}" class="btn btn-danger animated-btn">
@@ -195,8 +195,8 @@
                 </div>
                 <!-- modal to confirm fulfilling post -->
                 <div class="modal fade" id="fulfillModal{{requested.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                    <div style="width: 40vw !important;" class="modal-dialog" role="document">
-                        <div style="width: 40vw !important;" class="modal-content">
+                    <div  class="modal-dialog" role="document">
+                        <div  class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title center" id="exampleModalLabel3">Submit Score To {{requested.title|title}}</h5>
                                 

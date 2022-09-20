@@ -7,8 +7,19 @@ from products.models import Product
 
 def view_cart(request):
     """ A view that renders the cart page """
+    # count number of items in cart
+    cart = request.session.get('cart', {})
+    total = 0
+    product_count = 0
+    for item_id, quantity in cart.items():
+        product = get_object_or_404(Product, pk=item_id)
+        total += quantity * product.price
+        product_count += quantity
+    context = {
+        'product_count': product_count,
+    }    
 
-    return render(request, 'cart/cart.html')
+    return render(request, 'cart/cart2.html', context)
 
 def add_to_cart(request, item_id):
     """ Add a quantity of the specified product to the cart """

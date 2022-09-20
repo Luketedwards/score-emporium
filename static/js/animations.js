@@ -5,14 +5,19 @@ $(document).ready(function () {
     $('.hideme2').each( function(i){        
         
         $(this).css({'opacity':'0.8'},900);
-               
+        // add .boxshadow to parent element
+        $(this).parent().css({'border': '1px solid rgba(0,0,0,.125);'});
+        
+             
     }); 
 
     
     document.getElementsByTagName("body")[0].addEventListener('scroll', function(e){
         $('.hideme').each( function(i){        
                 if( isInViewport(this) ) {
-                    $(this).css({'opacity':'0.8'},900);
+                    $(this).css({'opacity':'0.8', 'border': '1px solid rgba(0,0,0,.125);'},900);
+                    $(this).parent().css({'border': '1px solid rgba(0,0,0,.125);'});
+
                 };       
             }); 
         });      
