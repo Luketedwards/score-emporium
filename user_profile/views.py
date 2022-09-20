@@ -348,12 +348,15 @@ def dashboard(request):
             genres = set(genres)
 
             # find most popular genre
-            genre_sales = []
-            for genre in genres:
-                genre_sales.append((genre, orders.filter(lineitems__product__genre=genre).count()))
-            genre_sales.sort(key=lambda x: x[1], reverse=True)
-            genre_sales = genre_sales[:5]
-            most_popular_genre = genre_sales[0][0]
+            try:
+                genre_sales = []
+                for genre in genres:
+                    genre_sales.append((genre, orders.filter(lineitems__product__genre=genre).count()))
+                genre_sales.sort(key=lambda x: x[1], reverse=True)
+                genre_sales = genre_sales[:5]
+                most_popular_genre = genre_sales[0][0]
+            except:
+                most_popular_genre = 'N/A'    
 
             
 
@@ -389,8 +392,10 @@ def dashboard(request):
                 'most_popular_genre': most_popular_genre,
             
             }
-
-            return render(request, 'user_profile/dashboard.html', context)
+            if number_of_customers == 0:
+                return render(request, 'user_profile/dashboard-empty.html', context)
+            else:    
+                return render(request, 'user_profile/dashboard.html', context)
         else:
             messages.error(request, 'You must be a vendor to access this page')
             return redirect('vendor_signup')

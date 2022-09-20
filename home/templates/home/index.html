@@ -18,10 +18,10 @@
                     <p class="lead text-white mb-4">Your one stop shop to buy and sell high quality interactive scores
                         and sheet music!</p>
                     <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                        <a style="margin-right: 10px;" class="btn btn-primary btn-lg px-4 me-sm-3 animated-btn"
+                        <a style="margin-right: 10px; margin-top: 5px;" class="btn btn-primary btn-lg px-4 me-sm-3 animated-btn"
                             href="{% url 'products'%}">Browse Scores</a>
                         {% if not request.user.is_authenticated%}
-                        <a class="btn btn-outline-light btn-lg px-4 animated-btn" href="{% url 'account_signup' %}">Sign
+                        <a style="width: 11.5rem; margin-right: 10px; margin-top: 5px; " class="btn btn-outline-light btn-lg px-4 animated-btn" href="{% url 'account_signup' %}">Sign
                             Up!</a>
                         {% endif %}
                     </div>
@@ -38,7 +38,7 @@
     </div>
     <div class=" px-5 my-5 ">
         <div class="row">
-            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2">
+            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2 product-card">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i>
                 </div>
                 <h2 class="h4 fw-bolder">Access a Huge Variety of Quality Scores</h2>
@@ -54,7 +54,7 @@
                 </a>
                 </div>  
             </div>
-            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2 ">
+            <div class="col-lg-4 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2 product-card">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i>
                 </div>
                 <h2 class="h4 fw-bolder">A Feature-Packed Platform to Publish and Sell Your Music</h2>
@@ -85,7 +85,7 @@
                 </div>
                 {%endif%}
             </div>
-            <div class="col-lg-3 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2">
+            <div class="col-lg-3 col-md-12 mb-5 mb-lg-0 shadow-checkout feature-radius feature hideme2 product-card">
                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3 "><i class="bi bi-toggles2"></i>
                 </div>
                 <h2 class="h4 fw-bolder">Powerful Interactive Tools to Supercharge Your Practise!</h2>

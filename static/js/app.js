@@ -39,6 +39,59 @@ $('.menu__btn').click(function () {
     $(".overlay-hero").css("opacity", "0.9");
   });
 
+  // when #product-tab-1 is clicked, apply show and active to #tab-1 and remove from #tab-2 #tab-3 #tab-4 and #tab-5
+  $("#product-tab-1").click(function () {
+    $("#tab-1").addClass("show active");
+    $("#tab-1").show();
+    $('.simple-card .tab-content').css("padding", "12px");
+    $("#tab-2").removeClass("show active").css("display", "none");
+    $("#tab-3").removeClass("show active").css("display", "none");
+    $("#tab-4").removeClass("show active").css("display", "none");
+    $("#tab-5").removeClass("show active").css("display", "none");
+  });
+
+  // when #product-tab-2 is clicked, apply show and active to #tab-2 and remove from #tab-1 #tab-3 #tab-4 and #tab-5
+  $("#product-tab-2").click(function () {
+    $("#tab-2").addClass("show active");
+    $("#tab-2").show();
+    $('.simple-card .tab-content').css("padding", "12px");
+    $("#tab-1").removeClass("show active").css("display", "none");
+    $("#tab-3").removeClass("show active").css("display", "none");
+    $("#tab-4").removeClass("show active").css("display", "none");
+    $("#tab-5").removeClass("show active").css("display", "none");
+  });
+
+  // when #product-tab-3 is clicked, apply show and active to #tab-3 and remove from #tab-1 #tab-2 #tab-4 and #tab-5
+  $("#product-tab-3").click(function () {
+    $("#tab-3").addClass("show active");
+    $("#tab-3").show();
+    $('.simple-card .tab-content').css("padding", "0");
+    $("#tab-1").removeClass("show active").css("display", "none");
+    $("#tab-2").removeClass("show active").css("display", "none");
+    $("#tab-4").removeClass("show active").css("display", "none");
+    $("#tab-5").removeClass("show active").css("display", "none");
+  });
+
+  // when #product-tab-4 is clicked, apply show and active to #tab-4 and remove from #tab-1 #tab-2 #tab-3 and #tab-5
+  $("#product-tab-4").click(function () {
+    $("#tab-4").addClass("show active");
+    $("#tab-4").show();
+    $('.simple-card .tab-content').css("padding", "0");
+    $("#tab-1").removeClass("show active").css("display", "none");
+    $("#tab-2").removeClass("show active").css("display", "none");
+    $("#tab-3").removeClass("show active").css("display", "none");
+    $("#tab-5").removeClass("show active").css("display", "none");
+  });
+
+  // when #product-tab-5 is clicked, apply show and active to #tab-5 and remove from #tab-1 #tab-2 #tab-3 and #tab-4
+  $("#product-tab-5").click(function () {
+    $("#tab-5").addClass("show active");
+    $("#tab-1").removeClass("show active");
+    $("#tab-2").removeClass("show active");
+    $("#tab-3").removeClass("show active");
+    $("#tab-4").removeClass("show active");
+  });
+
   
 
 

@@ -110,11 +110,21 @@
                                                 href="#tab-2" role="tab" aria-controls="product-tab-2"
                                                 aria-selected="false">Reviews</a>
                                         </li>
+                                        {% if product.video%}
                                         <li class="nav-item">
+                                            
                                             <a class="nav-link text-center" id="product-tab-3" data-toggle="tab"
                                                 href="#tab-3" role="tab" aria-controls="product-tab-3"
                                                 aria-selected="false">Video</a>
                                         </li>
+                                        {%else%}
+                                        <li class="nav-item btn-link disabled" >
+                                            
+                                            <a class="nav-link text-center text-danger" id="product-tab-3" data-toggle="tab"
+                                                href="#" role="tab" aria-controls="product-tab-3"
+                                                aria-selected="false">Video</a>
+                                        </li>
+                                        {%endif%}
                                         <li class="nav-item">
                                             <a class="nav-link text-center" id="product-tab-4" data-toggle="tab"
                                                 href="#tab-4" role="tab" aria-controls="product-tab-4"
@@ -129,29 +139,30 @@
                                             <p>{{product.description|capfirst}}</p>
 
                                         </div>
-                                        <div class="tab-pane fade" id="tab-2" role="tabpanel"
+                                        <div style="display: none;" class="tab-pane fade" id="tab-2" role="tabpanel"
                                             aria-labelledby="product-tab-2">
                                             {% include '../includes/overall_ratings.html' %}
 
 
                                         </div>
-                                        <div class="tab-pane fade " id="tab-3" role="tabpanel"
-                                            aria-labelledby="product-tab-3">
+                                        <div style="display: none; background-color: white;position: relative;
+                                        top: -3px;" class="tab-pane fade tab-content col-12 center p-3" id="tab-3"
+                                            role="tabpanel" aria-labelledby="product-tab-3">
                                             <p>
-                                                <iframe width="560" height="315" class="responsive-youtube "
-                                                src="{{product.video}}" frameborder="0"
-                                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                allowfullscreen></iframe>
+                                                <iframe width="560" height="315" class="responsive-youtube d-flex "
+                                                    src="{{product.video}}" frameborder="0"
+                                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowfullscreen></iframe>
                                             </p>
-                                            
+
 
                                         </div>
-                                        <div class="tab-pane fade " id="tab-4" role="tabpanel"
-                                            aria-labelledby="product-tab-4">
+                                        <div style="display: none;" class="tab-pane fade tab-content" id="tab-4"
+                                            role="tabpanel" aria-labelledby="product-tab-4">
                                             <p>
                                                 {% include '../includes/leave_review.html' %}
                                             </p>
-                                            
+
 
                                         </div>
                                     </div>
@@ -159,7 +170,7 @@
                             </div>
                         </div>
 
-                    
+
                     </div>
                     <div class="row mb-5">
 
@@ -179,11 +190,11 @@
                                             {%endfor%}
 
                                         </ol>
-                                        <div class="carousel-inner">
+                                        <div class="carousel-inner center shadow-checkout" >
                                             {% for vendor_products in relevant_products%}
                                             <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
                                                 {% if vendor_products.image %}
-                                                <img style="height: 400px; margin: 0 auto !important;" class=""
+                                                <img style="height: 400px; margin: 0 auto !important; background-size: contain;" class="center"
                                                     src="{{MEDIA_URL}}{{vendor_products.image }}" data-color="lightblue"
                                                     alt="{{vendor_products.name}}">
                                                 {% else %}

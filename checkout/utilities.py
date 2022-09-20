@@ -25,6 +25,11 @@ def notify_vendor2(vendorName, order):
     
     from_email = settings.DEFAULT_EMAIL_FROM
     order_number = order.order_number
+
+    # find all orders made by vendor
+    vendor_orders = Order.objects.filter(lineitems__vendor=vendorName)
+    # count the number of orders made by vendor
+    vendor_orders_count = vendor_orders.count()
     
 
     api_instance = sib_api_v3_sdk.TransactionalEmailsApi(sib_api_v3_sdk.ApiClient(configuration))
@@ -45,7 +50,7 @@ def notify_vendor2(vendorName, order):
             pre_comission_total = pre_comission_total + price2
         
 
-    html_content = render_to_string('checkout/notify_vendor_email.html', {'order': order, 'vendor': vendorName, 'vendors_total': vendors_total, 'pre_comissions':pre_comission_total})
+    html_content = render_to_string('checkout/notify_vendor_email.html', {'order': order, 'vendor': vendorName, 'vendors_total': vendors_total, 'pre_comissions':pre_comission_total, 'vendor_orders_count': vendor_orders_count})
     to = [{"email": profile.email,"name":vendorName}]
     
     params = {"parameter":"My param value","subject":"New Subject"}
