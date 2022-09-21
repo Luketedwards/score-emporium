@@ -154,10 +154,12 @@
                                         top: -3px;" class="tab-pane col-12 center p-3" id="tab-3"
                                             role="tabpanel" aria-labelledby="product-tab-3">
                                             <p>
+                                                {% if product.video%}
                                                 <iframe width="560" height="315" class="responsive-youtube d-flex "
                                                     src="{{product.video}}" frameborder="0"
                                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                                     allowfullscreen></iframe>
+                                                {%endif%}    
                                             </p>
 
 
