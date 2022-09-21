@@ -39,6 +39,9 @@ $('.menu__btn').click(function () {
     $(".overlay-hero").css("opacity", "0.9");
   });
 
+// on page load all tabs apart from #tab-1 have display none
+  $(".tab-pane").not("#tab-1").css("display", "none");
+
   // when #product-tab-1 is clicked, apply show and active to #tab-1 and remove from #tab-2 #tab-3 #tab-4 and #tab-5
   $("#product-tab-1").click(function () {
     $("#tab-1").addClass("show active");
