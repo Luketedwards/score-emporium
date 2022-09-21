@@ -46,14 +46,15 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     <script src="{% static 'js/app.js' %}"></script>
+    
 
 
-    <!-- Stripe Javascript-->
-    <script src="https://js.stripe.com/v3/"></script>
+    
     {% endblock %}
 
     {% block extrajs %}
-    <script src="static/js/animations.js"></script>
+    <!-- Stripe Javascript-->
+    <script src="https://js.stripe.com/v3/"></script>
     {% endblock %}
 
 
@@ -181,10 +182,6 @@
     {% block postload_js%}
     <script type="text/javascript">
         $('.toast').toast('show');
-
-        $("#image-clear_id").css("display", "none");
-        var label = document.querySelector('[for= image-clear_id ]');
-        label.style.display = 'none';
     </script>
     <script src="{% static 'js/animations.js'%}"></script>
 

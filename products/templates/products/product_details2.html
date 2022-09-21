@@ -102,85 +102,78 @@
                                 </div>
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
-                                <div class="simple-card">
-                                    <div id="tabs">
-                                    <ul class="nav nav-tabs" id="myTab5" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active border-left-0 text-center" id="product-tab-1"
-                                                data-toggle="tab" href="#tab-1" role="tab" aria-controls="product-tab-1"
-                                                aria-selected="true">Description</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link text-center" id="product-tab-2" data-toggle="tab"
-                                                href="#tab-2" role="tab" aria-controls="product-tab-2"
-                                                aria-selected="false">Ratings</a>
-                                        </li>
-                                        {% if product.video%}
-                                        <li class="nav-item">
+                                
+                                    
+                                          <div class="col-12 mt-1 p-0">
                                             
-                                            <a class="nav-link text-center" id="product-tab-3" data-toggle="tab"
-                                                href="#tab-3" role="tab" aria-controls="product-tab-3"
-                                                aria-selected="false">Video</a>
-                                        </li>
-                                        {%else%}
-                                        <li class="nav-item btn-link disabled" >
-                                            
-                                            <a class="nav-link text-center text-danger" id="product-tab-3" data-toggle="tab"
-                                                href="#" role="tab" aria-controls="product-tab-3"
-                                                aria-selected="false">Video</a>
-                                        </li>
-                                        {%endif%}
-                                        <li class="nav-item">
-                                            <a class="nav-link text-center" id="product-tab-4" data-toggle="tab"
-                                                href="#tab-4" role="tab" aria-controls="product-tab-4"
-                                                aria-selected="false">Review</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content clearfix">
-
-
-                                        <div class="tab-pane active" id="tab-1" role="tabpanel"
-                                            aria-labelledby="product-tab-1">
-                                            <p>{{product.description|capfirst}}</p>
-
-                                        </div>
-                                        <div  class="tab-pane " id="tab-2" role="tabpanel"
-                                            aria-labelledby="product-tab-2">
-                                            {% include '../includes/overall_ratings.html' %}
-
-
-                                        </div>
-                                        <div style=" background-color: white;position: relative;
-                                        top: -3px;" class="tab-pane col-12 center p-3" id="tab-3"
-                                            role="tabpanel" aria-labelledby="product-tab-3">
-                                            <p>
-                                                {% if product.video%}
+                                            <!-- Nav tabs -->
+                                            <div class="card">
+                                              <div class="card-header pl-0 pr-0" style="border-bottom: none;">
+                                                <ul class="nav nav-tabs justify-content-around" role="tablist">
+                                                  <li class="nav-item" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link nav-fill active center" data-toggle="tab" href="#home" role="tab">
+                                                       About
+                                                    </a>
+                                                  </li>
+                                                  <li class="nav-item nav-fill" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                                      Ratings
+                                                    </a>
+                                                  </li>
+                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                                                       Review
+                                                    </a>
+                                                  </li>
+                                                  {% if product.video %}
+                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#settings" role="tab">
+                                                       Video
+                                                    </a>
+                                                  </li>
+                                                  {%else%}
+                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;" >
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important; pointer-events: none;" class="nav-link text-muted"  data-toggle="tab" href="" role="tab">
+                                                       Video
+                                                    </a>
+                                                  </li>
+                                                    {%endif%}
+                                                </ul>
+                                              </div>
+                                              <div class="card-body">
+                                                <!-- Tab panes -->
+                                                <div class="tab-content text-center">
+                                                  <div class="tab-pane active" id="home" role="tabpanel">
+                                                    <p>{{product.description}}</p>
+                                                  </div>
+                                                  <div class="tab-pane" id="profile" role="tabpanel">
+                                                    {% include '../includes/overall_ratings.html' %}
+                                                  </div>
+                                                  <div class="tab-pane" id="messages" role="tabpanel">
+                                                    {% include '../includes/leave_review.html' %}
+                                                  </div>
+                                                  <div class="tab-pane" id="settings" role="tabpanel">
+                                                    {% if product.video%}
                                                 <iframe width="560" height="315" class="responsive-youtube d-flex "
                                                     src="{{product.video}}" frameborder="0"
                                                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                                     allowfullscreen></iframe>
-                                                {%endif%}    
-                                            </p>
-
-
-                                        </div>
-                                        <div  class="tab-pane " id="tab-4"
-                                            role="tabpanel" aria-labelledby="product-tab-4">
-                                            <p>
-                                                {% include '../includes/leave_review.html' %}
-                                            </p>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
+                                                {%endif%}  
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          
+                                        
+                                
                             </div>
                             
                         </div>
 
 
                     </div>
+                </div>
                     <div class="row mb-5">
 
                         <div class="col-xl-8 col-lg-11 col-md-10 col-sm-11 col-12 center">
@@ -246,13 +239,12 @@
             </div>
 
         </div>
+    </div>
         <!-- ============================================================== -->
         <!-- end wrapper  -->
         <!-- ============================================================== -->
     </div>
 
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 {% endblock %}

@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="{% static 'css/checkout.css'%}">
 {% endblock %}
 
+{% block extrajs%}
+<!-- Stripe Javascript-->
+<script src="https://js.stripe.com/v3/"></script>
+{% endblock %}
+
 
 {% block content %}
     <div class="overlay"></div>
