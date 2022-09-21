@@ -1257,8 +1257,9 @@ textarea {
   }
 
   #user-reviews {
-    width: 96% !important;
+    width: 100% !important;
     margin: 0 auto;
+    padding: 0;
   }
 
   .product-details-padding {

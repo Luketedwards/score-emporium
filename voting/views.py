@@ -57,7 +57,7 @@ def requests(request):
     }
 
 
-    return render(request, 'voting/requests.html',context)
+    return render(request, 'voting/requests2.html',context)
 
 
 
