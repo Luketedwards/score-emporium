@@ -29,12 +29,12 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="job-item">
                                 <div class="item-overlay">
-                                    <div class="job-info">
-                                        <a href="#" class="btn btn-primary">Full Time</a>
-                                        <span class="tr-title">
-                                            <a href="#">{{requested.title|title}}</a>
-                                            <span><a href="#">{{requested.description|title}}</a></span>
-                                        </span>
+                                    <div class="job-info" style="padding-top: 41px;">
+
+                                        <div class="company-logo text-center mb-1">
+                                            <h3>{{requested.title|title}}</h3>
+                                            <hr>
+                                        </div>
                                         <ul class="tr-list job-meta">
                                             <li><i class="fa fa-map-signs" aria-hidden="true"></i>San Francisco, CA, US
                                             </li>
@@ -49,6 +49,75 @@
                                                         aria-hidden="true"></i></a></li>
                                         </ul>
                                     </div>
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <form action="{% url 'like_post' requested.pk%}" method="post">
+                                                {% csrf_token %}
+
+                                                <input name="id" hidden type="text" value="{{requested.id}}">
+                                                <input hidden name="username" type="text"
+                                                    value="{{requested.user.username}}">
+                                                {% if request.user.is_authenticated %}
+                                                {% if requested.pk not in list %}
+                                                <button style="height: 2.5rem;
+                                                    font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
+                                                    type="submit" name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary btn-danger animated-btn" type="submit"
+                                                    name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn" disabled type="submit"
+                                                    name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                            </form>
+                                        </div>
+                                        <div class="col-4">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal" data-target="#commentModal{{requested.id}}"
+                                                class="btn btn-primary">
+                                                <div><i class="fa-solid fa-comment"></i>
+                                                    {% for dict in comment_list %}
+                                                    {% if requested.id == dict.score%}
+                                                    {{dict.commentCount}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                        {% if request.user == requested.created_by %}
+                                        <div class="col-4">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#viewSubmissionsModal{{requested.id}}"
+                                                class="btn btn-success">
+                                                <div><i class="fa-solid fa-magnifying-glass"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        {%else%}
+                                        <div class="col-4">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal" data-target="#fulfillModal{{requested.id}}"
+                                                class="btn btn-success">
+                                                <div><i class="fa-solid fa-music"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        {%endif%}
+                                    </div>
                                 </div>
                                 <div class="job-info">
                                     <div class="company-logo text-center">
@@ -59,15 +128,30 @@
 
                                         {{requested.description|title}}
                                     </p>
+                                    <div class="col-12 pt-5  center d-flex" style="padding-bottom: 5rem;">
+                                        <ul class="job-social2 tr-list center">
+                                            <li class="p-2"><a href="#" class="white-text"><i class="fa fa-thumbs-up"
+                                                        aria-hidden="true"></i>{{requested.upvotes}}</a></li>
+                                            <li class="p-2"><a href="#" class="white-text"><i
+                                                        class="fa-solid fa-comment" aria-hidden="true"></i>
+                                                    {% for dict in comment_list %}
+                                                    {% if requested.id == dict.score%}
+                                                    {{dict.commentCount}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </a></li>
+                                            <li class="p-2"><a href="#" class="white-text"><i class="fa-solid fa-music"
+                                                        aria-hidden="true"></i>
+                                                    {% for submit in submissions %}
+                                                    {% if submit.score.id == requested.id %}
+                                                    {{forloop.counter}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </a></li>
 
-                                    <div class="col-12 d-flex p-5 mt-4 mb-4">
-                                        <div class="col-4 text-white" style="background-color: blue; border-radius:15px; width:fit-content;">
-                                                <i class="fa fa-thumbs-up"></i>
-                                                {{requested.upvotes}}
-                                            </div>
-                                        <div class="col-4">test</div>
-                                        <div class="col-4">test</div>
+                                        </ul>
                                     </div>
+
                                     <div class="time">
                                         <a
                                             href="{% url 'storefront' requested.created_by%}"><span>{{requested.created_by|title}}</span></a>

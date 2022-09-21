@@ -98,8 +98,14 @@ $('.menu__btn').click(function () {
 //     $("#tab-4").removeClass("show active");
 //   });
 
-  
 
+
+// when .job-item is hovered, make the .job-social2 li opacity 0 for that specific job-item
+  $(".job-item").mouseover(function () {
+    $(this).find(".job-social2 li").css("opacity", "0");
+  }).mouseleave(function () {
+    $(this).find(".job-social2 li").css("opacity", "1");
+  }); 
 
   document.getElementById('data-target0').className = 'active';
   document.getElementById('carousel-item0').className = 'carousel-item active';

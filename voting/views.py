@@ -21,6 +21,7 @@ def requests(request):
     comments = Comments.objects.all()
     list = []
     comment_list = []
+    
 
     for score in requests:
         
