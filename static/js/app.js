@@ -141,8 +141,6 @@ $('.menu__btn').click(function () {
 
 
 
-
-
   var observer = new IntersectionObserver(function (entries) {
     // isIntersecting is true when element and viewport are overlapping
     // isIntersecting is false when element and viewport don't overlap

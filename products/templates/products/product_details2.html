@@ -20,7 +20,8 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 pr-xl-0 pr-lg-0 pr-md-0  mb-0">
                                 <div class="product-slider">
-                                    <img id="product-detail-img" class="card-img-top img-fluid shadow-checkout product-card"
+                                    <img id="product-detail-img"
+                                        class="card-img-top img-fluid shadow-checkout product-card"
                                         src="{{MEDIA_URL}}{{product.image}}" alt="">
                                 </div>
                             </div>
@@ -37,9 +38,9 @@
                                             <span class="text-muted">No Rating</span>
                                             {% endif %}
                                             <br>
-                                            
+
                                         </div>
-                                        
+
                                         <h3 class="mb-0 text-primary">£{{product.price}}</h3>
                                     </div>
                                     <div class="product-colors border-bottom">
@@ -47,7 +48,9 @@
                                         <p>Genre: {%if product.genre%}{{product.genre}}{%else%}n/a{%endif%}</p>
                                         <p>Difficulty:
                                             {%if product.difficulty%}{{product.difficulty}}{%else%}n/a{%endif%}</p>
-                                        <p>vendor: <a href="{% url 'storefront' product.vendor%}">{{product.vendor|title}}</a></p>
+                                        <p>vendor: <a
+                                                href="{% url 'storefront' product.vendor%}">{{product.vendor|title}}</a>
+                                        </p>
                                     </div>
 
                                     <div class="product-description">
@@ -67,8 +70,8 @@
 
                                                     {% if not request.session.cart and product.id not in ordersList%}
                                                     <input id="product-btn" type="submit" style="width: 9rem !important;
-                                                    padding: 7px !important;"
-                                                        class="btn btn-black product-btn mt-2" value="Add to cart">
+                                                    padding: 7px !important;" class="btn btn-black product-btn mt-2"
+                                                        value="Add to cart">
                                                     {%else%}
                                                     {% if product.id in ordersList%}
                                                     <input style="width: 9rem !important;
@@ -77,8 +80,8 @@
 
                                                     {% elif product.id|stringformat:"i" not in request.session.cart %}
                                                     <input id="product-btn" type="submit" style="width: 9rem !important;
-                                                    padding: 7px !important;"
-                                                        class="btn btn-black product-btn mt-2" value="Add to cart">
+                                                    padding: 7px !important;" class="btn btn-black product-btn mt-2"
+                                                        value="Add to cart">
                                                     {% else %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type=""
@@ -104,149 +107,197 @@
                                 </div>
                             </div>
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 m-b-60">
-                                
-                                    
-                                          <div class="col-12 mt-1 p-0">
-                                            
-                                            <!-- Nav tabs -->
-                                            <div class="card">
-                                              <div class="card-header pl-0 pr-0" style="border-bottom: none;">
-                                                <ul class="nav nav-tabs justify-content-around" role="tablist">
-                                                  <li class="nav-item" style="font-size: 1.5rem;">
-                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link nav-fill active center" data-toggle="tab" href="#home" role="tab">
-                                                       About
+
+
+                                <div class="col-12 mt-1 p-0">
+
+                                    <!-- Nav tabs -->
+                                    <div class="card">
+                                        <div class="card-header pl-0 pr-0" style="border-bottom: none;">
+                                            <ul class="nav nav-tabs justify-content-around" role="tablist">
+                                                <li class="nav-item" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
+                                                        class="nav-link nav-fill active center" data-toggle="tab"
+                                                        href="#home" role="tab">
+                                                        About
                                                     </a>
-                                                  </li>
-                                                  <li class="nav-item nav-fill" style="font-size: 1.5rem;">
-                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#profile" role="tab">
-                                                      Ratings
+                                                </li>
+                                                <li class="nav-item nav-fill" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
+                                                        class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                                        Ratings
                                                     </a>
-                                                  </li>
-                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;">
-                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#messages" role="tab">
-                                                       Review
+                                                </li>
+                                                <li class="nav-item nav-fill" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
+                                                        class="nav-link" data-toggle="tab" href="#messages" role="tab">
+                                                        Review
                                                     </a>
-                                                  </li>
-                                                  {% if product.video %}
-                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;">
-                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;" class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                                                       Video
+                                                </li>
+                                                {% if product.video %}
+                                                <li class="nav-item nav-fill" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
+                                                        class="nav-link" data-toggle="tab" href="#settings" role="tab">
+                                                        Video
                                                     </a>
-                                                  </li>
-                                                  {%else%}
-                                                  <li class="nav-item nav-fill"style="font-size: 1.5rem;" >
-                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important; pointer-events: none;" class="nav-link text-muted"  data-toggle="tab" href="" role="tab">
-                                                       Video
+                                                </li>
+                                                {%else%}
+                                                <li class="nav-item nav-fill" style="font-size: 1.5rem;">
+                                                    <a style="padding-left: 1rem !important; padding-right: 1rem !important; pointer-events: none;"
+                                                        class="nav-link text-muted" data-toggle="tab" href=""
+                                                        role="tab">
+                                                        Video
                                                     </a>
-                                                  </li>
-                                                    {%endif%}
-                                                </ul>
-                                              </div>
-                                              <div class="card-body">
-                                                <!-- Tab panes -->
-                                                <div class="tab-content text-center">
-                                                  <div class="tab-pane active" id="home" role="tabpanel">
-                                                    <p>{{product.description}}</p>
-                                                  </div>
-                                                  <div class="tab-pane" id="profile" role="tabpanel">
-                                                    {% include '../includes/overall_ratings.html' %}
-                                                  </div>
-                                                  <div class="tab-pane" id="messages" role="tabpanel">
-                                                    {% include '../includes/leave_review.html' %}
-                                                  </div>
-                                                  <div class="tab-pane" id="settings" role="tabpanel">
-                                                    {% if product.video%}
-                                                <iframe width="560" height="315" class="responsive-youtube d-flex "
-                                                    src="{{product.video}}" frameborder="0"
-                                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowfullscreen></iframe>
-                                                {%endif%}  
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          
-                                        
-                                
-                            </div>
-                            
-                        </div>
-
-
-                    </div>
-                </div>
-                    <div class="row mb-5">
-
-                        <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 center">
-                            <div style="min-height: 30.5rem;" class="card center">
-                                <h5 class="card-header text-center">{{product.vendor|title}}'s Other Products</h5>
-                                <div class="card-body center">
-                                    <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
-                                        <ol class="carousel-indicators">
-                                            {% for no_of_products in relevant_products%}
-
-
-                                            <li style="background-color: black;" id="data-target{{forloop.counter0}}"
-                                                data-target="#carouselExampleIndicators"
-                                                data-slide-to="{{forloop.counter0}}" class=""></li>
-
-                                            {%endfor%}
-
-                                        </ol>
-                                        <div class="carousel-inner center shadow-checkout" >
-                                            {% for vendor_products in relevant_products%}
-                                            <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
-                                                {% if vendor_products.image %}
-                                                <img style="height: 400px; margin: 0 auto !important; background-size: contain;" class="center"
-                                                    src="{{MEDIA_URL}}{{vendor_products.image }}" data-color="lightblue"
-                                                    alt="{{vendor_products.name}}">
-                                                {% else %}
-                                                <img style="height: 400px; width: 310px;" class=""
-                                                    src="/media/No_Image_Available.jpg" data-color="lightblue"
-                                                    alt="{{vendor_products.name}}">
+                                                </li>
                                                 {%endif%}
-                                                <div class="carousel-caption d-md-block">
-                                                    <a href="{% url 'product_detail' vendor_products.id %}">
-                                                        <h5 class="black-text translucent">{{vendor_products.name}}</h5>
-                                                    </a>
-                                                    <p class="lead mb-0 text-black font-weight-bold">
-                                                        £{{ product.price }}</p>
-
+                                            </ul>
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Tab panes -->
+                                            <div class="tab-content text-center">
+                                                <div class="tab-pane active" id="home" role="tabpanel">
+                                                    <p>{{product.description}}</p>
+                                                </div>
+                                                <div class="tab-pane" id="profile" role="tabpanel">
+                                                    {% include '../includes/overall_ratings.html' %}
+                                                </div>
+                                                <div class="tab-pane" id="messages" role="tabpanel">
+                                                    {% include '../includes/leave_review.html' %}
+                                                </div>
+                                                <div class="tab-pane" id="settings" role="tabpanel">
+                                                    {% if product.video%}
+                                                    <iframe width="560" height="315" class="responsive-youtube d-flex "
+                                                        src="{{product.video}}" frameborder="0"
+                                                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                                        allowfullscreen></iframe>
+                                                    {%endif%}
                                                 </div>
                                             </div>
-
-                                            {% endfor %}
-
                                         </div>
-
                                     </div>
-                                    <!-- Controls -->
-                                    <a  class="carousel-control-prev" href="#carouselExampleIndicators1"
-                                        role="button" data-slide="prev">
-                                        <span style="background-color: black;" class="carousel-control-prev-icon"
-                                            aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span> </a>
-                                    <a  class="carousel-control-next" href="#carouselExampleIndicators1"
-                                        role="button" data-slide="next">
-                                        <span style="background-color: black; " class="carousel-control-next-icon"
-                                            aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span> </a>
                                 </div>
+
+
+
                             </div>
+
                         </div>
+
 
                     </div>
                 </div>
+            {% if product_number > 1%}
+
+                <div class="row ">
+                    <div class="col-12">
+                    <h4 class="text-center center mb-3 pb-3" style="display: block;">Other Products By {{product.vendor|title}}</h4>
+                </div>
+                    <div class="center col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 d-flex other-products-card p-4 other-products-container">
+                        
+                    {% for vendor_products in relevant_products%}
+                    <div class="{% if product_number == 1%} col-12 {%elif product_number == 2 %} col-md-6 col-12 {%elif product_number == 3 %} col-md-4 col-sm-6 col-12 {%else%} col-md-3 col-sm-6 col-12{%endif%}">
+                        <div class="product-grid shadow-checkout">
+                            <div class="product-image">
+                                <a href="#" class="image">
+                                    {% if vendor_products.image %}
+                                    <img  class="" src="{{MEDIA_URL}}{{vendor_products.image }}"
+                                        data-color="lightblue" alt="{{vendor_products.name}}">
+                                    {% else %}
+                                    <img class=""
+                                        src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg" data-color="lightblue"
+                                        alt="{{vendor_products.name}}">
+                                    {%endif%}
+                                </a>
+                                <ul class="product-links">
+                                    {% if user.is_authenticated %}
+                                    
+                                    <form  class="form" action="{% url 'add_to_cart' vendor_products.id %}" method="POST">
+                                        {% csrf_token %}
+                                        
+
+                                            
+                                                
+
+                                                {% if not request.session.cart and vendor_products.id not in ordersList%}
+                                                
+                                                <li><a style="font-size: 1.4rem;" onclick="this.closest('form').submit();return false;" class="" href="#"><i class="fas fa-shopping-cart"></i></a></li>
+
+                                                {%else%}
+                                                {% if product.id in ordersList%}
+                                                <li class="disabled"><a style="font-size: 1.4rem;" onclick="owned()" class="disabled" href="#"><strike><i class="fa-solid fa-cart-flatbed"></i></strike> </a></li>
+
+                                                {% elif product.id|stringformat:"i" not in request.session.cart %}
+                                                <li><a style="font-size: 1.4rem;" onclick="this.closest('form').submit();return false;" class="" href="#"><i class="fas fa-shopping-cart"></i></a></li>
+
+                                                {% else %}
+                                                <li class="disabled" ><strike><a style="font-size: 1.4rem;" onclick="inCart()" class="disabled" href="#"><i class="fa-solid fa-cart-flatbed"></i></a></strike></li>
+                                                {%endif%}
+                                                {%endif%}
+                                                
+                                                
+
+                                            
+                                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+
+                                        
+
+
+                                    </form>
+                                    {%else%}
+                                    <li><a href="{% url 'account_login' %}"><i class="fas fa-shopping-cart"></i></a></li>
+                                    {%endif%}
+                                    
+                                    <li><a href="{% url 'product_detail' vendor_products.id%}"><i class="fa fa-eye"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                            <div class="product-content">
+                                <div class="price">£{{vendor_products.price}}</div>
+                                <h3 class="title"><a href="{% url 'product_detail' vendor_products.id%}">{{vendor_products.name|title}}</a></h3>
+                                <ul class="rating2">
+                                    {% if vendor_products.rating %}
+                                    
+                                    {% for i in "x"|rjust:vendor_products.rating %}
+                                    <li class="fas fa-star"></li>
+                                    {%endfor%}
+                                    
+                                    {%else%}
+                                    <li class="text-muted">no ratings</li>
+                                    {%endif%}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+                </div>
+            {%endif%}
+
             </div>
-
         </div>
-    </div>
-        <!-- ============================================================== -->
-        <!-- end wrapper  -->
-        <!-- ============================================================== -->
-    </div>
 
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- end wrapper  -->
+<!-- ============================================================== -->
 </div>
 
+</div>
+<script>
+    // define function called owned that shows user a toast indicating that they already own the product
+  function owned() {
+    alert("You already own this product!");
+
+  }
+
+  // define function called inCart that shows user a toast indicating that the product is already in their cart
+  function inCart() {
+    alert("Product is already in your cart");
+  }
+</script>
+
 {% endblock %}
+
