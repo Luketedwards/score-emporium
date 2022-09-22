@@ -10,13 +10,14 @@
 <div class="tr-job-posted section-padding">
     <div class="container">
         <div class="job-tab text-center">
-            <ul class="nav nav-tabs justify-content-center" role="tablist">
+            <ul style="text-decoration:none;" class="nav nav-tabs justify-content-center" role="tablist">
                 <li role="presentation" class="active">
-                    <a class="active show" href="#active-requests" aria-controls="hot-jobs" role="tab" data-toggle="tab"
-                        aria-selected="true">Active Request</a>
+                    <a style="text-decoration:none;" class="active show" href="#active-requests"
+                        aria-controls="hot-jobs" role="tab" data-toggle="tab" aria-selected="true">Active Request</a>
                 </li>
-                <li role="presentation"><a href="#completed-requests" aria-controls="recent-jobs" role="tab"
-                        data-toggle="tab" class="" aria-selected="false">Completed Requests</a></li>
+                <li role="presentation"><a style="text-decoration:none;" href="#completed-requests"
+                        aria-controls="recent-jobs" role="tab" data-toggle="tab" class=""
+                        aria-selected="false">Completed Requests</a></li>
 
             </ul>
             <div class="tab-content text-left">
@@ -35,100 +36,57 @@
                                             <h3>{{requested.title|title}}</h3>
                                             <hr>
                                         </div>
-                                        <ul class="tr-list job-meta">
-                                            <li><i class="fa fa-map-signs" aria-hidden="true"></i>San Francisco, CA, US
-                                            </li>
-                                            <li><i class="fa fa-briefcase" aria-hidden="true"></i>Mid Level</li>
-                                            <li><i class="fa fa-money" aria-hidden="true"></i>$5,000 - $6,000</li>
-                                        </ul>
-                                        <ul class="job-social tr-list">
-                                            <li><a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-expand" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-bookmark-o" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-long-arrow-right"
-                                                        aria-hidden="true"></i></a></li>
-                                        </ul>
+                                        
                                     </div>
-                                    <div class="row text-center">
-                                        <div class="col-4">
-                                            <form action="{% url 'like_post' requested.pk%}" method="post">
-                                                {% csrf_token %}
 
-                                                <input name="id" hidden type="text" value="{{requested.id}}">
-                                                <input hidden name="username" type="text"
-                                                    value="{{requested.user.username}}">
-                                                {% if request.user.is_authenticated %}
-                                                {% if requested.pk not in list %}
-                                                <button style="height: 2.5rem;
-                                                    font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
-                                                    type="submit" name="post_id" value="{{requested.id}}">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                    {{requested.upvotes}}
-                                                </button>
-                                                {%else%}
-                                                <button style="height: 2.5rem;
-                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary btn-danger animated-btn" type="submit"
-                                                    name="post_id" value="{{requested.id}}">
-                                                    <i class="fa fa-thumbs-down"></i>
-                                                    {{requested.upvotes}}
-                                                </button>
-                                                {%endif%}
-                                                {%else%}
-                                                <button style="height: 2.5rem;
-                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn" disabled type="submit"
-                                                    name="post_id" value="{{requested.id}}">
-                                                    <i class="fa fa-thumbs-up"></i>
-                                                    {{requested.upvotes}}
-                                                </button>
-                                                {%endif%}
-                                            </form>
-                                        </div>
-                                        <div class="col-4">
-                                            <button style="height: 2.5rem;
-                                            font-size: 1rem; z-index: 9999;" data-toggle="modal" data-target="#commentModal{{requested.id}}"
-                                                class="btn btn-primary">
-                                                <div><i class="fa-solid fa-comment"></i>
-                                                    {% for dict in comment_list %}
-                                                    {% if requested.id == dict.score%}
-                                                    {{dict.commentCount}}
-                                                    {%endif%}
-                                                    {%endfor%}
-                                                </div>
-                                            </button>
-
-                                        </div>
-                                        {% if request.user == requested.created_by %}
-                                        <div class="col-4">
-                                            <button style="height: 2.5rem;
-                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
-                                                data-target="#viewSubmissionsModal{{requested.id}}"
-                                                class="btn btn-success">
-                                                <div><i class="fa-solid fa-magnifying-glass"></i>
-                                                </div>
-                                            </button>
-                                        </div>
-                                        {%else%}
-                                        <div class="col-4">
-                                            <button style="height: 2.5rem;
-                                            font-size: 1rem; z-index: 9999;" data-toggle="modal" data-target="#fulfillModal{{requested.id}}"
-                                                class="btn btn-success">
-                                                <div><i class="fa-solid fa-music"></i>
-                                                </div>
-                                            </button>
-                                        </div>
-                                        {%endif%}
-                                    </div>
                                 </div>
                                 <div class="job-info">
                                     <div class="company-logo text-center">
+
                                         <h3>{{requested.title|title}}</h3>
+
                                         <hr>
                                     </div>
+                                    
                                     <p class="tr-title text-center">
 
                                         {{requested.description|title}}
                                     </p>
-                                    <div class="col-12 pt-5  center d-flex" style="padding-bottom: 5rem;">
+                                    <div style="top: -3rem;
+                                    position: relative; color: white;" class="row text-center accept-div">
+                                        <div class="col-12">
+                                            <h4 class="mb-3">Relevant Resources</h4>
+                                        </div>
+                                        <div class="col-12">
+                                            
+                                                        
+                                                            
+                                                            <div class="row">
+                                                            {% if requested.link %}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" target="_blank">Relevant Link</a>
+                                                            </div>
+                                                            {%else%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}" target="_blank">Relevant Link</a>
+                                                            </div>
+                                                                
+                                                            {% endif %}
+                                                            {% if requested.video_link%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" target="_blank">Link to Video</a>
+                                                            </div>
+                                                            {%else%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" target="_blank">Link to Video</a>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        
+                                                         
+                                        </div>
+                                    </div>
+                                    <div class="col-12 pt-5  center d-flex" style="">
                                         <ul class="job-social2 tr-list center">
                                             <li class="p-2"><a href="#" class="white-text"><i class="fa fa-thumbs-up"
                                                         aria-hidden="true"></i>{{requested.upvotes}}</a></li>
@@ -151,11 +109,297 @@
 
                                         </ul>
                                     </div>
+                                    
+                                    <div class="row text-center buttons-row ">
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
+                                            <form action="{% url 'like_post' requested.pk%}" method="post">
+                                                {% csrf_token %}
+
+                                                <input name="id" hidden type="text" value="{{requested.id}}">
+                                                <input hidden name="username" type="text"
+                                                    value="{{requested.user.username}}">
+                                                {% if request.user.is_authenticated %}
+                                                {% if requested.pk not in list %}
+                                                <button style="height: 2.5rem;
+                                                    font-size: 1rem; z-index: 9999;"
+                                                    class="btn btn-primary animated-btn" type="submit" name="post_id"
+                                                    value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;"
+                                                    class="btn btn-primary btn-danger animated-btn" type="submit"
+                                                    name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
+                                                    disabled type="submit" name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                            </form>
+                                        </div>
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary">
+                                                <div><i class="fa-solid fa-comment"></i>
+                                                    {% for dict in comment_list %}
+                                                    {% if requested.id == dict.score%}
+                                                    {{dict.commentCount}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                        {% if request.user == requested.created_by %}
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#viewSubmissionsModal{{requested.id}}"
+                                                class="btn btn-success">
+                                                <div><i class="fa-solid fa-magnifying-glass"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        <div class=" col-3">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#deleteModal{{requested.id}}"
+                                                class="btn btn-danger animated-btn">
+                                                <div><i class="fa-solid fa-trash-can"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        {%else%}
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#fulfillModal{{requested.id}}" class="btn btn-success">
+                                                <div><i class="fa-solid fa-music"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+
+                                        {%endif%}
+                                    </div>
 
                                     <div class="time">
-                                        <a
+                                        <a style="text-decoration:none;" id="vendor-link" style="z-index:9999;"
                                             href="{% url 'storefront' requested.created_by%}"><span>{{requested.created_by|title}}</span></a>
-                                        <span class="pull-right">{{requested.date}}</span>
+                                        <span id="card-date" class="pull-right">{{requested.date}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- modal to dislay comments-->
+                        <div class="modal fade" id="commentModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div style="background-color: cadetblue;" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center text-white" id="exampleModalLabel">Comments</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="commentBox" class="containerC show-icon">
+                                            <div class="scrollbox">
+                                                <ul class="listC">
+                                                    {% for comment in comments %}
+                                                    {% if comment.score.id == requested.id %}
+
+                                                    <li class="itemC">
+                                                        <div class="col"><strong>{{comment.created_by}}</strong></div>
+                                                        <div class="col">{{comment.content}}</div>
+                                                        <div class="col text-muted">{{comment.date}}</div>
+                                                    </li>
+                                                    <hr>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <div class="iconC" aria-hidden="true"></div>
+                                        </div>
+                                        <div class="col-8 center">
+                                            <form id="commentForm" action="{% url 'comment_post' requested.pk %}"
+                                                method="POST">
+                                                {%csrf_token%}
+                                                {{ form | crispy }}
+                                                {% if request.user.is_authenticated %}
+
+                                                <div class="col-12 text-center">
+                                                    <button type="submit"
+                                                        class="btn center btn-primary">Comment</button>
+                                                </div>
+                                                {%else%}
+                                                <div class="col-12 text-center">
+                                                    <a href="{% url 'account_login'%}"
+                                                        class="btn center btn-primary">Login</a>
+                                                </div>
+                                                {%endif%}
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <!-- modal to confirm deleting post -->
+                        <div class="modal fade" id="deleteModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center" id="exampleModalLabel2">Delete Post</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-12 text-center">
+                                            <p>Are you sure you want to delete this post?</p>
+                                        </div>
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn center btn-primary"
+                                                data-dismiss="modal">No</button>
+                                            <a href="{% url 'delete_post' requested.pk%}" class="btn btn-danger">Yes</a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal to confirm fulfilling post -->
+                        <div class="modal fade" id="fulfillModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                            <div  class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center" id="exampleModalLabel3">Submit Score To
+                                            {{requested.title|title}}</h5>
+
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-12 text-center">
+                                            <div class="col-12">
+                                                <p>Make a submission to satisfy this post. If the creator of the post is
+                                                    happy with your score they can mark this post 'complete', displaing
+                                                    the link to your product.</p>
+                                            </div>
+                                            <br>
+                                            <form id="submissionForm"
+                                                action="{% url 'create_submission' requested.pk %}"
+                                                enctype="multipart/form-data" method="POST">
+                                                {%csrf_token%}
+                                                {{ form2 | crispy }}
+                                                {% if request.user.is_authenticated %}
+
+
+                                                <div class="col-12 text-center">
+                                                    <button type="submit" class="btn center btn-primary">Submit</button>
+                                                </div>
+                                                {%else%}
+                                                <div class="col-12 text-center">
+                                                    <a href="{% url 'account_login'%}"
+                                                        class="btn center btn-primary">Login</a>
+                                                </div>
+                                                {%endif%}
+                                            </form>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- modal to view post submissions -->
+                        <div class="modal fade" id="viewSubmissionsModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                            <div style="width: 40vw !important;" class="modal-dialog" role="document">
+                                <div style="width: 40vw !important; background-color: cadetblue;" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center text-white" id="exampleModalLabel3">Score Submissions</h5>
+
+
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="commentBox" class="containerC show-icon">
+                                            <div class="scrollbox">
+                                                <div class="card text-center">
+                                                    {% for submit in submissions %}
+                                                    {% if submit.score.id == requested.id %}
+
+
+
+                                                    <div class="col-12 ">
+                                                        <span
+                                                            class="center h4"><strong>{{submit.created_by}}</strong></span>
+                                                        <div class="right">
+                                                            <a href="" class="btn btn-danger"><i
+                                                                    class="fa-solid fa-circle-xmark"></i></a>
+                                                            <a href="{% url 'accept_score_submission' pk=submit.pk score_pk=requested.pk%}"
+                                                                class="btn btn-success"><i
+                                                                    class="fa-solid fa-circle-check"></i></a>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="col-12">{{submit.content}}</div>
+                                                    <br>
+                                                    {% if submit.link %}
+                                                    <div class="col-12"><a href="{{submit.link}}">Link to Score</a>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% if submit.PDF %}
+                                                    <div class="col-12"><a href="{{submit.PDF}}">Link to PDF</a></div>
+                                                    <div class="col-12"><a href="{{submit.PDFpath}}">Link to PDF2</a>
+                                                    </div>
+                                                    {% endif %}
+                                                    <div class="col-12 text-muted">{{submit.date}}</div>
+                                                    <div class="col-12 text-muted">{{submit.accepted}}</div>
+
+                                                    <hr>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <div class="iconC" aria-hidden="true"></div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -171,13 +415,273 @@
                 </div><!-- /.tab-pane -->
                 <div role="tabpanel" class="tab-pane fade in" id="completed-requests">
                     <div class="row">
+                        {% if inactive_submissions > 0%}
+                        {% for requested in requests%}
+                        {% if requested.completed == True %}
+                        
+                        
+                        <div class="col-md-6 col-lg-4">
+                            <div class="job-item">
+                                <div class="item-overlay">
+                                    <div class="job-info" style="padding-top: 41px;">
 
-                    </div><!-- /.row -->
-                </div><!-- /.tab-pane -->
+                                        <div class="company-logo text-center mb-1">
+                                            <h3>{{requested.title|title}}</h3>
+                                            <hr>
+                                        </div>
+                                        
+                                    </div>
 
-            </div>
-        </div><!-- /.job-tab -->
-    </div><!-- /.container -->
+                                </div>
+                                <div class="job-info">
+                                    <div class="company-logo text-center">
+
+                                        <h3>{{requested.title|title}}</h3>
+
+                                        <hr>
+                                    </div>
+                                    <p class="tr-title text-center">
+
+                                        {{requested.description|title}}
+                                    </p>
+
+                                    <div style="top: -3rem;
+                                    position: relative; color: white;" class="row text-center accept-div">
+                                        <div class="col-12">
+                                            <h3>Accepted Submission</h3>
+                                        </div>
+                                        <div class="col-12">
+                                            {% for submit in submissions %}
+                                                        {% if submit.score.id == requested.id and submit.accepted == True%}
+                                                            <p>{{submit.created_by}}</p>
+                                                            <div class="row">
+                                                            {% if submit.link %}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" target="_blank">Link to Product</a>
+                                                            </div>
+                                                            {%else%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}" target="_blank">Link to Product</a>
+                                                            </div>
+                                                                
+                                                            {% endif %}
+                                                            {% if submit.PDF%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" target="_blank">Link to PDF</a>
+                                                            </div>
+                                                            {%else%}
+                                                            <div class="col-6">
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" target="_blank">Link to PDF</a>
+                                                            </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        
+                                                        {% endif %}
+                                            {%endfor%}            
+                                        </div>
+                                    </div>
+                                    <div class="col-12 pt-5  center d-flex" style="">
+                                        <ul class="job-social2 tr-list center">
+                                            <li class="p-2"><a href="#" class="white-text"><i class="fa fa-thumbs-up"
+                                                        aria-hidden="true"></i>{{requested.upvotes}}</a></li>
+                                            <li class="p-2"><a href="#" class="white-text"><i
+                                                        class="fa-solid fa-comment" aria-hidden="true"></i>
+                                                    {% for dict in comment_list %}
+                                                    {% if requested.id == dict.score%}
+                                                    {{dict.commentCount}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </a></li>
+                                            <li class="p-2"><a href="#" class="white-text"><i class="fa-solid fa-music"
+                                                        aria-hidden="true"></i>
+                                                    {% for submit in submissions %}
+                                                    {% if submit.score.id == requested.id %}
+                                                    {{forloop.counter}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </a></li>
+
+                                        </ul>
+                                    </div>
+                                    <div class="row text-center buttons-row ">
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-4 {%else %}col-6 {%endif%}">
+                                            <form action="{% url 'like_post' requested.pk%}" method="post">
+                                                {% csrf_token %}
+
+                                                <input name="id" hidden type="text" value="{{requested.id}}">
+                                                <input hidden name="username" type="text"
+                                                    value="{{requested.user.username}}">
+                                                {% if request.user.is_authenticated %}
+                                                {% if requested.pk not in list %}
+                                                <button style="height: 2.5rem;
+                                                    font-size: 1rem; z-index: 9999;"
+                                                    class="btn btn-primary animated-btn" type="submit" name="post_id"
+                                                    value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;"
+                                                    class="btn btn-primary btn-danger animated-btn" type="submit"
+                                                    name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-down"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                                {%else%}
+                                                <button style="height: 2.5rem;
+                                                font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
+                                                    disabled type="submit" name="post_id" value="{{requested.id}}">
+                                                    <i class="fa fa-thumbs-up"></i>
+                                                    {{requested.upvotes}}
+                                                </button>
+                                                {%endif%}
+                                            </form>
+                                        </div>
+                                        <div
+                                            class="{% if request.user == requested.created_by %} col-4 {%else %}col-6 {%endif%}">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary">
+                                                <div><i class="fa-solid fa-comment"></i>
+                                                    {% for dict in comment_list %}
+                                                    {% if requested.id == dict.score%}
+                                                    {{dict.commentCount}}
+                                                    {%endif%}
+                                                    {%endfor%}
+                                                </div>
+                                            </button>
+
+                                        </div>
+                                        {% if request.user == requested.created_by %}
+                                        
+                                        <div class=" col-4">
+                                            <button style="height: 2.5rem;
+                                            font-size: 1rem; z-index: 9999;" data-toggle="modal"
+                                                data-target="#deleteModal{{requested.id}}"
+                                                class="btn btn-danger animated-btn">
+                                                <div><i class="fa-solid fa-trash-can"></i>
+                                                </div>
+                                            </button>
+                                        </div>
+                                        
+
+                                        {%endif%}
+                                    </div>
+
+                                    <div class="time">
+                                        <a style="text-decoration:none;" id="vendor-link" style="z-index:9999;"
+                                            href="{% url 'storefront' requested.created_by%}"><span>{{requested.created_by|title}}</span></a>
+                                        <span id="card-date" class="pull-right">{{requested.date}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {%endif%}
+                        <!-- modal to confirm deleting post -->
+                        <div class="modal fade" id="deleteModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center" id="exampleModalLabel2">Delete Post</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col-12 text-center">
+                                            <p>Are you sure you want to delete this post?</p>
+                                        </div>
+                                        <div class="col-12 text-center">
+                                            <button type="button" class="btn center btn-primary"
+                                                data-dismiss="modal">No</button>
+                                            <a href="{% url 'delete_post' requested.pk%}" class="btn btn-danger">Yes</a>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="commentModal{{requested.id}}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div style="background-color: cadetblue;" class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title center text-white" id="exampleModalLabel">Comments</h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="commentBox" class="containerC show-icon">
+                                            <div class="scrollbox">
+                                                <ul class="listC">
+                                                    {% for comment in comments %}
+                                                    {% if comment.score.id == requested.id %}
+
+                                                    <li class="itemC">
+                                                        <div class="col"><strong>{{comment.created_by}}</strong></div>
+                                                        <div class="col">{{comment.content}}</div>
+                                                        <div class="col text-muted">{{comment.date}}</div>
+                                                    </li>
+                                                    <hr>
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <div class="iconC" aria-hidden="true"></div>
+                                        </div>
+                                        <div class="col-8 center">
+                                            <form id="commentForm" action="{% url 'comment_post' requested.pk %}"
+                                                method="POST">
+                                                {%csrf_token%}
+                                                {{ form | crispy }}
+                                                {% if request.user.is_authenticated %}
+
+                                                <div class="col-12 text-center">
+                                                    <button type="submit"
+                                                        class="btn center btn-primary">Comment</button>
+                                                </div>
+                                                {%else%}
+                                                <div class="col-12 text-center">
+                                                    <a href="{% url 'account_login'%}"
+                                                        class="btn center btn-primary">Login</a>
+                                                </div>
+                                                {%endif%}
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        {%endfor%}
+                        {%else%}
+                        <div class="col-12 text-center">
+                            <h2>No posts to show</h2>
+                        </div>
+                        {%endif%}
+                        
+
+
+                    </div>
+
+                </div><!-- /.row -->
+            </div><!-- /.tab-pane -->
+
+        </div>
+    </div><!-- /.job-tab -->
+</div><!-- /.container -->
 </div>
 
 {% endblock %}

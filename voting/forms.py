@@ -12,7 +12,7 @@ class RequestForm(forms.ModelForm):
         labels = {
             'title': 'Post Title',
             'description': 'Describe your request',
-            'video_link': 'Link to a youtube video. Make sure to use an embed link',
+            'video_link': 'URL Link to a youtube video.',
             'link': 'Link to a website or other relevant resource',
         }
 

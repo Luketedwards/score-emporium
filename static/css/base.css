@@ -1155,7 +1155,7 @@ textarea {
 
 .modal-dialog {
   margin: 0 auto !important;
-  max-width: 80vw !important;
+  
   margin-top: 5vw !important;
 }
 
@@ -1376,4 +1376,11 @@ textarea {
   #hero-text h1{
     font-size: 2.7rem !important;
   }
+}
+
+.buttons-row{
+  opacity: 0;
+  pointer-events: none;
+  position: relative;
+  top: -2rem;
 }
