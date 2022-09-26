@@ -2,6 +2,10 @@
     box-sizing: border-box;
   }
   
+.search{
+  margin-left: 9rem !important;
+}
+
   html {
     font-size: 18px;
     line-height: 1.5;

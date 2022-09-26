@@ -13,4 +13,11 @@
               $("body").css("overflow-y", "scroll");
           }
       });
+
+      // if #rotate display is not none disable scroll
+        if ($("#rotate").css("display") != "none") {
+            $("body").css("overflow", "hidden");
+        } else {
+            $("body").css("overflow-y", "scroll");
+        }
   });
