@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
 
-  $('.dropdown').on('click', '.dd-button', function(e) {
+  $('#filter-small').on('click', '.dd-button', function(e) {
     var $menu = $(this).next('.dd-menu');  
     
     $menu.toggleClass("toggled"); 
     e.preventDefault();
  });
 
-$('.dropdown').on('click', 'label', function(e) {
+$('#filter-small').on('click', 'label', function(e) {
     var $menu = $(this).parents('.dd-menu');      
     $menu.removeClass("toggled"); 
     var $button = $(this).parents('.dropdown').find('.dd-button');  
@@ -19,10 +19,10 @@ $('.dropdown').on('click', 'label', function(e) {
  });
 
 $(window).click(function() {
-  $('.dropdown .dd-menu').removeClass('toggled');
+  $('#filter-small .dd-menu').removeClass('toggled');
 });
 
-$('.dropdown').click(function(event){
+$('#filter-small').click(function(event){
     event.stopPropagation();
 });
   
