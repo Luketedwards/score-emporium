@@ -4,16 +4,95 @@
 
 {% block content %}
     <div class="overlay"></div>
+    
     <div class="container-fluid pb-100">
+       
+         
         <div class="row">
             <div class="col text-center mt-3">
                 <h2 class="logo-font">Products</h2>
                 <hr class="w-50 mb-1">
+                {% if search_results_list != None %}
+                <span class="text-muted">Filtering for: {% for filter in search_results_list %} {{filter}} {%endfor%}</span>
+                <br>
+                <span class="text-muted">Results: {{product_count}}</span>
+                {% endif %}
             </div>
         </div>
+        <div id="filter-small" class="dropdown offset-1 mb-4">
+
+            <button class="dd-button" data-label="Dropdown">
+              Filter Results
+            </button>
+          
+            <ul class="dd-menu">
+              <form action="{% url 'products'%}" method="POST">
+                {% csrf_token %}
+                <li>
+                    <div class="form-group col-12">
+                        <select name="genre" class=" filter form-control">
+                            <option value="">Select Genre</option>
+                            <option value="Pop">Pop</option>
+                            <option value="Folk">Folk</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="Classical">Classical</option>
+                            <option value="Rock">Rock</option>
+                            <option value="Blues">Blues</option>
+                            <option value="Celtic">Celtic</option>
+    
+                            <option value="">Show All</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group col-12">
+                        <select name="difficulty" class=" filter form-control">
+                            <option value="">Select Difficulty </option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Expert">Expert</option>
+                            <option value="">Show All</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group col-12">
+                        <select name="rating" class=" filter form-control">
+                            <option value="">Rating</option>
+                            <option value="no rating">No Rating</option>
+                            <option value="high>low">Highest First</option>
+                            <option value="low>high">Lowest First</option>
+                            <option value="">Show All</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group col-12">
+                        <select name="price" class=" filter form-control">
+                            <option value="">Price Range</option>
+                            <option value="low>high">Low-High</option>
+                            <option value="high>low">High-Low</option>
+                            <option value="">Show All</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group col-12 ">
+                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                    </div>
+                </li>
+            </form>
+            </ul>
+            
+          </div>
+        
         <div class="row">
+            
             <div class="product-container col-10 offset-1">
                 <div class="row mt-1 mb-2"></div>
+                
                 <div class="row">
                     {% for product in products %}
 

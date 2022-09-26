@@ -7,6 +7,72 @@ html {
   overflow: hidden !important;
 }
 
+body {
+  color: #000000;
+  font-family: Sans-Serif;
+  padding: 30px;
+  background-color: #f6f6f6;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
+a:hover {
+  color: #222222
+}
+
+/* Dropdown */
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dd-button {
+  display: inline-block;
+  border: 1px solid gray;
+  font-weight: 300;
+  border-radius: 4px;
+  padding: 10px 30px 10px 20px;
+  background-color: #007bff;
+  cursor: pointer;
+  white-space: nowrap;
+  color: white;
+}
+
+.dd-button:hover {
+  background-color: white;
+  color: black;
+}
+
+.dd-menu {
+  position: absolute;
+  top: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0;
+  margin: 2px 0 0 0;
+  box-shadow: 0 0 6px 0 rgba(0,0,0,0.1);
+  background-color: #ffffff;
+  list-style-type: none;
+  display: none;
+  width: fit-content;
+  min-width: 13rem;
+}
+
+.dd-menu.toggled {
+  padding-top: 10px;
+  z-index: 1000;
+  display: block;
+} 
+
+.dd-menu li {
+  
+  white-space: nowrap;
+}
+
 .nav-link {
   padding-left: 0 !important;
   padding-right: 0 !important;

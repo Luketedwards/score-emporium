@@ -5,7 +5,7 @@ from django.db.models import Q, Sum
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from score_emporium.settings import MEDIA_URL, UPLOAD_ROOT, AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_STORAGE_BUCKET_NAME  
-from .models import Product, Genre, Review
+from .models import Difficulty, Product, Genre, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
 from django.contrib.auth.models import User
@@ -53,7 +53,9 @@ def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
     products = Product.objects.all()
+    product_count = products.count()
     search_query = None
+    search_results_list = None
 
     if request.user.is_authenticated:
         profile = get_object_or_404(UserProfile, user=request.user)
@@ -80,11 +82,46 @@ def all_products(request):
 
             queries = Q(name__icontains=search_query) | Q(description__icontains=search_query) | Q(vendor__icontains=search_query)  
             products = products.filter(queries)
+    if request.POST:
+        # filter products by data from the form
+        search_results_list = [] 
+        genre = request.POST.get('genre')
+        difficulty = request.POST.get('difficulty')
+        price = request.POST.get('price')
+        rating = request.POST.get('rating')
+        if rating != '':
+            if rating == 'low>high':
+                products = products.order_by('rating')
+            if rating == 'high>low':
+                products = products.order_by('-rating')
+            search_results_list.append("rating: "+ rating)   
+        if price != '':
+            if price == 'low>high':
+                products = products.order_by('price')
+            if price == 'high>low':
+                products = products.order_by('-price')
+
+            search_results_list.append('Price:' + price)    
+
+        if difficulty != '':
+            products = Product.objects.filter(difficulty__level=difficulty)
+            search_results_list.append('Difficulty: ' + difficulty) 
+
+        if genre != '':
+            products = Product.objects.filter(genre__name=genre)
+            search_results_list.append('Genre: ' + genre)
+
+        product_count = products.count()    
+
+           
+    
 
     context = {
         'products': products,
         'search_term': search_query,
-        'orderslist': ordersList
+        'orderslist': ordersList,
+        'search_results_list': search_results_list,
+        'product_count': product_count
     }
 
     return render(request, 'products/products.html', context)
