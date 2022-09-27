@@ -16,7 +16,6 @@ import os.path
 import environ
 
 
-
 env = environ.Env()
 environ.Env.read_env()
 
@@ -34,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # DEBUG = 'DEVELOPMENT' in os.environ
 DEBUG = True
 
-ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost','127.0.0.1']
+ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -86,18 +85,18 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request', # required by allauth
+                'django.template.context_processors.request',  # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'django.template.context_processors.media',
                 'cart.contexts.cart_contents',
                 'django.template.context_processors.static',
-                
+
             ],
             'libraries':{
-            'my_templatetag': 'user_profile.templatetags.custom_tags',
-            
+                'my_templatetag': 'user_profile.templatetags.custom_tags',
+
             },
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
@@ -130,20 +129,17 @@ LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'score_emporium.wsgi.application'
 
 
-
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-        'default': dj_database_url.parse('postgres://wpxydcnggcfsdc:9d3e29620b63ccd220c5619fea1cfa2fe84feb9475e3a703e67a1f8875fd3e1d@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d4qorb7mbue4uc')
-    }
+DATABASES = {'default': dj_database_url.parse(
+    'postgres://wpxydcnggcfsdc:9d3e29620b63ccd220c5619fea1cfa2fe84feb9475e3a703e67a1f8875fd3e1d@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d4qorb7mbue4uc')}
 
 # if 'DATABASE_URL' in os.environ:
 #     DATABASES = {
 #         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 #     }
-# else:    
+# else:
 #     DATABASES = {
 #         'default': {
 #             'ENGINE': 'django.db.backends.sqlite3',
@@ -223,8 +219,10 @@ if 'USE_AWS' in os.environ:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-    AWS_S3_PRODUCT_IMAGE_LOCATION = os.environ.get('AWS_S3_PRODUCT_IMAGE_LOCATION')
-    AWS_S3_PRODUCT_FILE_LOCATION = os.environ.get('AWS_S3_PRODUCT_FILE_LOCATION')
+    AWS_S3_PRODUCT_IMAGE_LOCATION = os.environ.get(
+        'AWS_S3_PRODUCT_IMAGE_LOCATION')
+    AWS_S3_PRODUCT_FILE_LOCATION = os.environ.get(
+        'AWS_S3_PRODUCT_FILE_LOCATION')
 
     # AWS static and media files
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
@@ -232,8 +230,6 @@ if 'USE_AWS' in os.environ:
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
     MEDIAFILES_LOCATION = 'media'
     PRODUCT_FILES_LOCATION = 'products/files'
-    
-    
 
     # Override static and media URLs in production
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
@@ -247,10 +243,10 @@ STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 if 'DEVELOPMENT' not in os.environ:
-    
+
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
-    EMAIL_HOST ='smtp.gmail.com'
+    EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'scoreemporium@gmail.com'
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
@@ -260,9 +256,9 @@ if 'DEVELOPMENT' not in os.environ:
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
-    EMAIL_HOST ='smtp.gmail.com'
+    EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'luketedmusic@gmail.com'
-    
+
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True

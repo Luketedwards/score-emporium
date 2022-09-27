@@ -2,10 +2,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-
-from .utilities import  notify_customer, notify_vendor2
-
+from .utilities import notify_customer, notify_vendor2
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from products.models import Product
@@ -14,81 +11,83 @@ from cart.contexts import cart_contents
 
 import stripe
 
+
 def checkout(request):
+    """ A view that renders the checkout page """
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     if request.user.is_authenticated:
 
         if request.method == 'POST':
             cart = request.session.get('cart', {})
-            
-            
+
             form_data = {
                 'full_name': request.POST['full_name'],
                 'email': request.POST['email'],
                 'phone_number': request.POST['phone_number'],
                 'username': request.user.username,
                 'quantity': 1,
-                
+
             }
             order_form = OrderForm(form_data)
             if order_form.is_valid():
                 order = order_form.save()
                 list_of_vendors = []
                 for item_id, item_data in cart.items():
-                    
-                    
+
                     try:
-                        #Add item to users purchased scores
-                        
+                        # Add item to users purchased scores
 
                         product = Product.objects.get(id=item_id)
-                        # increment the number of times the product has been purchased
+                        # increment the number of times the product has been
+                        # purchased
 
                         product.number_sold += 1
                         product.save()
-                        
+
                         if isinstance(item_data, int):
                             order_line_item = OrderLineItem(
                                 order=order,
                                 product=product,
-                                vendor = product.vendor,
-                                
+                                vendor=product.vendor,
+
                             )
                             order_line_item.save()
 
                             # connects sales data to user profile
-                            
-                            userId = get_object_or_404(User,username=order_line_item.product.vendor)
-                            comission_value = float(order_line_item.product.price) * 0.8
+
+                            userId = get_object_or_404(
+                                User, username=order_line_item.product.vendor)
+                            comission_value = float(
+                                order_line_item.product.price) * 0.8
                             vendor = UserProfile.objects.get(user=userId)
                             vendor.sales_number = vendor.sales_number + 1
-                            vendor.sales_income = vendor.sales_income + int(comission_value)
-                            
+                            vendor.sales_income = vendor.sales_income + \
+                                int(comission_value)
+
                             vendor.save()
                             list_of_vendors.append(vendor)
-                            
-                            
-                        
+
                     except Product.DoesNotExist:
-                        messages.error(request, (
-                            "One of the items in your cart is no longer available.")
-                        )
+                        messages.error(
+                            request, ("One of the items in your cart is no longer available."))
                         order.delete()
                         return redirect(reverse('view_cart'))
-                    
+
                 request.session['save_info'] = 'save-info' in request.POST
 
-
                 vendor_set = set(list_of_vendors)
-                
+
                 for vendorName in vendor_set:
                     vendorName = str(vendorName)
                     notify_vendor2(vendorName, order)
-                
-                notify_customer(order)   
 
-                return redirect(reverse('checkout_success', args=[order.order_number]))
+                notify_customer(order)
+
+                return redirect(
+                    reverse(
+                        'checkout_success', args=[
+                            order.order_number]))
             else:
                 messages.error(request, 'There was an error with your form. \
                     Please double check your information.')
@@ -113,8 +112,6 @@ def checkout(request):
             messages.warning(request, 'Stripe public key is missing. \
                 Did you forget to set it in your environment?')
 
-                
-
         template = 'checkout/checkout.html'
         context = {
             'order_form': order_form,
@@ -122,32 +119,28 @@ def checkout(request):
             'client_secret': intent.client_secret,
         }
 
-        
-
         return render(request, template, context)
     else:
-        return redirect(reverse('account_signup'))    
+        return redirect(reverse('account_signup'))
 
 
 def checkout_success(request, order_number):
     """
     Handle successful checkouts
     """
-    
+
     save_info = request.session.get('save_info')
-    
+
     order = get_object_or_404(Order, order_number=order_number)
-    
-    
+
     profile = UserProfile.objects.get(user=request.user)
     # Attach the user's profile to the order
     order.user_profile = profile
     order.save()
-    
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
-
 
     if 'cart' in request.session:
         del request.session['cart']
@@ -156,8 +149,9 @@ def checkout_success(request, order_number):
     context = {
         'order': order,
     }
-    
-    return render(request, template, context)    
+
+    return render(request, template, context)
+
 
 def view_order(request, order_number):
     """

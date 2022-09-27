@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+  // logic for product filter on shop page
   $('#filter-small').on('click', '.dd-button', function (e) {
     var $menu = $(this).next('.dd-menu');
 
@@ -60,7 +60,7 @@ $(document).ready(function () {
 
   $('#myModal').modal('show');
 
-
+  // when hovering .product-card add class .is-active
   $(".product-card").hover(function () {
     $(this).toggleClass("is-active");
   });

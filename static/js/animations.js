@@ -1,6 +1,6 @@
-// on load scroll down 1 pixel to trigger the animation
-$(document).ready(function () {
 
+$(document).ready(function () {
+    // hides all elements with class "hideme2"
     $('.hideme2').each(function (i) {
 
         $(this).css({
@@ -14,7 +14,7 @@ $(document).ready(function () {
 
     });
 
-
+// on load scroll down 1 pixel to trigger the animation
     document.getElementsByTagName("body")[0].addEventListener('scroll', function (e) {
         $('.hideme').each(function (i) {
             if (isInViewport(this)) {
@@ -31,7 +31,7 @@ $(document).ready(function () {
     });
 });
 
-
+// checks if element is in viewport
 function isInViewport(element) {
     const rect = element.getBoundingClientRect();
     return (

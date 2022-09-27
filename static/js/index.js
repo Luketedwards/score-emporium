@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    
+
 
     // when hovering #hero-text apply hover to .overlay-hero
     $("#hero-text").mouseover(function () {

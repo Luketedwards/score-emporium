@@ -2,21 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Sum
-from django.core.files.storage import default_storage
-from django.core.files.base import ContentFile
-from score_emporium.settings import MEDIA_URL, UPLOAD_ROOT, AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_STORAGE_BUCKET_NAME  
-from .models import Difficulty, Product, Genre, Review
+from score_emporium.settings import  UPLOAD_ROOT, AWS_SECRET_ACCESS_KEY, AWS_ACCESS_KEY_ID, AWS_STORAGE_BUCKET_NAME
+from .models import Product, Review
 from .forms import ProductForm
 from user_profile.models import UserProfile
-from django.contrib.auth.models import User
-
 import pypdfium2 as pdfium
 from PIL import Image, ImageFilter, ImageFont, ImageDraw
 from io import BytesIO
 import sys
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import boto3
-
 from django.core.files.storage import FileSystemStorage
 import os
 
@@ -26,6 +21,7 @@ import os
 
 # creating global instance of amazon S3 bucket for file uploads
 def _get_s3_resource():
+    """ Returns an instance of the S3 resource """
     if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY:
         return boto3.resource(
             's3',
@@ -38,15 +34,17 @@ def _get_s3_resource():
 
 # the projects Amazon S3 bucket
 def get_bucket():
+    """ Returns the S3 bucket """
     s3_resource = _get_s3_resource()
     return s3_resource.Bucket(AWS_STORAGE_BUCKET_NAME)
 
-def upload_file_s3(newImage, newPath):
-    # uploads file to S3 bucket
-    my_bucket = get_bucket()
-    my_bucket.Object(newPath).put(Body=newImage)   
-    return 'file uploaded' 
 
+def upload_file_s3(newImage, newPath):
+    """ Uploads a file to S3 """
+    
+    my_bucket = get_bucket()
+    my_bucket.Object(newPath).put(Body=newImage)
+    return 'file uploaded'
 
 
 def all_products(request):
@@ -62,8 +60,8 @@ def all_products(request):
         orders = profile.orders.all()
 
     else:
-        orders=None    
-    
+        orders = None
+
     if request.user.is_authenticated:
         ordersList = []
 
@@ -71,7 +69,7 @@ def all_products(request):
             for item in order.lineitems.all():
                 ordersList.append(item.product.id)
     else:
-        ordersList=[]            
+        ordersList = []
 
     if request.GET:
         if 'q' in request.GET:
@@ -80,11 +78,14 @@ def all_products(request):
                 messages.error(request, 'Please enter a search query.')
                 return redirect(reverse('products'))
 
-            queries = Q(name__icontains=search_query) | Q(description__icontains=search_query) | Q(vendor__icontains=search_query)  
+            queries = Q(
+                name__icontains=search_query) | Q(
+                description__icontains=search_query) | Q(
+                vendor__icontains=search_query)
             products = products.filter(queries)
     if request.POST:
         # filter products by data from the form
-        search_results_list = [] 
+        search_results_list = []
         genre = request.POST.get('genre')
         difficulty = request.POST.get('difficulty')
         price = request.POST.get('price')
@@ -94,27 +95,24 @@ def all_products(request):
                 products = products.order_by('rating')
             if rating == 'high>low':
                 products = products.order_by('-rating')
-            search_results_list.append("rating: "+ rating)   
+            search_results_list.append("rating: " + rating)
         if price != '':
             if price == 'low>high':
                 products = products.order_by('price')
             if price == 'high>low':
                 products = products.order_by('-price')
 
-            search_results_list.append('Price:' + price)    
+            search_results_list.append('Price:' + price)
 
         if difficulty != '':
             products = Product.objects.filter(difficulty__level=difficulty)
-            search_results_list.append('Difficulty: ' + difficulty) 
+            search_results_list.append('Difficulty: ' + difficulty)
 
         if genre != '':
             products = Product.objects.filter(genre__name=genre)
             search_results_list.append('Genre: ' + genre)
 
-        product_count = products.count()    
-
-           
-    
+        product_count = products.count()
 
     context = {
         'products': products,
@@ -139,22 +137,20 @@ def product_detail(request, product_id):
                 ordersList.append(item.product.id)
 
     else:
-        orders=None    
-        ordersList=[]
-    
-    
-
+        orders = None
+        ordersList = []
 
     product = get_object_or_404(Product, pk=product_id)
-    username= product.vendor
-    queries = Q(vendor__iexact=username)  
+    username = product.vendor
+    queries = Q(vendor__iexact=username)
     products = Product.objects.all()
     relevant_products = products.filter(queries)
     product_number = relevant_products.count()
     purchased_scores = UserProfile.purchased_scores
     all_reviews = Review.objects.filter(product=product)
-    total_score = all_reviews.aggregate(total_score=Sum('ratings'))['total_score']
-    
+    total_score = all_reviews.aggregate(
+        total_score=Sum('ratings'))['total_score']
+
     review_count = all_reviews.count()
     review_count_5 = all_reviews.filter(ratings=5).count()
     review_count_4 = all_reviews.filter(ratings=4).count()
@@ -163,38 +159,38 @@ def product_detail(request, product_id):
     review_count_1 = all_reviews.filter(ratings=1).count()
 
     if review_count_5 > 0:
-        percent_5 = review_count_5 / review_count 
+        percent_5 = review_count_5 / review_count
         percent_5 = percent_5 * 100
     else:
-        percent_5 = 0    
+        percent_5 = 0
     if review_count_4 > 0:
         percent_4 = review_count_4 / review_count
         percent_4 = percent_4 * 100
     else:
-        percent_4 = 0 
+        percent_4 = 0
     if review_count_3 > 0:
-        percent_3 = review_count_3 / review_count 
+        percent_3 = review_count_3 / review_count
         percent_3 = percent_3 * 100
     else:
-        percent_3 = 0 
+        percent_3 = 0
     if review_count_2 > 0:
         percent_2 = review_count_2 / review_count
         percent_2 = percent_2 * 100
     else:
-        percent_2 = 0 
+        percent_2 = 0
     if review_count_1 > 0:
         percent_1 = review_count_1 / review_count
         percent_1 = percent_1 * 100
     else:
-        percent_1 = 0 
+        percent_1 = 0
 
     average_rating = 0
 
     if review_count > 0:
-        average_rating = total_score / review_count  
+        average_rating = total_score / review_count
         product.rating = average_rating
         product.save()
-    
+
     context = {
         'product': product,
         'products': products,
@@ -225,11 +221,11 @@ def product_detail(request, product_id):
         subject = request.POST.get('subject')
         content = request.POST.get('content')
 
-
         if content:
-            reviews = Review.objects.filter(created_by=request.user, product=product)
+            reviews = Review.objects.filter(
+                created_by=request.user, product=product)
             if reviews.count() > 0:
-                review=reviews.first()
+                review = reviews.first()
                 review.delete()
                 review = Review.objects.create(
                     product=product,
@@ -238,11 +234,9 @@ def product_detail(request, product_id):
                     content=content,
                     created_by=request.user,
                 )
-                
-                
 
             else:
-                
+
                 review = Review.objects.create(
                     product=product,
                     ratings=int(ratings),
@@ -250,24 +244,22 @@ def product_detail(request, product_id):
                     content=content,
                     created_by=request.user,
                 )
-                
-            
-               
-            messages.success(request, f'Review added successfully!')
-            return redirect(reverse('product_detail', args=[product.id]))  
-    
+
+            messages.success(request, 'Review added successfully!')
+            return redirect(reverse('product_detail', args=[product.id]))
+
     return render(request, 'products/product_details2.html', context)
 
 
 def guitar_pro(request, product_id):
     """ A view to show individual product details """
     product = get_object_or_404(Product, pk=product_id)
-    username= product.vendor
-    queries = Q(vendor__iexact=username)  
+    username = product.vendor
+    queries = Q(vendor__iexact=username)
     products = Product.objects.all()
     relevant_products = products.filter(queries)
     product_number = relevant_products.count()
-    
+
     context = {
         'product': product,
         'products': products,
@@ -275,7 +267,8 @@ def guitar_pro(request, product_id):
         'relevant_products': relevant_products
     }
 
-    return render(request, 'products/my_scores.html', context)    
+    return render(request, 'products/my_scores.html', context)
+
 
 @login_required
 def add_product(request):
@@ -283,24 +276,25 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            
+
             obj = form.save(commit=False)
             obj.vendor = request.user.username
             name = f"{obj.name}"
             name2 = obj.PDF.name
-            new_name = name.replace(" ","-")
-            new_name2 = name2.replace(" ","-")
+            new_name = name.replace(" ", "-")
+            new_name2 = name2.replace(" ", "-")
             if not obj.image:
-                font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
-                font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+                font = ImageFont.truetype(
+                    'fonts/PlayfairDisplay-Bold.ttf', 400)
+                font2 = ImageFont.truetype(
+                    'fonts/PlayfairDisplay-Bold.ttf', 100)
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                fs = FileSystemStorage(
+                    location=UPLOAD_ROOT, base_url='/uploads')
                 pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
                 pdfPath = fs.path(pdfFile)
-
-
 
                 pdf = pdfium.PdfDocument(pdfPath)
                 page = pdf.get_page(0)
@@ -310,76 +304,84 @@ def add_product(request):
 
                 image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
                 output = BytesIO()
-                cropped_image = image.crop((5,1673,2459,3313))
-                blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
-                image.paste(blurred_image,(5,1673,2459,3313))
+                cropped_image = image.crop((5, 1673, 2459, 3313))
+                blurred_image = cropped_image.filter(
+                    ImageFilter.GaussianBlur(radius=10))
+                image.paste(blurred_image, (5, 1673, 2459, 3313))
                 editImage = ImageDraw.Draw(image)
-                editImage.text((550,2100), text,(84, 83, 82), font=font)
+                editImage.text((550, 2100), text, (84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
-                editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                editImage2.text((850, 2600), text2, (84, 83, 82), font=font2)
                 image.save(output, format='JPEG', quality=90)
                 output.seek(0)
-                
+
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
+                obj.image = InMemoryUploadedFile(
+                    output,
+                    'ImageField',
+                    f"blur-{new_name}-{obj.vendor}.jpg",
+                    'image/jpeg',
+                    sys.getsizeof(output),
+                    None)
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                
-                
 
             # rename the pdf file
             obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
             if obj.Guitar_Pro_Locked:
                 obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
-            
+
             obj.PDF = request.FILES['PDF']
             obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
-              
+
             obj.save()
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('products'))
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
     template = 'products/add_product.html'
     products = Product.objects.all()
-    username= request.user.username
-    queries = Q(vendor__iexact=username)  
+    username = request.user.username
+    queries = Q(vendor__iexact=username)
     products = products.filter(queries)
     product_number = products.count()
 
     context = {
         'form': form,
-        'product_number':product_number
+        'product_number': product_number
     }
 
     return render(request, template, context)
-    
 
-@login_required    
+
+@login_required
 def add_product_store(request):
     """ Add a product to the store """
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            
+
             obj = form.save(commit=False)
             obj.vendor = request.user.username
             name = f"{obj.name}"
             name2 = obj.PDF.name
-            new_name = name.replace(" ","-")
-            new_name2 = name2.replace(" ","-")
+            new_name = name.replace(" ", "-")
+            new_name2 = name2.replace(" ", "-")
             if not obj.image:
-                font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
-                font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+                font = ImageFont.truetype(
+                    'fonts/PlayfairDisplay-Bold.ttf', 400)
+                font2 = ImageFont.truetype(
+                    'fonts/PlayfairDisplay-Bold.ttf', 100)
                 text = 'Sample'
                 text2 = f'© {obj.vendor}'
 
-                fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                fs = FileSystemStorage(
+                    location=UPLOAD_ROOT, base_url='/uploads')
                 pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
                 pdfPath = fs.path(pdfFile)
-
-
 
                 pdf = pdfium.PdfDocument(pdfPath)
                 page = pdf.get_page(0)
@@ -389,50 +391,58 @@ def add_product_store(request):
 
                 image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
                 output = BytesIO()
-                cropped_image = image.crop((5,1673,2459,3313))
-                blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
-                image.paste(blurred_image,(5,1673,2459,3313))
+                cropped_image = image.crop((5, 1673, 2459, 3313))
+                blurred_image = cropped_image.filter(
+                    ImageFilter.GaussianBlur(radius=10))
+                image.paste(blurred_image, (5, 1673, 2459, 3313))
                 editImage = ImageDraw.Draw(image)
-                editImage.text((550,2100), text,(84, 83, 82), font=font)
+                editImage.text((550, 2100), text, (84, 83, 82), font=font)
                 editImage2 = ImageDraw.Draw(image)
-                editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                editImage2.text((850, 2600), text2, (84, 83, 82), font=font2)
                 image.save(output, format='JPEG', quality=90)
                 output.seek(0)
-                
+
                 newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
+                obj.image = InMemoryUploadedFile(
+                    output,
+                    'ImageField',
+                    f"blur-{new_name}-{obj.vendor}.jpg",
+                    'image/jpeg',
+                    sys.getsizeof(output),
+                    None)
                 os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-                
-                
 
             # rename the pdf file
             obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
             if obj.Guitar_Pro_Locked:
                 obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
-            
+
             obj.PDF = request.FILES['PDF']
             obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
-              
+
             obj.save()
             messages.success(request, 'Successfully added product!')
             return redirect(reverse('products'))
         else:
-            messages.error(request, 'Failed to add product. Please ensure the form is valid.')
+            messages.error(
+                request,
+                'Failed to add product. Please ensure the form is valid.')
     else:
         form = ProductForm()
     template = 'products/add_product.html'
     products = Product.objects.all()
-    username= request.user.username
-    queries = Q(vendor__iexact=username)  
+    username = request.user.username
+    queries = Q(vendor__iexact=username)
     products = products.filter(queries)
     product_number = products.count()
 
     context = {
         'form': form,
-        'product_number':product_number
+        'product_number': product_number
     }
 
-    return render(request, template, context)   
+    return render(request, template, context)
+
 
 @login_required
 def edit_product(request, product_id):
@@ -448,23 +458,23 @@ def edit_product(request, product_id):
             if form.is_valid():
                 # delete existing files and replace with new ones
                 if obj.image:
-                    if product2.image:   
+                    if product2.image:
                         # delete the image file from s3
                         key = 'media/' + str(product2.image)
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
-                if obj.PDF:        
+                if obj.PDF:
                     if product2.PDF:
                         # delete the pdf file from s3
                         key = 'media/' + str(product2.PDF)
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
-                if obj.Guitar_Pro_Unlocked:        
+                if obj.Guitar_Pro_Unlocked:
                     if product2.Guitar_Pro_Unlocked:
                         # delete the guitar pro file from s3
                         key = 'media/' + str(product2.Guitar_Pro_Unlocked)
                         my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()      
+                        my_bucket.Object(key).delete()
                 if obj.Guitar_Pro_Locked:
                     if product2.Guitar_Pro_Locked:
                         # delete the guitar pro file from s3
@@ -472,20 +482,21 @@ def edit_product(request, product_id):
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
 
-                
-                
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
                 name2 = obj.PDF.name
-                new_name = name.replace(" ","-")
-                new_name2 = name2.replace(" ","-")
+                new_name = name.replace(" ", "-")
+                new_name2 = name2.replace(" ", "-")
                 if not obj.image:
-                    font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
-                    font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+                    font = ImageFont.truetype(
+                        'fonts/PlayfairDisplay-Bold.ttf', 400)
+                    font2 = ImageFont.truetype(
+                        'fonts/PlayfairDisplay-Bold.ttf', 100)
                     text = 'Sample'
                     text2 = f'© {obj.vendor}'
 
-                    fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                    fs = FileSystemStorage(
+                        location=UPLOAD_ROOT, base_url='/uploads')
                     pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
                     pdfPath = fs.path(pdfFile)
 
@@ -497,21 +508,27 @@ def edit_product(request, product_id):
 
                     image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
                     output = BytesIO()
-                    cropped_image = image.crop((5,1673,2459,3313))
-                    blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
-                    image.paste(blurred_image,(5,1673,2459,3313))
+                    cropped_image = image.crop((5, 1673, 2459, 3313))
+                    blurred_image = cropped_image.filter(
+                        ImageFilter.GaussianBlur(radius=10))
+                    image.paste(blurred_image, (5, 1673, 2459, 3313))
                     editImage = ImageDraw.Draw(image)
-                    editImage.text((550,2100), text,(84, 83, 82), font=font)
+                    editImage.text((550, 2100), text, (84, 83, 82), font=font)
                     editImage2 = ImageDraw.Draw(image)
-                    editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                    editImage2.text(
+                        (850, 2600), text2, (84, 83, 82), font=font2)
                     image.save(output, format='JPEG', quality=90)
                     output.seek(0)
 
                     newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                    obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
+                    obj.image = InMemoryUploadedFile(
+                        output,
+                        'ImageField',
+                        f"blur-{new_name}-{obj.vendor}.jpg",
+                        'image/jpeg',
+                        sys.getsizeof(output),
+                        None)
                     os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-
-
 
                 # rename the pdf file
                 if obj.Guitar_Pro_Unlocked:
@@ -527,14 +544,14 @@ def edit_product(request, product_id):
                 messages.success(request, 'Successfully updated product!')
                 return redirect(reverse('product_detail', args=[product.id]))
             else:
-                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+                messages.error(
+                    request, 'Failed to update product. Please ensure the form is valid.')
         else:
             form = ProductForm(instance=product)
             messages.info(request, f'You are editing {product.name}')
     else:
         messages.error(request, 'You are not authorised to edit this product')
         return redirect(reverse('product_detail', args=[product.id]))
-          
 
     template = 'products/edit_product.html'
     context = {
@@ -559,23 +576,23 @@ def edit_product_store(request, product_id):
             if form.is_valid():
                # delete existing files and replace with new ones
                 if obj.image:
-                    if product2.image:   
+                    if product2.image:
                         # delete the image file from s3
                         key = 'media/' + str(product2.image)
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
-                if obj.PDF:        
+                if obj.PDF:
                     if product2.PDF:
                         # delete the pdf file from s3
                         key = 'media/' + str(product2.PDF)
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
-                if obj.Guitar_Pro_Unlocked:        
+                if obj.Guitar_Pro_Unlocked:
                     if product2.Guitar_Pro_Unlocked:
                         # delete the guitar pro file from s3
                         key = 'media/' + str(product2.Guitar_Pro_Unlocked)
                         my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()      
+                        my_bucket.Object(key).delete()
                 if obj.Guitar_Pro_Locked:
                     if product2.Guitar_Pro_Locked:
                         # delete the guitar pro file from s3
@@ -583,20 +600,21 @@ def edit_product_store(request, product_id):
                         my_bucket = get_bucket()
                         my_bucket.Object(key).delete()
 
-
-                
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
                 name2 = obj.PDF.name
-                new_name = name.replace(" ","-")
-                new_name2 = name2.replace(" ","-")
+                new_name = name.replace(" ", "-")
+                new_name2 = name2.replace(" ", "-")
                 if not obj.image:
-                    font = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 400)
-                    font2 = ImageFont.truetype('fonts/PlayfairDisplay-Bold.ttf', 100)
+                    font = ImageFont.truetype(
+                        'fonts/PlayfairDisplay-Bold.ttf', 400)
+                    font2 = ImageFont.truetype(
+                        'fonts/PlayfairDisplay-Bold.ttf', 100)
                     text = 'Sample'
                     text2 = f'© {obj.vendor}'
 
-                    fs = FileSystemStorage(location=UPLOAD_ROOT, base_url='/uploads')
+                    fs = FileSystemStorage(
+                        location=UPLOAD_ROOT, base_url='/uploads')
                     pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
                     pdfPath = fs.path(pdfFile)
 
@@ -608,21 +626,27 @@ def edit_product_store(request, product_id):
 
                     image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
                     output = BytesIO()
-                    cropped_image = image.crop((5,1673,2459,3313))
-                    blurred_image = cropped_image.filter(ImageFilter.GaussianBlur(radius=10))
-                    image.paste(blurred_image,(5,1673,2459,3313))
+                    cropped_image = image.crop((5, 1673, 2459, 3313))
+                    blurred_image = cropped_image.filter(
+                        ImageFilter.GaussianBlur(radius=10))
+                    image.paste(blurred_image, (5, 1673, 2459, 3313))
                     editImage = ImageDraw.Draw(image)
-                    editImage.text((550,2100), text,(84, 83, 82), font=font)
+                    editImage.text((550, 2100), text, (84, 83, 82), font=font)
                     editImage2 = ImageDraw.Draw(image)
-                    editImage2.text((850,2600), text2,(84, 83, 82), font=font2)
+                    editImage2.text(
+                        (850, 2600), text2, (84, 83, 82), font=font2)
                     image.save(output, format='JPEG', quality=90)
                     output.seek(0)
 
                     newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                    obj.image = InMemoryUploadedFile(output, 'ImageField', f"blur-{new_name}-{obj.vendor}.jpg", 'image/jpeg', sys.getsizeof(output), None)          
+                    obj.image = InMemoryUploadedFile(
+                        output,
+                        'ImageField',
+                        f"blur-{new_name}-{obj.vendor}.jpg",
+                        'image/jpeg',
+                        sys.getsizeof(output),
+                        None)
                     os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
-
-
 
                 # rename the pdf file
                 obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
@@ -634,16 +658,19 @@ def edit_product_store(request, product_id):
 
                 obj.save()
                 messages.success(request, 'Successfully updated product!')
-                return redirect(reverse('storefront', args=[request.user.username]))
+                return redirect(
+                    reverse(
+                        'storefront', args=[
+                            request.user.username]))
             else:
-                messages.error(request, 'Failed to update product. Please ensure the form is valid.')
+                messages.error(
+                    request, 'Failed to update product. Please ensure the form is valid.')
         else:
             form = ProductForm(instance=product)
             messages.info(request, f'You are editing {product.name}')
     else:
         messages.error(request, 'You are not authorised to edit this product')
         return redirect(reverse('product_detail', args=[product.id]))
-          
 
     template = 'products/edit_product.html'
     context = {
@@ -651,7 +678,7 @@ def edit_product_store(request, product_id):
         'product': product,
     }
 
-    return render(request, template, context)    
+    return render(request, template, context)
 
 
 @login_required
@@ -661,9 +688,9 @@ def delete_product(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     if username == product.vendor:
-        if product.image:   
+        if product.image:
             # delete the image file from s3
-            
+
             key = 'media/' + str(product.image)
             my_bucket = get_bucket()
             my_bucket.Object(key).delete()
@@ -676,7 +703,7 @@ def delete_product(request, product_id):
             # delete the guitar pro file from s3
             key = 'media/' + str(product.Guitar_Pro_Unlocked)
             my_bucket = get_bucket()
-            my_bucket.Object(key).delete()      
+            my_bucket.Object(key).delete()
 
         if product.Guitar_Pro_Locked:
             # delete the guitar pro file from s3
@@ -686,9 +713,11 @@ def delete_product(request, product_id):
 
         product.delete()
         messages.success(request, f'{product.name} was deleted.')
-        return redirect(reverse('products'))   
+        return redirect(reverse('products'))
     else:
-        messages.error(request, 'You are not authorised to delete this product')
+        messages.error(
+            request,
+            'You are not authorised to delete this product')
         return redirect(reverse('product_detail', args=[product.id]))
 
 
@@ -699,9 +728,9 @@ def delete_product_store(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     if username == product.vendor:
-        if product.image:   
+        if product.image:
             # delete the image file from s3
-            
+
             key = 'media/' + str(product.image)
             my_bucket = get_bucket()
             my_bucket.Object(key).delete()
@@ -714,24 +743,24 @@ def delete_product_store(request, product_id):
             # delete the guitar pro file from s3
             key = 'media/' + str(product.Guitar_Pro_Unlocked)
             my_bucket = get_bucket()
-            my_bucket.Object(key).delete()      
+            my_bucket.Object(key).delete()
 
         if product.Guitar_Pro_Locked:
             # delete the guitar pro file from s3
             key = 'media/' + str(product.Guitar_Pro_Locked)
             my_bucket = get_bucket()
-            my_bucket.Object(key).delete()      
-        
-        
+            my_bucket.Object(key).delete()
+
         product.delete()
 
-        
         messages.success(request, f'{product.name} was deleted.')
-        
-        return redirect(reverse('storefront', args=[request.user.username]))   
+
+        return redirect(reverse('storefront', args=[request.user.username]))
     else:
-        messages.error(request, 'You are not authorised to delete this product')
-        return redirect(reverse('product_detail', args=[product.id]))        
+        messages.error(
+            request,
+            'You are not authorised to delete this product')
+        return redirect(reverse('product_detail', args=[product.id]))
 
 
 def delete_from_s3(request, product_id):
@@ -740,9 +769,9 @@ def delete_from_s3(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     if username == product.vendor:
-        if product.image:   
+        if product.image:
             # delete the image file from s3
-            
+
             key = 'media/' + str(product.image)
             my_bucket = get_bucket()
             my_bucket.Object(key).delete()
@@ -755,7 +784,7 @@ def delete_from_s3(request, product_id):
             # delete the guitar pro file from s3
             key = 'media/' + str(product.Guitar_Pro_Unlocked)
             my_bucket = get_bucket()
-            my_bucket.Object(key).delete()      
+            my_bucket.Object(key).delete()
 
         if product.Guitar_Pro_Locked:
             # delete the guitar pro file from s3
@@ -764,4 +793,3 @@ def delete_from_s3(request, product_id):
             my_bucket.Object(key).delete()
 
         product.delete()
-
