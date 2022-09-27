@@ -49,6 +49,7 @@ body {
 
   .at-content {
     position: relative;
+    background-color: white !important;
     overflow: hidden;
     flex: 1 1 auto;
   }
