@@ -783,7 +783,7 @@ a:hover {
 }
 
 .product-card {
-  transition: all .5s ease;
+  transition: all .5s ease !important;
 }
 
 .product-card:hover {
@@ -795,9 +795,7 @@ a:hover {
 }
 
 .is-active {
-  box-shadow: inset 30px 30px 100px 10px #000000;
-  transform: translateY(-10px);
-
+  box-shadow: 0 4px 2px -2px gray;
 }
 
 .nav-link {
@@ -872,10 +870,6 @@ a:hover {
   border: 2px solid black;
 
 }
-
-
-
-
 
 
 /* storefront */
