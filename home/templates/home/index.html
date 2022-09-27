@@ -5,7 +5,10 @@
 <link rel="stylesheet" href="{% static 'css/animations.css'%}">
 
 {% endblock%}
+{% block extrajs %}
+<script src="{% static 'js/index.js' %}"></script>
 
+{% endblock %}
 
 {% block content %}
 <header id="hero-image" class="bg-dark zoom">
