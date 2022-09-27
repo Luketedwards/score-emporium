@@ -764,3 +764,4 @@ def delete_from_s3(request, product_id):
             my_bucket.Object(key).delete()
 
         product.delete()
+

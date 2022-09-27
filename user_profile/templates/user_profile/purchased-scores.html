@@ -17,6 +17,7 @@
     </div>
     <div class="row mt-1 mb-5">
         <div class="row w-100">
+            {% if score_number > 0 %}
             {% for item in items %}
             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow-checkout" style="overflow:hidden;">
@@ -114,6 +115,12 @@
             {% endif %}
 
             {% endfor %}
+            {%else%}
+            <div class="col-12 text-center">
+                <h5 class="mt-3 mb-3 ">You have not purchased any scores yet.</h5>
+                <a href="{% url 'products' %}" class="btn btn-primary">Browse Scores</a>
+            {%endif%}
+
         </div>
     </div>
 

@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-    <div class="overlay"></div>
+    <div style="background-color: #efeff6;" class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 text-center center">
-                <hr>
-                <h2 class="logo-font mb-4 text-center">Edit Profile</h2>
+                
+                <h2 class="logo-font mb-4 text-center pt-3">Edit Profile</h2>
                 <h5 class="text-muted">Edit your profile information and upload a cover or profile photo.</h5>
                 
                 <hr>
@@ -20,8 +20,8 @@
                     {% csrf_token %}
                     {{ form | crispy }}
                     <div style="margin-bottom: 50px;" class="text-center">
-                        <a class="btn btn-outline-black rounded-0" href="{% url 'storefront' request.user.username %}">Cancel</a>
-                        <button class="btn btn-black rounded-0" type="submit">Edit Profile</button>
+                        <a class="btn btn-secondary" href="{% url 'storefront' request.user.username %}">Cancel</a>
+                        <button class="btn btn-primary" type="submit">Edit Profile</button>
                     </div>
                 </form>
             </div>            

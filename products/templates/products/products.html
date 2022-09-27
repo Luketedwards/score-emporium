@@ -16,6 +16,9 @@
                 <span class="text-muted">Filtering for: {% for filter in search_results_list %} {{filter}} {%endfor%}</span>
                 <br>
                 <span class="text-muted">Results: {{product_count}}</span>
+                {%else%}
+                <span class="text-muted">Results: {{product_count}}</span>
+
                 {% endif %}
             </div>
         </div>
