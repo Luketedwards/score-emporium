@@ -272,7 +272,7 @@ def guitar_pro(request, product_id):
     return render(request, 'products/my_scores.html', context)
 
 
-@login_required
+
 def add_product(request):
     """ Add a product to the store """
     if request.method == 'POST':
@@ -359,7 +359,7 @@ def add_product(request):
     return render(request, template, context)
 
 
-@login_required
+
 def add_product_store(request):
     """ Add a product to the store """
     if request.method == 'POST':
