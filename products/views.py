@@ -83,6 +83,8 @@ def all_products(request):
                 description__icontains=search_query) | Q(
                 vendor__icontains=search_query)
             products = products.filter(queries)
+            search_results_list = [search_query]
+            product_count = products.count()
     if request.POST:
         # filter products by data from the form
         search_results_list = []

@@ -60,10 +60,6 @@ $(document).ready(function () {
 
   $('#myModal').modal('show');
 
-  // when hovering .product-card add class .is-active
-  $(".product-card").hover(function () {
-    $(this).toggleClass("is-active");
-  });
 
 
 });

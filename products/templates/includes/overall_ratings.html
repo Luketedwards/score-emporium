@@ -1,18 +1,19 @@
-
 <div id="user-reviews" class="col-12 center">
-    <h2 class="text-center">Customer Reviews</h2>
-    <span>Average rating {{average_rating}} based on {{review_count}} reviews.</span>
-      
-    <div style="margin-bottom: 0 !important;" class=" container-fluid ">
-      <hr>
-      <div class="graphs">
+  <h2 class="text-center">Customer Reviews</h2>
+  <span>Average rating {{average_rating}} based on {{review_count}} reviews.</span>
+
+  <div style="margin-bottom: 0 !important;" class=" container-fluid ">
+    <hr>
+    <div class="graphs">
       <div class="row" style="margin-bottom: 25px;">
         <div class="side">
           <div>5 star</div>
         </div>
         <div class="middle">
           <div class="bar-container">
-            <div id="5bar" style="width: {{percent_5}}%; height: 18px; background-color: #04AA6D; animation-fill-mode:forwards;" class="bar-5 "></div>
+            <div id="5bar"
+              style="width: {{percent_5}}%; height: 18px; background-color: #04AA6D; animation-fill-mode:forwards;"
+              class="bar-5 "></div>
           </div>
         </div>
         <div class="side right">
@@ -23,7 +24,8 @@
         </div>
         <div class="middle">
           <div class="bar-container">
-            <div id="4bar" style="width: {{percent_4}}%; height: 18px; background-color: #2196F3;" class="bar-4 empty"></div>
+            <div id="4bar" style="width: {{percent_4}}%; height: 18px; background-color: #2196F3;" class="bar-4 empty">
+            </div>
           </div>
         </div>
         <div class="side right">
@@ -34,7 +36,8 @@
         </div>
         <div class="middle">
           <div class="bar-container">
-            <div id="3bar" style="width: {{percent_3}}%; height: 18px; background-color: #00bcd4" class="bar-3 empty"></div>
+            <div id="3bar" style="width: {{percent_3}}%; height: 18px; background-color: #00bcd4" class="bar-3 empty">
+            </div>
           </div>
         </div>
         <div class="side right">
@@ -45,7 +48,8 @@
         </div>
         <div class="middle">
           <div class="bar-container">
-            <div id="2bar" style="width: {{percent_2}}%; height: 18px; background-color: #ff9800;" class="bar-2 empty"></div>
+            <div id="2bar" style="width: {{percent_2}}%; height: 18px; background-color: #ff9800;" class="bar-2 empty">
+            </div>
           </div>
         </div>
         <div class="side right">
@@ -56,42 +60,47 @@
         </div>
         <div class="middle">
           <div class="bar-container">
-            <div id="1bar" style="width: {{percent_1}}%; height: 18px; background-color: #f44336;" class="bar-1 empty"></div>
+            <div id="1bar" style="width: {{percent_1}}%; height: 18px; background-color: #f44336;" class="bar-1 empty">
+            </div>
           </div>
         </div>
         <div class="side right">
           <div>{{review_count_1}}</div>
         </div>
       </div>
-      
-    </div>
-    
 
-      </div>
-      
     </div>
-    <hr>
-    {% if all_reviews %}
-                                            {% for review in all_reviews %}
-                                            <div class="review-block mt-2 p-2">
-                                                <span style="font-size: 1.6rem;"><strong> {{review.subject|title}}
-                                                    </strong></span>
-                                                <br>
-                                                <p class="review-text font-italic mb-2">“{{review.content}}”</p>
-                                                <div class="rating-star mb-4 pt-2">
-                                                    {% for i in "x"|rjust:review.ratings %}
-                                                    <i style="color: gold;" class="fa fa-fw fa-star"></i>
-                                                    {% endfor %}
-                                                </div>
-                                                <span class="text-dark font-weight-bold">{{review.created_by}}</span>
-                                                <br>
-                                                <span class="muted">Review on {{review.date}}</span>
-                                            </div>
-                                            {% if not forloop.first and not forloop.last%}
-                                            <hr>
-                                            {% endif %}
-                                            {% endfor %}
-                                            {% else %}
-                                            <p class="text-center">No reviews yet</p>
-                                            {% endif %}
-    
+
+
+  </div>
+
+</div>
+<hr>
+<div style="overflow-y: scroll; width: 100%; max-height: 22rem">
+{% if all_reviews %}
+
+  {% for review in all_reviews %}
+  <div class="review-block mt-2 p-2">
+    <span style="font-size: 1.6rem;"><strong> {{review.subject|title}}
+      </strong></span>
+    <br>
+    <p class="review-text font-italic mb-2">“{{review.content}}”</p>
+    <div class="rating-star mb-4 pt-2">
+      {% for i in "x"|rjust:review.ratings %}
+      <i style="color: gold;" class="fa fa-fw fa-star"></i>
+      {% endfor %}
+    </div>
+    <span class="text-dark font-weight-bold">{{review.created_by}}</span>
+    <br>
+    <span class="muted">Review on {{review.date}}</span>
+  </div>
+  
+  {% if not forloop.first and not forloop.last%}
+  <hr>
+  {% endif %}
+  {% endfor %}
+  {% else %}
+  <p class="text-center">No reviews yet</p>
+
+{% endif %}
+</div>

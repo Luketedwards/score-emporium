@@ -35,6 +35,7 @@
                                 <div class="product-details">
                                     <div class="border-bottom pb-3 mb-3">
                                         <h2 class="mb-3">{{product.name|title}}</h2>
+                                        
                                         <div class="product-rating d-inline-block float-right">
                                             {% if product.rating %}
                                             <span class="text-muted gold"><i
@@ -73,20 +74,26 @@
                                                     {% else %}
 
 
-                                                    {% if not request.session.cart and product.id not in ordersList%}
+                                                    {% if not request.session.cart and product.id not in ordersList and product.vendor|stringformat:'i' != request.user|stringformat:'i'%}
                                                     <input id="product-btn" type="submit" style="width: 9rem !important;
                                                     padding: 7px !important;" class="btn btn-black product-btn mt-2"
                                                         value="Add to cart">
                                                     {%else%}
-                                                    {% if product.id in ordersList%}
+                                                    {% if product.id in ordersList %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type=""
                                                         class="btn btn-black product-btn mt-2" value="Owned">
+                                                    {% elif product.vendor|stringformat:'i' == request.user|stringformat:'i' %}
+                                                    <input id="product-btn" disabled type="submit" style="width: 9rem !important;
+                                                        padding: 7px !important;"
+                                                        class="btn btn-black product-btn mt-2"
+                                                        value="Your product!">
 
                                                     {% elif product.id|stringformat:"i" not in request.session.cart %}
                                                     <input id="product-btn" type="submit" style="width: 9rem !important;
                                                     padding: 7px !important;" class="btn btn-black product-btn mt-2"
                                                         value="Add to cart">
+
                                                     {% else %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type=""
@@ -191,94 +198,110 @@
 
                     </div>
                 </div>
-            {% if product_number > 1%}
+                {% if product_number > 1%}
 
                 <div class="row ">
                     <div class="col-12">
-                    <h4 class="text-center center mb-3 pb-3" style="display: block;">Other Products By {{product.vendor|title}}</h4>
-                </div>
-                    <div class="center col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 d-flex other-products-card p-4 other-products-container">
-                        
-                    {% for vendor_products in relevant_products%}
-                    <div class="{% if product_number == 1%} col-12 {%elif product_number == 2 %} col-md-6 col-12 {%elif product_number == 3 %} col-md-4 col-sm-6 col-12 {%else%} col-md-3 col-sm-6 col-12{%endif%}">
-                        <div class="product-grid shadow-checkout">
-                            <div class="product-image">
-                                <a href="#" class="image">
-                                    {% if vendor_products.image %}
-                                    <img  class="" src="{{MEDIA_URL}}{{vendor_products.image }}"
-                                        data-color="lightblue" alt="{{vendor_products.name}}">
-                                    {% else %}
-                                    <img class=""
-                                        src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg" data-color="lightblue"
-                                        alt="{{vendor_products.name}}">
-                                    {%endif%}
-                                </a>
-                                <ul class="product-links">
-                                    {% if user.is_authenticated %}
-                                    
-                                    <form  class="form" action="{% url 'add_to_cart' vendor_products.id %}" method="POST">
-                                        {% csrf_token %}
-                                        
+                        <h4 class="text-center center mb-3 pb-3" style="display: block;">Other Products By
+                            {{product.vendor|title}}</h4>
+                    </div>
+                    <div
+                        class="center col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 d-flex other-products-card p-4 other-products-container">
 
-                                            
-                                                
+                        {% for vendor_products in relevant_products%}
+                        <div
+                            class="{% if product_number == 1%} col-12 {%elif product_number == 2 %} col-md-6 col-12 {%elif product_number == 3 %} col-md-4 col-sm-6 col-12 {%else%} col-md-3 col-sm-6 col-12{%endif%}">
+                            <div class="product-grid shadow-checkout">
+                                <div class="product-image">
+                                    <a href="#" class="image">
+                                        {% if vendor_products.image %}
+                                        <img class="" src="{{MEDIA_URL}}{{vendor_products.image }}"
+                                            data-color="lightblue" alt="{{vendor_products.name}}">
+                                        {% else %}
+                                        <img class=""
+                                            src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg"
+                                            data-color="lightblue" alt="{{vendor_products.name}}">
+                                        {%endif%}
+                                    </a>
+                                    <ul class="product-links">
+                                        {% if user.is_authenticated %}
 
-                                                {% if not request.session.cart and vendor_products.id not in ordersList%}
-                                                
-                                                <li><a style="font-size: 1.4rem;" onclick="this.closest('form').submit();return false;" class="" href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                        <form class="form" action="{% url 'add_to_cart' vendor_products.id %}"
+                                            method="POST">
+                                            {% csrf_token %}
 
-                                                {%else%}
-                                                {% if product.id in ordersList%}
-                                                <li class="disabled"><a style="font-size: 1.4rem;" onclick="owned()" class="disabled" href="#"><strike><i class="fa-solid fa-cart-flatbed"></i></strike> </a></li>
 
-                                                {% elif product.id|stringformat:"i" not in request.session.cart %}
-                                                <li><a style="font-size: 1.4rem;" onclick="this.closest('form').submit();return false;" class="" href="#"><i class="fas fa-shopping-cart"></i></a></li>
 
-                                                {% else %}
-                                                <li class="disabled" ><strike><a style="font-size: 1.4rem;" onclick="inCart()" class="disabled" href="#"><i class="fa-solid fa-cart-flatbed"></i></a></strike></li>
-                                                {%endif%}
-                                                {%endif%}
-                                                
-                                                
 
-                                            
+
+                                            {% if not request.session.cart and vendor_products.id not in ordersList%}
+
+                                            <li><a style="font-size: 1.4rem;"
+                                                    onclick="this.closest('form').submit();return false;" class=""
+                                                    href="#"><i class="fas fa-shopping-cart"></i></a></li>
+
+                                            {%else%}
+                                            {% if product.id in ordersList%}
+                                            <li class="disabled"><a style="font-size: 1.4rem;" onclick="owned()"
+                                                    class="disabled" href="#"><strike><i
+                                                            class="fa-solid fa-cart-flatbed"></i></strike> </a></li>
+
+                                            {% elif product.id|stringformat:"i" not in request.session.cart %}
+                                            <li><a style="font-size: 1.4rem;"
+                                                    onclick="this.closest('form').submit();return false;" class=""
+                                                    href="#"><i class="fas fa-shopping-cart"></i></a></li>
+
+                                            {% else %}
+                                            <li class="disabled"><strike><a style="font-size: 1.4rem;"
+                                                        onclick="inCart()" class="disabled" href="#"><i
+                                                            class="fa-solid fa-cart-flatbed"></i></a></strike></li>
+                                            {%endif%}
+                                            {%endif%}
+
+
+
+
                                             <input type="hidden" name="redirect_url" value="{{ request.path }}">
 
-                                        
 
 
-                                    </form>
-                                    {%else%}
-                                    <li><a href="{% url 'account_login' %}"><i class="fas fa-shopping-cart"></i></a></li>
-                                    {%endif%}
-                                    
-                                    <li><a href="{% url 'product_detail' vendor_products.id%}"><i class="fa fa-eye"></i></a></li>
-                                    
-                                </ul>
-                            </div>
-                            <div class="product-content">
-                                <div class="price">£{{vendor_products.price}}</div>
-                                <h3 class="title"><a href="{% url 'product_detail' vendor_products.id%}">{{vendor_products.name|title}}</a></h3>
-                                <ul class="rating2">
-                                    {% if vendor_products.rating %}
-                                    
-                                    {% for i in "x"|rjust:vendor_products.rating %}
-                                    <li class="fas fa-star"></li>
-                                    {%endfor%}
-                                    
-                                    {%else%}
-                                    <li class="text-muted">no ratings</li>
-                                    {%endif%}
-                                </ul>
+
+                                        </form>
+                                        {%else%}
+                                        <li><a href="{% url 'account_login' %}"><i class="fas fa-shopping-cart"></i></a>
+                                        </li>
+                                        {%endif%}
+
+                                        <li><a href="{% url 'product_detail' vendor_products.id%}"><i
+                                                    class="fa fa-eye"></i></a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="product-content">
+                                    <div class="price">£{{vendor_products.price}}</div>
+                                    <h3 class="title"><a
+                                            href="{% url 'product_detail' vendor_products.id%}">{{vendor_products.name|title}}</a>
+                                    </h3>
+                                    <ul class="rating2">
+                                        {% if vendor_products.rating %}
+
+                                        {% for i in "x"|rjust:vendor_products.rating %}
+                                        <li class="fas fa-star"></li>
+                                        {%endfor%}
+
+                                        {%else%}
+                                        <li class="text-muted">no ratings</li>
+                                        {%endif%}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
 
 
                 </div>
-            {%endif%}
+                {%endif%}
 
             </div>
         </div>
@@ -293,16 +316,15 @@
 </div>
 <script>
     // define function called owned that shows user a toast indicating that they already own the product
-  function owned() {
-    alert("You already own this product!");
+    function owned() {
+        alert("You already own this product!");
 
-  }
+    }
 
-  // define function called inCart that shows user a toast indicating that the product is already in their cart
-  function inCart() {
-    alert("Product is already in your cart");
-  }
+    // define function called inCart that shows user a toast indicating that the product is already in their cart
+    function inCart() {
+        alert("Product is already in your cart");
+    }
 </script>
 
 {% endblock %}
-
