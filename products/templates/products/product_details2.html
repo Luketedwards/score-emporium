@@ -74,7 +74,7 @@
                                                     {% else %}
 
 
-                                                    {% if not request.session.cart and product.id not in ordersList and product.vendor|stringformat:'i' != request.user|stringformat:'i'%}
+                                                    {% if not request.session.cart and product.id not in ordersList and product.vendor != current_username%}
                                                     <input id="product-btn" type="submit" style="width: 9rem !important;
                                                     padding: 7px !important;" class="btn btn-black product-btn mt-2"
                                                         value="Add to cart">
@@ -83,22 +83,22 @@
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type=""
                                                         class="btn btn-black product-btn mt-2" value="Owned">
-                                                    {% elif product.vendor|stringformat:'i' == request.user|stringformat:'i' %}
+                                                    {% elif product.vendor == current_username%}
                                                     <input id="product-btn" disabled type="submit" style="width: 9rem !important;
                                                         padding: 7px !important;"
                                                         class="btn btn-black product-btn mt-2"
                                                         value="Your product!">
 
-                                                    {% elif product.id|stringformat:"i" not in request.session.cart %}
-                                                    <input id="product-btn" type="submit" style="width: 9rem !important;
-                                                    padding: 7px !important;" class="btn btn-black product-btn mt-2"
-                                                        value="Add to cart">
-
-                                                    {% else %}
+                                                    {% elif  product.id|stringformat:'i'  in request.session.cart %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type=""
                                                         class="btn btn-black product-btn mt-2" value="Added">
 
+                                                    {% else %}
+                                                    
+                                                        <input id="product-btn" type="submit" style="width: 9rem !important;
+                                                        padding: 7px !important;" class="btn btn-black product-btn mt-2"
+                                                            value="Add to cart">
                                                     {%endif%}
                                                     {%endif%}
                                                     {% endif %}

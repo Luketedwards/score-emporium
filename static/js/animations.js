@@ -4,7 +4,7 @@ $(document).ready(function () {
     $('.hideme2').each(function (i) {
 
         $(this).css({
-            'opacity': '0.8'
+            'opacity': '1'
         }, 900);
         // add .boxshadow to parent element
         $(this).parent().css({

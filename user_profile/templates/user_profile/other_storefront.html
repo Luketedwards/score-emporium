@@ -12,7 +12,7 @@
                   <div class="rounded-top text-white d-flex flex-row" style="background-image: {% if not profile.cover_photo %} url(https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/reviews-background.jpg); {% else %} url({{profile.cover_photo.url}}); {%endif%} background-size: contain; height:200px;">
                     <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                       {% if profile.profile_picture %}
-                      <img src="{{profile.profile_picture.url}}" alt="profile photo of {{request.user.username}}" class="img-fluid img-thumbnail mt-0 ml-1 mb-2" style="width: 150px; z-index: 1">
+                      <img src="{{profile.profile_picture.url}}" alt="profile photo of {{request.user.username}}" class="img-fluid img-thumbnail mt-0 ml-1 mb-2" style="width: auto; z-index: 1; height: 182px;">
                       {% else %}
                       <img src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/profile_photos/default-pp-min.png" alt="Generic placeholder image" class="img-fluid img-thumbnail ml-1 mt-0 mb-2" style="width: 150px; z-index: 1; height:182px;">
                       {% endif %}
@@ -24,7 +24,7 @@
                     </div>
                   </div>
                   <div class="p-4 text-black" style="background-color: #f8f9fa;">
-                    <div class="d-flex justify-content-end text-center pt-4 py-1">
+                    <div class="d-flex justify-content-end text-center  py-1">
                       <div class="col-7 mr-2">
                         
                       </div>
@@ -53,7 +53,7 @@
                     <div class="">
                       <p class="lead fw-normal mb-1 text-center">About</p>
                       <div class="p-0" style="background-color: #f8f9fa;">
-                        <p class="font-italic mb-1 p-3">{{profile.bio}}</p>
+                        <p style="font-size: 0.9rem;" class="font-italic mb-1 p-3">{{profile.bio}}</p>
                       </div>
                     </div>   
                   </div>

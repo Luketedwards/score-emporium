@@ -144,6 +144,7 @@ def product_detail(request, product_id):
 
     product = get_object_or_404(Product, pk=product_id)
     username = product.vendor
+    current_username = str(request.user.username)
     queries = Q(vendor__iexact=username)
     products = Product.objects.all()
     relevant_products = products.filter(queries)
@@ -215,6 +216,7 @@ def product_detail(request, product_id):
         'review_count_2': review_count_2,
         'review_count_1': review_count_1,
         'ordersList': ordersList,
+        'current_username': current_username,
     }
 
     if request.method == 'POST':
