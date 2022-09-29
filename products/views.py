@@ -542,6 +542,11 @@ def edit_product(request, product_id):
                             sys.getsizeof(output),
                             None)
                         os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
+                else:
+                    obj.vendor = request.user.username
+                    name = f"{obj.name}"
+                    name2 = obj.PDF.name
+                    new_name = name.replace(" ", "-")        
 
                 # rename the GP file
                 if 'Guitar_Pro_Unlocked' in request.FILES:
