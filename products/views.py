@@ -462,81 +462,92 @@ def edit_product(request, product_id):
             obj = form.save(commit=False)
             if form.is_valid():
             # delete existing files and replace with new ones
-                if obj.image:
+                if 'image' in request.FILES:
                 # delete the image file from s3
                     key = 'media/' + str(product2.image)
                     my_bucket = get_bucket()
                     my_bucket.Object(key).delete()
-                if obj.PDF:
+                else:
+                    obj.image = product2.image    
+                if 'PDF' in request.FILES:
                 # delete the pdf file from s3
                     key = 'media/' + str(product2.PDF)
                     my_bucket = get_bucket()
                     my_bucket.Object(key).delete()  
                     key = 'media/' + str(product2.image)
                     my_bucket = get_bucket()
-                    my_bucket.Object(key).delete()  
-                if obj.Guitar_Pro_Unlocked:
+                    my_bucket.Object(key).delete() 
+                else:
+                    obj.PDF = product2.PDF 
+                if 'Guitar_Pro_Unlocked' in request.FILES:
                 # delete the guitar pro file from s3
                     key = 'media/' + str(product2.Guitar_Pro_Unlocked)
                     my_bucket = get_bucket()
                     my_bucket.Object(key).delete()
-                if obj.Guitar_Pro_Locked:
+                else:
+                    obj.Guitar_Pro_Unlocked = product2.Guitar_Pro_Unlocked    
+                if 'Guitar_Pro_Locked' in request.FILES:
                 # delete the guitar pro file from s3
                     key = 'media/' + str(product2.Guitar_Pro_Locked)
                     my_bucket = get_bucket()
                     my_bucket.Object(key).delete()
+                else:
+                    obj.Guitar_Pro_Locked = product2.Guitar_Pro_Locked    
 
-                obj.vendor = request.user.username
-                name = f"{obj.name}"
-                name2 = obj.PDF.name
-                new_name = name.replace(" ", "-")
-                new_name2 = name2.replace(" ", "-")
-                if not obj.image or 'PDF' in request.FILES:
-                    font = ImageFont.truetype(
-                        'fonts/PlayfairDisplay-Bold.ttf', 400)
-                    font2 = ImageFont.truetype(
-                        'fonts/PlayfairDisplay-Bold.ttf', 100)
-                    text = 'Sample'
-                    text2 = f'© {obj.vendor}'
+                if 'PDF' in request.FILES:
+                    obj.vendor = request.user.username
+                    name = f"{obj.name}"
+                    name2 = obj.PDF.name
+                    new_name = name.replace(" ", "-")
+                    new_name2 = name2.replace(" ", "-")
+                    if not 'image' in request.FILES or 'PDF' in request.FILES:
+                        font = ImageFont.truetype(
+                            'fonts/PlayfairDisplay-Bold.ttf', 400)
+                        font2 = ImageFont.truetype(
+                            'fonts/PlayfairDisplay-Bold.ttf', 100)
+                        text = 'Sample'
+                        text2 = f'© {obj.vendor}'
 
-                    fs = FileSystemStorage(
-                        location=UPLOAD_ROOT, base_url='/uploads')
-                    pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
-                    pdfPath = fs.path(pdfFile)
+                        fs = FileSystemStorage(
+                            location=UPLOAD_ROOT, base_url='/uploads')
+                        pdfFile = fs.save(f"{new_name}-{obj.vendor}.pdf", obj.PDF)
+                        pdfPath = fs.path(pdfFile)
 
-                    pdf = pdfium.PdfDocument(pdfPath)
-                    page = pdf.get_page(0)
-                    pil_image = page.render_topil()
-                    pil_image.save(f"pil-{obj.name}-{obj.vendor}.jpg")
-                    page.close()
+                        pdf = pdfium.PdfDocument(pdfPath)
+                        page = pdf.get_page(0)
+                        pil_image = page.render_topil()
+                        pil_image.save(f"pil-{obj.name}-{obj.vendor}.jpg")
+                        page.close()
 
-                    image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
-                    output = BytesIO()
-                    cropped_image = image.crop((5, 1673, 2459, 3313))
-                    blurred_image = cropped_image.filter(
-                        ImageFilter.GaussianBlur(radius=10))
-                    image.paste(blurred_image, (5, 1673, 2459, 3313))
-                    editImage = ImageDraw.Draw(image)
-                    editImage.text((550, 2100), text, (84, 83, 82), font=font)
-                    editImage2 = ImageDraw.Draw(image)
-                    editImage2.text(
-                        (850, 2600), text2, (84, 83, 82), font=font2)
-                    image.save(output, format='JPEG', quality=90)
-                    output.seek(0)
+                        image = Image.open(f'pil-{obj.name}-{obj.vendor}.jpg')
+                        output = BytesIO()
+                        cropped_image = image.crop((5, 1673, 2459, 3313))
+                        blurred_image = cropped_image.filter(
+                            ImageFilter.GaussianBlur(radius=10))
+                        image.paste(blurred_image, (5, 1673, 2459, 3313))
+                        editImage = ImageDraw.Draw(image)
+                        editImage.text((550, 2100), text, (84, 83, 82), font=font)
+                        editImage2 = ImageDraw.Draw(image)
+                        editImage2.text(
+                            (850, 2600), text2, (84, 83, 82), font=font2)
+                        image.save(output, format='JPEG', quality=90)
+                        output.seek(0)
 
-                    newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
-                    obj.image = InMemoryUploadedFile(
-                        output,
-                        'ImageField',
-                        f"blur-{new_name}-{obj.vendor}.jpg",
-                        'image/jpeg',
-                        sys.getsizeof(output),
-                        None)
-                    os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
+                        newPath = f'blur-{new_name}-{obj.vendor}-image.jpg'
+                        obj.image = InMemoryUploadedFile(
+                            output,
+                            'ImageField',
+                            f"blur-{new_name}-{obj.vendor}.jpg",
+                            'image/jpeg',
+                            sys.getsizeof(output),
+                            None)
+                        os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
 
                 # rename the GP file
-                obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
-                if obj.Guitar_Pro_Locked:
+                if 'Guitar_Pro_Unlocked' in request.FILES:
+                    obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
+                
+                if 'Guitar_Pro_Locked' in request.FILES:
                     obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
 
                 if 'PDF' in request.FILES:
@@ -544,7 +555,7 @@ def edit_product(request, product_id):
                     obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
 
                 else:
-                    obj.PDF = product.PDF
+                    obj.PDF = product2.PDF
                 
                     obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
 
