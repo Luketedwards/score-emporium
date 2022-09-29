@@ -451,6 +451,7 @@ def add_product_store(request):
 @login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
+   
     username = request.user.username
 
     product = get_object_or_404(Product, pk=product_id)
@@ -460,31 +461,27 @@ def edit_product(request, product_id):
             product2 = get_object_or_404(Product, pk=product_id)
             obj = form.save(commit=False)
             if form.is_valid():
-                # delete existing files and replace with new ones
+            # delete existing files and replace with new ones
                 if obj.image:
-                    if product2.image:
-                        # delete the image file from s3
-                        key = 'media/' + str(product2.image)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
+                # delete the image file from s3
+                    key = 'media/' + str(product2.image)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
                 if obj.PDF:
-                    if product2.PDF:
-                        # delete the pdf file from s3
-                        key = 'media/' + str(product2.PDF)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
+                # delete the pdf file from s3
+                    key = 'media/' + str(product2.PDF)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()    
                 if obj.Guitar_Pro_Unlocked:
-                    if product2.Guitar_Pro_Unlocked:
-                        # delete the guitar pro file from s3
-                        key = 'media/' + str(product2.Guitar_Pro_Unlocked)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
+                # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Unlocked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
                 if obj.Guitar_Pro_Locked:
-                    if product2.Guitar_Pro_Locked:
-                        # delete the guitar pro file from s3
-                        key = 'media/' + str(product2.Guitar_Pro_Locked)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
+                # delete the guitar pro file from s3
+                    key = 'media/' + str(product2.Guitar_Pro_Locked)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()
 
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
@@ -534,24 +531,26 @@ def edit_product(request, product_id):
                         None)
                     os.remove(f"pil-{obj.name}-{obj.vendor}.jpg")
 
-                # rename the pdf file
-                if obj.Guitar_Pro_Unlocked:
-                    obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
+                # rename the GP file
+                obj.Guitar_Pro_Unlocked.name = f'guitar-pro-{new_name}-{obj.vendor}-unlocked.gp'
                 if obj.Guitar_Pro_Locked:
                     obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
 
-                if obj.PDF:
-                    obj.PDF = request.FILES['PDF']
-                    obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
+                obj.PDF = request.FILES['PDF']
+                obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
 
                 obj.save()
                 messages.success(request, 'Successfully updated product!')
-                return redirect(reverse('product_detail', args=[product.id]))
+                return redirect(
+                    reverse(
+                        'storefront', args=[
+                            request.user.username]))
             else:
                 messages.error(
                     request, 'Failed to update product. Please ensure the form is valid.')
         else:
-            form = ProductForm(instance=product)
+            form = ProductForm(instance=product, initial={
+                               'PDF': product.PDF , 'image': None})
             messages.info(request, f'You are editing {product.name}')
     else:
         messages.error(request, 'You are not authorised to edit this product')
@@ -579,30 +578,42 @@ def edit_product_store(request, product_id):
             obj = form.save(commit=False)
             if form.is_valid():
                # delete existing files and replace with new ones
-                if obj.image:
+                if obj.image.name != product2.image.name:
                     if product2.image:
-                        # delete the image file from s3
-                        key = 'media/' + str(product2.image)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
-                if obj.PDF:
+                        try:
+                            # delete the image file from s3
+                            key = 'media/' + str(product2.image)
+                            my_bucket = get_bucket()
+                            my_bucket.Object(key).delete()
+                        except:
+                            pass
+                if obj.PDF.name != product.PDF.name:
                     if product2.PDF:
-                        # delete the pdf file from s3
-                        key = 'media/' + str(product2.PDF)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
-                if obj.Guitar_Pro_Unlocked:
+                        try:
+                            # delete the pdf file from s3
+                            key = 'media/' + str(product2.PDF)
+                            my_bucket = get_bucket()
+                            my_bucket.Object(key).delete()
+                        except:
+                            pass
+                if obj.Guitar_Pro_Unlocked != product.Guitar_Pro_Unlocked:
                     if product2.Guitar_Pro_Unlocked:
-                        # delete the guitar pro file from s3
-                        key = 'media/' + str(product2.Guitar_Pro_Unlocked)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
-                if obj.Guitar_Pro_Locked:
+                        try:
+                            # delete the guitar pro file from s3
+                            key = 'media/' + str(product2.Guitar_Pro_Unlocked)
+                            my_bucket = get_bucket()
+                            my_bucket.Object(key).delete()
+                        except:
+                            pass
+                if obj.Guitar_Pro_Locked != product.Guitar_Pro_Locked:
                     if product2.Guitar_Pro_Locked:
-                        # delete the guitar pro file from s3
-                        key = 'media/' + str(product2.Guitar_Pro_Locked)
-                        my_bucket = get_bucket()
-                        my_bucket.Object(key).delete()
+                        try:
+                            # delete the guitar pro file from s3
+                            key = 'media/' + str(product2.Guitar_Pro_Locked)
+                            my_bucket = get_bucket()
+                            my_bucket.Object(key).delete()
+                        except:
+                            pass
 
                 obj.vendor = request.user.username
                 name = f"{obj.name}"
@@ -670,7 +681,8 @@ def edit_product_store(request, product_id):
                 messages.error(
                     request, 'Failed to update product. Please ensure the form is valid.')
         else:
-            form = ProductForm(instance=product)
+            form = ProductForm(instance=product, initial={
+                               'PDF': product.PDF , 'image': None})
             messages.info(request, f'You are editing {product.name}')
     else:
         messages.error(request, 'You are not authorised to edit this product')

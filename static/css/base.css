@@ -80,10 +80,15 @@ body {
 }
 
 .modal-content {
-
+  
   margin: 0 auto !important;
   margin-top: 5vw !important;
 
+}
+
+.blue-modal{
+  background-color: #68a0b0 !important;
+  color: white !important;
 }
 
 .container-fluid {
