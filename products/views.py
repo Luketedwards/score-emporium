@@ -562,7 +562,7 @@ def edit_product(request, product_id):
                 else:
                     obj.PDF = product2.PDF
                 
-                    obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
+                    
 
                 obj.save()
                 messages.success(request, 'Successfully updated product!')
