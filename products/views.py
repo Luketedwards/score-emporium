@@ -471,7 +471,10 @@ def edit_product(request, product_id):
                 # delete the pdf file from s3
                     key = 'media/' + str(product2.PDF)
                     my_bucket = get_bucket()
-                    my_bucket.Object(key).delete()    
+                    my_bucket.Object(key).delete()  
+                    key = 'media/' + str(product2.image)
+                    my_bucket = get_bucket()
+                    my_bucket.Object(key).delete()  
                 if obj.Guitar_Pro_Unlocked:
                 # delete the guitar pro file from s3
                     key = 'media/' + str(product2.Guitar_Pro_Unlocked)
@@ -488,7 +491,7 @@ def edit_product(request, product_id):
                 name2 = obj.PDF.name
                 new_name = name.replace(" ", "-")
                 new_name2 = name2.replace(" ", "-")
-                if not obj.image:
+                if not obj.image or 'PDF' in request.FILES:
                     font = ImageFont.truetype(
                         'fonts/PlayfairDisplay-Bold.ttf', 400)
                     font2 = ImageFont.truetype(
