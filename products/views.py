@@ -536,7 +536,7 @@ def edit_product(request, product_id):
                 if obj.Guitar_Pro_Locked:
                     obj.Guitar_Pro_Locked.name = f'guitar-pro-{new_name}-{obj.vendor}-locked.gp'
 
-                if obj.PDF:
+                if request.FILES['PDF']:
                     obj.PDF = request.FILES['PDF']
                     obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
 
