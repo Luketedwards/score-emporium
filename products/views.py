@@ -560,17 +560,8 @@ def edit_product(request, product_id):
                     obj.PDF.name = f'{new_name}-{obj.vendor}.pdf'
 
                 else:
-                    # rename the pdf file on amazon s3 and delete the old one
-                    key = 'media/' + str(product2.PDF)
-                    my_bucket = get_bucket()
-                    my_bucket.Object(key).copy_from(CopySource=key,
-                                                    MetadataDirective='REPLACE',
-                                                    ContentType='application/pdf',
-                                                    Key=f'media/{new_name}-{obj.vendor}.pdf')
-                    obj.PDF = f'{new_name}-{obj.vendor}.pdf'
-                    my_bucket.Object(key).delete()
-                    
-
+                    obj.PDF = product2.PDF
+                
                     
 
                 obj.save()
