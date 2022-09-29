@@ -9,6 +9,19 @@ html {
   height: 100%;
 }
 
+#form label{
+  font-size: 0.9rem;
+}
+
+#form small{
+  font-size: 0.75rem;
+}
+
+#form input{
+  background-color: white;
+  border-radius: 0.25rem;
+}
+
 body {
   color: #000000;
   font-family: Sans-Serif;

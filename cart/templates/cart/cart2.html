@@ -20,9 +20,9 @@
                                     <div class=" justify-content-between text-center align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
                                         {% if product_count == 1%}
-                                        <h6 class="mb-0 text-muted">{{product_count}} item</h6>
+                                        <h6 class="mb-0 mt-2 text-muted">{{product_count}} item</h6>
                                         {% else %}
-                                        <h6 class="mb-0 text-muted">{{product_count}} items</h6>
+                                        <h6 class="mb-0 mt-2 text-muted">{{product_count}} items</h6>
                                         {% endif %}
                                     </div>
                                     <hr class="my-4">
@@ -34,25 +34,25 @@
                                         <div class="col-md-2 center col-lg-2 col-xl-2 d-flex">
                                             {% if item.product.image%}
 
-                                            <img src="{{ item.product.image.url }}" class="img-fluid rounded-3 center"
+                                            <img src="{{ item.product.image.url }}" class="img-fluid rounded-3 center shadow-checkout"
                                                 alt="{{item.product.name}}">
                                             {%else%}
-                                            <img src="/media/No_Image_Available.jpg" class="img-fluid rounded-3 center"
+                                            <img src="/media/No_Image_Available.jpg" class="img-fluid rounded-3 center shadow-checkout"
                                                 alt="{{item.product.name}}">
                                             {%endif%}
                                         </div>
-                                        <div class="col-md-2 col-lg-3 col-xl-3 center">
+                                        <div class="col-md-2 col-lg-3 col-xl-3 center text-center pt-2 ">
                                             <h6 class="text-muted">{{item.product.name|title}}</h6>
-                                            <h6 class="text-black mb-0">{{item.product.vendor}}</h6>
+                                            <a href="{% url 'storefront' item.product.vendor%}"><h6 class="text-black mb-0"><small>{{item.product.vendor}}</small></h6></a>
                                         </div>
 
-                                        <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1 center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2 offset-lg-1 text-center center pt-2">
                                             <h6 class="mb-0">£{{item.product.price}}</h6>
                                         </div>
                                         <div class="col-md-2 col-lg-1 col-xl-1 text-end center">
                                             <a class="remove-item btn btn-sm btn-danger animated-btn  float-right"
                                                 href="{% url 'remove_from_cart' item.item_id%}"
-                                                id="remove_{{ item.item_id }}"><small>Remove</small></a>
+                                                id="remove_{{ item.item_id }}">Remove</a>
                                         </div>
                                     </div>
                                     {% if not forloop.last %}
@@ -97,7 +97,7 @@
 
                                     {% if request.user.is_authenticated%}
                                     <a id="submit-button" href="{% url 'checkout' %}" class="btn ">
-                                        <span class="text-uppercase">Secure Checkout </span>
+                                        <span style="font-size: 0.9rem;" class="text-uppercase">Secure Checkout </span>
                                         <span class="icon">
                                             <i class="fas fa-lock ml-2"></i>
                                         </span>

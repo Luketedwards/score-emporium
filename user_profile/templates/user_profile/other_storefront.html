@@ -69,7 +69,7 @@
                 <div class="row">
                     {% for product in products %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                            <div class="card product-card h-100 border-0">
+                            <div style="background-color: transparent;" class="card product-card h-100 border-0">
                                 {% if product.image %}
                                 <a href="{% url 'product_detail' product.id %}">
                                     <img class="card-img-top img-fluid product" src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name}}">
@@ -87,12 +87,12 @@
                                     
                                     <div class="row">
                                         <div class="card-body pb-0">
-                                            <p class="mb-0">{{ product.name|title }}</p>
+                                            <p style="font-size: 1rem;" class="mb-0">{{ product.name|title }}</p>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            {{product.id}}
+                                           
                                             <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
                                             {% if product.rating %}
                                                 <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>

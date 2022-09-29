@@ -23,6 +23,4 @@ class ProductForm(forms.ModelForm):
         self.fields['Guitar_Pro_Unlocked'].help_text = 'This file will be used to play in the browser. Ensure the file is not locked or it will fail to work..'
         self.fields['Guitar_Pro_Locked'].help_text = 'This file will be distributed to the customer for download. We recommend locking the file to prevent changes being made.<strong> if you leave this blank the unlocked file will be used instead.</strong>'
 
-        self.fields['genre'].choices = friendly_names
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'border-black rounded-0'
+        

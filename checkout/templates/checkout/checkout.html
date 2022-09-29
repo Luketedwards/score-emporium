@@ -13,18 +13,18 @@
 
 
 {% block content %}
-    <div class="overlay"></div>
+    <div style="background-color: #efeff6;" class="overlay"></div>
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <hr>
-                <h2 class="logo-font mb-4">Checkout</h2>
+                
+                <h2 class="logo-font mb-4 mt-3">Checkout</h2>
                 <hr>
             </div>
         </div>
 
         <div class="row">
-            <div style="border-radius: 10px; height:fit-content; top: 40px;" class="col-12 col-lg-6 order-lg-last mb-5 shadow-checkout">
+            <div style="border-radius: 5px; height:fit-content; top: 40px; background-color: white;" class="col-12 col-lg-6 order-lg-last mb-5 shadow-checkout p-4">
                 <p class="text-muted">Order Summary ({{ product_count }})</p>
                 <div class="row">
                     <div class="col-7 offset-2">
@@ -74,13 +74,14 @@
             </div>
             <div class="col-12 col-lg-6">
                 <p class="text-muted">Please fill out the form below to complete your order</p>
-                <form style="border-radius: 10px;" action="{% url 'checkout' %}" method="POST" id="payment-form" class="shadow-checkout p-2">
+                <form itemid="form" style="border-radius: 5px;background-color: white;" action="{% url 'checkout' %}" method="POST" id="payment-form" class="shadow-checkout p-2">
                     {% csrf_token %}
                     <fieldset class="rounded px-3 mb-5">
-                        <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+                        <legend class="fieldset-label small text-black px-2 w-auto">Billing details</legend>
                         {{ order_form.full_name | as_crispy_field }}
                         {{ order_form.email | as_crispy_field }}
                         {{ order_form.phone_number | as_crispy_field }}
+                        
                     </fieldset>
                     
                     <fieldset class="px-3">
@@ -105,11 +106,11 @@
 								<i class="fas fa-lock"></i>
 							</span>
 						</button>
-						<p class="small text-danger my-0">
-							<span class="icon">
+						<p class="small text-danger my-0 pt-2">
+							<span class="icon pl-2 pb-1">
 								<i class="fas fa-exclamation-circle"></i>
 							</span>
-							<span>Your card will be charged <strong>£{{ total|floatformat:2 }}</strong></span>
+							<span>Your card will be charged <strong>£{{ total|floatformat:2 }}</strong> </span>
                             
 						</p>
 					</div>
