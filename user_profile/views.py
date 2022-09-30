@@ -65,10 +65,10 @@ def user_store(request, storevendor):
         orders2 = None
 
     ordersList = []
-
-    for order in orders2:
-        for item in order.lineitems.all():
-            ordersList.append(item.product.id)
+    if request.user.is_authenticated:
+        for order in orders2:
+            for item in order.lineitems.all():
+                ordersList.append(item.product.id)
 
     products = Product.objects.all()
     all_products = products
