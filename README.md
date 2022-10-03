@@ -1,5 +1,5 @@
 # Project Mission Statement
-
+Score Emporium was created as a marketplace for selling high quality PDF and interactive score files. Rather than just function as a single users e-commerce platform, I designed this site to function as a musically tilted approximation of Ebay. Like Ebay, users are free to both act as a customer and a vendor, and reviews and testimonials are integrated into the platform the keep quality high. I wanted to specifically focus the platform on selling interactive scores to be able to implement a technology similar to the 'Guitar Pro' platform. In my experience as a musican and teacher, using interactive software such as Guitar Pro, Sibelius or Finale is an incredibly effective learning tool and so I reasoned that a score marketplace with this functionality built in for free would be a good idea. 
 
 ---
 
@@ -18,8 +18,37 @@ The deployed site can be viewed at: []().
 Much of the sites functionality requires a profile to access. Creating a profile is simple. Navigate to the 'sign up' page either via the navbar, or by clicking the button on the home page. Once there, enter your account details and password. You will then recieve a verification email to confirm your account. Other features of the site require 'vendor' status. You will be prompted to register as a vendor when attempting to first access these features. (Uploading a score, making a score request etc..)
 
 
-# Project Overview
+## **Project Overview**
 
+The purpose of this project is to demonstrate my full-stack development skills by creating an e-commerce application using the Django framework and Stripe payments. 
+
+### **Mandatory Requirements**:
+
+* **Django Full Stack Project**: Build a Django project backed by a relational database to create a website that allows users to store and manipulate data records about a particular domain.
+
+* **Multiple Apps**: The project must be a brand new Django project, composed of multiple apps.
+
+* **Data Modeling**: Design a relational database schema well-suited for the domain.
+
+* **User Authentication**: The project should include an authentication mechanism, allowing a user to register and log in, and there should be a good reason as to why the users would need to do so.
+
+* **User Interaction**: Include at least one form with validation that will allow users to create and edit models in the backend.
+
+* **Use of Stripe**: At least one of your Django apps should contain some e-commerce functionality using Stripe. This may be a shopping cart checkout or single payments, or donations, etc. After paying successfully, the user would then gain access to additional functionality/content on the site. Note that for this project Stripe's test functionality should be used, rather than actual live payments.
+
+* **Structure and Navigation**: Incorporate a main navigation menu and structured layout.
+
+* **Use of JavaScript**: The frontend should contain some JavaScript logic you have written to enhance the user experience.
+
+* **Documentation**: Write a README.md file for the project that explains what the project does and the value that it provides to its users.
+
+* **Version Control**: Use Git & GitHub for version control.
+
+* **Attribution**: Maintain clear separation between code written by you and code from external sources (e.g. libraries or tutorials). Attribute any code from external sources to its source via comments above the code and (for larger dependencies) in the README
+
+* **Deployment**: Deploy the final version to a hosting platform such as Heroku.
+
+* **Security**: Make sure to not include any passwords or secret keys in the project repository. Make sure to turn off the Django DEBUG mode, which could expose secrets.
 
             
 ##  User Experience (UX)
@@ -81,16 +110,23 @@ Much of the sites functionality requires a profile to access. Creating a profile
 ---
 
 ### Colour Scheme
+The colors used throughout the site are Cadeblue for the navbar, footer and other elements, and White is also used for other portions of the navbar. #efeff6 is used as a background colour for every page. The buttons are all coloured using the bootstrap default colours; most notably btn-primary for any positive action, btn-danger for deleting or remove items, and btn-secondary for cancelling actions.
 
+#### Colours used
+* #efeff6 (Body background)
+* #fafafa (navbar)
+* #5F9EA0 (navbar and footer)
+* #68a0b0  (score request cards)
+* #68a0b0  (score request cards)
 
 
 ### Typography
-
+- The font family I used is 'Poppins' which is backed up by 'Sans Serif'.
 
 
 
 ### Imagery and Theme
-
+- The imagery on the site is primarily related to music and scores. The hero image on the home page is a repeating pattern of musical notes below an animated overaly. I have also used cartoon SVG's in other areas. For example, the background image behind the features section of the home page is an image I created using icons of musical notes, tablets and computers. I also used a cartoon background image for the reviews section, and the allauth templates.
 
 ## 5. Features 
 ---
@@ -148,28 +184,36 @@ Much of the sites functionality requires a profile to access. Creating a profile
 - The footer of the card consists of four tabs which compactly contain a variety of information.
 
 1. The first tab displays the products description.
+<!-- Photo of 1st tab -->
 2. The second tab displays user ratings of the product along with a contextual bar graph displaying the total number of reviews, the overall rating, and the exact numbers of each level of rating. The bars programatically fill to the correct level based on the ratio of that star review. For example, if the item has 1 five-star review and 1 four-star review, the 5 star and 4 star bars will both fill to 50% and the overall rating will be 4.5 stars. Below this the actual content of the reviews is visible.
+<!-- Photo of 2nd tab -->
 3. The third tab displays an animated form to leave a review. The submit button of this is contextual based on whether the item is owned or not, if the item is the product of the user, or if the user is not logged in. If the user has already submitted a review and decides to create a second one, the new review will simply updated the existing one.
+<!-- Photo of 3rd tab -->
 4. The fourth tab displays an iframe of a youtbe video if the vendor provided one. If not then this tab is disabled.
+<!-- Photo of 4th tab -->
 
 #### Other items section
 
 - The section at the bottom of the page displays other products from the vendors store if there are any. 
 - By hovering over an item the user is provided with two animated buttons to either view the product or add it to their cart. If the item is already owned, or added to the cart the user will be informed of this.
-- Below each itema nummber of golden stars will be displayed based on the nearest integer to the products average rating.
-
+- Below each item a number of golden stars will be displayed based on the nearest integer to the products average rating.
+<!-- Photo of other items section -->
 ### Storefront 
 ---
 #### Users Storefront
 
 - If the user is a vendor they will have access to the storefront section. This allows them to create and edit their products to sell on the site. 
 - This area of the site also displays the users average rating, which is a number generated by averaging out all of the reviews across the users products. The users total number of sales is also displayed to help provide customers information to help guide them in thier purchases.
+<!-- Photo of users storefront card -->
+<!-- Photo of users storefront items -->
 
 ##### Adding a product
 
 - Adding a product can be accessed by clicking the 'Add Score' button on the profile card at the top of the page.
 - When adding a product the user is able to submit a wide variety of information inluding name, price, genre, difficulty, description, image, PDF, guitar pro file (both locked and unlocked) and a video link.
+###### Thumbnail Generator
 - If the user does not provide their own image of the product, the required PDF file will be processed to blur out the lower portion of the music so as not to give away too much of the score. The blurred image will then be watermarked with the vendors name and the text 'SAMPLE'. This image will then be automatically set as the product image.
+<!-- Photo of generated thumbnail -->
 
 ##### Editing a product
 
@@ -188,13 +232,15 @@ Much of the sites functionality requires a profile to access. Creating a profile
 #### Other users storefront
 
 - When the link for another user is clicked anywhere on the site, the user is taken to their storefront. This page acts in a similar way to the products page, but all of the products displayed are for the selected user. The vendors profile card is also visible at the top of the page displaying information such as their number of sales, overall rating and bio information.
+<!-- Photo of other users storefront -->
 
 ### Purchased Scores
 ---
 - Once the user has purchase a score it will become available in the 'purhcased scores' library.
 - All the purchased scores are layed out as cards in a responsive grid with information about the score on the front side of the card, such as title, price, purchase date and the image.
 - When hovered the card flips to reveal download links for the PDF, and GP files, a link to play the score in the interactive score player, and a link to the product.
-
+<!-- Photo of unflipped purchased scores-->
+<!-- Photo of filpped purchased scores-->
 ### Sales dashboard
 ---
 - a variety of useful sales metrics are available to vendors via the responsive 'sales dashboard'. 
@@ -202,6 +248,7 @@ Much of the sites functionality requires a profile to access. Creating a profile
 - The dashboard also provides the user with todays orders and revenue compared with the previous week and the previous month.
 - A table displays the vendors top 5 selling products along with their quantity sold and revenue generated.
 - All of this data is intended to give the vendor insight as to which types of products are selling best, to guide them in providing future products.
+<!-- Photo of dashboard feautres-->
 
 ### Request a Score
 
@@ -211,8 +258,55 @@ Much of the sites functionality requires a profile to access. Creating a profile
 - If a vendor would like to satisfy a post, they can upload a 'score submission' which features a message, a sample score and other related information. If the creator of the post is happy with the submission they can mark the post as complete, putting it in a new area and displaying the succesful submission. This will then draw attention to the product of the successful vendor.
 
 #### Make a Request
+- The make a request page allows authenticated users to create a request for a particular score or piece of music. This request is then visible to other users and vendors on the site.
+<!-- Photo of make a request form-->
+
 
 #### Trending Requests
+- The trending requests page displays all active requests by users. The request is layed out in a responsve grid pattern as hoverable cards. The front face of the card displays basic information and a description, and the back face has relevant links, and action buttons.
+<!-- Photo of front of request card-->
+
+- The cards feature a likes and comments system, and are ranking by the number of likes a post has received. The idea is that the most popular requests rise to the top, and so are more likely to be fulfilled by a vendor.
+<!-- Photo of back of request card-->
+
+- The cards also features a score submission button if you are not the creator of the post. This allows you to upload files and messages which are visible to the creator. If the post belongs to you you are able to see submission which you can either accept or decline. 
+<!-- Photo of score submissions-->
+
+- Once a submisson has been accepted by the post creator, the post is moved to the 'completed' page tab. The card will now display the details of the successful submission, so that other interested users can purchase it.
+<!-- Photo of completed request-->
+
+### Guitar Pro Player
+---
+- One of the primary features of the website is the interactive score player. This player allows users to rendor a score in the browser and listen to the track. It also features a toggleable metronome, landscape and portrait modes, instrument switching, a count in button, a loop function, and many other options.
+- The score player is based in [Alpha Tab](https://alphatab.net/docs/introduction) but has been customised and tweaked to work within my project.
+- There are two permutations of the score player. The first one is accessible to any user regardless of authentication, and is accessible via the navbar. This allows the user to upload an unlocked Guitar Pro file from their computer, which is then rendered in the browser. If the user would like to change the file they can simply click the 'reload' button.
+- The second version of the score player is accessible through the 'purchased scores' page. Once a user has purchased a score, they can press the 'play in browser' button to open the file in the interactive score player.
+- The score player is responsive to screensize, and will become obscured by an overlay when the screen size is too small for the player to be practical.
+
+<!-- Photo of score player-->
+<!-- Photo of score player overlay-->
+
+
+### Reviews
+--- 
+- The site features a reviews system which interacts with both the products and the product vendor. After purchasing a score the user is able to leave a review from the product details tab. This review is then linked to the product, and an average rating is generated for the item. 
+- All reviews left on a vendors products are used to generate an average score which is then assigned to the vendors profile to help customers guage the overall quality of their products.
+<!-- Photo of review form-->
+<!-- Photo of review chart-->
+
+
+
+### Emails
+---
+
+- When a product is purchased on the site, two different types of emails are generated and sent out. The first is an order confirmation email which is sent to the customer containing details about their order, order number, cost etc.
+<!-- Photo of customer email-->
+
+- The second email is a vendor sale notificaiton. This email is sent to each vendor who was involed in the sale, and only provides them the details of their contribution. For example if four products are purchased from a total of three vendors, two vendors will receive confirmation emails about the single product they have sold, and the third vendor will recieve an email detailing the two that they have sold.
+<!-- Photo of vendor email-->
+
+- When the sale completes, the site comission of 20% is deducted from the total sale, and the total after comission is credited to each vendors credit due. 
+- The email template is styled and features both an image of a shopping cart, and the individual product images for the order.
 
 
 ## Technologies Used 
@@ -224,6 +318,9 @@ Much of the sites functionality requires a profile to access. Creating a profile
 * CSS3
 * Javascript
 * Python
+* Django
+* Stripe Payments
+* Relational database using PostgreSQL
 
 ### Framework, Software & Libraries Used
 
@@ -241,6 +338,8 @@ Much of the sites functionality requires a profile to access. Creating a profile
 5. [GitHub](https://github.com/):
    * GitHub was used to store all of my project code after being pushed from Git.
 
+6. [Django](https://www.djangoproject.com/)
+   * Django was used as the framework to create the project.
 
 7. [Real Favicon Generator](https://realfavicongenerator.net):
    * Real Favicon Generator was used to create a favicon.ico file.
@@ -257,9 +356,23 @@ Much of the sites functionality requires a profile to access. Creating a profile
 11. [Wave](https://wave.webaim.org/)
       * Wave was used to assess the accessibility of the project.
 
+12. [Affinity Photo](https://affinity.serif.com/en-gb/photo/)
+   * Affinity photo was used to create the website logo.
 
 13. [Amazon S3](https://aws.amazon.com/s3/)
       * Amazon S3 was used to store all uploaded user files.    
+
+14. [Stripe](https://stripe.com/en-gb)
+   * Stripe API was used to accept the card payments on the website.
+
+15. [pdf2image](https://pypi.org/project/pdf2image/)
+   * Pdf2image was used to convert product pdfs into images which could then be manipulated by Pillow.
+
+16. [Pillow](https://python-pillow.org/)
+   * Pillow was used to crop, add a guassian blur and to write a watermark on images.
+
+17. [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html)
+   * Boto3 was used to interface with Amazon S3.
 
 18. [Heroku](https://heroku.com/)
       * Heroku was used to host my project.                      
@@ -282,7 +395,7 @@ Details of testing can be found in the [Testing](/testing.md) file.
 
   The heroku create CLI command creates a new empty application on Heroku, along with an associated empty Git repository. If you run this command from your app’s root directory, the empty Heroku Git repository is automatically set as a remote for your local repository.
 
-      heroku create -a harmonise
+      heroku create -a score-emporium
 
   You can use the "git remote -v" command to confirm that a remote named heroku has been set for your app.
 
@@ -290,7 +403,7 @@ Details of testing can be found in the [Testing](/testing.md) file.
 
   Add a remote to your local repository with the heroku git:remote command. All you need is your Heroku app’s name:
 
-      heroku git:remote -a harmonise
+      heroku git:remote -a score-emporium
 
   #### **Deploy Your Code**:
   To deploy your app to Heroku, use the "git push" command to push the code from your local repository’s main branch to your heroku remote. For example:
@@ -322,19 +435,23 @@ Details of testing can be found in the [Testing](/testing.md) file.
   5. Change the current working directory to the location where you want the cloned directory to be made.
   6. Type git clone, and then paste the URL you copied in Step 3.
 
-    $ git clone https://github.com/Luketedwards/harmonize.git
+    $ git clone https://github.com/Luketedwards/score-emporium.git
 
 
  # Credits
 
 ## Code 
-
+* Example code from [Alpha Tab](https://alphatab.net/docs/tutorials) was used to generate the interactive score player, before being heavily customised for the project.
+*  Code from [Knyttneve](https://codepen.io/knyttneve/pen/EBNqPN) was used in creating the animated review form before altering it for the site.
+* 
 
 ## Content
 
 ### Images
 ---
-
+* The background image for the testimonial section was taken from [Freepik](https://www.freepik.com/free-vector/customer-review-rating-vector-doodle-concept_29314729.htm).
+* The hero image on the home page was taken from [Shuterstock](https://www.shutterstock.com/image-vector/musical-notes-black-seamless-pattern-background-1315519904?irclickid=S-xRDpzx3xyNU4%3AWQ9W-nV6RUkDQzt0BA0VKVU0&irgwc=1&utm_campaign=TinEye&utm_medium=Affiliate&utm_source=77643&utm_term=).
+* The background image used in the Allauth templates was taken from [Freepik](https://www.freepik.com/free-vector/account-concept-illustration_5464649.htm).
 
 ## Acknowledgements
 ---
