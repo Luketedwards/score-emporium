@@ -9,6 +9,15 @@ html {
   height: 100%;
 }
 
+.text-outline {
+  text-shadow: 0 0 6px #000;
+  
+}
+
+.nav-text{
+  font-size: 1.2rem !important;
+}
+
 #form label{
   font-size: 0.9rem;
 }
@@ -1077,6 +1086,7 @@ a:hover {
   .header-container {
       padding-top: 164px;
   }
+  
 }
 
 /* pad the top a bit when navbar is collapsed on mobile */
@@ -1084,6 +1094,10 @@ a:hover {
   .header-container {
       padding-top: 116px;
   }
+  .text-outline{
+    text-shadow: none;
+  }
+  
 
   .feedback {
       margin: 0 auto !important;
