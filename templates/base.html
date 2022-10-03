@@ -72,7 +72,7 @@
     <header id="nav-container" class="container-fluid" style="margin-bottom: 0 !important;">
         <div style="border-bottom: solid;" class="row">
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-                <a href="{% url 'home' %}" class="nav-link main-logo-link" name="home">
+                <a href="{% url 'home' %}" class="nav-link main-logo-link" aria-label="home">
                     <img id="logo-img"
                         src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/score-emporium-logo-removebg.png"
                         alt="logo">
@@ -82,9 +82,9 @@
                 <form id="main-search" method="GET" action="{% url 'products' %}">
                     <div class="input-group w-100">
                         <input id="search-box" class="form-control  rounded-0" type="text" name="q"
-                            placeholder="Search for scores">
+                            placeholder="Search for scores" aria-label="search-box">
                         <div id="search-btn-div">
-                            <button id="search-btn" class="form-control btn " type="submit" name="search button">
+                            <button id="search-btn" class="form-control btn " type="submit" aria-label="search button">
                                 <span style="margin-right: 0.4rem;" class="icon">
                                     <i  class="fas fa-search"></i>
                                 </span>
@@ -100,7 +100,7 @@
                 <ul id="nav-ul" class="list-inline list-unstyled  text-lg-right my-0">
                     <li class="list-inline-item dropdown">
                         <a class=" nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" name="account button">
+                            aria-expanded="false" aria-label="account button">
                             <div id="account-button" class="text-center mr-2">
                                 <div><i class="fas fa-user fa-lg"></i></div>
                                 <p class="my-0"></p>
@@ -112,17 +112,17 @@
                             <a href="{% url 'storefront' storevendor=request.user.username %}" class="dropdown-item">My
                                 Store</a>
 
-                            <a href="{% url 'dashboard' %}" class="dropdown-item" name="My Dashboard">My Dashboard</a>
-                            <a href="{% url 'purchased_scores' %}" class="dropdown-item" name="My Purchased Scores">My Purchased Scores</a>
-                            <a href="{% url 'account_logout' %}" class="dropdown-item" name="Logout">Logout</a>
+                            <a href="{% url 'dashboard' %}" class="dropdown-item" aria-label="My Dashboard">My Dashboard</a>
+                            <a href="{% url 'purchased_scores' %}" class="dropdown-item" aria-label="My Purchased Scores">My Purchased Scores</a>
+                            <a href="{% url 'account_logout' %}" class="dropdown-item" aria-label="Logout">Logout</a>
                             {% else %}
-                            <a href="{% url 'account_signup' %}" class="dropdown-item" name="Register">Register</a>
-                            <a href="{% url 'account_login' %}" class="dropdown-item" name="Login">Login</a>
+                            <a href="{% url 'account_signup' %}" class="dropdown-item" aria-label="Register">Register</a>
+                            <a href="{% url 'account_login' %}" class="dropdown-item" aria-label="Login">Login</a>
                             {% endif %}
                         </div>
                     </li>
                     <li class="list-inline-item">
-                        <a class=" mr-2 nav-link" href="{% url 'view_cart'%}" name="cart button">
+                        <a class=" mr-2 nav-link" href="{% url 'view_cart'%}" aria-label="cart button">
                             <div id="cart-button" class="text-center">
                                 <div><i class="fa-solid fa-cart-shopping"></i></div>
                                 <p class="my-0"></p>
@@ -133,7 +133,7 @@
                     <li id="form-list" class="list-inline-item">
                         <a href="#" class="mr-2 nav-link">
                         <form  method="GET" action="{% url 'products' %}">
-                            <input  class="search" id="searchleft" type="search" name="q" placeholder="Search" name="search button">
+                            <input  class="search" id="searchleft" type="search" name="q" placeholder="Search" aria-label="search button">
                             <label class="button searchbutton" for="searchleft"><div><i class="fas fa-search"></i></div></label>
                           </form>
                         </a>
@@ -145,7 +145,7 @@
             <nav class="navbar navbar-expand-lg navbar-light w-100 pr-0">
                 <button id="nav-tog" style="margin-left: 81vw !important;" class="navbar-toggler hidden" type="button"
                     data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
-                    aria-label="Toggle navigation" name="navbar toggle">
+                    aria-label="Toggle navigation" >
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div style="z-index: 1041;" id="animated-toggle">

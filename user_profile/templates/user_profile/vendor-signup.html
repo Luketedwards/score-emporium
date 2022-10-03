@@ -16,8 +16,8 @@
             {% csrf_token %}
             {{ form | crispy }}
             <div style="margin-bottom: 50px;" class="text-center">
-                <a class="btn btn-secondary" href="{% url 'home' %}">Cancel</a>
-                <button class="btn btn-primary animated-btn" type="submit">Become Vendor</button>
+                <a class="btn btn-secondary" href="{% url 'home' %}" aria-label="cancel">Cancel</a>
+                <button class="btn btn-primary animated-btn" type="submit" aria-label="submit">Become Vendor</button>
             </div>
         </form>
     </div>            

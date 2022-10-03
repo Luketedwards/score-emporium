@@ -19,11 +19,11 @@
             <ul style="text-decoration:none;" class="nav nav-tabs justify-content-center" role="tablist">
                 <li role="presentation" class="active">
                     <a style="text-decoration:none;" class="active show" href="#active-requests"
-                        aria-controls="hot-jobs" role="tab" data-toggle="tab" aria-selected="true">Active Request</a>
+                        aria-controls="hot-jobs" role="tab" data-toggle="tab" aria-selected="true" aria-label="active requests">Active Request</a>
                 </li>
                 <li role="presentation"><a style="text-decoration:none;" href="#completed-requests"
                         aria-controls="recent-jobs" role="tab" data-toggle="tab" class=""
-                        aria-selected="false">Completed Requests</a></li>
+                        aria-selected="false" aria-label="completed requests">Completed Requests</a></li>
 
             </ul>
             <div class="tab-content text-left">
@@ -70,21 +70,21 @@
                                                             <div class="row">
                                                             {% if requested.link %}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" target="_blank">Relevant Link</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" target="_blank" aria-label="submit link">Relevant Link</a>
                                                             </div>
                                                             {%else%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}" target="_blank">Relevant Link</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}" aria-label="no link" target="_blank">Relevant Link</a>
                                                             </div>
                                                                 
                                                             {% endif %}
                                                             {% if requested.video_link%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" target="_blank">Link to Video</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" aria-label="video link" target="_blank">Link to Video</a>
                                                             </div>
                                                             {%else%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" target="_blank">Link to Video</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" aria-label="PDF link" target="_blank">Link to Video</a>
                                                             </div>
                                                             {% endif %}
                                                         </div>
@@ -92,7 +92,7 @@
                                                          
                                         </div>
                                     </div>
-                                    <div class="col-12 pt-5  center d-flex" style="">
+                                    <div class="col-12 pt-5  center d-flex">
                                         <ul class="job-social2 tr-list center">
                                             <li class="p-2"><a href="#" class="white-text"><i class="fa fa-thumbs-up"
                                                         aria-hidden="true"></i>{{requested.upvotes}}</a></li>
@@ -130,7 +130,7 @@
                                                 <button style="height: 2.5rem;
                                                     font-size: 1rem; z-index: 9999;"
                                                     class="btn btn-primary animated-btn" type="submit" name="post_id"
-                                                    value="{{requested.id}}">
+                                                    value="{{requested.id}}" aria-label="like post">
                                                     <i class="fa fa-thumbs-up"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -138,7 +138,7 @@
                                                 <button style="height: 2.5rem;
                                                 font-size: 1rem; z-index: 9999;"
                                                     class="btn btn-primary btn-danger animated-btn" type="submit"
-                                                    name="post_id" value="{{requested.id}}">
+                                                    name="post_id" value="{{requested.id}}" aria-label="unlike post">
                                                     <i class="fa fa-thumbs-down"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -146,7 +146,7 @@
                                                 {%else%}
                                                 <button style="height: 2.5rem;
                                                 font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
-                                                    disabled type="submit" name="post_id" value="{{requested.id}}">
+                                                    disabled type="submit" name="post_id" value="{{requested.id}}" aria-label="like post">
                                                     <i class="fa fa-thumbs-up"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -157,7 +157,7 @@
                                             class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
-                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary">
+                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary" aria-label="comments">
                                                 <div><i class="fa-solid fa-comment"></i>
                                                     {% for dict in comment_list %}
                                                     {% if requested.id == dict.score%}
@@ -174,7 +174,7 @@
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
                                                 data-target="#viewSubmissionsModal{{requested.id}}"
-                                                class="btn btn-success">
+                                                class="btn btn-success" aria-label="submit score">
                                                 <div><i class="fa-solid fa-magnifying-glass"></i>
                                                 </div>
                                             </button>
@@ -183,7 +183,7 @@
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
                                                 data-target="#deleteModal{{requested.id}}"
-                                                class="btn btn-danger animated-btn">
+                                                class="btn btn-danger animated-btn" aria-label="delete post">
                                                 <div><i class="fa-solid fa-trash-can"></i>
                                                 </div>
                                             </button>
@@ -193,7 +193,7 @@
                                             class="{% if request.user == requested.created_by %} col-3 {%else %}col-4 {%endif%}">
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
-                                                data-target="#fulfillModal{{requested.id}}" class="btn btn-success">
+                                                data-target="#fulfillModal{{requested.id}}" class="btn btn-success" aria-label="view submissions">
                                                 <div><i class="fa-solid fa-music"></i>
                                                 </div>
                                             </button>
@@ -204,7 +204,7 @@
 
                                     <div class="time">
                                         <a style="text-decoration:none;" id="vendor-link" style="z-index:9999;"
-                                            href="{% url 'storefront' requested.created_by%}"><span>{{requested.created_by|title}}</span></a>
+                                            href="{% url 'storefront' requested.created_by%}" aria-label="view vendor"><span>{{requested.created_by|title}}</span></a>
                                         <span id="card-date" class="pull-right">{{requested.date}}</span>
                                     </div>
                                 </div>
@@ -248,12 +248,12 @@
 
                                                 <div class="col-12 text-center">
                                                     <button type="submit"
-                                                        class="btn center btn-primary">Comment</button>
+                                                        class="btn center btn-primary" aria-label="comment">Comment</button>
                                                 </div>
                                                 {%else%}
                                                 <div class="col-12 text-center">
                                                     <a href="{% url 'account_login'%}"
-                                                        class="btn center btn-primary">Login</a>
+                                                        class="btn center btn-primary" aria-label="login">Login</a>
                                                 </div>
                                                 {%endif%}
 
@@ -263,7 +263,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="close">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -286,12 +286,12 @@
                                         <div class="col-12 text-center">
                                             <button type="button" class="btn center btn-primary"
                                                 data-dismiss="modal">No</button>
-                                            <a href="{% url 'delete_post' requested.pk%}" class="btn btn-danger">Yes</a>
+                                            <a href="{% url 'delete_post' requested.pk%}" class="btn btn-danger" aria-label="delete post">Yes</a>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="close">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -325,12 +325,12 @@
 
 
                                                 <div class="col-12 text-center">
-                                                    <button type="submit" class="btn center btn-primary">Submit</button>
+                                                    <button type="submit" class="btn center btn-primary" aria-label="submit">Submit</button>
                                                 </div>
                                                 {%else%}
                                                 <div class="col-12 text-center">
                                                     <a href="{% url 'account_login'%}"
-                                                        class="btn center btn-primary">Login</a>
+                                                        class="btn center btn-primary" aria-label="login">Login</a>
                                                 </div>
                                                 {%endif%}
                                             </form>
@@ -340,7 +340,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="login">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -369,10 +369,10 @@
                                                         <span
                                                             class="center h4"><strong>{{submit.created_by}}</strong></span>
                                                         <div class="right">
-                                                            <a href="" class="btn btn-danger"><i
+                                                            <a href="" class="btn btn-danger" aria-label="decline submission"><i
                                                                     class="fa-solid fa-circle-xmark"></i></a>
                                                             <a href="{% url 'accept_score_submission' pk=submit.pk score_pk=requested.pk%}"
-                                                                class="btn btn-success"><i
+                                                                class="btn btn-success" aria-label="accept submission"><i
                                                                     class="fa-solid fa-circle-check"></i></a>
                                                         </div>
 
@@ -382,12 +382,12 @@
                                                     <div class="col-12">{{submit.content}}</div>
                                                     <br>
                                                     {% if submit.link %}
-                                                    <div class="col-12"><a href="{{submit.link}}">Link to Score</a>
+                                                    <div class="col-12"><a href="{{submit.link}}" aria-label="link to score">Link to Score</a>
                                                     </div>
                                                     {% endif %}
                                                     {% if submit.PDF %}
-                                                    <div class="col-12"><a href="{{submit.PDF}}">Link to PDF</a></div>
-                                                    <div class="col-12"><a href="{{submit.PDFpath}}">Link to PDF2</a>
+                                                    <div class="col-12"><a href="{{submit.PDF}}" aria-label="link to PDF">Link to PDF</a></div>
+                                                    <div class="col-12"><a href="{{submit.PDFpath}} " aria-label="link to PDF">Link to PDF2</a>
                                                     </div>
                                                     {% endif %}
                                                     <div class="col-12 text-muted">{{submit.date}}</div>
@@ -405,7 +405,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="close">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -463,21 +463,21 @@
                                                             <div class="row">
                                                             {% if submit.link %}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" target="_blank">Link to Product</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.link}}" aria-label="link to view {{product.name}}" target="_blank">Link to Product</a>
                                                             </div>
                                                             {%else%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}" target="_blank">Link to Product</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.link}}"aria-label="link to view {{product.name}}" target="_blank">Link to Product</a>
                                                             </div>
                                                                 
                                                             {% endif %}
                                                             {% if submit.PDF%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" target="_blank">Link to PDF</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2" href="{{submit.PDF}}" aria-label="link to PDF" target="_blank">Link to PDF</a>
                                                             </div>
                                                             {%else%}
                                                             <div class="col-6">
-                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" target="_blank">Link to PDF</a>
+                                                                <a style="font-size: 1.1rem;" class="btn btn-primary p-2 disabled" href="{{submit.PDF}}" aria-label="link to PDF" target="_blank">Link to PDF</a>
                                                             </div>
                                                             {% endif %}
                                                         </div>
@@ -488,9 +488,9 @@
                                     </div>
                                     <div class="col-12 pt-5  center d-flex" style="">
                                         <ul class="job-social2 tr-list center">
-                                            <li class="p-2"><a href="#" class="white-text"><i class="fa fa-thumbs-up"
+                                            <li class="p-2"><a href="#" class="white-text" aria-label="like"><i class="fa fa-thumbs-up"
                                                         aria-hidden="true"></i>{{requested.upvotes}}</a></li>
-                                            <li class="p-2"><a href="#" class="white-text"><i
+                                            <li class="p-2"><a href="#" aria-label="comment" class="white-text"><i
                                                         class="fa-solid fa-comment" aria-hidden="true"></i>
                                                     {% for dict in comment_list %}
                                                     {% if requested.id == dict.score%}
@@ -498,7 +498,7 @@
                                                     {%endif%}
                                                     {%endfor%}
                                                 </a></li>
-                                            <li class="p-2"><a href="#" class="white-text"><i class="fa-solid fa-music"
+                                            <li class="p-2"><a href="#" aria-label="submit" class="white-text"><i class="fa-solid fa-music"
                                                         aria-hidden="true"></i>
                                                     {% for submit in submissions %}
                                                     {% if submit.score.id == requested.id %}
@@ -523,7 +523,7 @@
                                                 <button style="height: 2.5rem;
                                                     font-size: 1rem; z-index: 9999;"
                                                     class="btn btn-primary animated-btn" type="submit" name="post_id"
-                                                    value="{{requested.id}}">
+                                                    value="{{requested.id}}" aria-label="like post">
                                                     <i class="fa fa-thumbs-up"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -531,7 +531,7 @@
                                                 <button style="height: 2.5rem;
                                                 font-size: 1rem; z-index: 9999;"
                                                     class="btn btn-primary btn-danger animated-btn" type="submit"
-                                                    name="post_id" value="{{requested.id}}">
+                                                    name="post_id" value="{{requested.id}}" aria-label="dislike post">
                                                     <i class="fa fa-thumbs-down"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -539,7 +539,7 @@
                                                 {%else%}
                                                 <button style="height: 2.5rem;
                                                 font-size: 1rem; z-index: 9999;" class="btn btn-primary animated-btn"
-                                                    disabled type="submit" name="post_id" value="{{requested.id}}">
+                                                    disabled type="submit" name="post_id" value="{{requested.id}}" aria-label="like post">
                                                     <i class="fa fa-thumbs-up"></i>
                                                     {{requested.upvotes}}
                                                 </button>
@@ -550,7 +550,7 @@
                                             class="{% if request.user == requested.created_by %} col-4 {%else %}col-6 {%endif%}">
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
-                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary">
+                                                data-target="#commentModal{{requested.id}}" class="btn btn-primary" aria-label="comment">
                                                 <div><i class="fa-solid fa-comment"></i>
                                                     {% for dict in comment_list %}
                                                     {% if requested.id == dict.score%}
@@ -567,7 +567,7 @@
                                             <button style="height: 2.5rem;
                                             font-size: 1rem; z-index: 9999;" data-toggle="modal"
                                                 data-target="#deleteModal{{requested.id}}"
-                                                class="btn btn-danger animated-btn">
+                                                class="btn btn-danger animated-btn" aria-label="delete">
                                                 <div><i class="fa-solid fa-trash-can"></i>
                                                 </div>
                                             </button>
@@ -579,7 +579,7 @@
 
                                     <div class="time">
                                         <a style="text-decoration:none;" id="vendor-link" style="z-index:9999;"
-                                            href="{% url 'storefront' requested.created_by%}"><span>{{requested.created_by|title}}</span></a>
+                                            href="{% url 'storefront' requested.created_by%}" aria-label="link to vendor"><span>{{requested.created_by|title}}</span></a>
                                         <span id="card-date" class="pull-right">{{requested.date}}</span>
                                     </div>
                                 </div>
@@ -603,12 +603,12 @@
                                         <div class="col-12 text-center">
                                             <button type="button" class="btn center btn-primary"
                                                 data-dismiss="modal">No</button>
-                                            <a href="{% url 'delete_post' requested.pk%}" class="btn btn-danger">Yes</a>
+                                            <a href="{% url 'delete_post' requested.pk%}" aria-label="delete" class="btn btn-danger">Yes</a>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="close">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -649,12 +649,12 @@
 
                                                 <div class="col-12 text-center">
                                                     <button type="submit"
-                                                        class="btn center btn-primary">Comment</button>
+                                                        class="btn center btn-primary" aria-label="comment">Comment</button>
                                                 </div>
                                                 {%else%}
                                                 <div class="col-12 text-center">
                                                     <a href="{% url 'account_login'%}"
-                                                        class="btn center btn-primary">Login</a>
+                                                        class="btn center btn-primary" aria-label="login">Login</a>
                                                 </div>
                                                 {%endif%}
 
@@ -664,7 +664,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
+                                            data-dismiss="modal" aria-label="close">Close</button>
                                     </div>
                                 </div>
                             </div>

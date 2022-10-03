@@ -52,7 +52,7 @@
                                         <div class="col-md-2 col-lg-1 col-xl-1 text-end center">
                                             <a class="remove-item btn btn-sm btn-danger animated-btn  float-right"
                                                 href="{% url 'remove_from_cart' item.item_id%}"
-                                                id="remove_{{ item.item_id }}">Remove</a>
+                                                id="remove_{{ item.item_id }}" aria-label="remove item">Remove</a>
                                         </div>
                                     </div>
                                     {% if not forloop.last %}
@@ -68,7 +68,7 @@
                                     <hr class="my-4">
 
                                     <div class="pt-5">
-                                        <a href="{% url 'products' %}" class=" btn btn-primary ">
+                                        <a href="{% url 'products' %}" class=" btn btn-primary " aria-label="keep shopping">
                                             <span class="icon ml-1">
                                                 <i class="fa-solid fa-cart-shopping"></i>
                                             </span>
@@ -96,14 +96,14 @@
                                     </div>
 
                                     {% if request.user.is_authenticated%}
-                                    <a id="submit-button" href="{% url 'checkout' %}" class="btn ">
+                                    <a id="submit-button" href="{% url 'checkout' %}" aria-label="proceed to checkout" class="btn ">
                                         <span style="font-size: 0.9rem;" class="text-uppercase">Secure Checkout </span>
                                         <span class="icon">
                                             <i class="fas fa-lock ml-2"></i>
                                         </span>
                                     </a>
                                     {%else%}
-                                    <a href="{% url 'account_signup'%}" class="btn btn-primary animated-btn">Create an
+                                    <a href="{% url 'account_signup'%}" aria-label="create an account to checkout" class="btn btn-primary animated-btn">Create an
                                         Account To Checkout</a>
                                     {%endif%}
 

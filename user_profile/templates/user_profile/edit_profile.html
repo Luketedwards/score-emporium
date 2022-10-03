@@ -20,8 +20,8 @@
                     {% csrf_token %}
                     {{ form | crispy }}
                     <div style="margin-bottom: 50px;" class="text-center">
-                        <a class="btn btn-secondary" href="{% url 'storefront' request.user.username %}">Cancel</a>
-                        <button class="btn btn-primary" type="submit">Edit Profile</button>
+                        <a class="btn btn-secondary" href="{% url 'storefront' request.user.username %}" aria-label="cancel">Cancel</a>
+                        <button class="btn btn-primary" type="submit" aria-label="submit">Edit Profile</button>
                     </div>
                 </form>
             </div>            

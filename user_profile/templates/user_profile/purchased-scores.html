@@ -41,16 +41,16 @@
                             </p>
                             <p>
                                 <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn"
-                                    target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
+                                    target="_blank" aria-label="download PDF"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
                             </p>
                             <p>
                                 {% if item.product.Guitar_Pro_Locked%}
                                 <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn"
-                                    target="_blank"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
+                                    target="_blank" aria-label="download Guitar Pro"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
                                 {% else %}
                                 {% if item.product.Guitar_Pro_Unlocked%}
                                 <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"
-                                    class="btn btn-primary animated-btn" target="_blank"><i
+                                    class="btn btn-primary animated-btn" target="_blank" aria-label="download GP"><i
                                         class="fa-solid fa-cloud-arrow-down"></i>GP</a>
 
                                 {%endif%}
@@ -59,16 +59,16 @@
                             <p>
                                 {% if item.product.Guitar_Pro_Unlocked %}
                                 <span><a href="{% url 'guitar_pro' item.product.id%}"
-                                        class="btn btn-primary animated-btn">Play in Browser</a></span>
+                                        class="btn btn-primary animated-btn" aria-label="play in browser">Play in Browser</a></span>
                                 {%else%}
-                                <span><input type="button" disabled value="No GP File"
+                                <span><input type="button" disabled value="No GP File " aria-label="no Gp file available"
                                         class="btn btn-secondary "></span>
                                 {%endif%}
                             </p>
 
                             <p>
                                 <a class="btn btn-primary animated-btn"
-                                    href="{% url 'product_detail' item.product.id %}">
+                                    href="{% url 'product_detail' item.product.id %}" aria-label="link to view {{product.name}}">
                                     View Product
                                 </a>
                             </p>
@@ -118,7 +118,7 @@
             {%else%}
             <div class="col-12 text-center">
                 <h5 class="mt-3 mb-3 ">You have not purchased any scores yet.</h5>
-                <a href="{% url 'products' %}" class="btn btn-primary">Browse Scores</a>
+                <a href="{% url 'products' %}" aria-label="browse scores" class="btn btn-primary">Browse Scores</a>
             {%endif%}
 
         </div>

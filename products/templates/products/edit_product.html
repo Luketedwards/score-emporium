@@ -33,8 +33,8 @@
                     {{ form.video | as_crispy_field }}
                     
                     <div class="text-center">
-                        <a class="btn btn-secondary" href="{% url 'products' %}">Cancel</a>
-                        <button class="btn btn-primary animated-btn" type="submit">Update Product</button>
+                        <a class="btn btn-secondary" href="{% url 'products' %}" aria-label="cancel">Cancel</a>
+                        <button class="btn btn-primary animated-btn" type="submit" aria-label="submit">Update Product</button>
                     </div>
                 </form>
             </div>            

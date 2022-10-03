@@ -35,25 +35,25 @@
                 {% for item in order.lineitems.all%}
                     <div class="row mb-4">
                         <div class="col-2 mb-1 purchased-img align-items-center">
-                            <a href="{% url 'product_detail' item.product.id %}">
+                            <a href="{% url 'product_detail' item.product.id %}" aria-label="link to view {{item.product.name}}">
                                 {% if item.product.image %}
-                                    <img class="w-100 shadow-checkout my-auto" src="{{ item.product.image.url }}"  alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout my-auto" src="{{ item.product.image.url }}"  alt="{{ item.product.name }}">
                                 {% else %}
-                                    <img class="w-100 shadow-checkout " src="{{MEDIA_URL}}No_Image_Available.jpg" alt="{{ product.name }}">
+                                    <img class="w-100 shadow-checkout " src="{{MEDIA_URL}}No_Image_Available.jpg" alt="{{ item.product.name }}">
                                 {% endif %}
                             </a>
                         </div>
                         <div class="col-7">
                             <p class="my-0"><strong>{{ item.product.name|title }}</strong></p>
-                            <p class="my-0 small text-muted">Vendor: <a href="{% url 'storefront_other' item.product.vendor%}">{{ item.product.vendor }}</a></p>
+                            <p class="my-0 small text-muted">Vendor: <a href="{% url 'storefront_other' item.product.vendor%}" aria-label="view product vendor">{{ item.product.vendor }}</a></p>
                         </div>
                         <div style="top: -15px;" class="col-3 text-right">
                             
-                            <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary mt-3 animated-btn" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary mt-3 animated-btn" aria-label="download PDF" target="_blank">PDF <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% if item.product.Guitar_Pro_Locked %}
-                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
+                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}"  class="btn btn-primary mt-3 animated-btn" aria-label="download GP" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i> </a>
                             {% else %}
-                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3 animated-btn" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
+                            <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"  class="btn btn-primary mt-3 animated-btn" aria-label="download GP" target="_blank">GP <i class="fa-solid fa-file-arrow-down"></i></a>
                             {% endif%}
                             
                         </div>
@@ -218,7 +218,7 @@
                 </div>
             </div>
             <div class="col-12  text-center mt-2">
-				<a href="{% url 'products' %}" class="btn  btn-primary animated-btn my-2 ">
+				<a href="{% url 'products' %}" aria-label="view products" class="btn  btn-primary animated-btn my-2 ">
 					
 					<span class="text-uppercase">View more products</span>
 				</a>

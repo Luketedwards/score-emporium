@@ -105,16 +105,16 @@
         {%csrf_token%}
         <div class="col-12 ">
         <input name="ratings" id="hidden-rating" type="number" oninvalid="chooseRating()"  hidden required>
-        <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject" placeholder="Subject" required>
-        <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10" placeholder="Review" required></textarea>
+        <input style="width:100%; margin-bottom: 6px !important;" class="center " type="text" name="subject" aria-label="review subject" placeholder="Subject" required>
+        <textarea class="center" style="height: 70px; width:100%;" name="content" id="" cols="30" rows="10" aria-label="review content" placeholder="Review" required></textarea>
         {% if product.id in ordersList%}
           {% if product.vendor != request.user.username%}
-          <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="Submit Rating">
+          <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" aria-label="submit" value="Submit Rating">
           {%else%}
-          <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" value="You can't review your own product" disabled>
+          <input id="reviewSubmit" type="submit" class="btn btn-black product-btn mt-5" aria-label="you can't review your own product" value="You can't review your own product" disabled>
           {%endif%}
         {%else%}
-        <input  type="submit" id="reviewSubmit" class="btn btn-black product-btn mt-5" disabled value="Purchase to leave a review">
+        <input  type="submit" id="reviewSubmit" class="btn btn-black product-btn mt-5" disabled aria-label="purchase to leave a review" value="Purchase to leave a review">
         {%endif%}
       </div>
       </form>

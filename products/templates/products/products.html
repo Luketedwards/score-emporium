@@ -24,7 +24,7 @@
         </div>
         <div id="filter-small" class="dropdown offset-1 mb-4">
 
-            <button class="dd-button mt-1" data-label="Dropdown">
+            <button class="dd-button mt-1" data-label="Dropdown" aria-label="filter dropdown">
               Filter Results
             </button>
           
@@ -33,7 +33,7 @@
                 {% csrf_token %}
                 <li>
                     <div class="form-group col-12">
-                        <select name="genre" class=" filter form-control">
+                        <select name="genre" class=" filter form-control" aria-label="genre">
                             <option value="">Select Genre</option>
                             <option value="Pop">Pop</option>
                             <option value="Folk">Folk</option>
@@ -50,7 +50,7 @@
                 </li>
                 <li>
                     <div class="form-group col-12">
-                        <select name="difficulty" class=" filter form-control">
+                        <select name="difficulty" class=" filter form-control" aria-label="difficulty">
                             <option value="">Select Difficulty </option>
                             <option value="Beginner">Beginner</option>
                             <option value="Intermediate">Intermediate</option>
@@ -62,7 +62,7 @@
                 </li>
                 <li>
                     <div class="form-group col-12">
-                        <select name="rating" class=" filter form-control">
+                        <select name="rating" class=" filter form-control" aria-label="rating">
                             <option value="">Rating</option>
                             <option value="no rating">No Rating</option>
                             <option value="high>low">Highest First</option>
@@ -73,7 +73,7 @@
                 </li>
                 <li>
                     <div class="form-group col-12">
-                        <select name="price" class=" filter form-control">
+                        <select name="price" class=" filter form-control" aria-label="price">
                             <option value="">Price Range</option>
                             <option value="low>high">Low-High</option>
                             <option value="high>low">High-Low</option>
@@ -83,7 +83,7 @@
                 </li>
                 <li>
                     <div class="form-group col-12 ">
-                        <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        <button type="submit" class="btn btn-primary w-100" aria-label="filter">Filter</button>
                     </div>
                 </li>
             </form>
@@ -104,12 +104,12 @@
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
                             <div style="background-color: transparent;" class=" product-card card h-100 border-0 {% if forloop.counter < 5%} hideme2 {%else%} hideme {%endif%}">
                                 {% if product.image %}
-                                <a href="{% url 'product_detail' product.id %}">
+                                <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
                                     <img class="card-img-top img-fluid product" src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name}}">
                                     
                                 </a>
                                 {% else %}
-                                <a href="{% url 'product_detail' product.id %}">
+                                <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
                                     <img class="card-img-top img-fluid product" src="{{MEDIA_URL}}No_Image_Available.jpg" alt="{{ product.name }}">
                                 </a>
                                 {% endif %}
