@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content=" Score Emporium is a marketplace for high quality interactive scores, PDF's and Guitar Pro Files">
+    <meta name="description"
+        content=" Score Emporium is a marketplace for high quality interactive scores, PDF's and Guitar Pro Files">
     {% endblock %}
     {% block extrameta %}
     {% endblock %}
@@ -47,20 +48,20 @@
         integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous">
     </script>
     <script src="{% static 'js/app.js' %}"></script>
-    
 
 
-    
+
+
     {% endblock %}
 
     {% block extrajs %}
-    
+
     {% endblock %}
 
 
-    
+
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-    
+
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
@@ -85,7 +86,7 @@
                         <div id="search-btn-div">
                             <button id="search-btn" class="form-control btn " type="submit" aria-label="search button">
                                 <span style="margin-right: 0.4rem;" class="icon">
-                                    <i  class="fas fa-search"></i>
+                                    <i class="fas fa-search"></i>
                                 </span>
                             </button>
                         </div>
@@ -94,7 +95,7 @@
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <ul id="nav-ul" class="list-inline list-unstyled  text-lg-right my-0">
                     <li class="list-inline-item dropdown">
@@ -111,11 +112,14 @@
                             <a href="{% url 'storefront' storevendor=request.user.username %}" class="dropdown-item">My
                                 Store</a>
 
-                            <a href="{% url 'dashboard' %}" class="dropdown-item" aria-label="My Dashboard">My Dashboard</a>
-                            <a href="{% url 'purchased_scores' %}" class="dropdown-item" aria-label="My Purchased Scores">My Purchased Scores</a>
+                            <a href="{% url 'dashboard' %}" class="dropdown-item" aria-label="My Dashboard">My
+                                Dashboard</a>
+                            <a href="{% url 'purchased_scores' %}" class="dropdown-item"
+                                aria-label="My Purchased Scores">My Purchased Scores</a>
                             <a href="{% url 'account_logout' %}" class="dropdown-item" aria-label="Logout">Logout</a>
                             {% else %}
-                            <a href="{% url 'account_signup' %}" class="dropdown-item" aria-label="Register">Register</a>
+                            <a href="{% url 'account_signup' %}" class="dropdown-item"
+                                aria-label="Register">Register</a>
                             <a href="{% url 'account_login' %}" class="dropdown-item" aria-label="Login">Login</a>
                             {% endif %}
                         </div>
@@ -130,12 +134,13 @@
                         </a>
                     </li>
                     <li id="form-list" class="list-inline-item">
-                        
-                        <form  method="GET" action="{% url 'products' %}">
-                            <input  class="search" id="searchleft" type="search" name="q" placeholder="Search" aria-label="search button">
+
+                        <form method="GET" action="{% url 'products' %}">
+                            <input class="search" id="searchleft" type="search" name="q" placeholder="Search"
+                                aria-label="search button">
                             <label class="button searchbutton" for="searchleft"><i class="fas fa-search"></i></label>
                         </form>
-                        
+
                     </li>
                 </ul>
             </div>
@@ -144,15 +149,15 @@
             <nav class="navbar navbar-expand-lg navbar-light w-100 pr-0">
                 <button id="nav-tog" style="margin-left: 81vw !important;" class="navbar-toggler hidden" type="button"
                     data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
-                    aria-label="Toggle navigation" >
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div style="z-index: 1041;" id="animated-toggle">
-                <input id="menu__toggle" class="navbar-toggler" data-toggle="collapse" 
-                    aria-controls="main-nav"  aria-label="Toggle navigation"  type="checkbox"  />
-                <label style="z-index: 1041;" class="menu__btn" for="menu__toggle">
-                    <span id="menu_label"></span>
-                </label>
+                    <input id="menu__toggle" class="navbar-toggler" data-toggle="collapse" aria-controls="main-nav"
+                        aria-label="Toggle navigation" type="checkbox" />
+                    <label style="z-index: 1041;" class="menu__btn" for="menu__toggle">
+                        <span id="menu_label"></span>
+                    </label>
                 </div>
 
                 {% include 'includes/main-nav.html' %}
@@ -185,7 +190,7 @@
     {% endblock %}
 
     {% block postload_js%}
-    <script >
+    <script>
         $('.toast').toast('show');
     </script>
     <script src="{% static 'js/animations.js'%}"></script>

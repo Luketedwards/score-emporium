@@ -6,38 +6,40 @@
 
 {% endblock %}
 {% block content %}
-    <div style="background-color: #efeff6;" class="overlay"></div>
-    <div class="container pb-100 center">
-        <div class="row text-center">
-            <div class="col-12 col-md-6 center">
-                
-                <h2 class="logo-font mb-4 mt-2">Product Management</h2>
-                <h5 class="text-muted">Edit a Product</h5>
-                <hr>
-            </div>
-        </div>
+<div style="background-color: #efeff6;" class="overlay"></div>
+<div class="container pb-100 center">
+    <div class="row text-center">
+        <div class="col-12 col-md-6 center">
 
-        <div class="row">
-            <div class="col-12 col-md-6 center ">
-                <form id="form" method="POST" action="{% url 'edit_product' product.id %}" class="form mb-2" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.name | as_crispy_field }}
-                    {{ form.genre | as_crispy_field }}
-                    {{ form.difficulty| as_crispy_field }}
-                    {{ form.description | as_crispy_field }}
-                    {{ form.price | as_crispy_field }}
-                    {{ form.image | as_crispy_field }}
-                    {{ form.PDF | as_crispy_field }}
-                    {{ form.Guitar_Pro_Unlocked| as_crispy_field }}
-                    {{ form.Guitar_Pro_Locked | as_crispy_field }}
-                    {{ form.video | as_crispy_field }}
-                    
-                    <div class="text-center">
-                        <a class="btn btn-secondary" href="{% url 'products' %}" aria-label="cancel">Cancel</a>
-                        <button class="btn btn-primary animated-btn" type="submit" aria-label="submit">Update Product</button>
-                    </div>
-                </form>
-            </div>            
+            <h2 class="logo-font mb-4 mt-2">Product Management</h2>
+            <h5 class="text-muted">Edit a Product</h5>
+            <hr>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 center ">
+            <form id="form" method="POST" action="{% url 'edit_product' product.id %}" class="form mb-2"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.name | as_crispy_field }}
+                {{ form.genre | as_crispy_field }}
+                {{ form.difficulty| as_crispy_field }}
+                {{ form.description | as_crispy_field }}
+                {{ form.price | as_crispy_field }}
+                {{ form.image | as_crispy_field }}
+                {{ form.PDF | as_crispy_field }}
+                {{ form.Guitar_Pro_Unlocked| as_crispy_field }}
+                {{ form.Guitar_Pro_Locked | as_crispy_field }}
+                {{ form.video | as_crispy_field }}
+
+                <div class="text-center">
+                    <a class="btn btn-secondary" href="{% url 'products' %}" aria-label="cancel">Cancel</a>
+                    <button class="btn btn-primary animated-btn" type="submit" aria-label="submit">Update
+                        Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

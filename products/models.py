@@ -15,24 +15,35 @@ class Genre(models.Model):
     def get_friendly_name(self):
         return self.friendly_name
 
+
 class Difficulty(models.Model):
 
     level = models.CharField(max_length=254)
-    
 
     def __str__(self):
         return self.level
-       
 
 
 class Product(models.Model):
-    genre = models.ForeignKey('Genre', null=True, blank=True, on_delete=models.SET_NULL)
-    difficulty = models.ForeignKey('Difficulty', null=True, blank=True, on_delete=models.SET_NULL)
-    
+    genre = models.ForeignKey(
+        'Genre',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL)
+    difficulty = models.ForeignKey(
+        'Difficulty',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL)
+
     name = models.CharField(max_length=254)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    rating = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
+    rating = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+        blank=True)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True,)
     vendor = models.CharField(max_length=254, null=True)
@@ -41,11 +52,10 @@ class Product(models.Model):
     Guitar_Pro_Locked = models.FileField(null=True, blank=True)
     video = models.URLField(max_length=1024, null=True, blank=True)
     number_sold = models.IntegerField(null=True, blank=True, default=0)
-    
-
 
     def __str__(self):
         return self.name
+
 
 def average_rating(self):
     total_reviews = 0
@@ -54,14 +64,21 @@ def average_rating(self):
         total_reviews += review.ratings
 
     if total_reviews > 0:
-        return total_reviews / self.reviews.count() 
+        return total_reviews / self.reviews.count()
 
-    return 0       
+    return 0
+
 
 class Review(models.Model):
-    product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
+    product = models.ForeignKey(
+        Product,
+        related_name='reviews',
+        on_delete=models.CASCADE)
     ratings = models.IntegerField(default=0)
     subject = models.CharField(max_length=30, null=True, blank=True)
     content = models.TextField()
-    created_by = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE )
-    date = models.DateTimeField(auto_now=True)        
+    created_by = models.ForeignKey(
+        User,
+        related_name='reviews',
+        on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now=True)

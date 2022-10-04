@@ -1,70 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
-        <title>Score Emporium</title>
 
-        <style type="text/css">
-            html {
-                width: 100%;
-            }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-            body {
-                width: 100%;
-                font-family: Arial;
-                font-size: 14px;
-                background-color: #5c819e;
-                color: #333;
-            }
-        </style>
-    </head>
+    <title>Score Emporium</title>
 
-    <body>
-        <table width="100%" cellspacing="0" cellpadding="0">
-            <tr>
-                <td><h1>New order</h1></td>
+    <style type="text/css">
+        html {
+            width: 100%;
+        }
 
-            </tr>
+        body {
+            width: 100%;
+            font-family: Arial;
+            font-size: 14px;
+            background-color: #5c819e;
+            color: #333;
+        }
+    </style>
+</head>
 
-            <tr>
-                <td>
-                    <h3>Customer Details</h3>
-                    <b>Order Number </b> {{ order.order_number }}<br>
-                    <b>Order Date </b> {{ order.date }}<br>
-                    <b>Name:</b> {{ order.full_name }}<br>
-                    
-                    <b>E-mail:</b> {{ order.email }}<br>
-                    <b>Phone:</b> {{ order.phone_number }}
-                </td>
-            </tr>
+<body>
+    <table width="100%" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <h1>New order</h1>
+            </td>
 
-            <tr>
-                <td>
-                    <h3>Products</h3>
+        </tr>
 
-                    <table width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td><b>Product</b></td>
-                            <td><b>Price</b></td>
-                            
-                            <td><b>Total</b></td>
-                        </tr>
-                        
-                        {% for item in order.lineitems.all%}
-                            
-                                <tr>
-                                    <td>{{ item.product.name }}</td>
-                                    <td>£{{ item.product.price }}</td>
-                                    <td>£{{ order.order_total }}</td>
-                                    
-                                </tr>
-                            
-                        {% endfor %}
+        <tr>
+            <td>
+                <h3>Customer Details</h3>
+                <b>Order Number </b> {{ order.order_number }}<br>
+                <b>Order Date </b> {{ order.date }}<br>
+                <b>Name:</b> {{ order.full_name }}<br>
 
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </body>
+                <b>E-mail:</b> {{ order.email }}<br>
+                <b>Phone:</b> {{ order.phone_number }}
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <h3>Products</h3>
+
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><b>Product</b></td>
+                        <td><b>Price</b></td>
+
+                        <td><b>Total</b></td>
+                    </tr>
+
+                    {% for item in order.lineitems.all%}
+
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>£{{ item.product.price }}</td>
+                        <td>£{{ order.order_total }}</td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
 </html>

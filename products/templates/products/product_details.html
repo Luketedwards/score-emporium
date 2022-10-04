@@ -5,194 +5,208 @@
 
 
 {% block content %}
-    <div class="overlay"></div>
-    <div class="container-fluid mb-200" >
-        <div class="row">
-            
-            <div class="col-12 text-center mt-3">
+<div class="overlay"></div>
+<div class="container-fluid mb-200">
+    <div class="row">
+
+        <div class="col-12 text-center mt-3">
             <h2>{{product.name|title}}</h2>
             <p>Vendor: <a href="{% url 'storefront' storevendor=product.vendor%}">{{product.vendor|title}}</a></p>
             <hr>
         </div>
-            <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
-                <div class="image-container my-5">
-                    {% if product.image %}
-                        <a href="" target="_blank">
-                            <img id="product-detail-img" class="card-img-top img-fluid shadow-checkout" src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name }}">
-                        </a>
-                        {% else %}
-                        <a href="">
-                            <img class="card-img-top img-fluid shadow-checkout" src="/media/No_Image_Available.jpg" alt="{{ product.name }}">
-                        </a>
-                    {% endif %}
-                </div>
+        <div class="col-12 col-md-6 col-lg-4 offset-lg-2">
+            <div class="image-container my-5">
+                {% if product.image %}
+                <a href="" target="_blank">
+                    <img id="product-detail-img" class="card-img-top img-fluid shadow-checkout"
+                        src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name }}">
+                </a>
+                {% else %}
+                <a href="">
+                    <img class="card-img-top img-fluid shadow-checkout" src="/media/No_Image_Available.jpg"
+                        alt="{{ product.name }}">
+                </a>
+                {% endif %}
             </div>
-            <div class="col-12 col-md-6 col-lg-6 product-detail-top">
-                <div class="product-details-container mb-5 mt-md-5 align-middle">
-                    
-                    <p class="mb-0"><strong>{{ product.name|title }}</strong></p>
-                    
-                    <p class="mt-3">"{{ product.description }}"</p>
-                    <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
-                    {% if product.rating %}
-                        <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
-                    {% else %}
-                        <small class="text-muted">No Rating</small>
-                    {% endif %}
-                    
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 product-detail-top">
+            <div class="product-details-container mb-5 mt-md-5 align-middle">
 
-                    <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
-                        {% csrf_token %}
-                        <div class="form-row">
-                            
-                            <div class="col{% if s %}-12 mt-2{% endif %}">
-                                {% if not request.user.is_authenticated %}
-                                    <a id="product-btn" href="{% url 'account_login' %}" class="btn btn-black product-btn mt-5">Login to Add to Cart</a>
-                                {% else %}
-                                    
-                                
-                                {% if not request.session.cart and product.id not in ordersList%}
-                                    <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5" value="Add to cart">
-                                {%else%}    
-                                    {% if product.id in ordersList%}
-                                    <input style="width: 5rem;" id="product-btn" disabled type="" class="btn btn-black product-btn mt-5" value="Owned">
+                <p class="mb-0"><strong>{{ product.name|title }}</strong></p>
 
-                                    {% elif product.id|stringformat:"i" not in request.session.cart %}
-                                    <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5" value="Add to cart">
-                                    {% else %}
-                                    <input style="width: 5rem;" id="product-btn" disabled type="" class="btn btn-black product-btn mt-5" value="Added">
+                <p class="mt-3">"{{ product.description }}"</p>
+                <p class="lead mb-0 text-left font-weight-bold">£{{ product.price }}</p>
+                {% if product.rating %}
+                <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                {% else %}
+                <small class="text-muted">No Rating</small>
+                {% endif %}
 
-                                {%endif%}
-                                {%endif%}
-                                {% endif %}
-                                <a href="{% url 'products' %}" class="btn animated-btn btn-primary  mt-5">
-    
-                                    <span class="">Keep Shopping</span>
-                                </a>
-                                
-                            </div>
-                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                            
+
+                <form class="form" action="{% url 'add_to_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-row">
+
+                        <div class="col{% if s %}-12 mt-2{% endif %}">
+                            {% if not request.user.is_authenticated %}
+                            <a id="product-btn" href="{% url 'account_login' %}"
+                                class="btn btn-black product-btn mt-5">Login to Add to Cart</a>
+                            {% else %}
+
+
+                            {% if not request.session.cart and product.id not in ordersList%}
+                            <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5"
+                                value="Add to cart">
+                            {%else%}
+                            {% if product.id in ordersList%}
+                            <input style="width: 5rem;" id="product-btn" disabled type=""
+                                class="btn btn-black product-btn mt-5" value="Owned">
+
+                            {% elif product.id|stringformat:"i" not in request.session.cart %}
+                            <input id="product-btn" type="submit" class="btn btn-black product-btn mt-5"
+                                value="Add to cart">
+                            {% else %}
+                            <input style="width: 5rem;" id="product-btn" disabled type=""
+                                class="btn btn-black product-btn mt-5" value="Added">
+
+                            {%endif%}
+                            {%endif%}
+                            {% endif %}
+                            <a href="{% url 'products' %}" class="btn animated-btn btn-primary  mt-5">
+
+                                <span class="">Keep Shopping</span>
+                            </a>
+
                         </div>
-                        
-                        
-                    </form>
-                    {% if request.user.username == product.vendor %}
-                    <br>
-                        <a class="btn btn-sm btn-success animated-btn" href="{% url 'edit_product' product.id %}">Edit <i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class=" btn btn-sm btn-danger animated-btn"  href="" data-toggle="modal" data-target="#exampleModal">Delete <i class="fa-solid fa-trash-can"></i></a>
-                        
-                    {%endif%}
-                </div>
-                
-            </div>
-            <hr style="width:95%; margin-bottom: 32px !important;" class="center">
-            <div  class="row center w-100 p-3">
-                
-                    {% include '../includes/ratings.html' %}
-                <hr style="width:95%; margin-bottom: 15px !important; margin-top: 15px!important;" class="center">
+                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
 
-                    
+                    </div>
+
+
+                </form>
+                {% if request.user.username == product.vendor %}
+                <br>
+                <a class="btn btn-sm btn-success animated-btn" href="{% url 'edit_product' product.id %}">Edit <i
+                        class="fa-solid fa-pen-to-square"></i></a>
+                <a class=" btn btn-sm btn-danger animated-btn" href="" data-toggle="modal"
+                    data-target="#exampleModal">Delete <i class="fa-solid fa-trash-can"></i></a>
+
+                {%endif%}
             </div>
-            {% if product.video %}
-            <div class="col-12 text-center">
-                <div class="">
-                    
-                    
-                    <h3>Video of the piece</h3>
-                    <div style="position:relative;padding-top:56.25%; margin-top: 20px;">
-                        <iframe src="{{product.video}}" frameborder="0" allowfullscreen
-                          style="position:absolute;top:0;left:10%;width:80%;height:80%;"></iframe>
-                      </div>
-                    
-                </div>
-            </div>
+
+        </div>
+        <hr style="width:95%; margin-bottom: 32px !important;" class="center">
+        <div class="row center w-100 p-3">
+
+            {% include '../includes/ratings.html' %}
             <hr style="width:95%; margin-bottom: 15px !important; margin-top: 15px!important;" class="center">
-            {% endif %}
 
 
-            {% if product_number > 1%}
-                <div style="margin: 0 auto;  width: 31%; padding-bottom: 100px;" class=" text-center">
-                <h3 class="text-center">Other Products by {{product.vendor}}</h3>
-                <div style="margin: 0 auto; padding: 20px; background-color: #5c819e;" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol style="background-color: rgba(4, 4, 4, 0.5); border-radius: 10px ;" class="carousel-indicators">
-                        {% for no_of_products in relevant_products%}
-                        
-                        
-                    <li style="background-color: white;" id="data-target{{forloop.counter0}}" data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
-                    
+        </div>
+        {% if product.video %}
+        <div class="col-12 text-center">
+            <div class="">
+
+
+                <h3>Video of the piece</h3>
+                <div style="position:relative;padding-top:56.25%; margin-top: 20px;">
+                    <iframe src="{{product.video}}" frameborder="0" allowfullscreen
+                        style="position:absolute;top:0;left:10%;width:80%;height:80%;"></iframe>
+                </div>
+
+            </div>
+        </div>
+        <hr style="width:95%; margin-bottom: 15px !important; margin-top: 15px!important;" class="center">
+        {% endif %}
+
+
+        {% if product_number > 1%}
+        <div style="margin: 0 auto;  width: 31%; padding-bottom: 100px;" class=" text-center">
+            <h3 class="text-center">Other Products by {{product.vendor}}</h3>
+            <div style="margin: 0 auto; padding: 20px; background-color: #5c819e;" id="carouselExampleIndicators"
+                class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol style="background-color: rgba(4, 4, 4, 0.5); border-radius: 10px ;" class="carousel-indicators">
+                    {% for no_of_products in relevant_products%}
+
+
+                    <li style="background-color: white;" id="data-target{{forloop.counter0}}"
+                        data-target="#carouselExampleIndicators" data-slide-to="{{forloop.counter0}}" class=""></li>
+
                     {%endfor%}
-                    </ol>
-                    <!-- Wrapper for slides -->
-                    <div style="max-width: fit-content; margin: 0 auto;" class="carousel-inner">
-                        {% for vendor_products in relevant_products%}
-                        
-                        
+                </ol>
+                <!-- Wrapper for slides -->
+                <div style="max-width: fit-content; margin: 0 auto;" class="carousel-inner">
+                    {% for vendor_products in relevant_products%}
+
+
                     <div id="carousel-item{{forloop.counter0}}" class="carousel-item ">
                         {% if vendor_products.image %}
-                        <img style="height: 400px;" class="" src="{{MEDIA_URL}}{{vendor_products.image }}" data-color="lightblue" alt="{{vendor_products.name}}">
+                        <img style="height: 400px;" class="" src="{{MEDIA_URL}}{{vendor_products.image }}"
+                            data-color="lightblue" alt="{{vendor_products.name}}">
                         {% else %}
-                        <img style="height: 400px; width: 310px;" class="" src="/media/No_Image_Available.jpg" data-color="lightblue" alt="{{vendor_products.name}}">
+                        <img style="height: 400px; width: 310px;" class="" src="/media/No_Image_Available.jpg"
+                            data-color="lightblue" alt="{{vendor_products.name}}">
                         {%endif%}
                         <div class="carousel-caption d-md-block">
                             <a href="{% url 'product_detail' vendor_products.id %}">
-                        <h5 class="black-text translucent">{{vendor_products.name}}</h5>
-                        </a>
-                    <p class="lead mb-0 text-black font-weight-bold">£{{ product.price }}</p>
+                                <h5 class="black-text translucent">{{vendor_products.name}}</h5>
+                            </a>
+                            <p class="lead mb-0 text-black font-weight-bold">£{{ product.price }}</p>
 
                         </div>
                     </div>
-                    
-                    
+
+
                     {%endfor%}
-                    
-                    </div>
-                    <!-- Controls -->
-                    <a style="color: white;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                Prev
-                </a>
-                    <a style="color: white;" class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                Next
-                </a>
+
                 </div>
-                </div>
-            {%endif%}
+                <!-- Controls -->
+                <a style="color: white;" class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                    data-slide="prev">
+                    Prev
+                </a>
+                <a style="color: white;" class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                    data-slide="next">
+                    Next
+                </a>
+            </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content modal-width">
+        {%endif%}
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-width">
                 <div class="modal-header center">
-                  <h5 class="modal-title " id="exampleModalLabel ">Delete {{product.name}}?</h5>
-                  
+                    <h5 class="modal-title " id="exampleModalLabel ">Delete {{product.name}}?</h5>
+
                 </div>
                 <div class="modal-body text-center">
-                  <p>Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
+                    <p>Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <a href="{% url 'delete_product' product.id%}">
-                    <button type="button" class="btn btn-danger animated-btn">Delete</button>
-                  </a>
-                  
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="{% url 'delete_product' product.id%}">
+                        <button type="button" class="btn btn-danger animated-btn">Delete</button>
+                    </a>
+
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
     </div>
-    
+</div>
+
 {% endblock %}
 {% block postloadjs %}
 <script>
-    $(document).ready(function(){
-        $(window).load(function() {
-        document.getElementById('data-target0').className = 'active';
-      document.getElementById('carousel-item0').className = 'carousel-item active';
-      $("#carousel-item0").addClass("active");
-      $('#myModal').modal('show');  
+    $(document).ready(function () {
+        $(window).load(function () {
+            document.getElementById('data-target0').className = 'active';
+            document.getElementById('carousel-item0').className = 'carousel-item active';
+            $("#carousel-item0").addClass("active");
+            $('#myModal').modal('show');
+        });
     });
-    });
-    
-
-    </script>
-    {% endblock %}
+</script>
+{% endblock %}

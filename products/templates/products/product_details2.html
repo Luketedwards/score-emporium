@@ -35,7 +35,7 @@
                                 <div class="product-details">
                                     <div class="border-bottom pb-3 mb-3">
                                         <h2 class="mb-3">{{product.name|title}}</h2>
-                                        
+
                                         <div class="product-rating d-inline-block float-right">
                                             {% if product.rating %}
                                             <span class="text-muted gold"><i
@@ -70,7 +70,8 @@
                                                 <div class="col{% if s %}-12 mt-2{% endif %} text-center">
                                                     {% if not request.user.is_authenticated %}
                                                     <a id="product-btn" href="{% url 'account_login' %}"
-                                                        class="btn btn-black product-btn mt-2" aria-label="login to add to cart">Login to Add to Cart</a>
+                                                        class="btn btn-black product-btn mt-2"
+                                                        aria-label="login to add to cart">Login to Add to Cart</a>
                                                     {% else %}
 
 
@@ -82,23 +83,26 @@
                                                     {% if product.id in ordersList %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type="submit"
-                                                        class="btn btn-black product-btn mt-2" value="Owned" aria-label="you already own this product">
+                                                        class="btn btn-black product-btn mt-2" value="Owned"
+                                                        aria-label="you already own this product">
                                                     {% elif product.vendor == current_username%}
                                                     <input id="product-btn" disabled type="submit" style="width: 9rem !important;
                                                         padding: 7px !important;"
-                                                        class="btn btn-black product-btn mt-2"
-                                                        value="Your product!" aria-label="this is your product">
+                                                        class="btn btn-black product-btn mt-2" value="Your product!"
+                                                        aria-label="this is your product">
 
                                                     {% elif  product.id|stringformat:'i'  in request.session.cart %}
                                                     <input style="width: 9rem !important;
                                                     padding: 7px !important;" id="product-btn" disabled type="submit"
-                                                        class="btn btn-black product-btn mt-2" value="Added" aria-label="product already in basket">
+                                                        class="btn btn-black product-btn mt-2" value="Added"
+                                                        aria-label="product already in basket">
 
                                                     {% else %}
-                                                    
-                                                        <input id="product-btn" type="submit" style="width: 9rem !important;
-                                                        padding: 7px !important;" class="btn btn-black product-btn mt-2"
-                                                            value="Add to cart" aria-label="add to cart">
+
+                                                    <input id="product-btn" type="submit" style="width: 9rem !important;
+                                                        padding: 7px !important;"
+                                                        class="btn btn-black product-btn mt-2" value="Add to cart"
+                                                        aria-label="add to cart">
                                                     {%endif%}
                                                     {%endif%}
                                                     {% endif %}
@@ -136,28 +140,31 @@
                                                 </li>
                                                 <li class="nav-item nav-fill" style="font-size: 1.5rem;">
                                                     <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
-                                                        class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-label="tab 2">
+                                                        class="nav-link" data-toggle="tab" href="#profile" role="tab"
+                                                        aria-label="tab 2">
                                                         Ratings
                                                     </a>
                                                 </li>
                                                 <li class="nav-item nav-fill" style="font-size: 1.5rem;">
                                                     <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
-                                                        class="nav-link" data-toggle="tab" href="#messages" role="tab" aria-label="tab 3">
+                                                        class="nav-link" data-toggle="tab" href="#messages" role="tab"
+                                                        aria-label="tab 3">
                                                         Review
                                                     </a>
                                                 </li>
                                                 {% if product.video %}
                                                 <li class="nav-item nav-fill" style="font-size: 1.5rem;">
                                                     <a style="padding-left: 1rem !important; padding-right: 1rem !important;"
-                                                        class="nav-link" data-toggle="tab" href="#settings" role="tab" aria-label="tab 4">
+                                                        class="nav-link" data-toggle="tab" href="#settings" role="tab"
+                                                        aria-label="tab 4">
                                                         Video
                                                     </a>
                                                 </li>
                                                 {%else%}
                                                 <li class="nav-item nav-fill" style="font-size: 1.5rem;">
                                                     <a style="padding-left: 1rem !important; padding-right: 1rem !important; pointer-events: none;"
-                                                        class="nav-link text-muted" data-toggle="tab" href=""
-                                                        role="tab" aria-label="disabled tab">
+                                                        class="nav-link text-muted" data-toggle="tab" href="" role="tab"
+                                                        aria-label="disabled tab">
                                                         Video
                                                     </a>
                                                 </li>
@@ -234,23 +241,24 @@
 
                                             <div><a style="font-size: 1.4rem;"
                                                     onclick="this.closest('form').submit();return false;" class=""
-                                                    href="#"><i class="fas fa-shopping-cart" aria-label="add to cart"></i></a></div>
+                                                    href="#"><i class="fas fa-shopping-cart"
+                                                        aria-label="add to cart"></i></a></div>
 
                                             {%else%}
                                             {% if product.id in ordersList%}
-                                            <div class="disabled"><a aria-label="owned" style="font-size: 1.4rem;" onclick="owned()"
-                                                    class="disabled" href="#"><i
-                                                            class="fa-solid fa-cart-flatbed"></i> </a></div>
+                                            <div class="disabled"><a aria-label="owned" style="font-size: 1.4rem;"
+                                                    onclick="owned()" class="disabled" href="#"><i
+                                                        class="fa-solid fa-cart-flatbed"></i> </a></div>
 
                                             {% elif product.id|stringformat:"i" not in request.session.cart %}
-                                            <div><a style="font-size: 1.4rem;"
-                                                aria-label="add to cart" onclick="this.closest('form').submit();return false;" class=""
+                                            <div><a style="font-size: 1.4rem;" aria-label="add to cart"
+                                                    onclick="this.closest('form').submit();return false;" class=""
                                                     href="#"><i class="fas fa-shopping-cart"></i></a></div>
 
                                             {% else %}
                                             <div class="disabled"><a aria-label="add to cart" style="font-size: 1.4rem;"
-                                                        onclick="inCart()" class="disabled" href="#"><i
-                                                            class="fa-solid fa-cart-flatbed"></i></a></div>
+                                                    onclick="inCart()" class="disabled" href="#"><i
+                                                        class="fa-solid fa-cart-flatbed"></i></a></div>
                                             {%endif%}
                                             {%endif%}
 
@@ -264,49 +272,51 @@
 
                                         </form>
                                         {%else%}
-                                        <div><a href="{% url 'account_login' %}" aria-label="login to add to cart"><i class="fas fa-shopping-cart"></i></a>
-                                        </ldivi>
-                                        {%endif%}
+                                        <div><a href="{% url 'account_login' %}" aria-label="login to add to cart"><i
+                                                    class="fas fa-shopping-cart"></i></a>
+                                            </ldivi>
+                                            {%endif%}
 
-                                        <div><a href="{% url 'product_detail' vendor_products.id%}" aria-label="link to view {{product.name}}"><i
-                                                    class="fa fa-eye"></i></a></div>
+                                            <div><a href="{% url 'product_detail' vendor_products.id%}"
+                                                    aria-label="link to view {{product.name}}"><i
+                                                        class="fa fa-eye"></i></a></div>
 
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <div class="price">£{{vendor_products.price}}</div>
+                                        <h3 class="title"><a href="{% url 'product_detail' vendor_products.id%}"
+                                                aria-label="link to view {{product.name}}">{{vendor_products.name|title}}</a>
+                                        </h3>
+                                        <ul class="rating2">
+                                            {% if vendor_products.rating %}
+
+                                            {% for i in "x"|rjust:vendor_products.rating %}
+                                            <li class="fas fa-star"></li>
+                                            {%endfor%}
+
+                                            {%else%}
+                                            <li class="text-muted">no ratings</li>
+                                            {%endif%}
+                                        </ul>
                                     </div>
                                 </div>
-                                <div class="product-content">
-                                    <div class="price">£{{vendor_products.price}}</div>
-                                    <h3 class="title"><a
-                                            href="{% url 'product_detail' vendor_products.id%}" aria-label="link to view {{product.name}}">{{vendor_products.name|title}}</a>
-                                    </h3>
-                                    <ul class="rating2">
-                                        {% if vendor_products.rating %}
-
-                                        {% for i in "x"|rjust:vendor_products.rating %}
-                                        <li class="fas fa-star"></li>
-                                        {%endfor%}
-
-                                        {%else%}
-                                        <li class="text-muted">no ratings</li>
-                                        {%endif%}
-                                    </ul>
-                                </div>
                             </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                    </div>
 
+
+                    </div>
+                    {%endif%}
 
                 </div>
-                {%endif%}
-
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
-<!-- ============================================================== -->
-<!-- end wrapper  -->
-<!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- end wrapper  -->
+    <!-- ============================================================== -->
 </div>
 
 </div>

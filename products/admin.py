@@ -3,9 +3,10 @@ from .models import Product, Genre, Difficulty, Review
 
 # Register your models here.
 
+
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
-        
+
         'name',
         'genre',
         'price',
@@ -14,7 +15,6 @@ class ProductAdmin(admin.ModelAdmin):
         'vendor'
     )
 
-    
 
 class GenreAdmin(admin.ModelAdmin):
     list_display = (
@@ -22,20 +22,23 @@ class GenreAdmin(admin.ModelAdmin):
         'name',
     )
 
+
 class DifficultyAdmin(admin.ModelAdmin):
     list_display = (
         'level',
-    )    
+    )
+
 
 class reviewAdmin(admin.ModelAdmin):
-    list_display=(
+    list_display = (
         'product',
         'ratings',
         'subject',
         'content',
         'created_by',
         'date'
-    )    
+    )
+
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Genre, GenreAdmin)

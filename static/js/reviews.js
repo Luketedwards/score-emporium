@@ -11,12 +11,12 @@ $(document).ready(function () {
 
   function rating5() {
     ratingNumber.value = '5';
-    console.log('it worked');
+    
   }
 
   function rating4() {
     ratingNumber.value = '4';
-    console.log('it worked');
+    
 
   }
 
@@ -29,19 +29,19 @@ $(document).ready(function () {
 
   function rating2() {
     ratingNumber.value = '2';
-    console.log('it worked');
+    
 
   }
 
   function rating1() {
     ratingNumber.value = '1';
-    console.log('it worked js');
+    
 
   }
 
   function chooseRating() {
     if (ratingNumber.value == '') {
-      alert("Please choose a star rating")
+      alert("Please choose a star rating");
     }
   }
 });

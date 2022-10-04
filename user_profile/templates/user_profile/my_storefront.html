@@ -4,185 +4,196 @@
 
 {% block content %}
 <div style="background-color: #efeff6;" class=" text-black">
-    
-    <div class="w-100 py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="profile-card-div col col-10 ">
-          <div class="card profile-card">
-            <div class="rounded-top text-white d-flex flex-row" style="background-image: {% if not profile.cover_photo %} url(https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/reviews-background.jpg); {% else %} url({{profile.cover_photo.url}}); {%endif%} background-size: contain; height:200px;">
-              <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-                {% if profile.profile_picture %}
-                <img src="{{profile.profile_picture.url}}" alt="profile photo of {{request.user.username}}" class="img-fluid img-thumbnail mt-0 ml-1 mb-2" style="width: 150px; z-index: 1">
-                {% else %}
-                <img src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/profile_photos/default-pp-min.png" alt="Generic placeholder image" class="img-fluid img-thumbnail ml-1 mt-0 mb-2" style="width: 150px; z-index: 1; height:182px;">
-                {% endif %}
-                
-              </div>
-              <div class="ms-3" style="margin-top: 130px;">
-                <h5 class="pl-2 dark_background">{{profile.user.username}}</h5>
-  
-              </div>
-            </div>
-            <div class="p-4 text-black" style="background-color: #f8f9fa;">
-              <div class="d-flex justify-content-end text-center py-1">
-                <div class="col-7 mr-2">
-                  <a id="edit-profile-btn" href="{% url 'edit_profile'%}" class="btn btn-primary pl-1"  style="z-index: 1;" aria-label="edit profile">
-                    Edit profile
-                  </a>
-                  <a id="add-score-btn" href="{% url 'add_product_store' %}" class="btn btn-success animated-btn" aria-label="add score">Add Score</a>
 
-                </div>
+  <div class="w-100 py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="profile-card-div col col-10 ">
+        <div class="card profile-card">
+          <div class="rounded-top text-white d-flex flex-row"
+            style="background-image: {% if not profile.cover_photo %} url(https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/reviews-background.jpg); {% else %} url({{profile.cover_photo.url}}); {%endif%} background-size: contain; height:200px;">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+              {% if profile.profile_picture %}
+              <img src="{{profile.profile_picture.url}}" alt="profile photo of {{request.user.username}}"
+                class="img-fluid img-thumbnail mt-0 ml-1 mb-2" style="width: 150px; z-index: 1">
+              {% else %}
+              <img
+                src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/profile_photos/default-pp-min.png"
+                alt="Generic placeholder image" class="img-fluid img-thumbnail ml-1 mt-0 mb-2"
+                style="width: 150px; z-index: 1; height:182px;">
+              {% endif %}
 
-                <div>
-                  <p class="mb-1 h5">{{product_number}}</p>
-                  <p class="small text-muted mb-0">Products</p>
-                </div>
-                <div class="px-3">
-                  {% if profile.average_rating > 0.00%}
-                  <p class="mb-1 h5">{{vendor_average_rating}}/5</p>
-                  <p class="small text-muted mb-0">Average Rating</p>
-                  {% else %}
-                  <p class="mb-1 text-muted pb-1">no ratings</p>
-                  <p class="small text-muted mb-0">Average Rating</p>
-                  {% endif %}
-                </div>
-                <div>
-                  <p class="mb-1 h5">{{profile.sales_number}}</p>
-                  <p class="small text-muted mb-0">Sales</p>
-                </div>
-              </div>
             </div>
-            {% if profile.bio %}
-            <div class="card-body p-4 text-black">
-              <div class="">
-                <p class="lead fw-normal mb-1 text-center">About</p>
-                <div class="p-0" style="background-color: #f8f9fa;">
-                  <p style="font-size: 0.9rem;" class="font-italic mb-1 p-3">{{profile.bio}}</p>
-                </div>
-              </div>   
+            <div class="ms-3" style="margin-top: 130px;">
+              <h5 class="pl-2 dark_background">{{profile.user.username}}</h5>
+
             </div>
-            {% endif %}
           </div>
+          <div class="p-4 text-black" style="background-color: #f8f9fa;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <div class="col-7 mr-2">
+                <a id="edit-profile-btn" href="{% url 'edit_profile'%}" class="btn btn-primary pl-1" style="z-index: 1;"
+                  aria-label="edit profile">
+                  Edit profile
+                </a>
+                <a id="add-score-btn" href="{% url 'add_product_store' %}" class="btn btn-success animated-btn"
+                  aria-label="add score">Add Score</a>
+
+              </div>
+
+              <div>
+                <p class="mb-1 h5">{{product_number}}</p>
+                <p class="small text-muted mb-0">Products</p>
+              </div>
+              <div class="px-3">
+                {% if profile.average_rating > 0.00%}
+                <p class="mb-1 h5">{{vendor_average_rating}}/5</p>
+                <p class="small text-muted mb-0">Average Rating</p>
+                {% else %}
+                <p class="mb-1 text-muted pb-1">no ratings</p>
+                <p class="small text-muted mb-0">Average Rating</p>
+                {% endif %}
+              </div>
+              <div>
+                <p class="mb-1 h5">{{profile.sales_number}}</p>
+                <p class="small text-muted mb-0">Sales</p>
+              </div>
+            </div>
+          </div>
+          {% if profile.bio %}
+          <div class="card-body p-4 text-black">
+            <div class="">
+              <p class="lead fw-normal mb-1 text-center">About</p>
+              <div class="p-0" style="background-color: #f8f9fa;">
+                <p style="font-size: 0.9rem;" class="font-italic mb-1 p-3">{{profile.bio}}</p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
-    <div class="row text-center d-block" >
-        
+  </div>
+  <div class="row text-center d-block">
 
-        
-        <div class="row d-block">      
-            <div class=" col-10 offset-1">
-              <hr>
-              <div class="row mt-1 mb-2"></div>
-              <div style="margin-bottom: 100px;" class="row">
-               {% if product_number > 0 %} 
-                {% for product in products %}
-                  <div class="modal fade" id="exampleModal{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header bg-danger d-block">
-                          <h5 class="modal-title text-center text-white" id="exampleModalLabel">Delete
-                            {{product.name}}?</h5>
-                          
-                        </div>
-                        <div class="modal-body">
-                          <p style="font-size: 0.9rem;">Are you sure you want to delete {{product.name}}? This action is irreversible.</p>
-                        </div>
-                        <div class="modal-footer text-center d-block">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close">Close</button>
-                          <a href="{% url 'delete_product_store' product.id%}" aria-label="delete item">
-                            <button type="button" class="btn btn-primary btn-danger animated-btn" aria-label="delete">Delete</button>
-                          </a>
-          
-                        </div>
+
+
+    <div class="row d-block">
+      <div class=" col-10 offset-1">
+        <hr>
+        <div class="row mt-1 mb-2"></div>
+        <div style="margin-bottom: 100px;" class="row">
+          {% if product_number > 0 %}
+          {% for product in products %}
+          <div class="modal fade" id="exampleModal{{forloop.counter0}}" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-danger d-block">
+                  <h5 class="modal-title text-center text-white" id="exampleModalLabel">Delete
+                    {{product.name}}?</h5>
+
+                </div>
+                <div class="modal-body">
+                  <p style="font-size: 0.9rem;">Are you sure you want to delete {{product.name}}? This action is
+                    irreversible.</p>
+                </div>
+                <div class="modal-footer text-center d-block">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="close">Close</button>
+                  <a href="{% url 'delete_product_store' product.id%}" aria-label="delete item">
+                    <button type="button" class="btn btn-primary btn-danger animated-btn"
+                      aria-label="delete">Delete</button>
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <div style="background-color: transparent!important;" class="card product-card h-100 border-0">
+              {% if product.image %}
+              <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
+                <img class="card-img-top img-fluid product" src="{{MEDIA_URL}}{{product.image}}"
+                  alt="{{ product.name}}">
+
+              </a>
+              {% else %}
+              <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
+                <img class="card-img-top img-fluid product"
+                  src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg"
+                  alt="{{ product.name }}">
+              </a>
+              {% endif %}
+              <div class="card-body pb-0 pt-0">
+                <p></p>
+              </div>
+              <div class="card-footer bg-white pt-0 border-0 text-center shadow">
+
+                <div class="row">
+                  <div class="card-body pb-0">
+                    <p style="font-size: 1rem;" class="mb-0">{{ product.name|title }}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+
+                    <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
+                    {% if product.rating %}
+                    <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
+                    {% else %}
+                    <small class="text-muted">No Rating</small>
+                    {% endif %}
+                    <div class="row g-0">
+
+                      <div class="col d-block p-0 ">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal{{forloop.counter0}}"
+                          class="btn btn-danger animated-btn" aria-label="delete {{product.name}}">Delete</a>
+                      </div>
+                      <div class="col p-0 ">
+                        <a href="{% url 'edit_product_store' product.id%} "
+                          class="btn btn-warning text-white animated-btn" aria-label="edit">Edit</a>
                       </div>
                     </div>
                   </div>
-                  <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
-                    <div style="background-color: transparent!important;" class="card product-card h-100 border-0">
-                        {% if product.image %}
-                        <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
-                            <img class="card-img-top img-fluid product" src="{{MEDIA_URL}}{{product.image}}" alt="{{ product.name}}">
-                            
-                        </a>
-                        {% else %}
-                        <a href="{% url 'product_detail' product.id %}" aria-label="link to view {{product.name}}">
-                            <img class="card-img-top img-fluid product" src="https://score-emporium.s3.eu-west-2.amazonaws.com/static/media_1/No_Image_Available.jpg" alt="{{ product.name }}">
-                        </a>
-                        {% endif %}
-                        <div class="card-body pb-0 pt-0">
-                            <p></p>
-                        </div>
-                        <div class="card-footer bg-white pt-0 border-0 text-center shadow">
-                            
-                            <div class="row">
-                                <div class="card-body pb-0">
-                                    <p style="font-size: 1rem;" class="mb-0">{{ product.name|title }}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    
-                                    <p class="lead mb-0 text-center font-weight-bold">£{{ product.price }}</p>
-                                    {% if product.rating %}
-                                        <small class="text-muted gold"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
-                                    {% else %}
-                                        <small class="text-muted">No Rating</small>
-                                    {% endif %}
-                                    <div class="row g-0">
-          
-                                      <div class="col d-block p-0 ">
-                                          <a href="#" data-toggle="modal" data-target="#exampleModal{{forloop.counter0}}"
-                                              class="btn btn-danger animated-btn" aria-label="delete {{product.name}}">Delete</a>
-                                      </div>
-                                      <div class="col p-0 ">
-                                          <a href="{% url 'edit_product_store' product.id%} "
-                                              class="btn btn-warning text-white animated-btn" aria-label="edit">Edit</a>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                  {% if forloop.counter|divisibleby:1 %}
-                  <div class="col-12 d-sm-none mb-5">
-                    <hr>
-                  </div>
-                  {% endif %}
-                  {% if forloop.counter|divisibleby:2 %}
-                  <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
-                    <hr>
-                  </div>
-                  {% endif %}
-                  {% if forloop.counter|divisibleby:3 %}
-                  <div class="col-12 d-none d-lg-block d-xl-none mb-5">
-                    <hr>
-                  </div>
-                  {% endif %}
-                  {% if forloop.counter|divisibleby:4 %}
-                  <div class="col-12 d-none d-xl-block mb-5">
-                    <hr>
-                  </div>
-                  {% endif %}
-                  
-                  {% endfor %}
-                  {% else %}
-                  <div class="col-12">
-                    <p class="text-center">You have no products</p>
-                  </div>  
-                  {% endif %}
               </div>
-        
-        
             </div>
           </div>
-        
+          {% if forloop.counter|divisibleby:1 %}
+          <div class="col-12 d-sm-none mb-5">
+            <hr>
+          </div>
+          {% endif %}
+          {% if forloop.counter|divisibleby:2 %}
+          <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+            <hr>
+          </div>
+          {% endif %}
+          {% if forloop.counter|divisibleby:3 %}
+          <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+            <hr>
+          </div>
+          {% endif %}
+          {% if forloop.counter|divisibleby:4 %}
+          <div class="col-12 d-none d-xl-block mb-5">
+            <hr>
+          </div>
+          {% endif %}
+
+          {% endfor %}
+          {% else %}
+          <div class="col-12">
+            <p class="text-center">You have no products</p>
+          </div>
+          {% endif %}
+        </div>
+
+
+      </div>
     </div>
+
+  </div>
 </div>
 </div>
 </div>
 
 {% endblock %}
-

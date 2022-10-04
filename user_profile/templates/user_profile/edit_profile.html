@@ -2,29 +2,30 @@
 {% load static %}
 
 {% block content %}
-    <div style="background-color: #efeff6;" class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-6 text-center center">
-                
-                <h2 class="logo-font mb-4 text-center pt-3">Edit Profile</h2>
-                <h5 class="text-muted">Edit your profile information and upload a cover or profile photo.</h5>
-                
-                <hr>
-            </div>
-        </div>
+<div style="background-color: #efeff6;" class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-lg-6 text-center center">
 
-        <div class="row">
-            <div class="col-12 col-lg-6 center">
-                <form method="POST" action="{% url 'edit_profile' %}" class="form mb-2" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form | crispy }}
-                    <div style="margin-bottom: 50px;" class="text-center">
-                        <a class="btn btn-secondary" href="{% url 'storefront' request.user.username %}" aria-label="cancel">Cancel</a>
-                        <button class="btn btn-primary" type="submit" aria-label="submit">Edit Profile</button>
-                    </div>
-                </form>
-            </div>            
+            <h2 class="logo-font mb-4 text-center pt-3">Edit Profile</h2>
+            <h5 class="text-muted">Edit your profile information and upload a cover or profile photo.</h5>
+
+            <hr>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 col-lg-6 center">
+            <form method="POST" action="{% url 'edit_profile' %}" class="form mb-2" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <div style="margin-bottom: 50px;" class="text-center">
+                    <a class="btn btn-secondary" href="{% url 'storefront' request.user.username %}"
+                        aria-label="cancel">Cancel</a>
+                    <button class="btn btn-primary" type="submit" aria-label="submit">Edit Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

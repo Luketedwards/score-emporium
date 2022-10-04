@@ -36,12 +36,12 @@ Container / Wrapper
   5. Dashboard Ecommerce
    ========================================================================== */
 
-.dashboard-ecommerce {}
+
 
 
 /* -------------- country sales -------------------*/
 
-.country-sales {}
+
 
 .country-sales-content {
     padding: 20px !important;
@@ -149,7 +149,7 @@ Container / Wrapper
     line-height: 1;
 }
 
-.product-btn {}
+
 
 .product-del {
     font-size: 14px;
@@ -207,7 +207,7 @@ Container / Wrapper
     justify-content: center;
 }
 
-.product-carousel {}
+
 
 .product-carousel .carousel-indicators {
     position: absolute;
@@ -242,8 +242,7 @@ Container / Wrapper
     background-color: #5969ff;
 }
 
-.product-carousel .carousel-control-next,
-.carousel-control-prev {}
+
 
 .carousel-control-prev {
     background-color: black;
@@ -298,7 +297,7 @@ input[type=radio] {
     display: none;
 }
 
-.product-description {}
+
 
 
 .product-colors label {
@@ -838,7 +837,6 @@ Media Query
     border-bottom: 1px solid #e6e6f2;
 }
 
-.simple-card .nav.nav-tabs .nav-item {}
 
 .simple-card .nav.nav-tabs .nav-item .nav-link {
     padding: 27px 49px;
@@ -878,7 +876,7 @@ Media Query
     border-bottom: 1px solid #c4c4cf;
 }
 
-.simple-outline-card .nav.nav-tabs .nav-item {}
+
 
 .simple-outline-card .nav.nav-tabs .nav-item .nav-link {
     padding: 17px 49px;

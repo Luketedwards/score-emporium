@@ -106,11 +106,6 @@ body {
   border-color: #D32F2F !important;
 }
 
-#user-profile-pic {
-  clip-path: circle() !important;
-  height: 100px !important;
-  display: inline;
-}
 
 .comment-icon-box {
   background-color: #007bff;
@@ -332,7 +327,7 @@ body {
   color: white !important;
 }
 
-body {}
+
 
 #search-btn {
   padding: 0;
@@ -901,7 +896,7 @@ a:hover {
   width: 100%;
 }
 
-.product-detail-top {}
+
 
 .product-btn {
   background-color: red !important;
@@ -1062,18 +1057,7 @@ a:hover {
   width: 0;
 }
 
-&.show-icon {
-  .iconC {
-      animation: flash 1.5s infinite linear;
-      // opacity:1;
-  }
-}
 
-/* cart */
-
-/* checkout */
-
-/* guitar pro */
 
 /* media queries */
 /* Slightly larger container on xl screens */

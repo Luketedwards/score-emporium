@@ -12,7 +12,10 @@
     <div class="col-12 text-center mt-3">
         <h1 class="heading">Purchased Scores</h1>
         <p>Number of Scores: {{score_number}}</p>
-        <p>Below you will find all of the scores purchased using your account. Download links for the various associated files can be accessed by hovering over a score. If features such as 'play in browser' are available for your chosen score then a button will be presented. If the score lacks any particular feature then the button will be greyed out.  </p>
+        <p>Below you will find all of the scores purchased using your account. Download links for the various associated
+            files can be accessed by hovering over a score. If features such as 'play in browser' are available for your
+            chosen score then a button will be presented. If the score lacks any particular feature then the button will
+            be greyed out. </p>
         <hr>
     </div>
     <div class="row mt-1 mb-5">
@@ -41,12 +44,14 @@
                             </p>
                             <p>
                                 <a href="{{MEDIA_URL}}{{item.product.PDF}}" class="btn btn-primary my-auto animated-btn"
-                                    target="_blank" aria-label="download PDF"><i class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
+                                    target="_blank" aria-label="download PDF"><i
+                                        class="fa-solid fa-cloud-arrow-down"></i>PDF</a>
                             </p>
                             <p>
                                 {% if item.product.Guitar_Pro_Locked%}
-                                <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}" class="btn btn-primary animated-btn"
-                                    target="_blank" aria-label="download Guitar Pro"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
+                                <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Locked}}"
+                                    class="btn btn-primary animated-btn" target="_blank"
+                                    aria-label="download Guitar Pro"><i class="fa-solid fa-cloud-arrow-down"></i>GP</a>
                                 {% else %}
                                 {% if item.product.Guitar_Pro_Unlocked%}
                                 <a href="{{MEDIA_URL}}{{item.product.Guitar_Pro_Unlocked}}"
@@ -59,16 +64,18 @@
                             <p>
                                 {% if item.product.Guitar_Pro_Unlocked %}
                                 <span><a href="{% url 'guitar_pro' item.product.id%}"
-                                        class="btn btn-primary animated-btn" aria-label="play in browser">Play in Browser</a></span>
+                                        class="btn btn-primary animated-btn" aria-label="play in browser">Play in
+                                        Browser</a></span>
                                 {%else%}
-                                <span><input type="button" disabled value="No GP File " aria-label="no Gp file available"
-                                        class="btn btn-secondary "></span>
+                                <span><input type="button" disabled value="No GP File "
+                                        aria-label="no Gp file available" class="btn btn-secondary "></span>
                                 {%endif%}
                             </p>
 
                             <p>
                                 <a class="btn btn-primary animated-btn"
-                                    href="{% url 'product_detail' item.product.id %}" aria-label="link to view {{product.name}}">
+                                    href="{% url 'product_detail' item.product.id %}"
+                                    aria-label="link to view {{product.name}}">
                                     View Product
                                 </a>
                             </p>
@@ -80,19 +87,22 @@
                 <div class="score-info text-center shadow-checkout">
                     {% for order in orders%}
                     {% for lineitem in order.lineitems.all%}
-                        {% if lineitem.product.id == item.product.id %}
-                            <p><h5><strong>Score Info</strong></h5></p>
-                            <span><a href="{% url 'storefront' storevendor=lineitem.product.vendor%}">{{lineitem.product.vendor|title}}</a></span>
-                            <br>
-                            <span><strong>£{{lineitem.product.price}}</strong></span>
-                            <br>
-                            <span class="">{{order.date}}</span>
-                        {%endif%}
+                    {% if lineitem.product.id == item.product.id %}
+                    <p>
+                        <h5><strong>Score Info</strong></h5>
+                    </p>
+                    <span><a
+                            href="{% url 'storefront' storevendor=lineitem.product.vendor%}">{{lineitem.product.vendor|title}}</a></span>
+                    <br>
+                    <span><strong>£{{lineitem.product.price}}</strong></span>
+                    <br>
+                    <span class="">{{order.date}}</span>
+                    {%endif%}
                     {%endfor%}
-                {%endfor%}
+                    {%endfor%}
                 </div>
             </div>
-            
+
             {% if forloop.counter|divisibleby:1 %}
             <div class="col-12 d-sm-none mb-5">
                 <hr>
@@ -119,10 +129,10 @@
             <div class="col-12 text-center">
                 <h5 class="mt-3 mb-3 ">You have not purchased any scores yet.</h5>
                 <a href="{% url 'products' %}" aria-label="browse scores" class="btn btn-primary">Browse Scores</a>
-            {%endif%}
+                {%endif%}
 
+            </div>
         </div>
-    </div>
 
-</div>
-{% endblock %}
+    </div>
+    {% endblock %}

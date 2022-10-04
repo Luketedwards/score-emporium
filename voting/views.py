@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
+
 def requests(request):
     """ A view to return the requests page """
     form = CommentForm

@@ -260,7 +260,7 @@ body{
 }
 
 .time{
-	transition:  0;
+	transition:  0s;
 	background-color: transparent;
 
 }
