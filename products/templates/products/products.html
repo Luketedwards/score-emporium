@@ -28,10 +28,10 @@
               Filter Results
             </button>
           
-            <ul class="dd-menu">
+            <div class="dd-menu">
               <form action="{% url 'products'%}" method="POST">
                 {% csrf_token %}
-                <li>
+                <div>
                     <div class="form-group col-12">
                         <select name="genre" class=" filter form-control" aria-label="genre">
                             <option value="">Select Genre</option>
@@ -47,8 +47,8 @@
                             <option value="">Show All</option>
                         </select>
                     </div>
-                </li>
-                <li>
+                </div>
+                <div>
                     <div class="form-group col-12">
                         <select name="difficulty" class=" filter form-control" aria-label="difficulty">
                             <option value="">Select Difficulty </option>
@@ -59,8 +59,8 @@
                             <option value="">Show All</option>
                         </select>
                     </div>
-                </li>
-                <li>
+                </div>
+                <div>
                     <div class="form-group col-12">
                         <select name="rating" class=" filter form-control" aria-label="rating">
                             <option value="">Rating</option>
@@ -70,8 +70,8 @@
                             <option value="">Show All</option>
                         </select>
                     </div>
-                </li>
-                <li>
+                </div>
+                <div>
                     <div class="form-group col-12">
                         <select name="price" class=" filter form-control" aria-label="price">
                             <option value="">Price Range</option>
@@ -80,14 +80,14 @@
                             <option value="">Show All</option>
                         </select>
                     </div>
-                </li>
-                <li>
+                </div>
+                <div>
                     <div class="form-group col-12 ">
                         <button type="submit" class="btn btn-primary w-100" aria-label="filter">Filter</button>
                     </div>
-                </li>
+                </div>
             </form>
-            </ul>
+        </div>
             
           </div>
         

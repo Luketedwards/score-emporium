@@ -9,11 +9,6 @@ html {
   height: 100%;
 }
 
-.text-outline {
-  text-shadow: 0 0 6px #000;
-  
-}
-
 .nav-text{
   font-size: 1.2rem !important;
 }
@@ -70,6 +65,46 @@ body {
   }
 }
 
+.btn{
+  font-size: 1rem;
+  /* subtle text shadow */
+  
+}
+
+.active2{
+  color: black !important;
+  border: black !important;
+}
+
+.btn-primary{
+  background-color: #1b6ec2 !important;
+  border-color: #1b6ec2 !important;
+}
+
+.btn-primary:hover{
+  background-color: #1976D2 !important;
+  border-color: #1976D2 !important;
+}
+
+.btn-warning{
+  background-color: #FF9807 !important;
+  border-color: #FF9807 !important;
+}
+
+.btn-warning:hover{
+  background-color: #FFCA28 !important;
+  border-color: #FFCA28 !important;
+}
+
+.btn-danger{
+  background-color: #BA202F !important;
+  border-color: #BA202F !important;
+}
+
+.btn-danger:hover{
+  background-color: #D32F2F !important;
+  border-color: #D32F2F !important;
+}
 
 #user-profile-pic {
   clip-path: circle() !important;
@@ -215,7 +250,7 @@ body {
 
 #footer {
   margin-top: 25px;
-  background-color: cadetblue !important;
+  background-color: #4c7e80 !important;
   color: white;
   bottom: 0;
   width: 100%;
@@ -284,7 +319,7 @@ body {
 
 #logo {
   font-family: 'Arima', cursive;
-  background-color: cadetblue;
+  background-color: #4c7e80;
   border-radius: 10px;
   color: white !important;
   padding: 10px;
@@ -310,7 +345,7 @@ body {}
 #search-btn:hover {
   padding: 0;
   background-color: black;
-  color: white;
+  color:  white !important;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -366,8 +401,8 @@ body {}
 }
 
 #account-drop {
-  background-color: cadetblue;
-  color: white !important;
+  background-color: #4c7e80;
+  color: black !important;
   z-index: 9980;
 }
 
@@ -376,12 +411,12 @@ body {}
 }
 
 #account-button {
-  background-color: cadetblue;
+  background-color: #4c7e80;
   color: white;
   padding: 10px 15px 10px 15px;
   font-size: 1.1rem;
   border-radius: 10px;
-  border: 2px solid cadetblue;
+  border: 2px solid #4c7e80;
   transition: .5s ease-in-out, box-shadow .4s ease-in-out;
 
 }
@@ -403,13 +438,13 @@ body {}
 }
 
 #cart-button {
-  background-color: cadetblue;
+  background-color: #4c7e80;
   color: white;
   padding: 10px 15px 10px 15px;
   font-size: 1.1rem;
   border-radius: 10px;
   transition: .5s ease-in-out, box-shadow .4s ease-in-out;
-  border: 2px solid cadetblue;
+  border: 2px solid #4c7e80;
 
 }
 
@@ -436,7 +471,7 @@ body {}
 }
 
 .dropdown-menu {
-  background-color: cadetblue !important;
+  background-color: #4c7e80 !important;
   opacity: 0.9;
   color: white !important;
 }
@@ -451,7 +486,7 @@ body {}
 }
 
 nav {
-  background-color: cadetblue !important;
+  background-color: #4c7e80 !important;
 }
 
 .overlay-color {
@@ -998,7 +1033,7 @@ a:hover {
   height: 160px;
 }
 
-#commentBox {
+.commentBox {
   overflow: hidden;
   position: relative;
   height: 300px;

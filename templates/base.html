@@ -5,7 +5,7 @@
 <head>
     {% block meta %}
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatiblie" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content=" Score Emporium is a marketplace for high quality interactive scores, PDF's and Guitar Pro Files">
     {% endblock %}
@@ -54,8 +54,7 @@
     {% endblock %}
 
     {% block extrajs %}
-    <!-- Stripe Javascript-->
-    <script src="https://js.stripe.com/v3/"></script>
+    
     {% endblock %}
 
 
@@ -131,12 +130,12 @@
                         </a>
                     </li>
                     <li id="form-list" class="list-inline-item">
-                        <a href="#" class="mr-2 nav-link">
+                        
                         <form  method="GET" action="{% url 'products' %}">
                             <input  class="search" id="searchleft" type="search" name="q" placeholder="Search" aria-label="search button">
-                            <label class="button searchbutton" for="searchleft"><div><i class="fas fa-search"></i></div></label>
-                          </form>
-                        </a>
+                            <label class="button searchbutton" for="searchleft"><i class="fas fa-search"></i></label>
+                        </form>
+                        
                     </li>
                 </ul>
             </div>
@@ -149,8 +148,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div style="z-index: 1041;" id="animated-toggle">
-                <input id="menu__toggle" class="navbar-toggler" data-toggle="collapse" aria-target="#main-nav"
-                    aria-controls="main-nav" aria-expanded="'false" aria-label="Toggle navigation" type="checkbox" />
+                <input id="menu__toggle" class="navbar-toggler" data-toggle="collapse" 
+                    aria-controls="main-nav"  aria-label="Toggle navigation"  type="checkbox"  />
                 <label style="z-index: 1041;" class="menu__btn" for="menu__toggle">
                     <span id="menu_label"></span>
                 </label>
@@ -186,7 +185,7 @@
     {% endblock %}
 
     {% block postload_js%}
-    <script type="text/javascript">
+    <script >
         $('.toast').toast('show');
     </script>
     <script src="{% static 'js/animations.js'%}"></script>

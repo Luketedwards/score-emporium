@@ -60,6 +60,19 @@ $(document).ready(function () {
 
   $('#myModal').modal('show');
 
+  // when .searchbutton is clicked make it active
+  $('.searchbutton').click(function () {
+    $('.searchbutton').addClass('active2');
+  }
+  );
+  // when user clicks away from searchbutton, remove active class
+  $(document).click(function (event) {
+    if (!$(event.target).closest('.searchbutton').length) {
+      $('.searchbutton').removeClass('active2');
+    }
+  }
+  );
+
 
 
 });

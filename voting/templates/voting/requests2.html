@@ -221,7 +221,7 @@
 
                                     </div>
                                     <div class="modal-body">
-                                        <div id="commentBox" class="containerC show-icon">
+                                        <div  class="containerC show-icon commentBox">
                                             <div class="scrollbox">
                                                 <ul class="listC">
                                                     {% for comment in comments %}
@@ -357,7 +357,7 @@
 
                                     </div>
                                     <div class="modal-body">
-                                        <div id="commentBox" class="containerC show-icon">
+                                        <div  class="containerC show-icon commentBox">
                                             <div class="scrollbox">
                                                 <div class="card text-center">
                                                     {% for submit in submissions %}
@@ -616,13 +616,13 @@
                         <div class="modal fade" id="commentModal{{requested.id}}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
-                                <div style="background-color: cadetblue;" class="modal-content blue-modal">
+                                <div style="background-color: #4c7e80;" class="modal-content blue-modal">
                                     <div class="modal-header">
-                                        <h5 class="modal-title center text-white" id="exampleModalLabel">Comments</h5>
+                                        <h5 class="modal-title center text-white" id="exampleModalLabel{forloop.counter0}">Comments</h5>
 
                                     </div>
                                     <div class="modal-body">
-                                        <div id="commentBox" class="containerC show-icon">
+                                        <div  class="containerC show-icon commentBox">
                                             <div class="scrollbox">
                                                 <ul class="listC">
                                                     {% for comment in comments %}

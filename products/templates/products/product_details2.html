@@ -81,7 +81,7 @@
                                                     {%else%}
                                                     {% if product.id in ordersList %}
                                                     <input style="width: 9rem !important;
-                                                    padding: 7px !important;" id="product-btn" disabled type=""
+                                                    padding: 7px !important;" id="product-btn" disabled type="submit"
                                                         class="btn btn-black product-btn mt-2" value="Owned" aria-label="you already own this product">
                                                     {% elif product.vendor == current_username%}
                                                     <input id="product-btn" disabled type="submit" style="width: 9rem !important;
@@ -91,7 +91,7 @@
 
                                                     {% elif  product.id|stringformat:'i'  in request.session.cart %}
                                                     <input style="width: 9rem !important;
-                                                    padding: 7px !important;" id="product-btn" disabled type=""
+                                                    padding: 7px !important;" id="product-btn" disabled type="submit"
                                                         class="btn btn-black product-btn mt-2" value="Added" aria-label="product already in basket">
 
                                                     {% else %}
@@ -223,38 +223,34 @@
                                             data-color="lightblue" alt="{{vendor_products.name}}">
                                         {%endif%}
                                     </a>
-                                    <ul class="product-links">
+                                    <div class="product-links">
                                         {% if user.is_authenticated %}
 
                                         <form class="form" action="{% url 'add_to_cart' vendor_products.id %}"
                                             method="POST">
                                             {% csrf_token %}
 
-
-
-
-
                                             {% if not request.session.cart and vendor_products.id not in ordersList%}
 
-                                            <li><a style="font-size: 1.4rem;"
+                                            <div><a style="font-size: 1.4rem;"
                                                     onclick="this.closest('form').submit();return false;" class=""
-                                                    href="#"><i class="fas fa-shopping-cart" aria-label="add to cart"></i></a></li>
+                                                    href="#"><i class="fas fa-shopping-cart" aria-label="add to cart"></i></a></div>
 
                                             {%else%}
                                             {% if product.id in ordersList%}
-                                            <li class="disabled"><a aria-label="owned" style="font-size: 1.4rem;" onclick="owned()"
-                                                    class="disabled" href="#"><strike><i
-                                                            class="fa-solid fa-cart-flatbed"></i></strike> </a></li>
+                                            <div class="disabled"><a aria-label="owned" style="font-size: 1.4rem;" onclick="owned()"
+                                                    class="disabled" href="#"><i
+                                                            class="fa-solid fa-cart-flatbed"></i> </a></div>
 
                                             {% elif product.id|stringformat:"i" not in request.session.cart %}
-                                            <li><a style="font-size: 1.4rem;"
+                                            <div><a style="font-size: 1.4rem;"
                                                 aria-label="add to cart" onclick="this.closest('form').submit();return false;" class=""
-                                                    href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                                                    href="#"><i class="fas fa-shopping-cart"></i></a></div>
 
                                             {% else %}
-                                            <li class="disabled"><strike><a aria-label="add to cart" style="font-size: 1.4rem;"
+                                            <div class="disabled"><a aria-label="add to cart" style="font-size: 1.4rem;"
                                                         onclick="inCart()" class="disabled" href="#"><i
-                                                            class="fa-solid fa-cart-flatbed"></i></a></strike></li>
+                                                            class="fa-solid fa-cart-flatbed"></i></a></div>
                                             {%endif%}
                                             {%endif%}
 
@@ -268,14 +264,14 @@
 
                                         </form>
                                         {%else%}
-                                        <li><a href="{% url 'account_login' %}" aria-label="login to add to cart"><i class="fas fa-shopping-cart"></i></a>
-                                        </li>
+                                        <div><a href="{% url 'account_login' %}" aria-label="login to add to cart"><i class="fas fa-shopping-cart"></i></a>
+                                        </ldivi>
                                         {%endif%}
 
-                                        <li><a href="{% url 'product_detail' vendor_products.id%}" aria-label="link to view {{product.name}}"><i
-                                                    class="fa fa-eye"></i></a></li>
+                                        <div><a href="{% url 'product_detail' vendor_products.id%}" aria-label="link to view {{product.name}}"><i
+                                                    class="fa fa-eye"></i></a></div>
 
-                                    </ul>
+                                    </div>
                                 </div>
                                 <div class="product-content">
                                     <div class="price">£{{vendor_products.price}}</div>

@@ -110,12 +110,12 @@ The purpose of this project is to demonstrate my full-stack development skills b
 ---
 
 ### Colour Scheme
-The colors used throughout the site are Cadeblue for the navbar, footer and other elements, and White is also used for other portions of the navbar. #efeff6 is used as a background colour for every page. The buttons are all coloured using the bootstrap default colours; most notably btn-primary for any positive action, btn-danger for deleting or remove items, and btn-secondary for cancelling actions.
+The colors used throughout the site are #4C7E80 for the navbar, footer and other elements, and White is also used for other portions of the navbar. #efeff6 is used as a background colour for every page. The buttons are all coloured using the bootstrap default colours; most notably btn-primary for any positive action, btn-danger for deleting or remove items, and btn-secondary for cancelling actions.
 
 #### Colours used
 * #efeff6 (Body background)
 * #fafafa (navbar)
-* #5F9EA0 (navbar and footer)
+* #4C7E80 (navbar and footer)
 * #68a0b0  (score request cards)
 * #68a0b0  (score request cards)
 
