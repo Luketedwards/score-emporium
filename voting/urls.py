@@ -50,4 +50,7 @@ urlpatterns = [
         'accept_submission/<int:pk>/<int:score_pk>',
         views.accept_score_submission,
         name='accept_score_submission'),
+    path('decline_submission/<int:pk>',
+        views.decline_score_submission,
+        name='decline_score_submission'),
 ]

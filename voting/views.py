@@ -289,3 +289,14 @@ def accept_score_submission(request, pk, score_pk):
     post.save()
     messages.success(request, f"Successfully accepted {post.PDF}!")
     return redirect('requests')
+
+def decline_score_submission(request, pk):
+    """ A view to decline score submission"""
+    # get submission
+    post = get_object_or_404(ScoreSubmissions, pk=pk)
+    # delete submission
+    post.delete()
+    messages.success(request, f"Successfully declined!")
+    return redirect('requests')
+
+        

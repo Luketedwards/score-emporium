@@ -143,12 +143,17 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - Most events on the website are accompanied by an informative toast pop-up to alert the user as to what is happening. These alerts are colour coded to immediately convey the nature of the notification.
 
 <!-- add image of toast -->
+![success toast](./README_images/features_images/toast_optimized.png "Toast")
 
 ### Search Bar
 
 - The site features two search bars; a full sized one on larger screens, and an expandable animated button on smaller screens. The search bar can be used to filter products by numerous parameters including name and description.
 
 <!-- add image of both search bars -->
+![Main Nav](./README_images/features_images/main_search_bar_optimized.png "Main search bar")
+![Mobile Nav Collapsed](./README_images/features_images/mobile_search_collapsed_optimized.png "Mobile search collapsed")
+![Mobile Nav ](./README_images/features_images/mobile_search_optimized.png "Mobile search ")
+
 
 ### Products
 
@@ -159,14 +164,20 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - The scores are fully responsive, with the number of items per row changing contextually based on the screen size.
 
 <!-- add image of all products page -->
+![All Products ](./README_images/features_images/all_products_optimized.png "All Products ")
 
 - Scores which are already owned by the user are clearly labelled as such. The rating of the product and it's price are also visible on the information footer.
 
 <!-- add image of owned label -->
+![Owned Label ](./README_images/features_images/product_item_owned_optimized.png "Owned Label ")
+
 
 - The items on the products page can easilly be filtered by one or many parameters, using the compact filter button at the top of the page. Options include organizing by rating, price, and filtering by difficulty or genre.
 
 <!-- add image of filter button  -->
+![Filter Button ](./README_images/features_images/product_filter_button_optimized.png "Filter Button ")
+![Filter Button dropdown ](./README_images/features_images/product_filter_optimized.png "Filter Button Dropdown")
+
 
 ### Product Details 
 
@@ -178,6 +189,9 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 - The button to add items to the users cart is contextual based on a number of situations. If the user is not logged in, it instead prompts them to do so. If the product is the users own uploaded product, the item is already owned by the user, or the item is already in the current shopping cart, the button becomes disabled and clearly indicates the reason.
 <!-- Photo of add to cart button -->
+![Add to cart ](./README_images/features_images/add_to_cart_optimized.png "Add to cart ")
+![Add to cart owned ](./README_images/features_images/your_item_add_to_cart_button_optimized.png "Add to cart owned")
+
 
 #### Item tabs
 
@@ -185,12 +199,21 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 1. The first tab displays the products description.
 <!-- Photo of 1st tab -->
+![description tab ](./README_images/features_images/product_detail_description_tab_optimized.png "description tab")
+
 2. The second tab displays user ratings of the product along with a contextual bar graph displaying the total number of reviews, the overall rating, and the exact numbers of each level of rating. The bars programatically fill to the correct level based on the ratio of that star review. For example, if the item has 1 five-star review and 1 four-star review, the 5 star and 4 star bars will both fill to 50% and the overall rating will be 4.5 stars. Below this the actual content of the reviews is visible.
 <!-- Photo of 2nd tab -->
+![reviews tab ](./README_images/features_images/product_detail_reviews_tab_optimized.png "reviews tab")
+
 3. The third tab displays an animated form to leave a review. The submit button of this is contextual based on whether the item is owned or not, if the item is the product of the user, or if the user is not logged in. If the user has already submitted a review and decides to create a second one, the new review will simply updated the existing one.
 <!-- Photo of 3rd tab -->
+![leave a review tab good ](./README_images/features_images/product_detail_good_review_optimized.png "leave a review tab good")
+![leave a review tab bad ](./README_images/features_images/product_detail_poor_review_optimized.png "leave a review tab bad")
+
 4. The fourth tab displays an iframe of a youtbe video if the vendor provided one. If not then this tab is disabled.
 <!-- Photo of 4th tab -->
+![video tab ](./README_images/features_images/product_detail_video_tab_optimized.png "video tab")
+
 
 #### Other items section
 
@@ -198,6 +221,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - By hovering over an item the user is provided with two animated buttons to either view the product or add it to their cart. If the item is already owned, or added to the cart the user will be informed of this.
 - Below each item a number of golden stars will be displayed based on the nearest integer to the products average rating.
 <!-- Photo of other items section -->
+![vendor other items ](./README_images/features_images/other_products_by_vendor_optimized.png "vendor other items")
+
 ### Storefront 
 ---
 #### Users Storefront
@@ -205,7 +230,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - If the user is a vendor they will have access to the storefront section. This allows them to create and edit their products to sell on the site. 
 - This area of the site also displays the users average rating, which is a number generated by averaging out all of the reviews across the users products. The users total number of sales is also displayed to help provide customers information to help guide them in thier purchases.
 <!-- Photo of users storefront card -->
-<!-- Photo of users storefront items -->
+![user store card ](./README_images/features_images/users_store_card_optimized.png "user store card")
+![user store item ](./README_images/features_images/users_store_item_optimized.png "user store item")
 
 ##### Adding a product
 
@@ -214,6 +240,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 ###### Thumbnail Generator
 - If the user does not provide their own image of the product, the required PDF file will be processed to blur out the lower portion of the music so as not to give away too much of the score. The blurred image will then be watermarked with the vendors name and the text 'SAMPLE'. This image will then be automatically set as the product image.
 <!-- Photo of generated thumbnail -->
+![auto generated thumbnail](./README_images/features_images/generated_thumbnail_optimized.png"auto generated thumbnail")
+
 
 ##### Editing a product
 
@@ -233,6 +261,7 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 - When the link for another user is clicked anywhere on the site, the user is taken to their storefront. This page acts in a similar way to the products page, but all of the products displayed are for the selected user. The vendors profile card is also visible at the top of the page displaying information such as their number of sales, overall rating and bio information.
 <!-- Photo of other users storefront -->
+![ other user store card ](./README_images/features_images/other_users_store_optimized.png " other user store card")
 
 ### Purchased Scores
 ---
@@ -240,6 +269,9 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - All the purchased scores are layed out as cards in a responsive grid with information about the score on the front side of the card, such as title, price, purchase date and the image.
 - When hovered the card flips to reveal download links for the PDF, and GP files, a link to play the score in the interactive score player, and a link to the product.
 <!-- Photo of unflipped purchased scores-->
+![ unflipped purchased score card ](./README_images/features_images/purchased_score_front_optimized.png " unflipped purchased score card")
+![ flipped purchased score card ](./README_images/features_images/purchased_score_flipped_optimized.png " flipped purchased score card")
+
 <!-- Photo of filpped purchased scores-->
 ### Sales dashboard
 ---
@@ -249,6 +281,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - A table displays the vendors top 5 selling products along with their quantity sold and revenue generated.
 - All of this data is intended to give the vendor insight as to which types of products are selling best, to guide them in providing future products.
 <!-- Photo of dashboard feautres-->
+![ sales dashboard ](./README_images/features_images/sales_dashboard_optimized.png " sales dashboard")
+
 
 ### Request a Score
 
@@ -260,20 +294,30 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 #### Make a Request
 - The make a request page allows authenticated users to create a request for a particular score or piece of music. This request is then visible to other users and vendors on the site.
 <!-- Photo of make a request form-->
+![ request a score form ](./README_images/features_images/score_request_form_optimized.png " request a score form")
+
 
 
 #### Trending Requests
 - The trending requests page displays all active requests by users. The request is layed out in a responsve grid pattern as hoverable cards. The front face of the card displays basic information and a description, and the back face has relevant links, and action buttons.
 <!-- Photo of front of request card-->
+![ score card ](./README_images/features_images/request_card_front_optimized.png " score card")
+
 
 - The cards feature a likes and comments system, and are ranking by the number of likes a post has received. The idea is that the most popular requests rise to the top, and so are more likely to be fulfilled by a vendor.
 <!-- Photo of back of request card-->
+![ score card back ](./README_images/features_images/request_card_flipped_optimized.png " score card back")
+
 
 - The cards also features a score submission button if you are not the creator of the post. This allows you to upload files and messages which are visible to the creator. If the post belongs to you you are able to see submission which you can either accept or decline. 
 <!-- Photo of score submissions-->
+![ score card submission form ](./README_images/features_images/score_submission_optimized.png" score card submission form")
+![ score card submission accept ](./README_images/features_images/score_accept_optimized.png" score card submission accept")
+
 
 - Once a submisson has been accepted by the post creator, the post is moved to the 'completed' page tab. The card will now display the details of the successful submission, so that other interested users can purchase it.
 <!-- Photo of completed request-->
+
 
 ### Guitar Pro Player
 ---
@@ -284,7 +328,10 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - The score player is responsive to screensize, and will become obscured by an overlay when the screen size is too small for the player to be practical.
 
 <!-- Photo of score player-->
+![ score player](./README_images/features_images/score_player_optimized.png" score player")
+
 <!-- Photo of score player overlay-->
+![ score player overlay](./README_images/features_images/overlay_optimized.png" score player overlay")
 
 
 ### Reviews
@@ -292,7 +339,12 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - The site features a reviews system which interacts with both the products and the product vendor. After purchasing a score the user is able to leave a review from the product details tab. This review is then linked to the product, and an average rating is generated for the item. 
 - All reviews left on a vendors products are used to generate an average score which is then assigned to the vendors profile to help customers guage the overall quality of their products.
 <!-- Photo of review form-->
+![ good review](./README_images/features_images/product_detail_good_review_optimized.png" good review")
+![ poor review](./README_images/features_images/product_detail_poor_review_optimized.png" poor review")
+
 <!-- Photo of review chart-->
+![ review chart ](./README_images/features_images/product_detail_reviews_tab_optimized.png"review chart")
+
 
 
 
@@ -301,9 +353,13 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 - When a product is purchased on the site, two different types of emails are generated and sent out. The first is an order confirmation email which is sent to the customer containing details about their order, order number, cost etc.
 <!-- Photo of customer email-->
+![ customer email](./README_images/features_images/customer_order_email_optimized.png" customer email")
+
 
 - The second email is a vendor sale notificaiton. This email is sent to each vendor who was involed in the sale, and only provides them the details of their contribution. For example if four products are purchased from a total of three vendors, two vendors will receive confirmation emails about the single product they have sold, and the third vendor will recieve an email detailing the two that they have sold.
 <!-- Photo of vendor email-->
+![ vendor email](./README_images/features_images/vendor_sale_email_optimized.png" vendor email")
+
 
 - When the sale completes, the site comission of 20% is deducted from the total sale, and the total after comission is credited to each vendors credit due. 
 - The email template is styled and features both an image of a shopping cart, and the individual product images for the order.

@@ -418,7 +418,7 @@ def dashboard(request):
                 # if there are no customers, redirect to empty dashboard
                 return render(
                     request,
-                    'user_profile/dashboard-empty.html',
+                    'user_profile/dashboard.html',
                     context)
             else:
                 return render(request, 'user_profile/dashboard.html', context)

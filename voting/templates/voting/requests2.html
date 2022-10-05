@@ -348,8 +348,8 @@
                         <!-- modal to view post submissions -->
                         <div class="modal fade" id="viewSubmissionsModal{{requested.id}}" tabindex="-1" role="dialog"
                             aria-labelledby="exampleModalLabel3" aria-hidden="true">
-                            <div style="width: 40vw !important;" class="modal-dialog modal-lg" role="document">
-                                <div style="width: 40vw !important; " class="modal-content blue-modal">
+                            <div  class="modal-dialog " role="document">
+                                <div  class="modal-content blue-modal ">
                                     <div class="modal-header">
                                         <h5 class="modal-title center text-white" id="exampleModalLabel3">Score Submissions</h5>
 
@@ -368,32 +368,32 @@
                                                     <div style="color: black !important;" class="col-12 ">
                                                         <span
                                                             class="center h4"><strong>{{submit.created_by}}</strong></span>
-                                                        <div class="right">
-                                                            <a href="" class="btn btn-danger" aria-label="decline submission"><i
-                                                                    class="fa-solid fa-circle-xmark"></i></a>
-                                                            <a href="{% url 'accept_score_submission' pk=submit.pk score_pk=requested.pk%}"
-                                                                class="btn btn-success" aria-label="accept submission"><i
-                                                                    class="fa-solid fa-circle-check"></i></a>
-                                                        </div>
+                                                        
 
 
                                                     </div>
 
-                                                    <div class="col-12">{{submit.content}}</div>
+                                                    <div style="color: black !important;" class="col-12">{{submit.content}}</div>
                                                     <br>
                                                     {% if submit.link %}
-                                                    <div class="col-12"><a href="{{submit.link}}" aria-label="link to score">Link to Score</a>
+                                                    <div style="width: fit-content!important; color:white !important; margin-bottom: 10px !important;" class="col-12 btn btn-primary center"><a style="color:white !important;" href="{{submit.link}}" aria-label="link to score">Link to Score</a>
                                                     </div>
                                                     {% endif %}
                                                     {% if submit.PDF %}
-                                                    <div class="col-12"><a href="{{submit.PDF}}" aria-label="link to PDF">Link to PDF</a></div>
-                                                    <div class="col-12"><a href="{{submit.PDFpath}} " aria-label="link to PDF">Link to PDF2</a>
+                                                    <div style="width: fit-content!important;  margin-bottom: 10px !important;" class="col-12 btn btn-primary center"><a style="color:white !important;" href="{{submit.PDF}}" aria-label="link to PDF">Link to PDF</a></div>
+                                                    <div style="width: fit-content!important;  margin-bottom: 10px !important;" class="col-12 btn btn-primary center"><a style="color:white !important;" href="{{submit.PDFpath}} " aria-label="link to PDF">Link to PDF2</a>
                                                     </div>
                                                     {% endif %}
                                                     <div class="col-12 text-muted">{{submit.date}}</div>
-                                                    <div class="col-12 text-muted">{{submit.accepted}}</div>
-
-                                                    <hr>
+                                                    
+                                                    <div class="center pb-3 pt-3">
+                                                        <a href="{% url 'decline_score_submission' pk=submit.pk %}" class="btn btn-danger" aria-label="decline submission"><i
+                                                                class="fa-solid fa-circle-xmark"></i></a>
+                                                        <a href="{% url 'accept_score_submission' pk=submit.pk score_pk=requested.pk%}"
+                                                            class="btn btn-success" aria-label="accept submission"><i
+                                                                class="fa-solid fa-circle-check"></i></a>
+                                                    </div>
+                                                    
                                                     {% endif %}
                                                     {% endfor %}
                                                 </div>

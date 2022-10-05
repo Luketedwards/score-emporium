@@ -107,21 +107,24 @@ During development I continually testing the project in a number of ways.
 
 * The CSS stylesheet passed through the official [W3C Validator](https://validator.w3.org) with no issues.
 
-Results can be found [here](/static/readme-files/validator-results/)
+HTML results can be found [here](README_images/testing_images/html)
+CSS results can be found [here](README_images/testing_images/css)
 
 
 ## Accessibility and Performance
 ---
 The project was tested using both [lighthouse](https://developers.google.com/web/tools/lighthouse) and [Wave](https://wave.webaim.org/) to check the overall performance and accessibility of the project.
 
-The [Wave](https://wave.webaim.org/) report revealed some errors however I believe these were irrelevant. For example the link for the side nav is a burger icon. Due to its' lack of text Wave reported this as an empty link error. Some of the labels for the instrument and genre dropdowns are also not recognised despite being present.
-Wave results can be viewed [here](/static/readme-files/wave/)
+The [Wave](https://wave.webaim.org/) report revealed some errors however I believe these were irrelevant. For example the link for the side nav is a burger icon. Due to its' lack of text Wave reported this as an empty link error. Some of the labels for the search bars are also not recognised despite being present.
+Wave results can be viewed [here](README_images/testing_images/wave)
 
-The [lighthouse](https://developers.google.com/web/tools/lighthouse) report was positive for almost all areas, particularly for accessibility, SEO and best practises. Some marks were lost again due to an 'Empty link' for the side nav being present in the 'base.html' file, and thus occuring on every page.
+The [lighthouse](https://developers.google.com/web/tools/lighthouse) report was very positive for almost all areas, particularly for accessibility, SEO and best practises. Some marks were lost again due to an 'Empty link' and form label in the nav being present in the 'base.html' file, and thus occuring on every page.
 Performance was generally rated positively, and the site seems to run very well on all tested devices.
-Light house results can be viewed [here](/static/readme-files/lighthouse/)
+Light house results can be viewed [here](README_images/testing_images/lighthouse)
 
 The python file was run through the PEP8 validator to ensure no syntax errors, and the Javascript files were validated using JsHint.
 I used both autopep8 and an online tool to try to adhere to PEP8 guidlines with the python code. In some cases the code is longer than the suggested 79 characters. I chose to leave these as they were as any alterations I made resulted in much less readable code.
+
+JS results can be found [here](README_images/testing_images/js)
 
 [Return to README](/README.md)
