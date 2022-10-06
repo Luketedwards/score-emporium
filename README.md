@@ -132,7 +132,7 @@ The purpose of this project is to demonstrate my full-stack development skills b
 
 ### Wireframes
 
-Wireframes were created for some of the main pages during the design phase using Figma, and can be accessed [here](./README_images/wireframes).
+Wireframes were created for some of the main pages during the design phase using Sketch, and can be accessed [here](./README_images/wireframes).
 
 
 ## 5. Surface 
@@ -461,7 +461,10 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
    * Boto3 was used to interface with Amazon S3.
 
 18. [Heroku](https://heroku.com/)
-      * Heroku was used to host my project.                      
+      * Heroku was used to host my project.  
+
+19. [Sketch](https://www.sketch.com)     
+   * Sketch free trial was used to generate wireframes               
              
 
 ## Further Testing
@@ -529,7 +532,7 @@ Details of testing can be found in the [Testing](/testing.md) file.
 ## Code 
 * Example code from [Alpha Tab](https://alphatab.net/docs/tutorials) was used to generate the interactive score player, before being heavily customised for the project.
 *  Code from [Knyttneve](https://codepen.io/knyttneve/pen/EBNqPN) was used in creating the animated review form before altering it for the site.
-* 
+
 
 ## Content
 
