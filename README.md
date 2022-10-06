@@ -9,7 +9,7 @@ Score Emporium was created as a marketplace for selling high quality PDF and int
 
 # Deployed Project
 
-The deployed site can be viewed at: []().
+The deployed site can be viewed at: [Score Emporium](https://score-emporium.herokuapp.com/).
 
 
 
