@@ -3,7 +3,7 @@ Score Emporium was created as a marketplace for selling high quality PDF and int
 
 ---
 
-![Website Mockup]()
+![Website Mockup](./README_images/mockup/score_emporium_mockup_2.png "website mockup")
 
 ---
 
@@ -16,6 +16,23 @@ The deployed site can be viewed at: []().
 ## Create an account
 
 Much of the sites functionality requires a profile to access. Creating a profile is simple. Navigate to the 'sign up' page either via the navbar, or by clicking the button on the home page. Once there, enter your account details and password. You will then recieve a verification email to confirm your account. Other features of the site require 'vendor' status. You will be prompted to register as a vendor when attempting to first access these features. (Uploading a score, making a score request etc..)
+
+## Guitar Pro and Pdf Files
+
+To make use of the score player and upload a product features it is necessary to have an unlocked Guitar Pro file, and a PDF file.
+I have taken the liberty of providing these. They can both be found [here]().
+
+To use the Guitar Pro file, simply navigate to the 'Guitar Pro Player' via the navbar, then click the 'Choose File' button. The Guitar Pro file can then be selected to make use of the feature.
+
+When adding a product to your store, simply select this Guitar Pro file as the 'Unlocked Guitar Pro' input, and select the PDF for the PDF field.
+
+## Making a Purchase
+
+This project is currently using Stripe in test mode for checkout features. To make a purchase use the following details:
+* Card Number: 4242 4242 4242 4242
+* Expiry: 04/24 242 42424
+
+![Card Details](./README_images/features_images/stripe_card_details.png "stripe card details")
 
 
 ## **Project Overview**
@@ -97,6 +114,17 @@ The purpose of this project is to demonstrate my full-stack development skills b
 
 ## 3. Structure
 ---
+- The site features a comprehensive navigation bar which allows the user to easilly traverse the entire sites functionality.
+- Notifications for many important actions are built in to the website through toasts.
+- The sites functionality is split accross several drop-down tabs in the main navbar.
+
+    1. Two search bars allow the user to search for products through a variety of methods. This includes by title, Vendor and description.
+    2. An account dropdown menu which allows the user to sign-in/out, view their store, purchased items, and sales dashboard.
+    3. An all products link which returns all items on the website. This can then be further filtered by a variety of conditions.
+    4. A user store section which allows the user access to their own profile in which they can change and update their information, change their profile picture, and add or edit products.
+    5. A library of the users purchased scores.
+    6. A section where users can request and view requests for popular scores.
+    7. A sales dashboard which provides the user detailed information about their sales data. 
 
 
 ## 4. Skeleton 
@@ -104,6 +132,7 @@ The purpose of this project is to demonstrate my full-stack development skills b
 
 ### Wireframes
 
+Wireframes were created for some of the main pages during the design phase using Figma, and can be accessed [here](./README_images/wireframes).
 
 
 ## 5. Surface 
@@ -311,8 +340,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 - The cards also features a score submission button if you are not the creator of the post. This allows you to upload files and messages which are visible to the creator. If the post belongs to you you are able to see submission which you can either accept or decline. 
 <!-- Photo of score submissions-->
-![ score card submission form ](./README_images/features_images/score_submission_optimized.png" score card submission form")
-![ score card submission accept ](./README_images/features_images/score_accept_optimized.png" score card submission accept")
+![ score card submission form ](./README_images/features_images/score_submission_optimized.png "score card submission form")
+![ score card submission accept ](./README_images/features_images/score_accept_optimized.png "score card submission accept")
 
 
 - Once a submisson has been accepted by the post creator, the post is moved to the 'completed' page tab. The card will now display the details of the successful submission, so that other interested users can purchase it.
@@ -328,10 +357,10 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - The score player is responsive to screensize, and will become obscured by an overlay when the screen size is too small for the player to be practical.
 
 <!-- Photo of score player-->
-![ score player](./README_images/features_images/score_player_optimized.png" score player")
+![ score player](./README_images/features_images/score_player_optimized.png "score player")
 
 <!-- Photo of score player overlay-->
-![ score player overlay](./README_images/features_images/overlay_optimized.png" score player overlay")
+![ score player overlay](./README_images/features_images/overlay_optimized.png "score player overlay")
 
 
 ### Reviews
@@ -339,11 +368,11 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 - The site features a reviews system which interacts with both the products and the product vendor. After purchasing a score the user is able to leave a review from the product details tab. This review is then linked to the product, and an average rating is generated for the item. 
 - All reviews left on a vendors products are used to generate an average score which is then assigned to the vendors profile to help customers guage the overall quality of their products.
 <!-- Photo of review form-->
-![ good review](./README_images/features_images/product_detail_good_review_optimized.png" good review")
-![ poor review](./README_images/features_images/product_detail_poor_review_optimized.png" poor review")
+![ good review](./README_images/features_images/product_detail_good_review_optimized.png "good review")
+![ poor review](./README_images/features_images/product_detail_poor_review_optimized.png "poor review")
 
 <!-- Photo of review chart-->
-![ review chart ](./README_images/features_images/product_detail_reviews_tab_optimized.png"review chart")
+![ review chart ](./README_images/features_images/product_detail_reviews_tab_optimized.png "review chart")
 
 
 
@@ -353,12 +382,12 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 - When a product is purchased on the site, two different types of emails are generated and sent out. The first is an order confirmation email which is sent to the customer containing details about their order, order number, cost etc.
 <!-- Photo of customer email-->
-![ customer email](./README_images/features_images/customer_order_email_optimized.png" customer email")
+![ customer email](./README_images/features_images/customer_order_email_optimized.png "customer email")
 
 
 - The second email is a vendor sale notificaiton. This email is sent to each vendor who was involed in the sale, and only provides them the details of their contribution. For example if four products are purchased from a total of three vendors, two vendors will receive confirmation emails about the single product they have sold, and the third vendor will recieve an email detailing the two that they have sold.
 <!-- Photo of vendor email-->
-![ vendor email](./README_images/features_images/vendor_sale_email_optimized.png" vendor email")
+![ vendor email](./README_images/features_images/vendor_sale_email_optimized.png "vendor email")
 
 
 - When the sale completes, the site comission of 20% is deducted from the total sale, and the total after comission is credited to each vendors credit due. 
@@ -380,7 +409,8 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 
 ### Framework, Software & Libraries Used
 
-1. [Bootstrap]()
+1. [Bootstrap](https://getbootstrap.com/)
+   * Bootstrap was used to quickly generate a responsive layout.
 
 2. [Google Fonts](https://fonts.google.com/):
    * Google fonts was used to import the fonts used throughout the site..
