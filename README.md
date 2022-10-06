@@ -20,7 +20,7 @@ Much of the sites functionality requires a profile to access. Creating a profile
 ## Guitar Pro and Pdf Files
 
 To make use of the score player and upload a product features it is necessary to have an unlocked Guitar Pro file, and a PDF file.
-I have taken the liberty of providing these. They can both be found [here]().
+I have taken the liberty of providing these. They can both be found [here](./README_images/GP_file_and_PDF).
 
 To use the Guitar Pro file, simply navigate to the 'Guitar Pro Player' via the navbar, then click the 'Choose File' button. The Guitar Pro file can then be selected to make use of the feature.
 
