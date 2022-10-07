@@ -390,7 +390,7 @@ The colors used throughout the site are #4C7E80 for the navbar, footer and other
 ![ vendor email](./README_images/features_images/vendor_sale_email_optimized.png "vendor email")
 
 
-- When the sale completes, the site commission of 20% is deducted from the total sale, and the total after commission is credited to each vendors credit due. 
+- When the sale completes, the site commission of 20% is deducted from the total sale, and the total after commission is credited to each vendor's credit due. 
 - The email template is styled and features both an image of a shopping cart, and the individual product images for the order.
 
 
