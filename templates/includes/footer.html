@@ -1,0 +1,66 @@
+<div class="footer">
+    <div style="margin-bottom: 0 !important;" class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 pt-3">
+                <div class="single_footer center ">
+                    <h4 class=" text-small-center">Page Links</h4>
+
+                    <table>
+
+
+                        <td class=" pr-5 pt-0">
+                            <ul>
+                                <li><a href="#features">Features</a></li>
+                                <li><a href="{% url 'products'%}">Products</a></li>
+                                <li><a href="{%url 'guitar_pro'%}">Interactive Score Player </a></li>
+                                <li><a href="{% url 'home' %}">Home</a></li>
+                                <li><a href="{% url 'requests'%}">Trending Scores</a></li>
+                            </ul>
+                        </td>
+                        <td class=" pl-5 pt-0 ml-2">
+                            <ul>
+                                {% if request.user.is_authenticated %}
+                                <li><a href="{% url 'storefront' storevendor=request.user.username %}">My Store</a></li>
+                                <li><a href="{% url 'dashboard' %}">Sales Dashboard</a></li>
+                                <li><a href="{% url 'account_logout' %}">Log Out</a></li>
+
+                                <li style="opacity: 0; pointer-events:none;"><a href="#">Log Out</a></li>
+                                <li style="opacity: 0; pointer-events:none;"><a href="#">Log Out</a></li>
+                                {%endif%}
+                            </ul>
+                        </td>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 pt-3">
+                <div class="single_footer single_footer_address">
+                    <h4 class="text-small-center">Subscribe today</h4>
+
+                    <div class="signup_form pb-md-3">
+
+                        <form action="{% url 'newsletter' %}" method="post" class="subscribe">
+                            {% csrf_token %}
+                            <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                            <button type="submit" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class=" col-12 center social_profile center">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <p class="copyright">Copyright © 2022 <a href="https://github.com/Luketedwards">Luke Edwards</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
