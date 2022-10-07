@@ -30,4 +30,22 @@ $(document).ready(function () {
 
     });
 
+    // make all .request-card in a row have the same height
+    $(document).ready(function (){
+        var maxHeight = 0;
+        for(i=0;i<$(".request-card").length;i++){
+          if($(".request-card").eq(i)){
+            var currentHeight = $(".request-card").eq(i).height();
+            if(currentHeight>=maxHeight){
+              maxHeight = currentHeight;
+            }
+          }
+          else{
+            break;
+          }
+        }
+        $(".request-card").height(maxHeight);
+      });
+    
+
 });
