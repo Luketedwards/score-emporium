@@ -75,7 +75,7 @@ def checkout(request):
                         return redirect(reverse('view_cart'))
 
                 request.session['save_info'] = 'save-info' in request.POST
-
+                
                 vendor_set = set(list_of_vendors)
 
                 for vendorName in vendor_set:
@@ -83,7 +83,7 @@ def checkout(request):
                     notify_vendor2(vendorName, order)
 
                 notify_customer(order)
-
+                
                 return redirect(
                     reverse(
                         'checkout_success', args=[
