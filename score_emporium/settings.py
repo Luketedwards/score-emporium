@@ -248,7 +248,7 @@ if 'DEVELOPMENT' not in os.environ:
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'scoreemporium@gmail.com'
-    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
