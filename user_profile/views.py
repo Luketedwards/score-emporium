@@ -251,9 +251,11 @@ def dashboard(request):
 
             """ A view to return the dashboard page """
             profile = get_object_or_404(UserProfile, user=request.user)
-            products = Product.objects.all()
-            # find orders where the vendor is the same as the user
-            orders = Order.objects.filter(vendor=request.user)
+            # find products where the vendor is the current user
+            products = Product.objects.filter(vendor=request.user.username)
+            
+            # find orders that contain products where the vendor is the current user
+            orders = Order.objects.filter(lineitems__product__vendor=request.user.username)
             
             items = []
             number_of_customers = orders.distinct('username').count()
