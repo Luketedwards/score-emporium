@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from products.models import Product
 from .models import UserProfile
+from checkout.models import Order
 from .forms import vendorForm, UserProfileForm
 from django.contrib import messages
 import datetime
@@ -251,7 +252,9 @@ def dashboard(request):
             """ A view to return the dashboard page """
             profile = get_object_or_404(UserProfile, user=request.user)
             products = Product.objects.all()
-            orders = profile.orders.all()
+            # find orders where the vendor is the same as the user
+            orders = Order.objects.filter(vendor=request.user)
+            
             items = []
             number_of_customers = orders.distinct('username').count()
             number_of_orders = orders.count()
