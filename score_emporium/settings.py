@@ -27,11 +27,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '*m7z%*3pank10=#i0hhqi@zx7*sd@rj^!&#5_4je4at(*316)4')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'DEVELOPMENT' in os.environ
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -132,20 +132,20 @@ WSGI_APPLICATION = 'score_emporium.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {'default': dj_database_url.parse(
-    'postgres://wpxydcnggcfsdc:9d3e29620b63ccd220c5619fea1cfa2fe84feb9475e3a703e67a1f8875fd3e1d@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d4qorb7mbue4uc')}
+# DATABASES = {'default': dj_database_url.parse(
+#     'postgres://wpxydcnggcfsdc:9d3e29620b63ccd220c5619fea1cfa2fe84feb9475e3a703e67a1f8875fd3e1d@ec2-34-246-86-78.eu-west-1.compute.amazonaws.com:5432/d4qorb7mbue4uc')}
 
-# if 'DATABASE_URL' in os.environ:
-#     DATABASES = {
-#         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#         }
-#     }
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
@@ -248,7 +248,7 @@ if 'DEVELOPMENT' not in os.environ:
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = 'scoreemporium@gmail.com'
-    EMAIL_HOST_PASSWORD = 'zgyt qcay dyjj pkbd'
+    EMAIL_HOST_PASSWORD = env['EMAIL_HOST_PASS']
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
