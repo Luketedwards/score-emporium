@@ -6,6 +6,14 @@ During development I continually testing the project in a number of ways.
 
 - Once happy with any new additions the code was pushed to Heroku. I then ran the same tests using other devices, and had family and friends do the same on their own devices, before passing on any feedback or suggestions.
 
+## Unit Tests
+
+* To test basic functionality I wrote unit tests to assess whether all views were correctly rendering. I had planned to test more complex aspects of the site functionaliy such as adding, editing and deleting products, or checkout success, however due to time constraints I was not able to manage this.
+
+Here is an image of the unit test coverage report.
+
+![Unit test coverage](./README_images/testing_images/unit_tests/test_coverage-min.png "unit test coverage report")
+
 ## Manual Testing
 
 * During testing I used numerous web browsers to ensure the site performed well on a range of browsers. On desktop I used the following:
