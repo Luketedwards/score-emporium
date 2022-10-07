@@ -31,9 +31,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = 'DEVELOPMENT' in os.environ
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost', '127.0.0.1','https://score-emporium.herokuapp.com/']
+ALLOWED_HOSTS = ['score-emporium.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -247,12 +247,12 @@ if 'DEVELOPMENT' not in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
     EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_HOST_USER = 'scoreemporium@gmail.com'
+    EMAIL_HOST_USER = 'scoreemporiumstore@gmail.com'
     EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASS')
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'
+    DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporiumstore@gmail.com>'
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp-relay.sendinblue.com'
@@ -262,4 +262,4 @@ else:
     SENDBLUE_PASSWORD = env('SENDBLUE_PASSWORD')
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporium@gmail.com>'
+    DEFAULT_EMAIL_FROM = 'Score Emporium <scoreemporiumstore@gmail.com>'
