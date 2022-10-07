@@ -1,6 +1,8 @@
 asgiref==3.5.2
+autopep8==1.7.0
 boto3==1.24.66
 botocore==1.27.66
+coverage==6.4.4
 dj-database-url==1.0.0
 Django==3.2.14
 django-allauth==0.41.0
@@ -14,6 +16,9 @@ oauthlib==3.2.0
 pdf2image==1.16.0
 Pillow==9.2.0
 psycopg2-binary==2.9.3
+pycodestyle==2.9.1
+pylint-django==2.5.3
+pylint-plugin-utils==0.7
 pymongo==4.2.0
 pypdfium2==2.7.2
 python3-openid==3.2.0
