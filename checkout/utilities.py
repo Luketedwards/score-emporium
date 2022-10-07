@@ -22,6 +22,7 @@ from .models import Order
 def notify_vendor2(vendorName, order):
     configuration = sib_api_v3_sdk.Configuration()
     configuration.api_key['api-key'] = SENDBLUE_PASSWORD
+    order_total = order.order_total
 
     from_email = settings.DEFAULT_EMAIL_FROM
     order_number = order.order_number
@@ -60,7 +61,8 @@ def notify_vendor2(vendorName, order):
             'vendor': vendorName,
             'vendors_total': vendors_total,
             'pre_comissions': pre_comission_total,
-            'vendor_orders_count': vendor_orders_count})
+            'vendor_orders_count': vendor_orders_count,
+            'order_total': order_total})
     to = [{"email": profile.email, "name": vendorName}]
 
     params = {"parameter": "My param value", "subject": "New Subject"}
@@ -135,7 +137,7 @@ def notify_vendor(vendorName, order):
 def notify_customer(order):
     configuration = sib_api_v3_sdk.Configuration()
     configuration.api_key['api-key'] = SENDBLUE_PASSWORD
-
+    order_total = order.order_total
     from_email = settings.DEFAULT_EMAIL_FROM
     order_number = order.order_number
 
@@ -157,7 +159,7 @@ def notify_customer(order):
         total_price = total_price + price
 
     html_content = render_to_string(
-        'checkout/notify_customer_email.html', {'order': order, 'total_price': total_price})
+        'checkout/notify_customer_email.html', {'order': order, 'total_price': total_price, 'order_total': order_total})
     to = [{"email": order.email, "name": order.full_name}]
 
     params = {"parameter": "My param value", "subject": "New Subject"}

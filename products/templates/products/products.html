@@ -13,11 +13,11 @@
             <h2 class="logo-font">Products</h2>
             <hr class="w-50 mb-1">
             {% if search_results_list != None %}
-            <span class="text-muted">Filtering for: {% for filter in search_results_list %} {{filter}} {%endfor%}</span>
+            <span style="font-size: 0.9rem!important;" class="text-muted">Filtering for: {% for filter in search_results_list %} {{filter}} {%endfor%}</span>
             <br>
-            <span class="text-muted">Results: {{product_count}}</span>
+            <span style="font-size: 0.9rem!important;" class="text-muted">Results: {{product_count}}</span>
             {%else%}
-            <span class="text-muted">Results: {{product_count}}</span>
+            <span style="font-size: 0.9rem!important;" class="text-muted">Results: {{product_count}}</span>
 
             {% endif %}
         </div>
