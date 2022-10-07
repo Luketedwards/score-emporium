@@ -136,7 +136,10 @@ def checkout_success(request, order_number):
     profile = UserProfile.objects.get(user=request.user)
     # Attach the user's profile to the order
     order.user_profile = profile
+    # set the order.order_total to the amount of the items in the cart
+    order.update_total()
     order.save()
+    
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
