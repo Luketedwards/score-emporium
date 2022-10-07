@@ -128,29 +128,31 @@ def checkout_success(request, order_number):
     """
     Handle successful checkouts
     """
+    if request.user.is_authenticated:
+        save_info = request.session.get('save_info')
 
-    save_info = request.session.get('save_info')
+        order = get_object_or_404(Order, order_number=order_number)
 
-    order = get_object_or_404(Order, order_number=order_number)
+        profile = UserProfile.objects.get(user=request.user)
+        # Attach the user's profile to the order
+        order.user_profile = profile
+        order.save()
 
-    profile = UserProfile.objects.get(user=request.user)
-    # Attach the user's profile to the order
-    order.user_profile = profile
-    order.save()
+        messages.success(request, f'Order successfully processed! \
+            Your order number is {order_number}. A confirmation \
+            email will be sent to {order.email}.')
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+        if 'cart' in request.session:
+            del request.session['cart']
 
-    if 'cart' in request.session:
-        del request.session['cart']
+        template = 'checkout/checkout_success.html'
+        context = {
+            'order': order,
+        }
 
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
-
-    return render(request, template, context)
+        return render(request, template, context)
+    else:
+        return redirect(reverse('account_signup'))
 
 
 def view_order(request, order_number):

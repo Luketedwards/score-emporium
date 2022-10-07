@@ -12,17 +12,21 @@ import datetime
 
 def user_profile(request):
     """ A view to return the index page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    products = Product.objects.all()
-    orders = profile.orders.all()
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        products = Product.objects.all()
+        orders = profile.orders.all()
 
-    context = {
-        'products': products,
-        'profile': profile,
-        'orders': orders
-    }
+        context = {
+            'products': products,
+            'profile': profile,
+            'orders': orders
+        }
 
-    return render(request, 'user_profile/profile.html', context)
+        return render(request, 'user_profile/profile.html', context)
+    else:
+        messages.error(request, 'You must be logged in to view this page')
+        return redirect('index')    
 
 
 def user_store(request, storevendor):
@@ -134,97 +138,108 @@ def other_store(request, username):
 # a view to render the purchased scores page
 def purchased_scores(request):
     """ A view to return the purchased scores page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    products = Product.objects.all()
-    orders = profile.orders.all()
-    items = []
-    score_number = 0
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        products = Product.objects.all()
+        orders = profile.orders.all()
+        items = []
+        score_number = 0
 
-    for order in orders:
-        for item in order.lineitems.all():
-            items.append(item)
-            score_number += 1
+        for order in orders:
+            for item in order.lineitems.all():
+                items.append(item)
+                score_number += 1
 
-    context = {
-        'products': products,
-        'profile': profile,
-        'orders': orders,
-        'items': items,
-        'score_number': score_number
+        context = {
+            'products': products,
+            'profile': profile,
+            'orders': orders,
+            'items': items,
+            'score_number': score_number
 
-    }
+        }
 
-    return render(request, 'user_profile/purchased-scores.html', context)
-
+        return render(request, 'user_profile/purchased-scores.html', context)
+    else:
+        messages.error(request, 'You must be logged in to view this page')
+        return redirect('index')
 
 def vendor_signup(request):
     """ A view to return the vendor signup page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    if request.method == 'POST':
-        form = vendorForm(request.POST)
-        if form.is_valid():
-            profile.sort_code = form.cleaned_data['sort_code']
-            profile.account_number = form.cleaned_data['account_number']
-            profile.card_name = form.cleaned_data['card_name']
-            profile.vendor = True
-            profile.save()
-            messages.success(request, 'Congratulations! You are now a vendor')
-            return redirect('storefront', storevendor=request.user.username)
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        if request.method == 'POST':
+            form = vendorForm(request.POST)
+            if form.is_valid():
+                profile.sort_code = form.cleaned_data['sort_code']
+                profile.account_number = form.cleaned_data['account_number']
+                profile.card_name = form.cleaned_data['card_name']
+                profile.vendor = True
+                profile.save()
+                messages.success(request, 'Congratulations! You are now a vendor')
+                return redirect('storefront', storevendor=request.user.username)
 
-    form = vendorForm()
+        form = vendorForm()
 
-    return render(request, 'user_profile/vendor-signup.html', {'form': form})
+        return render(request, 'user_profile/vendor-signup.html', {'form': form})
+    else:
+        messages.error(request, 'You must be logged in to view this page')
+        return redirect('index')    
 
 
 def edit_profile(request):
     """ Edit users profile information """
-    profile = get_object_or_404(UserProfile, user=request.user)
-
-    if request.method == 'POST':
-
-        form = UserProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = request.user
-            if obj.profile_picture:
-                obj.profile_picture = form.cleaned_data['profile_picture']
-                obj.profile_picture.name = f"{request.user.username}-profile-picture.jpg"
-            if obj.cover_photo:
-                obj.cover_photo = form.cleaned_data['cover_photo']
-                obj.cover_photo.name = f"{request.user.username}-cover-photo.jpg"
-
-            obj.sort_code = form.cleaned_data['sort_code']
-            obj.account_number = form.cleaned_data['account_number']
-            obj.card_name = form.cleaned_data['card_name']
-            obj.save()
-
-            return redirect('storefront', storevendor=request.user.username)
-        else:
-            messages.error(
-                request,
-                'Failed to update profile. Please ensure the form is valid.')
-    else:
+    if request.user.is_authenticated:
         profile = get_object_or_404(UserProfile, user=request.user)
 
-        form = UserProfileForm(
-            instance=profile,
-            initial={
-                'sort_code': profile.sort_code,
-                'account_number': profile.account_number,
-                'card_name': profile.card_name,
-                'bio': profile.bio,
-                'profile_picture': profile.profile_picture,
-                'cover_photo': profile.cover_photo})
+        if request.method == 'POST':
+
+            form = UserProfileForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.user = request.user
+                if obj.profile_picture:
+                    obj.profile_picture = form.cleaned_data['profile_picture']
+                    obj.profile_picture.name = f"{request.user.username}-profile-picture.jpg"
+                if obj.cover_photo:
+                    obj.cover_photo = form.cleaned_data['cover_photo']
+                    obj.cover_photo.name = f"{request.user.username}-cover-photo.jpg"
+
+                obj.sort_code = form.cleaned_data['sort_code']
+                obj.account_number = form.cleaned_data['account_number']
+                obj.card_name = form.cleaned_data['card_name']
+                obj.save()
+
+                return redirect('storefront', storevendor=request.user.username)
+            else:
+                messages.error(
+                    request,
+                    'Failed to update profile. Please ensure the form is valid.')
+        else:
+            profile = get_object_or_404(UserProfile, user=request.user)
+
+            form = UserProfileForm(
+                instance=profile,
+                initial={
+                    'sort_code': profile.sort_code,
+                    'account_number': profile.account_number,
+                    'card_name': profile.card_name,
+                    'bio': profile.bio,
+                    'profile_picture': profile.profile_picture,
+                    'cover_photo': profile.cover_photo})
+            template = 'user_profile/edit_profile.html'
+
         template = 'user_profile/edit_profile.html'
 
-    template = 'user_profile/edit_profile.html'
+        context = {
+            'form': form,
+            'profile': profile
+        }
 
-    context = {
-        'form': form,
-        'profile': profile
-    }
-
-    return render(request, template, context)
+        return render(request, template, context)
+    else:
+        messages.error(request, 'You must be logged in to view this page')
+        return redirect('index')
 
 
 def dashboard(request):
@@ -426,4 +441,5 @@ def dashboard(request):
             messages.error(request, 'You must be a vendor to access this page')
             return redirect('vendor_signup')
     else:
+        messages.error(request, 'You must be logged in to access this page')
         return redirect('account_signup')
