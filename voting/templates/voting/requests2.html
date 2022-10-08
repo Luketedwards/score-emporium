@@ -33,7 +33,7 @@
                         {% for requested in requests%}
 
                         {% if requested.completed == False %}
-                        <div class="request-card col-md-6 col-lg-4">
+                        <div style="margin-bottom: 5rem !important;" class="request-card col-md-6 col-lg-4">
                             <div class="job-item">
                                 <div class="item-overlay">
                                     <div class="job-info" style="padding-top: 41px;">
@@ -53,11 +53,13 @@
 
                                         <hr>
                                     </div>
-                                    
-                                    <p class="tr-title text-center">
+                                    <div style=" overflow-y:scroll !important; height:5rem;">
+                                        <p class="tr-title text-center">
 
-                                        {{requested.description|title}}
-                                    </p>
+                                            {{requested.description|title}}
+                                        </p>
+                                    </div>
+                                    
                                     <div style="top: -3rem;
                                     position: relative; color: white;" class="row text-center accept-div">
                                         <div class="col-12">
@@ -426,7 +428,7 @@
                         {% if requested.completed == True %}
                         
                         
-                        <div class="request-card col-md-6 col-lg-4">
+                        <div style="margin-bottom: 5rem !important;" class="request-card col-md-6 col-lg-4 ">
                             <div class="job-item">
                                 <div class="item-overlay">
                                     <div class="job-info" style="padding-top: 41px;">
@@ -446,10 +448,13 @@
 
                                         <hr>
                                     </div>
-                                    <p class="tr-title text-center">
+                                    <div style="height: 5rem; overflow-y:scroll;">
+                                        <p class="tr-title text-center">
 
-                                        {{requested.description|title}}
-                                    </p>
+                                            {{requested.description|title}}
+                                        </p>
+                                    </div>
+                                    
 
                                     <div style="top: -3rem;
                                     position: relative; color: white;" class="row text-center accept-div">

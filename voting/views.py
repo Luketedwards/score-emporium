@@ -11,10 +11,11 @@ def requests(request):
     """ A view to return the requests page """
     form = CommentForm
     form2 = SubmissionForm
-    requests = ScoreRequest.objects.all().order_by('liked')
+    # get all distinct requests and order by 'liked'
+    requests = ScoreRequest.objects.distinct().order_by('liked')
     submissions = ScoreSubmissions.objects.all().order_by('-date')
-    active_submissions = ScoreRequest.objects.filter(completed=False).count()
-    inactive_submissions = ScoreRequest.objects.filter(completed=True).count()
+    active_submissions = ScoreRequest.objects.distinct().filter(completed=False).count()
+    inactive_submissions = ScoreRequest.objects.distinct().filter(completed=True).count()
     comments = Comments.objects.all()
     list = []
     comment_list = []
