@@ -16,6 +16,15 @@ body{
 	text-decoration: none;
 }
 
+.request-scroll {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.request-scroll::-webkit-scrollbar{
+	display: none;
+}
+
 .job-tab .nav-tabs>li {
 	float: none;
 	display: inline;
